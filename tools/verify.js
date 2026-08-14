@@ -40,10 +40,15 @@ honingData.armor.slots.forEach(function (s) {
 check("armour main stat, +16 (CJ13)", armour, 549859);
 check("weapon power, +16 (CK10)", honingData.weapon.weaponPower[16].base, 193270);
 
-// his sheet runs a RELIC weapon core (3,900 flat / 2.94%), not the Ancient one
-// this tool now defaults to, so pass his values in explicitly
-var g = Gear.stats(honingData, { karmaWpPct: 0.03, arkGridWpFlat: 3900,
-                                 arkGridWpPct: 0.0294, gemApPct: 0.132 }, 16, 16);
+// This checks the ASSEMBLY, not our defaults, so every input is his: a Relic
+// weapon core (3,900 flat / 2.94%), 2,400 of accessory weapon-power flat, 66,000
+// accessory main stat, karma at 3%, level-10 gems and no Adrenaline. Our
+// reference character differs on all of those on purpose.
+var g = Gear.stats(honingData, {
+  karmaWpPct: 0.03, arkGridWpFlat: 3900, arkGridWpPct: 0.0294,
+  accessoryWpFlat: 2400, accessoryMainStat: 66000,
+  gemApPct: 0.132, adrenalineApPct: 0
+}, 16, 16);
 check("total weapon power (DN22)", g.wp, 226085.218, 1e-9);
 check("total main stat (DN26)", g.ms, 687158.89, 1e-9);
 // his DP29 floors weapon power and main stat before the square root; we don't,
