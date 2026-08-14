@@ -618,3 +618,55 @@ band  letter n      meanDmg%  sd       meanGrade
 - `~/loastuff/loa-astrogem-calc/loadout-econ.js` (`GRADE_ROWS_SUPPORT` :56)
 - `~/loastuff/loa-astrogem-calc/tools/lib/cut-engine.js`,
   `tools/account-study.js` (`rosterEquipFuse`, `sampleTierGem`)
+
+---
+
+## Correction, 14 August 2026 — the grid is twenty-four gems, not twelve
+
+The rows first shipped here priced **twelve** gems. The grid holds **six cores
+of four**, so it is **twenty-four**. Order and chaos gems draw from the same
+effect pools — maxroll's `arkGridGems` lists `attr` 0 and `attr` 1 with
+identical option lists — so all twenty-four feed the same three side nodes.
+That is also why a node caps at 120 in `arkGridGemOptions`: forty-eight effect
+lines at level five.
+
+Two things changed with it.
+
+**Gold doubled.** The band-cost harness reports gold per hit for one gem, and
+the row multiplies by the gem count.
+
+**Damage no longer comes from a fitted line.** It was
+`0.002948 x grade - 0.036849` per gem, times twelve — a regression fitted over
+gems grading 50 and up, extrapolated below that to price the first rung. It now
+comes from `tools/arkgrid-bands.js`, which builds a real twenty-four gem grid
+at each band and scores it with the astrogem calculator's own `gridDamage`:
+side-node levels with their log dilution, plus each core's bonus for points
+above seventeen.
+
+The two errors had been pulling against each other, so the headline barely
+moved — a support A grid reads 2.59% per dealer against the old 2.50%. What
+moved is the cost. At the same damage the grid now costs twice as much, so it
+sits far lower on the chart than it did.
+
+### What the bands look like
+
+Node levels and core points are read off four thousand sampled grids per band,
+then straightened with a line fitted over C- and up. Below C- the sampled
+levels flatten towards zero and would drag the fit down; above it they sit
+almost exactly straight in the grade.
+
+| band | side nodes | core points | support, per dealer | DPS |
+|---|---:|---:|---:|---:|
+| C-   | 19 | 17 | 0.79% | 2.49% |
+| C    | 24 | 17 | 1.01% | 3.71% |
+| B    | 40 | 18 | 1.80% | 7.42% |
+| A    | 55 | 19 | 2.59% | 11.11% |
+| A+   | 60 | 19 | 2.86% | 12.35% |
+| S    | 71 | 20 | 3.38% | 14.62% |
+| S+   | 73 | 20 | 3.46% | 15.38% |
+
+So 60/60/60 on the reference character is an **A+ grid** — reachable, and about
+three quarters of a perfect 80/80/80. Levels are carried as fractions into the
+damage and rounded only for display: rounding each band to a whole level makes
+the steps alternate five and six, and that shows up as a wobble in gold per
+damage that would make the planner skip rungs.

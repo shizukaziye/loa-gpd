@@ -183,7 +183,7 @@ gemDamage% = 0.013443 * grade − 0.65699
 => 0.04436% a gem per 3.3-point band  (support: 0.00973% per dealer)
 ```
 
-Reported **for the whole grid at twelve gems**, matching the support rows: gold
+Reported **for the whole grid at twenty-four gems**, matching the support rows: gold
 and damage both multiply by 12, so gold per damage is unchanged.
 
 | step | Δ gold (12 gems) | Δ damage | gold per 1% | T1 (90/6M) | T3 (80/1M) |
@@ -258,7 +258,7 @@ on any of the three slots.
 | one karma level (21→22) | 0.0140% | 0.0455% | 3.3× |
 | ability stone 7-7 → 9-7 | 0.458% | 1.148% | 2.5× |
 | bracelet floor to anchor | 6.004 | 16.308 | 2.7× |
-| one ark grid band, twelve gems | 0.1168% | 0.5324% | 4.6× |
+| one ark grid band, whole grid | 0.1168% | 0.5324% | 4.6× |
 
 All larger in raw percent, as expected, and none of them is a party number.
 
@@ -324,7 +324,7 @@ All larger in raw percent, as expected, and none of them is a party number.
    dearer stat. Real listings price the pair, not the sum. The cost penalty for
    forcing a balanced pair instead is small but unmeasured.
 
-8. **The ark grid row assumes free raw gems**, twelve gems for the grid (a full
+8. **The ark grid row assumes free raw gems**, twenty-four gems for the grid (a full
    grid is 24 slots), and one fixed advisor policy. The T1/T3 columns above are
    the sensitivity: the top rungs move by a factor of two either way.
 

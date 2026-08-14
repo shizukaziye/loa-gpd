@@ -1,0 +1,362 @@
+[
+ {
+  "rank": "S+",
+  "cut": 96.1,
+  "cores": 20,
+  "damage": 15.378354446738776,
+  "nodes": [
+   [
+    "atk power",
+    73
+   ],
+   [
+    "boss dmg",
+    73
+   ],
+   [
+    "add dmg",
+    73
+   ]
+  ]
+ },
+ {
+  "rank": "S",
+  "cut": 93.3,
+  "cores": 20,
+  "damage": 14.614714125493267,
+  "nodes": [
+   [
+    "atk power",
+    68
+   ],
+   [
+    "boss dmg",
+    68
+   ],
+   [
+    "add dmg",
+    68
+   ]
+  ]
+ },
+ {
+  "rank": "S-",
+  "cut": 90,
+  "cores": 20,
+  "damage": 13.558532013902408,
+  "nodes": [
+   [
+    "atk power",
+    63
+   ],
+   [
+    "boss dmg",
+    63
+   ],
+   [
+    "add dmg",
+    63
+   ]
+  ]
+ },
+ {
+  "rank": "A+",
+  "cut": 86.7,
+  "cores": 20,
+  "damage": 12.352892473848645,
+  "nodes": [
+   [
+    "atk power",
+    57
+   ],
+   [
+    "boss dmg",
+    57
+   ],
+   [
+    "add dmg",
+    57
+   ]
+  ]
+ },
+ {
+  "rank": "A",
+  "cut": 83.3,
+  "cores": 19,
+  "damage": 11.107354589457016,
+  "nodes": [
+   [
+    "atk power",
+    52
+   ],
+   [
+    "boss dmg",
+    52
+   ],
+   [
+    "add dmg",
+    52
+   ]
+  ]
+ },
+ {
+  "rank": "A-",
+  "cut": 80,
+  "cores": 19,
+  "damage": 9.895162085844293,
+  "nodes": [
+   [
+    "atk power",
+    47
+   ],
+   [
+    "boss dmg",
+    47
+   ],
+   [
+    "add dmg",
+    47
+   ]
+  ]
+ },
+ {
+  "rank": "B+",
+  "cut": 76.7,
+  "cores": 19,
+  "damage": 8.679707443342563,
+  "nodes": [
+   [
+    "atk power",
+    41
+   ],
+   [
+    "boss dmg",
+    41
+   ],
+   [
+    "add dmg",
+    41
+   ]
+  ]
+ },
+ {
+  "rank": "B",
+  "cut": 73.3,
+  "cores": 18,
+  "damage": 7.423984451617603,
+  "nodes": [
+   [
+    "atk power",
+    36
+   ],
+   [
+    "boss dmg",
+    36
+   ],
+   [
+    "add dmg",
+    36
+   ]
+  ]
+ },
+ {
+  "rank": "B-",
+  "cut": 70,
+  "cores": 18,
+  "damage": 6.201835135796334,
+  "nodes": [
+   [
+    "atk power",
+    30
+   ],
+   [
+    "boss dmg",
+    30
+   ],
+   [
+    "add dmg",
+    30
+   ]
+  ]
+ },
+ {
+  "rank": "C+",
+  "cut": 66.7,
+  "cores": 18,
+  "damage": 4.976352653117375,
+  "nodes": [
+   [
+    "atk power",
+    25
+   ],
+   [
+    "boss dmg",
+    25
+   ],
+   [
+    "add dmg",
+    25
+   ]
+  ]
+ },
+ {
+  "rank": "C",
+  "cut": 63.3,
+  "cores": 17,
+  "damage": 3.71022278133579,
+  "nodes": [
+   [
+    "atk power",
+    20
+   ],
+   [
+    "boss dmg",
+    20
+   ],
+   [
+    "add dmg",
+    20
+   ]
+  ]
+ },
+ {
+  "rank": "C-",
+  "cut": 60,
+  "cores": 17,
+  "damage": 2.489125479350104,
+  "nodes": [
+   [
+    "atk power",
+    14
+   ],
+   [
+    "boss dmg",
+    14
+   ],
+   [
+    "add dmg",
+    14
+   ]
+  ]
+ },
+ {
+  "rank": "D+",
+  "cut": 56.7,
+  "cores": 17,
+  "damage": 1.5545599139041664,
+  "nodes": [
+   [
+    "atk power",
+    9
+   ],
+   [
+    "boss dmg",
+    9
+   ],
+   [
+    "add dmg",
+    9
+   ]
+  ]
+ },
+ {
+  "rank": "D",
+  "cut": 53.3,
+  "cores": 16,
+  "damage": 0.5882429288852729,
+  "nodes": [
+   [
+    "atk power",
+    3
+   ],
+   [
+    "boss dmg",
+    3
+   ],
+   [
+    "add dmg",
+    3
+   ]
+  ]
+ },
+ {
+  "rank": "D-",
+  "cut": 50,
+  "cores": 16,
+  "damage": 0,
+  "nodes": [
+   [
+    "atk power",
+    0
+   ],
+   [
+    "boss dmg",
+    0
+   ],
+   [
+    "add dmg",
+    0
+   ]
+  ]
+ },
+ {
+  "rank": "F+",
+  "cut": 33.3,
+  "cores": 14,
+  "damage": 0,
+  "nodes": [
+   [
+    "atk power",
+    0
+   ],
+   [
+    "boss dmg",
+    0
+   ],
+   [
+    "add dmg",
+    0
+   ]
+  ]
+ },
+ {
+  "rank": "F",
+  "cut": 16.7,
+  "cores": 13,
+  "damage": 0,
+  "nodes": [
+   [
+    "atk power",
+    0
+   ],
+   [
+    "boss dmg",
+    0
+   ],
+   [
+    "add dmg",
+    0
+   ]
+  ]
+ },
+ {
+  "rank": "F-",
+  "cut": 0,
+  "cores": 11,
+  "damage": 0,
+  "nodes": [
+   [
+    "atk power",
+    0
+   ],
+   [
+    "boss dmg",
+    0
+   ],
+   [
+    "add dmg",
+    0
+   ]
+  ]
+ }
+]
