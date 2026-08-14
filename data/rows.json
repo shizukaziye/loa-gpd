@@ -1,0 +1,335 @@
+{
+ "note": "Rows the page cannot compute live. Gold and damage per step; damage is percent of ONE dealer's damage, the page applies the party multiplier on the gold axis.",
+ "rows": [
+  {
+   "series": "stone",
+   "label": "7-7 → 9-7",
+   "gold": 14167000,
+   "damage": 0.4022,
+   "detail": "704 stones at 9 pheons each, P(level 5+) = 0.13793%",
+   "buy": "uncut Ancient stones at 9 pheons each, 20,132g apiece",
+   "odds": "0.13793% of facets reach activation level 5 or more; 725 stones for one, 704 above a 7-7",
+   "minimum": "any 9-7, 10-6, 9-9 or 10-10 — all give the same +1.5% basic attack power"
+  },
+  {
+   "series": "neck",
+   "label": "high → high/low",
+   "gold": 13962,
+   "damage": 0.1093,
+   "detail": "accessory calculator price",
+   "buy": "a cut neck from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a necklace with high Stigma and a low Gauge Gain line"
+  },
+  {
+   "series": "neck",
+   "label": "high/low → high/mid",
+   "gold": 236038,
+   "damage": 0.1364,
+   "detail": "accessory calculator price",
+   "buy": "a cut neck from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a necklace with high Stigma and a low Gauge Gain line"
+  },
+  {
+   "series": "neck",
+   "label": "high/mid → high/high",
+   "gold": 950000,
+   "damage": 0.1635,
+   "detail": "accessory calculator price",
+   "buy": "a cut neck from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a necklace with high Stigma and a mid Gauge Gain line"
+  },
+  {
+   "series": "ring",
+   "label": "high → high/low",
+   "gold": 87688,
+   "damage": 0.2508,
+   "detail": "accessory calculator price",
+   "buy": "a cut ring from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a ring with high Ally Damage and a low Ally Atk line"
+  },
+  {
+   "series": "ring",
+   "label": "high/low → high/mid",
+   "gold": 387031,
+   "damage": 0.3057,
+   "detail": "accessory calculator price",
+   "buy": "a cut ring from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a ring with high Ally Damage and a low Ally Atk line"
+  },
+  {
+   "series": "ring",
+   "label": "high/mid → high/high",
+   "gold": 1802280,
+   "damage": 0.3693,
+   "detail": "accessory calculator price",
+   "buy": "a cut ring from the auction house",
+   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
+   "minimum": "a ring with high Ally Damage and a mid Ally Atk line"
+  },
+  {
+   "series": "bracelet",
+   "label": "D → D+",
+   "gold": 8188,
+   "damage": 0.3,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 61/61 bracelet, about 40g plus 20 pheons",
+   "odds": "98.78% of rolled bracelets reach D+, so 1 of them on average",
+   "minimum": "86/78 with nothing"
+  },
+  {
+   "series": "bracelet",
+   "label": "D+ → C-",
+   "gold": 18742,
+   "damage": 0.3,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 91/91 bracelet, about 4,725g plus 20 pheons",
+   "odds": "88.44% of rolled bracelets reach C-, so 1 of them on average",
+   "minimum": "76/76 with weapon power blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "C- → C",
+   "gold": 21030,
+   "damage": 0.3,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 87/87 bracelet, about 3,308g plus 20 pheons",
+   "odds": "64.34% of rolled bracelets reach C, so 2 of them on average",
+   "minimum": "74/66 with ally damage blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "C → C+",
+   "gold": 44266,
+   "damage": 0.3,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 93/93 bracelet, about 5,772g plus 20 pheons",
+   "odds": "52.78% of rolled bracelets reach C+, so 2 of them on average",
+   "minimum": "93/99 with ally damage blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "C+ → B-",
+   "gold": 99668,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 93/94 bracelet, about 6,085g plus 20 pheons",
+   "odds": "36.31% of rolled bracelets reach B-, so 3 of them on average",
+   "minimum": "75/96 with crit resist blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "B- → B",
+   "gold": 275419,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 94/94 bracelet, about 6,423g plus 20 pheons",
+   "odds": "21.35% of rolled bracelets reach B, so 5 of them on average",
+   "minimum": "77/76 with crit dmg resist blue + ally atk power blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "B → B+",
+   "gold": 650790,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 94/94 bracelet, about 6,423g plus 20 pheons",
+   "odds": "9.93% of rolled bracelets reach B+, so 10 of them on average",
+   "minimum": "78/110 with crit dmg resist epic + weapon power epic"
+  },
+  {
+   "series": "bracelet",
+   "label": "B+ → A-",
+   "gold": 2068448,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 97/97 bracelet, about 9,144g plus 20 pheons",
+   "odds": "4.62% of rolled bracelets reach A-, so 22 of them on average",
+   "minimum": "101/73 with crit dmg resist legendary + ally atk power blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "A- → A",
+   "gold": 6949104,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 95/96 bracelet, about 7,613g plus 20 pheons",
+   "odds": "1.62% of rolled bracelets reach A, so 62 of them on average",
+   "minimum": "63/82 with crit dmg resist legendary + defence shred blue"
+  },
+  {
+   "series": "bracelet",
+   "label": "A → A+",
+   "gold": 21920054,
+   "damage": 0.45,
+   "detail": "buy unrolled, use all seven rolls",
+   "buy": "an unrolled 96/97 bracelet, about 8,588g plus 20 pheons",
+   "odds": "0.52% of rolled bracelets reach A+, so 192 of them on average",
+   "minimum": "102/82 with crit dmg resist epic + crit resist blue + weapon power (stacking) epic"
+  },
+  {
+   "series": "bracelet",
+   "label": "A+ → S-",
+   "gold": 111560465,
+   "damage": 0.45,
+   "detail": "costs more than it is worth",
+   "buy": "an unrolled 98/98 bracelet, about 10,417g plus 20 pheons",
+   "odds": "0.17% of rolled bracelets reach S-, so 588 of them on average",
+   "minimum": "76/72 with crit resist epic + crit dmg resist blue + shielded dmg epic"
+  },
+  {
+   "series": "bracelet",
+   "label": "S- → S",
+   "gold": 552625465,
+   "damage": 0.45,
+   "detail": "costs more than it is worth",
+   "buy": "an unrolled 98/99 bracelet, about 11,148g plus 20 pheons",
+   "odds": "0.039% of rolled bracelets reach S, so 2,564 of them on average",
+   "minimum": "76/83 with crit dmg resist epic + crit resist blue + defence shred epic"
+  },
+  {
+   "series": "bracelet",
+   "label": "S → S+",
+   "gold": 7278967343,
+   "damage": 0.6,
+   "detail": "costs more than it is worth",
+   "buy": "an unrolled 104/105 bracelet, about 29,070g plus 20 pheons",
+   "odds": "0.011% of rolled bracelets reach S+, so 9,091 of them on average",
+   "minimum": "rarer than 1 in 3 million rolls"
+  },
+  {
+   "series": "arkgrid",
+   "label": "ungraded → C-",
+   "gold": 24583,
+   "damage": 0.00973,
+   "detail": "per gem, the first gem worth socketing",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at C- — grade 60 on the Loseii ladder, the lowest the grid tool bands"
+  },
+  {
+   "series": "arkgrid",
+   "label": "C- → C",
+   "gold": 3342,
+   "damage": 0.00973,
+   "detail": "per gem, epic cuts at 60:30:10, duds fused",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at C on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "C → C+",
+   "gold": 5167,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at C+ on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "C+ → B-",
+   "gold": 6880,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at B- on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "B- → B",
+   "gold": 11410,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at B on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "B → B+",
+   "gold": 15667,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at B+ on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "B+ → A-",
+   "gold": 20996,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at A- on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "A- → A",
+   "gold": 41998,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at A on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "A → A+",
+   "gold": 122092,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at A+ on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "A+ → S-",
+   "gold": 412649,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at S- on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "S- → S",
+   "gold": 1307685,
+   "damage": 0.00973,
+   "detail": "per gem",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at S on the Loseii grading scale"
+  },
+  {
+   "series": "arkgrid",
+   "label": "S → S+",
+   "gold": 867352,
+   "damage": 0.00383,
+   "detail": "per gem; the S to S+ band is only 1.3 points wide",
+   "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
+   "odds": "average over 300,000 simulated cuts, support axis",
+   "minimum": "one gem at S+ on the Loseii grading scale"
+  },
+  {
+   "series": "earring",
+   "label": "mid wpn → high wpn",
+   "gold": 422358,
+   "damage": 0.1699,
+   "detail": "accessory calculator price, high Weapon Power % with a high Weapon Power+ line",
+   "buy": "a cut earring from the auction house",
+   "odds": "priced by the accessory calculator on the support market",
+   "minimum": "an earring with high Weapon Power % — 3.00%"
+  }
+ ]
+}
