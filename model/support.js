@@ -37,11 +37,11 @@
     baseAdd: 0.3585,
 
     // the support's own buff bases, in percent
-    brandPower: 46.00,
-    allyAtkEnh: 69.55,
-    allyDmg: 39.26,      // identity bracket: ark grid + gems
+    brandPower: 45.00,   // level-9 gems; a gem level is worth a point
+    allyAtkEnh: 68.55,   // level-9 gems
+    allyDmg: 38.26,      // level-9 gems      // identity bracket: ark grid + gems
     allyDmgT: 9.26,      // the T-skill's own bracket
-    spec: 1100,
+    spec: 1016,          // 1,484 swiftness holds the level-10 cooldowns at level 9
     classCoeff: 0.0005005722461,   // Bard: spec -> identity-buff efficiency
 
     // uptimes, in percent

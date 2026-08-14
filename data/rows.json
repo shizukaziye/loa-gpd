@@ -543,6 +543,39 @@
    "buy": "a cut ring — high/high + mid wpn flat, max main stat",
    "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
    "minimum": "high/high + mid wpn flat, max main stat"
+  },
+  {
+   "series": "gems",
+   "label": "all lv7 → lv8",
+   "gold": 3080000,
+   "damage": 1.06286,
+   "from": "level 7",
+   "to": "level 8",
+   "buy": "11 gems from level 7 to 8 — two more level-7 gems each, 280,000g a gem",
+   "odds": "no chance involved: three of a level make one of the next",
+   "minimum": "every gem at level 8 — 1639 swiftness drops to 1563, so 76 points move into spec"
+  },
+  {
+   "series": "gems",
+   "label": "all lv8 → lv9",
+   "gold": 9240000,
+   "damage": 1.08653,
+   "from": "level 8",
+   "to": "level 9",
+   "buy": "11 gems from level 8 to 9 — two more level-8 gems each, 840,000g a gem",
+   "odds": "no chance involved: three of a level make one of the next",
+   "minimum": "every gem at level 9 — 1563 swiftness drops to 1484, so 79 points move into spec"
+  },
+  {
+   "series": "gems",
+   "label": "all lv9 → lv10",
+   "gold": 27720000,
+   "damage": 1.11176,
+   "from": "level 9",
+   "to": "level 10",
+   "buy": "11 gems from level 9 to 10 — two more level-9 gems each, 2,520,000g a gem",
+   "odds": "no chance involved: three of a level make one of the next",
+   "minimum": "every gem at level 10 — 1484 swiftness drops to 1400, so 84 points move into spec"
   }
  ]
 }

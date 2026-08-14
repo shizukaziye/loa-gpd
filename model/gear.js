@@ -48,7 +48,7 @@
 
     // ---- attack power percent, on top of the square root ----
     stoneApPct: 0.015,         // ability stone, once two engraving levels total 5+
-    gemApPct: 0.110,           // eleven level-9 damage gems at 1.0% each
+    gemApPct: 0.098,           // eleven level-9 gems; level 10 is 0.110
     adrenalineApPct: 0.09,     // Adrenaline level 7
 
     useQualityBlock: false,    // see docs/METHODOLOGY.md — open question
