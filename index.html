@@ -77,10 +77,10 @@
   "use strict";
 
   var SERIES = {
-    armor:    { label: "Honing — armour", color: "#6ad4ff", base: "+11" },
-    weapon:   { label: "Honing — weapon", color: "#ffb86b", base: "+11" },
-    gems:     { label: "Skill gems",      color: "#f2a2c0", base: "level 7" },
-    karma:    { label: "Karma",           color: "#c78cff", base: "lv 21" },
+    armor:    { label: "Honing — armour", color: "#6ad4ff", base: "+11", spend: "last" },
+    weapon:   { label: "Honing — weapon", color: "#ffb86b", base: "+11", spend: "last" },
+    gems:     { label: "Skill gems",      color: "#f2a2c0", base: "level 7", spend: "last" },
+    karma:    { label: "Karma",           color: "#c78cff", base: "lv 21", spend: "last" },
     neck:     { label: "Necklace",        color: "#6ee7a8", base: "nothing worth pricing" },
     ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
     earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
@@ -105,6 +105,10 @@
 
   var MAT_PRICE = { "6861013": 125, "66102007": 900, "66102107": 30,
                     "66110226": 25, "66111131": 300, "66111132": 150 };
+  // short names, and only the small shard bag stands for all three pouches
+  var MAT_NAME = { "66130141": "Shards", "6861013": "Fusions", "66102007": "Red Stones",
+                   "66102107": "Blue Stones", "66110226": "Leapstones",
+                   "66111131": "Lava's", "66111132": "Glacier's" };
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
                 rows: { support: null, dps: null } };
@@ -125,6 +129,7 @@
     var grid = el("matGrid");
     grid.innerHTML = "";
     data.materials.forEach(function (m) {
+      if (!MAT_NAME[m.id]) { state.prices[m.id] = 0; state.enabled[m.id] = false; return; }
       var on = m.kind !== "shard_pouch", price = MAT_PRICE[m.id] || 0;
       state.prices[m.id] = price / m.unit;
       state.enabled[m.id] = on;
@@ -134,8 +139,8 @@
       row.title = m.name;
       row.innerHTML = "<input type='checkbox'" + (on ? " checked" : "") + ">" +
         "<span class='ico' style=\"background-image:url('assets/icons/" + m.id + ".webp')\"></span>" +
-        "<input type='number' min='0' step='1' value='" + price + "'>" +
-        (m.unit > 1 ? "<span class='per'>/" + m.unit + "</span>" : "");
+        "<span class='nm'>" + MAT_NAME[m.id] + (m.unit > 1 ? " <i>/" + m.unit + "</i>" : "") + "</span>" +
+        "<input type='number' min='0' step='1' value='" + price + "'>";
       var box = row.querySelector("input[type=checkbox]"), num = row.querySelector("input[type=number]");
       box.addEventListener("change", function () {
         state.enabled[m.id] = box.checked;
@@ -224,10 +229,11 @@
 
   function tipHtml(r) {
     var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b><table>";
-    h += num("Cost", fmtGold(r.gold) + "g", "var(--high)");
-    h += num("Damage gained", r.damage.toFixed(3) + "%", "var(--good)");
-    if (party() > 1) h += num("Party damage", (r.damage * 3).toFixed(3) + "%", "var(--good)");
-    h += num("Gold per 1%", fmtGold(r.gpd) + "g");
+    h += num("Cost", fmtGold(r.gold), "var(--high)");
+    if (r.total) h += num("Total for the piece", fmtGold(r.total), "var(--high)");
+    h += num(party() > 1 ? "Party damage" : "Damage",
+             (r.damage * party()).toFixed(3) + "%", "var(--good)");
+    h += num("Gold per 1%", fmtGold(r.gpd));
     h += "</table>";
     if (r.mats && r.mats.length) {
       h += "<span class='k'>materials</span><table>";
@@ -245,21 +251,25 @@
   function planTipHtml(key) {
     var p = PLAN[key], mine = ROWS.filter(function (r) { return r.series === key; });
     var next = mine[p.taken];
+    var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
     var h = "<b>" + SERIES[key].label + "</b><table>";
-    h += num("At", p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label),
-             rankColor(p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label)));
-    h += num("Steps taken", p.taken + " of " + p.of);
-    h += num("Spent", fmtGold(p.gold) + "g", "var(--high)");
-    h += num("Damage", p.damage.toFixed(3) + "%", "var(--good)");
-    if (party() > 1) h += num("Party damage", (p.damage * 3).toFixed(3) + "%", "var(--good)");
-    if (p.damage > 0) h += num("Average cost", fmtGold(p.gold / (p.damage * party())) + "g / 1%");
+    h += num("At", where, rankColor(where));
+    if (p.taken) {
+      var spend = SERIES[key].spend === "last" ? p.last.gold : (p.last.total || p.gold);
+      h += num(SERIES[key].spend === "last" ? "Last step" : "Total cost",
+               fmtGold(spend), "var(--high)");
+      h += num(party() > 1 ? "Party damage" : "Damage",
+               (p.damage * party()).toFixed(3) + "%", "var(--good)");
+      h += num("Gold per 1%", fmtGold(p.gold / (p.damage * party())));
+    }
     h += "</table>";
     if (next) {
       h += "<span class='k'>next step</span><table>";
       h += num("To", next.to || next.label, rankColor(next.to || next.label));
-      h += num("Cost", fmtGold(next.gold) + "g", "var(--high)");
-      h += num("Damage", next.damage.toFixed(3) + "%", "var(--good)");
-      h += num("Gold per 1%", fmtGold(next.gpd) + "g", "var(--bad)");
+      h += num("Cost", fmtGold(next.gold), "var(--high)");
+      h += num(party() > 1 ? "Party damage" : "Damage",
+               (next.damage * party()).toFixed(3) + "%", "var(--good)");
+      h += num("Gold per 1%", fmtGold(next.gpd), "var(--bad)");
       h += "</table>";
     }
     return h;
@@ -299,7 +309,7 @@
   }
 
   function renderPlan(rows) {
-    BUDGET = 50000 * Math.pow(2000, el("gpd").value / 100);
+    BUDGET = 250000 * Math.pow(100, el("gpd").value / 100);
     el("gpdOut").textContent = fmtGold(BUDGET) + " / 1%";
     PLAN = planAt(rows, BUDGET);
     var gold = 0, dmg = 0;
@@ -310,11 +320,15 @@
       gold += p.gold; dmg += p.damage;
       var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
       var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
+      var spend = SERIES[key].spend === "last" && p.last
+        ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
         SERIES[key].label + "</h4><div class='big'" + (rc ? " style='color:" + rc + "'" : "") + ">" +
-        where + (note ? " <span class='per'>" + note + "</span>" : "") + "</div>" +
-        "<div class='sub'>" + fmtGold(p.gold) + "g · " + p.damage.toFixed(2) + "%" +
-        (party() > 1 ? " · party " + (p.damage * 3).toFixed(2) + "%" : "") + "</div></div>";
+        where + "</div>" + (note ? "<div class='ilvl'>" + note + "</div>" : "") +
+        "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
+        fmtGold(spend) + "</div>" +
+        "<div class='num2'><span>" + (party() > 1 ? "party damage" : "damage") + "</span>" +
+        (p.damage * party()).toFixed(2) + "%</div></div>";
     }).join("");
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +

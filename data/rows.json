@@ -31,7 +31,7 @@
    "gold": 8188,
    "damage": 0.3,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 61/61 stats, 40g each",
+   "buy": "60/60 unrolled bracelets at about 40g each",
    "odds": "98.78% of rolled bracelets land D+ or better, so 1 of them on average — 20 pheons all told",
    "minimum": "about 90/80 with nothing",
    "from": "D",
@@ -48,8 +48,8 @@
      45289.37244914269
     ],
     [
-     "starting stats",
-     "about 61/61",
+     "stats to cut",
+     "60/60",
      0
     ]
    ]
@@ -60,7 +60,7 @@
    "gold": 18742,
    "damage": 0.3,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 91/91 stats, 4,725g each",
+   "buy": "90/90 unrolled bracelets at about 4,725g each",
    "odds": "88.44% of rolled bracelets land C- or better, so 1 of them on average — 23 pheons all told",
    "minimum": "about 80/80 with weapon power blue",
    "from": "D+",
@@ -77,8 +77,8 @@
      50584.398581256384
     ],
     [
-     "starting stats",
-     "about 91/91",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -89,7 +89,7 @@
    "gold": 21030,
    "damage": 0.3,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 87/87 stats, 3,308g each",
+   "buy": "90/90 unrolled bracelets at about 3,308g each",
    "odds": "64.34% of rolled bracelets land C or better, so 2 of them on average — 31 pheons all told",
    "minimum": "about 70/70 with ally damage blue",
    "from": "C-",
@@ -106,8 +106,8 @@
      69531.9274250282
     ],
     [
-     "starting stats",
-     "about 87/87",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -118,7 +118,7 @@
    "gold": 44266,
    "damage": 0.3,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 93/93 stats, 5,772g each",
+   "buy": "90/90 unrolled bracelets at about 5,772g each",
    "odds": "52.78% of rolled bracelets land C+ or better, so 2 of them on average — 38 pheons all told",
    "minimum": "about 90/100 with ally damage blue",
    "from": "C",
@@ -135,8 +135,8 @@
      84760.97405317005
     ],
     [
-     "starting stats",
-     "about 93/93",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -147,7 +147,7 @@
    "gold": 99668,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 94/93 stats, 6,085g each",
+   "buy": "90/90 unrolled bracelets at about 6,085g each",
    "odds": "36.31% of rolled bracelets land B- or better, so 3 of them on average — 55 pheons all told",
    "minimum": "about 80/100 with crit resist blue",
    "from": "C+",
@@ -164,8 +164,8 @@
      123208.04765977182
     ],
     [
-     "starting stats",
-     "about 94/93",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -176,7 +176,7 @@
    "gold": 275419,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 94/94 stats, 6,423g each",
+   "buy": "90/90 unrolled bracelets at about 6,423g each",
    "odds": "21.35% of rolled bracelets land B or better, so 5 of them on average — 94 pheons all told",
    "minimum": "about 80/80 with crit dmg resist blue and ally atk power blue",
    "from": "B-",
@@ -193,8 +193,8 @@
      209540.2440527548
     ],
     [
-     "starting stats",
-     "about 94/94",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -205,7 +205,7 @@
    "gold": 650790,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 94/94 stats, 6,423g each",
+   "buy": "90/90 unrolled bracelets at about 6,423g each",
    "odds": "9.93% of rolled bracelets land B+ or better, so 10 of them on average — 201 pheons all told",
    "minimum": "about 80/110 with crit dmg resist epic and weapon power epic",
    "from": "B",
@@ -222,8 +222,8 @@
      450522.07558170345
     ],
     [
-     "starting stats",
-     "about 94/94",
+     "stats to cut",
+     "90/90",
      0
     ]
    ]
@@ -234,7 +234,7 @@
    "gold": 2068448,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 97/97 stats, 9,144g each",
+   "buy": "100/100 unrolled bracelets at about 9,144g each",
    "odds": "4.62% of rolled bracelets land A- or better, so 22 of them on average — 433 pheons all told",
    "minimum": "about 100/70 with crit dmg resist legendary and ally atk power blue",
    "from": "B+",
@@ -251,8 +251,8 @@
      968329.9156983364
     ],
     [
-     "starting stats",
-     "about 97/97",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -263,7 +263,7 @@
    "gold": 6949104,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 96/95 stats, 7,613g each",
+   "buy": "100/100 unrolled bracelets at about 7,613g each",
    "odds": "1.62% of rolled bracelets land A or better, so 62 of them on average — 1,235 pheons all told",
    "minimum": "about 60/80 with crit dmg resist legendary and defence shred blue",
    "from": "A-",
@@ -280,8 +280,8 @@
      2761533.4632878485
     ],
     [
-     "starting stats",
-     "about 96/95",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -292,7 +292,7 @@
    "gold": 21920054,
    "damage": 0.45,
    "detail": "buy unrolled, use all seven rolls",
-   "buy": "unrolled bracelets rolling about 97/96 stats, 8,588g each",
+   "buy": "100/100 unrolled bracelets at about 8,588g each",
    "odds": "0.52% of rolled bracelets land A+ or better, so 192 of them on average — 3,846 pheons all told",
    "minimum": "about 100/80 with crit dmg resist epic and crit resist blue and weapon power (stacking) epic",
    "from": "A",
@@ -309,8 +309,8 @@
      8603238.866396759
     ],
     [
-     "starting stats",
-     "about 97/96",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -321,7 +321,7 @@
    "gold": 111560465,
    "damage": 0.45,
    "detail": "costs more than it is worth",
-   "buy": "unrolled bracelets rolling about 98/98 stats, 10,417g each",
+   "buy": "100/100 unrolled bracelets at about 10,417g each",
    "odds": "0.17% of rolled bracelets land S- or better, so 588 of them on average — 11,765 pheons all told",
    "minimum": "about 80/70 with crit resist epic and crit dmg resist blue and shielded dmg epic",
    "from": "A+",
@@ -338,8 +338,8 @@
      26315789.473684203
     ],
     [
-     "starting stats",
-     "about 98/98",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -350,7 +350,7 @@
    "gold": 552625465,
    "damage": 0.45,
    "detail": "costs more than it is worth",
-   "buy": "unrolled bracelets rolling about 99/98 stats, 11,148g each",
+   "buy": "100/100 unrolled bracelets at about 11,148g each",
    "odds": "0.04% of rolled bracelets land S or better, so 2,564 of them on average — 51,282 pheons all told",
    "minimum": "about 80/80 with crit dmg resist epic and crit resist blue and defence shred epic",
    "from": "S-",
@@ -367,8 +367,8 @@
      114709851.55195679
     ],
     [
-     "starting stats",
-     "about 99/98",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -379,7 +379,7 @@
    "gold": 7278967343,
    "damage": 0.6,
    "detail": "costs more than it is worth",
-   "buy": "unrolled bracelets rolling about 105/104 stats, 29,070g each",
+   "buy": "100/100 unrolled bracelets at about 29,070g each",
    "odds": "0.01% of rolled bracelets land S+ or better, so 9,091 of them on average — 181,818 pheons all told",
    "minimum": "rarer than 1 in 3 million rolls",
    "from": "S",
@@ -396,8 +396,8 @@
      406698564.59330136
     ],
     [
-     "starting stats",
-     "about 105/104",
+     "stats to cut",
+     "100/100",
      0
     ]
    ]
@@ -581,35 +581,24 @@
   },
   {
    "series": "neck",
-   "label": "free upgrades",
-   "gold": 0,
-   "damage": 0.21889,
-   "from": "low/high · no flat · min stat",
-   "to": "high/low · high flat · max stat",
-   "buy": "anything up to high/low · high flat · max stat",
-   "odds": "the accessory calculator prices every one of these at zero — they sit under its baseline of a better-primary-high accessory, so nobody charges for them",
-   "minimum": "high/low · high flat · max stat"
-  },
-  {
-   "series": "neck",
    "label": "high/low · no flat · min stat",
    "gold": 13962,
-   "damage": 0.00685,
+   "damage": 0.21746,
+   "total": 13962,
    "from": "high/— · high flat · high stat",
    "to": "high/low · no flat · min stat",
-   "buy": "a neck: high/low primaries, no flat line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/low primaries, no flat line, min main stat",
    "minimum": "high/low primaries, no flat, min main stat"
   },
   {
    "series": "neck",
    "label": "high/low · low flat · min stat",
    "gold": 20639,
-   "damage": 0.00546,
+   "damage": 0.01201,
+   "total": 23438,
    "from": "high/— · high flat · max stat",
    "to": "high/low · low flat · min stat",
-   "buy": "a neck: high/low primaries, a low Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/low primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, low flat, min main stat"
   },
   {
@@ -617,43 +606,43 @@
    "label": "mid/high · no flat · min stat",
    "gold": 7645,
    "damage": 0.00127,
+   "total": 31083,
    "from": "high/low · low flat · min stat",
    "to": "mid/high · no flat · min stat",
-   "buy": "a neck: mid/high primaries, no flat line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, no flat line, min main stat",
    "minimum": "mid/high primaries, no flat, min main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · low flat · min stat",
    "gold": 17605,
-   "damage": 0.01189,
+   "damage": 0.01201,
+   "total": 42211,
    "from": "high/low · no flat · low stat",
    "to": "mid/high · low flat · min stat",
-   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, low flat, min main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · no flat · low stat",
    "gold": 8672,
-   "damage": 0.00127,
+   "damage": 0.00139,
+   "total": 43642,
    "from": "high/low · low flat · low stat",
    "to": "mid/high · no flat · low stat",
-   "buy": "a neck: mid/high primaries, no flat line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, no flat line, low main stat",
    "minimum": "mid/high primaries, no flat, low main stat"
   },
   {
    "series": "neck",
    "label": "high/low · mid flat · min stat",
    "gold": 2506,
-   "damage": 0.00277,
+   "damage": 0.00288,
+   "total": 38774,
    "from": "high/low · no flat · mid stat",
    "to": "high/low · mid flat · min stat",
-   "buy": "a neck: high/low primaries, a mid Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/low primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, mid flat, min main stat"
   },
   {
@@ -661,76 +650,76 @@
    "label": "mid/high · low flat · low stat",
    "gold": 17836,
    "damage": 0.00914,
+   "total": 56610,
    "from": "high/low · mid flat · min stat",
    "to": "mid/high · low flat · low stat",
-   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, low flat, low main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · no flat · mid stat",
    "gold": 10171,
-   "damage": 0.00126,
+   "damage": 0.00138,
+   "total": 58283,
    "from": "high/low · low flat · mid stat",
    "to": "mid/high · no flat · mid stat",
-   "buy": "a neck: mid/high primaries, no flat line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, no flat line, mid main stat",
    "minimum": "mid/high primaries, no flat, mid main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · mid flat · min stat",
    "gold": 11849,
-   "damage": 0.00268,
+   "damage": 0.00277,
+   "total": 61425,
    "from": "high/low · no flat · high stat",
    "to": "mid/high · mid flat · min stat",
-   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, mid flat, min main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · low flat · mid stat",
    "gold": 21516,
-   "damage": 0.00912,
+   "damage": 0.00925,
+   "total": 74088,
    "from": "high/low · mid flat · low stat",
    "to": "mid/high · low flat · mid stat",
-   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "mid/high primaries, low flat, mid main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · no flat · high stat",
    "gold": 12535,
-   "damage": 0.00126,
+   "damage": 0.00134,
+   "total": 76122,
    "from": "high/low · low flat · high stat",
    "to": "mid/high · no flat · high stat",
-   "buy": "a neck: mid/high primaries, no flat line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, no flat line, high main stat",
    "minimum": "mid/high primaries, no flat, high main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · mid flat · low stat",
    "gold": 14828,
-   "damage": 0.00272,
+   "damage": 0.00281,
+   "total": 80178,
    "from": "high/low · no flat · max stat",
    "to": "mid/high · mid flat · low stat",
-   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, mid flat, low main stat"
   },
   {
    "series": "neck",
    "label": "high/low · high flat · min stat",
    "gold": 3589,
-   "damage": 0.00271,
+   "damage": 0.00283,
+   "total": 72680,
    "from": "high/low · mid flat · mid stat",
    "to": "high/low · high flat · min stat",
-   "buy": "a neck: high/low primaries, a high Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/low primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, high flat, min main stat"
   },
   {
@@ -738,21 +727,21 @@
    "label": "mid/high · low flat · high stat",
    "gold": 22181,
    "damage": 0.00638,
+   "total": 94861,
    "from": "high/low · high flat · min stat",
    "to": "mid/high · low flat · high stat",
-   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, high main stat",
    "minimum": "mid/high primaries, low flat, high main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · no flat · max stat",
    "gold": 14269,
-   "damage": 0.00125,
+   "damage": 0.00135,
+   "total": 97150,
    "from": "high/low · low flat · max stat",
    "to": "mid/high · no flat · max stat",
-   "buy": "a neck: mid/high primaries, no flat line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, no flat line, max main stat",
    "minimum": "mid/high primaries, no flat, max main stat"
   },
   {
@@ -760,32 +749,32 @@
    "label": "mid/high · mid flat · mid stat",
    "gold": 4639,
    "damage": 0.00283,
+   "total": 101789,
    "from": "mid/high · no flat · max stat",
    "to": "mid/high · mid flat · mid stat",
-   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "mid/high primaries, mid flat, mid main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · high flat · min stat",
    "gold": 16939,
-   "damage": 0.00262,
+   "damage": 0.00271,
+   "total": 106230,
    "from": "high/low · mid flat · high stat",
    "to": "mid/high · high flat · min stat",
-   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, high flat, min main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · low flat · max stat",
    "gold": 24847,
-   "damage": 0.00634,
+   "damage": 0.00648,
+   "total": 118216,
    "from": "high/low · high flat · low stat",
    "to": "mid/high · low flat · max stat",
-   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a low Weapon Power+ line, max main stat",
    "minimum": "mid/high primaries, low flat, max main stat"
   },
   {
@@ -793,32 +782,32 @@
    "label": "mid/high · mid flat · high stat",
    "gold": 7307,
    "damage": 0.00418,
+   "total": 125523,
    "from": "mid/high · low flat · max stat",
    "to": "mid/high · mid flat · high stat",
-   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "mid/high primaries, mid flat, high main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · high flat · low stat",
    "gold": 18164,
-   "damage": 0.00265,
+   "damage": 0.00276,
+   "total": 130156,
    "from": "high/low · mid flat · max stat",
    "to": "mid/high · high flat · low stat",
-   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, high flat, low main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · mid flat · max stat",
    "gold": 33094,
-   "damage": 0.0105,
+   "damage": 0.01063,
+   "total": 149692,
    "from": "high/low · high flat · mid stat",
    "to": "mid/high · mid flat · max stat",
-   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "mid/high primaries, mid flat, max main stat"
   },
   {
@@ -826,32 +815,32 @@
    "label": "mid/high · high flat · mid stat",
    "gold": 4711,
    "damage": 0.00278,
+   "total": 154403,
    "from": "mid/high · mid flat · max stat",
    "to": "mid/high · high flat · mid stat",
-   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "mid/high primaries, high flat, mid main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · high flat · high stat",
    "gold": 38079,
-   "damage": 0.01328,
+   "damage": 0.01338,
+   "total": 178760,
    "from": "high/low · high flat · high stat",
    "to": "mid/high · high flat · high stat",
-   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, high main stat",
    "minimum": "mid/high primaries, high flat, high main stat"
   },
   {
    "series": "neck",
    "label": "mid/high · high flat · max stat",
    "gold": 38208,
-   "damage": 0.01328,
+   "damage": 0.01339,
+   "total": 203187,
    "from": "high/low · high flat · max stat",
    "to": "mid/high · high flat · max stat",
-   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: mid/high primaries, a high Weapon Power+ line, max main stat",
    "minimum": "mid/high primaries, high flat, max main stat"
   },
   {
@@ -859,10 +848,10 @@
    "label": "high/mid · no flat · min stat",
    "gold": 46813,
    "damage": 0.00654,
+   "total": 250000,
    "from": "mid/high · high flat · max stat",
    "to": "high/mid · no flat · min stat",
-   "buy": "a neck: high/mid primaries, no flat line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, no flat line, min main stat",
    "minimum": "high/mid primaries, no flat, min main stat"
   },
   {
@@ -870,10 +859,10 @@
    "label": "high/mid · low flat · min stat",
    "gold": 24298,
    "damage": 0.01201,
+   "total": 274298,
    "from": "high/mid · no flat · min stat",
    "to": "high/mid · low flat · min stat",
-   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, low flat, min main stat"
   },
   {
@@ -881,10 +870,10 @@
    "label": "high/mid · no flat · low stat",
    "gold": 3010,
    "damage": 0.00139,
+   "total": 277308,
    "from": "high/mid · low flat · min stat",
    "to": "high/mid · no flat · low stat",
-   "buy": "a neck: high/mid primaries, no flat line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, no flat line, low main stat",
    "minimum": "high/mid primaries, no flat, low main stat"
   },
   {
@@ -892,10 +881,10 @@
    "label": "high/mid · low flat · low stat",
    "gold": 28005,
    "damage": 0.01201,
+   "total": 305313,
    "from": "high/mid · no flat · low stat",
    "to": "high/mid · low flat · low stat",
-   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, low flat, low main stat"
   },
   {
@@ -903,10 +892,10 @@
    "label": "high/mid · no flat · mid stat",
    "gold": 3449,
    "damage": 0.00138,
+   "total": 308762,
    "from": "high/mid · low flat · low stat",
    "to": "high/mid · no flat · mid stat",
-   "buy": "a neck: high/mid primaries, no flat line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, no flat line, mid main stat",
    "minimum": "high/mid primaries, no flat, mid main stat"
   },
   {
@@ -914,10 +903,10 @@
    "label": "high/mid · mid flat · min stat",
    "gold": 7224,
    "damage": 0.00277,
+   "total": 315986,
    "from": "high/mid · no flat · mid stat",
    "to": "high/mid · mid flat · min stat",
-   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, mid flat, min main stat"
   },
   {
@@ -925,10 +914,10 @@
    "label": "high/mid · low flat · mid stat",
    "gold": 26424,
    "damage": 0.00925,
+   "total": 342410,
    "from": "high/mid · mid flat · min stat",
    "to": "high/mid · low flat · mid stat",
-   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, low flat, mid main stat"
   },
   {
@@ -936,10 +925,10 @@
    "label": "high/mid · no flat · high stat",
    "gold": 4076,
    "damage": 0.00134,
+   "total": 346486,
    "from": "high/mid · low flat · mid stat",
    "to": "high/mid · no flat · high stat",
-   "buy": "a neck: high/mid primaries, no flat line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, no flat line, high main stat",
    "minimum": "high/mid primaries, no flat, high main stat"
   },
   {
@@ -947,10 +936,10 @@
    "label": "high/mid · mid flat · low stat",
    "gold": 9407,
    "damage": 0.00281,
+   "total": 355893,
    "from": "high/mid · no flat · high stat",
    "to": "high/mid · mid flat · low stat",
-   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, mid flat, low main stat"
   },
   {
@@ -958,10 +947,10 @@
    "label": "high/mid · low flat · high stat",
    "gold": 33794,
    "damage": 0.00921,
+   "total": 389687,
    "from": "high/mid · mid flat · low stat",
    "to": "high/mid · low flat · high stat",
-   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, low flat, high main stat"
   },
   {
@@ -969,10 +958,10 @@
    "label": "high/mid · no flat · max stat",
    "gold": 5307,
    "damage": 0.00135,
+   "total": 394994,
    "from": "high/mid · low flat · high stat",
    "to": "high/mid · no flat · max stat",
-   "buy": "a neck: high/mid primaries, no flat line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, no flat line, max main stat",
    "minimum": "high/mid primaries, no flat, max main stat"
   },
   {
@@ -980,10 +969,10 @@
    "label": "high/mid · mid flat · mid stat",
    "gold": 13900,
    "damage": 0.00283,
+   "total": 408894,
    "from": "high/mid · no flat · max stat",
    "to": "high/mid · mid flat · mid stat",
-   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, mid flat, mid main stat"
   },
   {
@@ -991,10 +980,10 @@
    "label": "high/mid · high flat · min stat",
    "gold": 13514,
    "damage": 0.00271,
+   "total": 422408,
    "from": "high/mid · mid flat · mid stat",
    "to": "high/mid · high flat · min stat",
-   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, high flat, min main stat"
   },
   {
@@ -1002,10 +991,10 @@
    "label": "high/mid · low flat · max stat",
    "gold": 36423,
    "damage": 0.00648,
+   "total": 458831,
    "from": "high/mid · high flat · min stat",
    "to": "high/mid · low flat · max stat",
-   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a low Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, low flat, max main stat"
   },
   {
@@ -1013,10 +1002,10 @@
    "label": "high/mid · mid flat · high stat",
    "gold": 22833,
    "damage": 0.00418,
+   "total": 481664,
    "from": "high/mid · low flat · max stat",
    "to": "high/mid · mid flat · high stat",
-   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, mid flat, high main stat"
   },
   {
@@ -1024,10 +1013,10 @@
    "label": "high/mid · high flat · low stat",
    "gold": 14725,
    "damage": 0.00276,
+   "total": 496389,
    "from": "high/mid · mid flat · high stat",
    "to": "high/mid · high flat · low stat",
-   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, high flat, low main stat"
   },
   {
@@ -1035,10 +1024,10 @@
    "label": "high/mid · mid flat · max stat",
    "gold": 62283,
    "damage": 0.01063,
+   "total": 558672,
    "from": "high/mid · high flat · low stat",
    "to": "high/mid · mid flat · max stat",
-   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, mid flat, max main stat"
   },
   {
@@ -1046,10 +1035,10 @@
    "label": "high/mid · high flat · mid stat",
    "gold": 15273,
    "damage": 0.00278,
+   "total": 573945,
    "from": "high/mid · mid flat · max stat",
    "to": "high/mid · high flat · mid stat",
-   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, high flat, mid main stat"
   },
   {
@@ -1057,10 +1046,10 @@
    "label": "high/mid · high flat · high stat",
    "gold": 79198,
    "damage": 0.01338,
+   "total": 653143,
    "from": "high/mid · high flat · mid stat",
    "to": "high/mid · high flat · high stat",
-   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, high flat, high main stat"
   },
   {
@@ -1068,10 +1057,10 @@
    "label": "high/mid · high flat · max stat",
    "gold": 79693,
    "damage": 0.01339,
+   "total": 732836,
    "from": "high/mid · high flat · high stat",
    "to": "high/mid · high flat · max stat",
-   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/mid primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, high flat, max main stat"
   },
   {
@@ -1079,10 +1068,10 @@
    "label": "high/high · no flat · min stat",
    "gold": 467164,
    "damage": 0.04608,
+   "total": 1200000,
    "from": "high/mid · high flat · max stat",
    "to": "high/high · no flat · min stat",
-   "buy": "a neck: high/high primaries, no flat line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, no flat line, min main stat",
    "minimum": "high/high primaries, no flat, min main stat"
   },
   {
@@ -1090,10 +1079,10 @@
    "label": "high/high · low flat · min stat",
    "gold": 81881,
    "damage": 0.01201,
+   "total": 1281881,
    "from": "high/high · no flat · min stat",
    "to": "high/high · low flat · min stat",
-   "buy": "a neck: high/high primaries, a low Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, low flat, min main stat"
   },
   {
@@ -1101,10 +1090,10 @@
    "label": "high/high · no flat · low stat",
    "gold": 10173,
    "damage": 0.00139,
+   "total": 1292054,
    "from": "high/high · low flat · min stat",
    "to": "high/high · no flat · low stat",
-   "buy": "a neck: high/high primaries, no flat line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, no flat line, low main stat",
    "minimum": "high/high primaries, no flat, low main stat"
   },
   {
@@ -1112,10 +1101,10 @@
    "label": "high/high · low flat · low stat",
    "gold": 98792,
    "damage": 0.01201,
+   "total": 1390846,
    "from": "high/high · no flat · low stat",
    "to": "high/high · low flat · low stat",
-   "buy": "a neck: high/high primaries, a low Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a low Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, low flat, low main stat"
   },
   {
@@ -1123,10 +1112,10 @@
    "label": "high/high · no flat · mid stat",
    "gold": 12227,
    "damage": 0.00138,
+   "total": 1403073,
    "from": "high/high · low flat · low stat",
    "to": "high/high · no flat · mid stat",
-   "buy": "a neck: high/high primaries, no flat line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, no flat line, mid main stat",
    "minimum": "high/high primaries, no flat, mid main stat"
   },
   {
@@ -1134,10 +1123,10 @@
    "label": "high/high · mid flat · min stat",
    "gold": 27551,
    "damage": 0.00277,
+   "total": 1430624,
    "from": "high/high · no flat · mid stat",
    "to": "high/high · mid flat · min stat",
-   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, mid flat, min main stat"
   },
   {
@@ -1145,10 +1134,10 @@
    "label": "high/high · low flat · mid stat",
    "gold": 101200,
    "damage": 0.00925,
+   "total": 1531824,
    "from": "high/high · mid flat · min stat",
    "to": "high/high · low flat · mid stat",
-   "buy": "a neck: high/high primaries, a low Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, low flat, mid main stat"
   },
   {
@@ -1156,10 +1145,10 @@
    "label": "high/high · no flat · high stat",
    "gold": 15758,
    "damage": 0.00134,
+   "total": 1547582,
    "from": "high/high · low flat · mid stat",
    "to": "high/high · no flat · high stat",
-   "buy": "a neck: high/high primaries, no flat line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, no flat line, high main stat",
    "minimum": "high/high primaries, no flat, high main stat"
   },
   {
@@ -1167,10 +1156,10 @@
    "label": "high/high · mid flat · low stat",
    "gold": 42748,
    "damage": 0.00281,
+   "total": 1590330,
    "from": "high/high · no flat · high stat",
    "to": "high/high · mid flat · low stat",
-   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, mid flat, low main stat"
   },
   {
@@ -1178,10 +1167,10 @@
    "label": "high/high · low flat · high stat",
    "gold": 155249,
    "damage": 0.00921,
+   "total": 1745579,
    "from": "high/high · mid flat · low stat",
    "to": "high/high · low flat · high stat",
-   "buy": "a neck: high/high primaries, a low Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a low Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, low flat, high main stat"
   },
   {
@@ -1189,10 +1178,10 @@
    "label": "high/high · no flat · max stat",
    "gold": 24988,
    "damage": 0.00135,
+   "total": 1770567,
    "from": "high/high · low flat · high stat",
    "to": "high/high · no flat · max stat",
-   "buy": "a neck: high/high primaries, no flat line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, no flat line, max main stat",
    "minimum": "high/high primaries, no flat, max main stat"
   },
   {
@@ -1200,10 +1189,10 @@
    "label": "high/high · mid flat · mid stat",
    "gold": 134727,
    "damage": 0.00283,
+   "total": 1905294,
    "from": "high/high · no flat · max stat",
    "to": "high/high · mid flat · mid stat",
-   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, mid flat, mid main stat"
   },
   {
@@ -1211,10 +1200,10 @@
    "label": "high/high · high flat · min stat",
    "gold": 128474,
    "damage": 0.00271,
+   "total": 2033768,
    "from": "high/high · mid flat · mid stat",
    "to": "high/high · high flat · min stat",
-   "buy": "a neck: high/high primaries, a high Weapon Power+ line, min main stat (15,178)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, high flat, min main stat"
   },
   {
@@ -1222,10 +1211,10 @@
    "label": "high/high · low flat · max stat",
    "gold": 344692,
    "damage": 0.00648,
+   "total": 2378460,
    "from": "high/high · high flat · min stat",
    "to": "high/high · low flat · max stat",
-   "buy": "a neck: high/high primaries, a low Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a low Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, low flat, max main stat"
   },
   {
@@ -1233,10 +1222,10 @@
    "label": "high/high · mid flat · high stat",
    "gold": 207057,
    "damage": 0.00418,
+   "total": 2585517,
    "from": "high/high · low flat · max stat",
    "to": "high/high · mid flat · high stat",
-   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, mid flat, high main stat"
   },
   {
@@ -1244,10 +1233,10 @@
    "label": "high/high · high flat · low stat",
    "gold": 130726,
    "damage": 0.00276,
+   "total": 2716243,
    "from": "high/high · mid flat · high stat",
    "to": "high/high · high flat · low stat",
-   "buy": "a neck: high/high primaries, a high Weapon Power+ line, low main stat (15,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a high Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, high flat, low main stat"
   },
   {
@@ -1255,10 +1244,10 @@
    "label": "high/high · mid flat · max stat",
    "gold": 550140,
    "damage": 0.01063,
+   "total": 3266383,
    "from": "high/high · high flat · low stat",
    "to": "high/high · mid flat · max stat",
-   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, mid flat, max main stat"
   },
   {
@@ -1266,10 +1255,10 @@
    "label": "high/high · high flat · mid stat",
    "gold": 131958,
    "damage": 0.00278,
+   "total": 3398341,
    "from": "high/high · mid flat · max stat",
    "to": "high/high · high flat · mid stat",
-   "buy": "a neck: high/high primaries, a high Weapon Power+ line, mid main stat (16,518)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, high flat, mid main stat"
   },
   {
@@ -1277,10 +1266,10 @@
    "label": "high/high · high flat · high stat",
    "gold": 680706,
    "damage": 0.01338,
+   "total": 4079047,
    "from": "high/high · high flat · mid stat",
    "to": "high/high · high flat · high stat",
-   "buy": "a neck: high/high primaries, a high Weapon Power+ line, high main stat (17,187)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a high Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, high flat, high main stat"
   },
   {
@@ -1288,32 +1277,21 @@
    "label": "high/high · high flat · max stat",
    "gold": 681348,
    "damage": 0.01339,
+   "total": 4760395,
    "from": "high/high · high flat · high stat",
    "to": "high/high · high flat · max stat",
-   "buy": "a neck: high/high primaries, a high Weapon Power+ line, max main stat (17,857)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a neck: high/high primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, high flat, max main stat"
-  },
-  {
-   "series": "earring",
-   "label": "free upgrades",
-   "gold": 0,
-   "damage": 0.30901,
-   "from": "low · no flat · min stat",
-   "to": "high · no flat · min stat",
-   "buy": "anything up to high · no flat · min stat",
-   "odds": "the accessory calculator prices every one of these at zero — they sit under its baseline of a better-primary-high accessory, so nobody charges for them",
-   "minimum": "high · no flat · min stat"
   },
   {
    "series": "earring",
    "label": "high · no flat · low stat",
    "gold": 3399,
-   "damage": 0.01052,
+   "damage": 0.31952,
+   "total": 3399,
    "from": "high · no flat · min stat",
    "to": "high · no flat · low stat",
-   "buy": "a earring: a high Weapon Power % line, no flat line, low main stat (12,327)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, no flat line, low main stat",
    "minimum": "high primaries, no flat, low main stat"
   },
   {
@@ -1321,10 +1299,10 @@
    "label": "high · low flat · min stat",
    "gold": 6818,
    "damage": 0.00161,
+   "total": 10217,
    "from": "high · no flat · low stat",
    "to": "high · low flat · min stat",
-   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, min main stat (11,806)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, min main stat",
    "minimum": "high primaries, low flat, min main stat"
   },
   {
@@ -1332,10 +1310,10 @@
    "label": "high · no flat · mid stat",
    "gold": 56736,
    "damage": 0.0089,
+   "total": 66953,
    "from": "high · low flat · min stat",
    "to": "high · no flat · mid stat",
-   "buy": "a earring: a high Weapon Power % line, no flat line, mid main stat (12,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, no flat line, mid main stat",
    "minimum": "high primaries, no flat, mid main stat"
   },
   {
@@ -1343,10 +1321,10 @@
    "label": "high · low flat · low stat",
    "gold": 6888,
    "damage": 0.00161,
+   "total": 73841,
    "from": "high · no flat · mid stat",
    "to": "high · low flat · low stat",
-   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, low main stat (12,327)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, low main stat",
    "minimum": "high primaries, low flat, low main stat"
   },
   {
@@ -1354,10 +1332,10 @@
    "label": "high · mid flat · min stat",
    "gold": 39390,
    "damage": 0.00719,
+   "total": 113231,
    "from": "high · low flat · low stat",
    "to": "high · mid flat · min stat",
-   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, min main stat (11,806)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, min main stat",
    "minimum": "high primaries, mid flat, min main stat"
   },
   {
@@ -1365,10 +1343,10 @@
    "label": "high · no flat · high stat",
    "gold": 17378,
    "damage": 0.00168,
+   "total": 130609,
    "from": "high · mid flat · min stat",
    "to": "high · no flat · high stat",
-   "buy": "a earring: a high Weapon Power % line, no flat line, high main stat (13,368)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, no flat line, high main stat",
    "minimum": "high primaries, no flat, high main stat"
   },
   {
@@ -1376,10 +1354,10 @@
    "label": "high · low flat · mid stat",
    "gold": 7097,
    "damage": 0.00164,
+   "total": 137706,
    "from": "high · no flat · high stat",
    "to": "high · low flat · mid stat",
-   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, mid main stat (12,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, mid main stat",
    "minimum": "high primaries, low flat, mid main stat"
   },
   {
@@ -1387,10 +1365,10 @@
    "label": "high · mid flat · low stat",
    "gold": 39694,
    "damage": 0.0072,
+   "total": 177400,
    "from": "high · low flat · mid stat",
    "to": "high · mid flat · low stat",
-   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, low main stat (12,327)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, low main stat",
    "minimum": "high primaries, mid flat, low main stat"
   },
   {
@@ -1398,10 +1376,10 @@
    "label": "high · no flat · max stat",
    "gold": 17365,
    "damage": 0.00166,
+   "total": 194765,
    "from": "high · mid flat · low stat",
    "to": "high · no flat · max stat",
-   "buy": "a earring: a high Weapon Power % line, no flat line, max main stat (13,889)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, no flat line, max main stat",
    "minimum": "high primaries, no flat, max main stat"
   },
   {
@@ -1409,10 +1387,10 @@
    "label": "high · low flat · high stat",
    "gold": 7105,
    "damage": 0.00163,
+   "total": 201870,
    "from": "high · no flat · max stat",
    "to": "high · low flat · high stat",
-   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, high main stat (13,368)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, high main stat",
    "minimum": "high primaries, low flat, high main stat"
   },
   {
@@ -1420,10 +1398,10 @@
    "label": "high · mid flat · mid stat",
    "gold": 40449,
    "damage": 0.00723,
+   "total": 242319,
    "from": "high · low flat · high stat",
    "to": "high · mid flat · mid stat",
-   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, mid main stat (12,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, mid main stat",
    "minimum": "high primaries, mid flat, mid main stat"
   },
   {
@@ -1431,10 +1409,10 @@
    "label": "high · low flat · max stat",
    "gold": 24705,
    "damage": 0.00328,
+   "total": 267024,
    "from": "high · mid flat · mid stat",
    "to": "high · low flat · max stat",
-   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, max main stat (13,889)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a low Weapon Power+ line, max main stat",
    "minimum": "high primaries, low flat, max main stat"
   },
   {
@@ -1442,10 +1420,10 @@
    "label": "high · high flat · min stat",
    "gold": 22483,
    "damage": 0.00547,
+   "total": 289507,
    "from": "high · low flat · max stat",
    "to": "high · high flat · min stat",
-   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, min main stat (11,806)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, min main stat",
    "minimum": "high primaries, high flat, min main stat"
   },
   {
@@ -1453,10 +1431,10 @@
    "label": "high · mid flat · high stat",
    "gold": 18243,
    "damage": 0.00174,
+   "total": 307750,
    "from": "high · high flat · min stat",
    "to": "high · mid flat · high stat",
-   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, high main stat (13,368)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, high main stat",
    "minimum": "high primaries, mid flat, high main stat"
   },
   {
@@ -1464,10 +1442,10 @@
    "label": "high · high flat · low stat",
    "gold": 47846,
    "damage": 0.00879,
+   "total": 355596,
    "from": "high · mid flat · high stat",
    "to": "high · high flat · low stat",
-   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, low main stat (12,327)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, low main stat",
    "minimum": "high primaries, high flat, low main stat"
   },
   {
@@ -1475,10 +1453,10 @@
    "label": "high · mid flat · max stat",
    "gold": 18230,
    "damage": 0.00172,
+   "total": 373826,
    "from": "high · high flat · low stat",
    "to": "high · mid flat · max stat",
-   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, max main stat (13,889)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a mid Weapon Power+ line, max main stat",
    "minimum": "high primaries, mid flat, max main stat"
   },
   {
@@ -1486,10 +1464,10 @@
    "label": "high · high flat · mid stat",
    "gold": 48532,
    "damage": 0.0088,
+   "total": 422358,
    "from": "high · mid flat · max stat",
    "to": "high · high flat · mid stat",
-   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, mid main stat (12,848)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, mid main stat",
    "minimum": "high primaries, high flat, mid main stat"
   },
   {
@@ -1497,10 +1475,10 @@
    "label": "high · high flat · high stat",
    "gold": 67121,
    "damage": 0.0105,
+   "total": 489479,
    "from": "high · high flat · mid stat",
    "to": "high · high flat · high stat",
-   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, high main stat (13,368)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, high main stat",
    "minimum": "high primaries, high flat, high main stat"
   },
   {
@@ -1508,32 +1486,21 @@
    "label": "high · high flat · max stat",
    "gold": 67779,
    "damage": 0.01051,
+   "total": 557258,
    "from": "high · high flat · high stat",
    "to": "high · high flat · max stat",
-   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, max main stat (13,889)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a earring: a high Weapon Power % line, a high Weapon Power+ line, max main stat",
    "minimum": "high primaries, high flat, max main stat"
-  },
-  {
-   "series": "ring",
-   "label": "free upgrades",
-   "gold": 0,
-   "damage": 0.30142,
-   "from": "high/— · no flat · min stat",
-   "to": "mid/high · high flat · max stat",
-   "buy": "anything up to mid/high · high flat · max stat",
-   "odds": "the accessory calculator prices every one of these at zero — they sit under its baseline of a better-primary-high accessory, so nobody charges for them",
-   "minimum": "mid/high · high flat · max stat"
   },
   {
    "series": "ring",
    "label": "mid/mid · mid flat · max stat",
    "gold": 6770,
-   "damage": 0.00408,
+   "damage": 0.22183,
+   "total": 6770,
    "from": "low/high · low flat · mid stat",
    "to": "mid/mid · mid flat · max stat",
-   "buy": "a ring: mid/mid primaries, a mid Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/mid primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "mid/mid primaries, mid flat, max main stat"
   },
   {
@@ -1541,54 +1508,54 @@
    "label": "mid/mid · high flat · low stat",
    "gold": 123,
    "damage": 0.00052,
+   "total": 6893,
    "from": "mid/mid · mid flat · max stat",
    "to": "mid/mid · high flat · low stat",
-   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, low main stat",
    "minimum": "mid/mid primaries, high flat, low main stat"
   },
   {
    "series": "ring",
    "label": "mid/mid · high flat · mid stat",
    "gold": 14202,
-   "damage": 0.00455,
+   "damage": 0.0098,
+   "total": 14202,
    "from": "low/high · low flat · high stat",
    "to": "mid/mid · high flat · mid stat",
-   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "mid/mid primaries, high flat, mid main stat"
   },
   {
    "series": "ring",
    "label": "mid/mid · high flat · high stat",
    "gold": 21501,
-   "damage": 0.00447,
+   "damage": 0.00978,
+   "total": 21501,
    "from": "low/high · low flat · max stat",
    "to": "mid/mid · high flat · high stat",
-   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/mid primaries, a high Weapon Power+ line, high main stat",
    "minimum": "mid/mid primaries, high flat, high main stat"
   },
   {
    "series": "ring",
    "label": "high/low · no flat · min stat",
    "gold": 87688,
-   "damage": 0.00125,
+   "damage": 0.00532,
+   "total": 87688,
    "from": "low/high · high flat · min stat",
    "to": "high/low · no flat · min stat",
-   "buy": "a ring: high/low primaries, no flat line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, no flat line, min main stat",
    "minimum": "high/low primaries, no flat, min main stat"
   },
   {
    "series": "ring",
    "label": "high/low · no flat · low stat",
    "gold": 95411,
-   "damage": 0.00109,
+   "damage": 0.00973,
+   "total": 95411,
    "from": "low/high · high flat · low stat",
    "to": "high/low · no flat · low stat",
-   "buy": "a ring: high/low primaries, no flat line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, no flat line, low main stat",
    "minimum": "high/low primaries, no flat, low main stat"
   },
   {
@@ -1596,21 +1563,21 @@
    "label": "high/low · low flat · min stat",
    "gold": 1866,
    "damage": 0.00234,
+   "total": 97277,
    "from": "high/low · no flat · low stat",
    "to": "high/low · low flat · min stat",
-   "buy": "a ring: high/low primaries, a low Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, low flat, min main stat"
   },
   {
    "series": "ring",
    "label": "high/low · no flat · mid stat",
    "gold": 103694,
-   "damage": 0.00093,
+   "damage": 0.00738,
+   "total": 103694,
    "from": "low/high · high flat · mid stat",
    "to": "high/low · no flat · mid stat",
-   "buy": "a ring: high/low primaries, no flat line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, no flat line, mid main stat",
    "minimum": "high/low primaries, no flat, mid main stat"
   },
   {
@@ -1618,21 +1585,21 @@
    "label": "high/low · low flat · low stat",
    "gold": 2026,
    "damage": 0.00235,
+   "total": 105720,
    "from": "high/low · no flat · mid stat",
    "to": "high/low · low flat · low stat",
-   "buy": "a ring: high/low primaries, a low Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a low Weapon Power+ line, low main stat",
    "minimum": "high/low primaries, low flat, low main stat"
   },
   {
    "series": "ring",
    "label": "high/low · no flat · high stat",
    "gold": 112646,
-   "damage": 0.00078,
+   "damage": 0.00735,
+   "total": 112646,
    "from": "low/high · high flat · high stat",
    "to": "high/low · no flat · high stat",
-   "buy": "a ring: high/low primaries, no flat line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, no flat line, high main stat",
    "minimum": "high/low primaries, no flat, high main stat"
   },
   {
@@ -1640,10 +1607,10 @@
    "label": "high/low · mid flat · min stat",
    "gold": 203,
    "damage": 0.00055,
+   "total": 112849,
    "from": "high/low · no flat · high stat",
    "to": "high/low · mid flat · min stat",
-   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, mid flat, min main stat"
   },
   {
@@ -1651,21 +1618,21 @@
    "label": "high/low · low flat · mid stat",
    "gold": 2050,
    "damage": 0.00183,
+   "total": 114899,
    "from": "high/low · mid flat · min stat",
    "to": "high/low · low flat · mid stat",
-   "buy": "a ring: high/low primaries, a low Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "high/low primaries, low flat, mid main stat"
   },
   {
    "series": "ring",
    "label": "high/low · no flat · max stat",
    "gold": 120904,
-   "damage": 0.00062,
+   "damage": 0.00734,
+   "total": 122505,
    "from": "low/high · high flat · max stat",
    "to": "high/low · no flat · max stat",
-   "buy": "a ring: high/low primaries, no flat line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, no flat line, max main stat",
    "minimum": "high/low primaries, no flat, max main stat"
   },
   {
@@ -1673,10 +1640,10 @@
    "label": "high/low · mid flat · low stat",
    "gold": 247,
    "damage": 0.00057,
+   "total": 122752,
    "from": "high/low · no flat · max stat",
    "to": "high/low · mid flat · low stat",
-   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "high/low primaries, mid flat, low main stat"
   },
   {
@@ -1684,10 +1651,10 @@
    "label": "high/low · low flat · high stat",
    "gold": 2252,
    "damage": 0.00179,
+   "total": 125004,
    "from": "high/low · mid flat · low stat",
    "to": "high/low · low flat · high stat",
-   "buy": "a ring: high/low primaries, a low Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a low Weapon Power+ line, high main stat",
    "minimum": "high/low primaries, low flat, high main stat"
   },
   {
@@ -1695,10 +1662,10 @@
    "label": "high/low · mid flat · mid stat",
    "gold": 8779,
    "damage": 0.00794,
+   "total": 133783,
    "from": "high/low · low flat · high stat",
    "to": "high/low · mid flat · mid stat",
-   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "high/low primaries, mid flat, mid main stat"
   },
   {
@@ -1706,10 +1673,10 @@
    "label": "high/low · low flat · max stat",
    "gold": 2270,
    "damage": 0.00178,
+   "total": 136053,
    "from": "high/low · mid flat · mid stat",
    "to": "high/low · low flat · max stat",
-   "buy": "a ring: high/low primaries, a low Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a low Weapon Power+ line, max main stat",
    "minimum": "high/low primaries, low flat, max main stat"
   },
   {
@@ -1717,10 +1684,10 @@
    "label": "high/low · mid flat · high stat",
    "gold": 8892,
    "damage": 0.00793,
+   "total": 144945,
    "from": "high/low · low flat · max stat",
    "to": "high/low · mid flat · high stat",
-   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "high/low primaries, mid flat, high main stat"
   },
   {
@@ -1728,10 +1695,10 @@
    "label": "high/low · high flat · min stat",
    "gold": 168,
    "damage": 0.0005,
+   "total": 145113,
    "from": "high/low · mid flat · high stat",
    "to": "high/low · high flat · min stat",
-   "buy": "a ring: high/low primaries, a high Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/low primaries, high flat, min main stat"
   },
   {
@@ -1739,10 +1706,10 @@
    "label": "high/low · mid flat · max stat",
    "gold": 11099,
    "damage": 0.00923,
+   "total": 156212,
    "from": "high/low · high flat · min stat",
    "to": "high/low · mid flat · max stat",
-   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "high/low primaries, mid flat, max main stat"
   },
   {
@@ -1750,10 +1717,10 @@
    "label": "high/low · high flat · low stat",
    "gold": 191,
    "damage": 0.00051,
+   "total": 156403,
    "from": "high/low · mid flat · max stat",
    "to": "high/low · high flat · low stat",
-   "buy": "a ring: high/low primaries, a high Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a high Weapon Power+ line, low main stat",
    "minimum": "high/low primaries, high flat, low main stat"
   },
   {
@@ -1761,10 +1728,10 @@
    "label": "high/low · high flat · mid stat",
    "gold": 11350,
    "damage": 0.00974,
+   "total": 167753,
    "from": "high/low · high flat · low stat",
    "to": "high/low · high flat · mid stat",
-   "buy": "a ring: high/low primaries, a high Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "high/low primaries, high flat, mid main stat"
   },
   {
@@ -1772,10 +1739,10 @@
    "label": "high/low · high flat · high stat",
    "gold": 11334,
    "damage": 0.00972,
+   "total": 179087,
    "from": "high/low · high flat · mid stat",
    "to": "high/low · high flat · high stat",
-   "buy": "a ring: high/low primaries, a high Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a high Weapon Power+ line, high main stat",
    "minimum": "high/low primaries, high flat, high main stat"
   },
   {
@@ -1783,10 +1750,10 @@
    "label": "high/low · high flat · max stat",
    "gold": 11366,
    "damage": 0.00973,
+   "total": 190453,
    "from": "high/low · high flat · high stat",
    "to": "high/low · high flat · max stat",
-   "buy": "a ring: high/low primaries, a high Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/low primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/low primaries, high flat, max main stat"
   },
   {
@@ -1794,10 +1761,10 @@
    "label": "mid/high · no flat · min stat",
    "gold": 99079,
    "damage": 0.17127,
+   "total": 289532,
    "from": "high/low · high flat · max stat",
    "to": "mid/high · no flat · min stat",
-   "buy": "a ring: mid/high primaries, no flat line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, no flat line, min main stat",
    "minimum": "mid/high primaries, no flat, min main stat"
   },
   {
@@ -1805,10 +1772,10 @@
    "label": "mid/high · no flat · low stat",
    "gold": 12210,
    "damage": 0.00987,
+   "total": 301742,
    "from": "mid/high · no flat · min stat",
    "to": "mid/high · no flat · low stat",
-   "buy": "a ring: mid/high primaries, no flat line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, no flat line, low main stat",
    "minimum": "mid/high primaries, no flat, low main stat"
   },
   {
@@ -1816,10 +1783,10 @@
    "label": "mid/high · low flat · min stat",
    "gold": 2933,
    "damage": 0.00238,
+   "total": 304675,
    "from": "mid/high · no flat · low stat",
    "to": "mid/high · low flat · min stat",
-   "buy": "a ring: mid/high primaries, a low Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a low Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, low flat, min main stat"
   },
   {
@@ -1827,10 +1794,10 @@
    "label": "mid/high · no flat · mid stat",
    "gold": 10082,
    "damage": 0.00749,
+   "total": 314757,
    "from": "mid/high · low flat · min stat",
    "to": "mid/high · no flat · mid stat",
-   "buy": "a ring: mid/high primaries, no flat line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, no flat line, mid main stat",
    "minimum": "mid/high primaries, no flat, mid main stat"
   },
   {
@@ -1838,10 +1805,10 @@
    "label": "mid/high · low flat · low stat",
    "gold": 3163,
    "damage": 0.00239,
+   "total": 317920,
    "from": "mid/high · no flat · mid stat",
    "to": "mid/high · low flat · low stat",
-   "buy": "a ring: mid/high primaries, a low Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a low Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, low flat, low main stat"
   },
   {
@@ -1849,10 +1816,10 @@
    "label": "mid/high · no flat · high stat",
    "gold": 10798,
    "damage": 0.00746,
+   "total": 328718,
    "from": "mid/high · low flat · low stat",
    "to": "mid/high · no flat · high stat",
-   "buy": "a ring: mid/high primaries, no flat line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, no flat line, high main stat",
    "minimum": "mid/high primaries, no flat, high main stat"
   },
   {
@@ -1860,10 +1827,10 @@
    "label": "mid/high · mid flat · min stat",
    "gold": 313,
    "damage": 0.00056,
+   "total": 329031,
    "from": "mid/high · no flat · high stat",
    "to": "mid/high · mid flat · min stat",
-   "buy": "a ring: mid/high primaries, a mid Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, mid flat, min main stat"
   },
   {
@@ -1871,21 +1838,21 @@
    "label": "high/mid · no flat · min stat",
    "gold": 145687,
    "damage": 0.00164,
+   "total": 474718,
    "from": "mid/high · mid flat · min stat",
    "to": "high/mid · no flat · min stat",
-   "buy": "a ring: high/mid primaries, no flat line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, no flat line, min main stat",
    "minimum": "high/mid primaries, no flat, min main stat"
   },
   {
    "series": "ring",
    "label": "mid/high · no flat · max stat",
    "gold": 11738,
-   "damage": 0.00745,
+   "damage": 0.00767,
+   "total": 343936,
    "from": "mid/high · low flat · mid stat",
    "to": "mid/high · no flat · max stat",
-   "buy": "a ring: mid/high primaries, no flat line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, no flat line, max main stat",
    "minimum": "mid/high primaries, no flat, max main stat"
   },
   {
@@ -1893,10 +1860,10 @@
    "label": "mid/high · mid flat · low stat",
    "gold": 376,
    "damage": 0.00058,
+   "total": 344312,
    "from": "mid/high · no flat · max stat",
    "to": "mid/high · mid flat · low stat",
-   "buy": "a ring: mid/high primaries, a mid Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, mid flat, low main stat"
   },
   {
@@ -1904,54 +1871,54 @@
    "label": "high/mid · no flat · low stat",
    "gold": 149367,
    "damage": 0.00155,
+   "total": 493679,
    "from": "mid/high · mid flat · low stat",
    "to": "high/mid · no flat · low stat",
-   "buy": "a ring: high/mid primaries, no flat line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, no flat line, low main stat",
    "minimum": "high/mid primaries, no flat, low main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · low flat · min stat",
    "gold": 150783,
-   "damage": 0.00209,
+   "damage": 0.00236,
+   "total": 498526,
    "from": "mid/high · low flat · high stat",
    "to": "high/mid · low flat · min stat",
-   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, low flat, min main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · no flat · mid stat",
    "gold": 154186,
-   "damage": 0.00147,
+   "damage": 0.00743,
+   "total": 515293,
    "from": "mid/high · mid flat · mid stat",
    "to": "high/mid · no flat · mid stat",
-   "buy": "a ring: high/mid primaries, no flat line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, no flat line, mid main stat",
    "minimum": "high/mid primaries, no flat, mid main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · low flat · low stat",
    "gold": 156461,
-   "damage": 0.00202,
+   "damage": 0.00237,
+   "total": 521021,
    "from": "mid/high · low flat · max stat",
    "to": "high/mid · low flat · low stat",
-   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, low flat, low main stat"
   },
   {
    "series": "ring",
    "label": "mid/high · high flat · min stat",
    "gold": 256,
-   "damage": 0.0005,
+   "damage": 0.00652,
+   "total": 378325,
    "from": "mid/high · mid flat · high stat",
    "to": "mid/high · high flat · min stat",
-   "buy": "a ring: mid/high primaries, a high Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a high Weapon Power+ line, min main stat",
    "minimum": "mid/high primaries, high flat, min main stat"
   },
   {
@@ -1959,10 +1926,10 @@
    "label": "high/mid · no flat · high stat",
    "gold": 162438,
    "damage": 0.00088,
+   "total": 540763,
    "from": "mid/high · high flat · min stat",
    "to": "high/mid · no flat · high stat",
-   "buy": "a ring: high/mid primaries, no flat line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, no flat line, high main stat",
    "minimum": "high/mid primaries, no flat, high main stat"
   },
   {
@@ -1970,10 +1937,10 @@
    "label": "high/mid · mid flat · min stat",
    "gold": 651,
    "damage": 0.00056,
+   "total": 541414,
    "from": "high/mid · no flat · high stat",
    "to": "high/mid · mid flat · min stat",
-   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, mid flat, min main stat"
   },
   {
@@ -1981,21 +1948,21 @@
    "label": "high/mid · low flat · mid stat",
    "gold": 6622,
    "damage": 0.00184,
+   "total": 548036,
    "from": "high/mid · mid flat · min stat",
    "to": "high/mid · low flat · mid stat",
-   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, low flat, mid main stat"
   },
   {
    "series": "ring",
    "label": "mid/high · high flat · low stat",
    "gold": 290,
-   "damage": 0.00052,
+   "damage": 0.00661,
+   "total": 395464,
    "from": "mid/high · mid flat · max stat",
    "to": "mid/high · high flat · low stat",
-   "buy": "a ring: mid/high primaries, a high Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: mid/high primaries, a high Weapon Power+ line, low main stat",
    "minimum": "mid/high primaries, high flat, low main stat"
   },
   {
@@ -2003,10 +1970,10 @@
    "label": "high/mid · no flat · max stat",
    "gold": 177478,
    "damage": 0.00078,
+   "total": 572942,
    "from": "mid/high · high flat · low stat",
    "to": "high/mid · no flat · max stat",
-   "buy": "a ring: high/mid primaries, no flat line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, no flat line, max main stat",
    "minimum": "high/mid primaries, no flat, max main stat"
   },
   {
@@ -2014,10 +1981,10 @@
    "label": "high/mid · mid flat · low stat",
    "gold": 997,
    "damage": 0.00057,
+   "total": 573939,
    "from": "high/mid · no flat · max stat",
    "to": "high/mid · mid flat · low stat",
-   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, mid flat, low main stat"
   },
   {
@@ -2025,21 +1992,21 @@
    "label": "high/mid · low flat · high stat",
    "gold": 9210,
    "damage": 0.00181,
+   "total": 583149,
    "from": "high/mid · mid flat · low stat",
    "to": "high/mid · low flat · high stat",
-   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, low flat, high main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · mid flat · mid stat",
    "gold": 207381,
-   "damage": 0.00127,
+   "damage": 0.00799,
+   "total": 620061,
    "from": "mid/high · high flat · mid stat",
    "to": "high/mid · mid flat · mid stat",
-   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, mid flat, mid main stat"
   },
   {
@@ -2047,21 +2014,21 @@
    "label": "high/mid · low flat · max stat",
    "gold": 9675,
    "damage": 0.00179,
+   "total": 629736,
    "from": "high/mid · mid flat · mid stat",
    "to": "high/mid · low flat · max stat",
-   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a low Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, low flat, max main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · mid flat · high stat",
    "gold": 238937,
-   "damage": 0.00118,
+   "damage": 0.00798,
+   "total": 668807,
    "from": "mid/high · high flat · high stat",
    "to": "high/mid · mid flat · high stat",
-   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, mid flat, high main stat"
   },
   {
@@ -2069,21 +2036,21 @@
    "label": "high/mid · high flat · min stat",
    "gold": 752,
    "damage": 0.0005,
+   "total": 669559,
    "from": "high/mid · mid flat · high stat",
    "to": "high/mid · high flat · min stat",
-   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/mid primaries, high flat, min main stat"
   },
   {
    "series": "ring",
    "label": "high/mid · mid flat · max stat",
    "gold": 272152,
-   "damage": 0.0011,
+   "damage": 0.00929,
+   "total": 719258,
    "from": "mid/high · high flat · max stat",
    "to": "high/mid · mid flat · max stat",
-   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, mid flat, max main stat"
   },
   {
@@ -2091,10 +2058,10 @@
    "label": "high/mid · high flat · low stat",
    "gold": 870,
    "damage": 0.00052,
+   "total": 720128,
    "from": "high/mid · mid flat · max stat",
    "to": "high/mid · high flat · low stat",
-   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, low main stat",
    "minimum": "high/mid primaries, high flat, low main stat"
   },
   {
@@ -2102,10 +2069,10 @@
    "label": "high/mid · high flat · mid stat",
    "gold": 51844,
    "damage": 0.0098,
+   "total": 771972,
    "from": "high/mid · high flat · low stat",
    "to": "high/mid · high flat · mid stat",
-   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "high/mid primaries, high flat, mid main stat"
   },
   {
@@ -2113,10 +2080,10 @@
    "label": "high/mid · high flat · high stat",
    "gold": 51974,
    "damage": 0.00978,
+   "total": 823946,
    "from": "high/mid · high flat · mid stat",
    "to": "high/mid · high flat · high stat",
-   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, high main stat",
    "minimum": "high/mid primaries, high flat, high main stat"
   },
   {
@@ -2124,10 +2091,10 @@
    "label": "high/mid · high flat · max stat",
    "gold": 52322,
    "damage": 0.0098,
+   "total": 876268,
    "from": "high/mid · high flat · high stat",
    "to": "high/mid · high flat · max stat",
-   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/mid primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/mid primaries, high flat, max main stat"
   },
   {
@@ -2135,10 +2102,10 @@
    "label": "high/high · no flat · min stat",
    "gold": 1400731,
    "damage": 0.26512,
+   "total": 2276999,
    "from": "high/mid · high flat · max stat",
    "to": "high/high · no flat · min stat",
-   "buy": "a ring: high/high primaries, no flat line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, no flat line, min main stat",
    "minimum": "high/high primaries, no flat, min main stat"
   },
   {
@@ -2146,10 +2113,10 @@
    "label": "high/high · no flat · low stat",
    "gold": 60373,
    "damage": 0.00987,
+   "total": 2337372,
    "from": "high/high · no flat · min stat",
    "to": "high/high · no flat · low stat",
-   "buy": "a ring: high/high primaries, no flat line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, no flat line, low main stat",
    "minimum": "high/high primaries, no flat, low main stat"
   },
   {
@@ -2157,10 +2124,10 @@
    "label": "high/high · low flat · min stat",
    "gold": 16045,
    "damage": 0.00238,
+   "total": 2353417,
    "from": "high/high · no flat · low stat",
    "to": "high/high · low flat · min stat",
-   "buy": "a ring: high/high primaries, a low Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a low Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, low flat, min main stat"
   },
   {
@@ -2168,10 +2135,10 @@
    "label": "high/high · no flat · mid stat",
    "gold": 55748,
    "damage": 0.00749,
+   "total": 2409165,
    "from": "high/high · low flat · min stat",
    "to": "high/high · no flat · mid stat",
-   "buy": "a ring: high/high primaries, no flat line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, no flat line, mid main stat",
    "minimum": "high/high primaries, no flat, mid main stat"
   },
   {
@@ -2179,10 +2146,10 @@
    "label": "high/high · low flat · low stat",
    "gold": 20344,
    "damage": 0.00239,
+   "total": 2429509,
    "from": "high/high · no flat · mid stat",
    "to": "high/high · low flat · low stat",
-   "buy": "a ring: high/high primaries, a low Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a low Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, low flat, low main stat"
   },
   {
@@ -2190,10 +2157,10 @@
    "label": "high/high · no flat · high stat",
    "gold": 70672,
    "damage": 0.00746,
+   "total": 2500181,
    "from": "high/high · low flat · low stat",
    "to": "high/high · no flat · high stat",
-   "buy": "a ring: high/high primaries, no flat line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, no flat line, high main stat",
    "minimum": "high/high primaries, no flat, high main stat"
   },
   {
@@ -2201,10 +2168,10 @@
    "label": "high/high · mid flat · min stat",
    "gold": 2669,
    "damage": 0.00056,
+   "total": 2502850,
    "from": "high/high · no flat · high stat",
    "to": "high/high · mid flat · min stat",
-   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, mid flat, min main stat"
   },
   {
@@ -2212,10 +2179,10 @@
    "label": "high/high · low flat · mid stat",
    "gold": 27422,
    "damage": 0.00185,
+   "total": 2530272,
    "from": "high/high · mid flat · min stat",
    "to": "high/high · low flat · mid stat",
-   "buy": "a ring: high/high primaries, a low Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a low Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, low flat, mid main stat"
   },
   {
@@ -2223,10 +2190,10 @@
    "label": "high/high · no flat · max stat",
    "gold": 105239,
    "damage": 0.00745,
+   "total": 2635511,
    "from": "high/high · low flat · mid stat",
    "to": "high/high · no flat · max stat",
-   "buy": "a ring: high/high primaries, no flat line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, no flat line, max main stat",
    "minimum": "high/high primaries, no flat, max main stat"
   },
   {
@@ -2234,10 +2201,10 @@
    "label": "high/high · mid flat · low stat",
    "gold": 7202,
    "damage": 0.00058,
+   "total": 2642713,
    "from": "high/high · no flat · max stat",
    "to": "high/high · mid flat · low stat",
-   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, mid flat, low main stat"
   },
   {
@@ -2245,10 +2212,10 @@
    "label": "high/high · low flat · high stat",
    "gold": 70593,
    "damage": 0.00182,
+   "total": 2713306,
    "from": "high/high · mid flat · low stat",
    "to": "high/high · low flat · high stat",
-   "buy": "a ring: high/high primaries, a low Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a low Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, low flat, high main stat"
   },
   {
@@ -2256,10 +2223,10 @@
    "label": "high/high · mid flat · mid stat",
    "gold": 331383,
    "damage": 0.00806,
+   "total": 3044689,
    "from": "high/high · low flat · high stat",
    "to": "high/high · mid flat · mid stat",
-   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, mid flat, mid main stat"
   },
   {
@@ -2267,10 +2234,10 @@
    "label": "high/high · low flat · max stat",
    "gold": 95888,
    "damage": 0.00181,
+   "total": 3140577,
    "from": "high/high · mid flat · mid stat",
    "to": "high/high · low flat · max stat",
-   "buy": "a ring: high/high primaries, a low Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a low Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, low flat, max main stat"
   },
   {
@@ -2278,10 +2245,10 @@
    "label": "high/high · mid flat · high stat",
    "gold": 400534,
    "damage": 0.00804,
+   "total": 3541111,
    "from": "high/high · low flat · max stat",
    "to": "high/high · mid flat · high stat",
-   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, mid flat, high main stat"
   },
   {
@@ -2289,10 +2256,10 @@
    "label": "high/high · high flat · min stat",
    "gold": 7557,
    "damage": 0.0005,
+   "total": 3548668,
    "from": "high/high · mid flat · high stat",
    "to": "high/high · high flat · min stat",
-   "buy": "a ring: high/high primaries, a high Weapon Power+ line, min main stat (10,962)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a high Weapon Power+ line, min main stat",
    "minimum": "high/high primaries, high flat, min main stat"
   },
   {
@@ -2300,10 +2267,10 @@
    "label": "high/high · mid flat · max stat",
    "gold": 497052,
    "damage": 0.00937,
+   "total": 4045720,
    "from": "high/high · high flat · min stat",
    "to": "high/high · mid flat · max stat",
-   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a mid Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, mid flat, max main stat"
   },
   {
@@ -2311,10 +2278,10 @@
    "label": "high/high · high flat · low stat",
    "gold": 8521,
    "damage": 0.00052,
+   "total": 4054241,
    "from": "high/high · mid flat · max stat",
    "to": "high/high · high flat · low stat",
-   "buy": "a ring: high/high primaries, a high Weapon Power+ line, low main stat (11,446)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a high Weapon Power+ line, low main stat",
    "minimum": "high/high primaries, high flat, low main stat"
   },
   {
@@ -2322,10 +2289,10 @@
    "label": "high/high · high flat · mid stat",
    "gold": 505371,
    "damage": 0.00988,
+   "total": 4559612,
    "from": "high/high · high flat · low stat",
    "to": "high/high · high flat · mid stat",
-   "buy": "a ring: high/high primaries, a high Weapon Power+ line, mid main stat (11,930)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a high Weapon Power+ line, mid main stat",
    "minimum": "high/high primaries, high flat, mid main stat"
   },
   {
@@ -2333,10 +2300,10 @@
    "label": "high/high · high flat · high stat",
    "gold": 504124,
    "damage": 0.00986,
+   "total": 5063736,
    "from": "high/high · high flat · mid stat",
    "to": "high/high · high flat · high stat",
-   "buy": "a ring: high/high primaries, a high Weapon Power+ line, high main stat (12,413)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a high Weapon Power+ line, high main stat",
    "minimum": "high/high primaries, high flat, high main stat"
   },
   {
@@ -2344,10 +2311,10 @@
    "label": "high/high · high flat · max stat",
    "gold": 504964,
    "damage": 0.00987,
+   "total": 5568700,
    "from": "high/high · high flat · high stat",
    "to": "high/high · high flat · max stat",
-   "buy": "a ring: high/high primaries, a high Weapon Power+ line, max main stat (12,897)",
-   "odds": "bought outright; the accessory calculator prices this exact configuration on the support market",
+   "buy": "a ring: high/high primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, high flat, max main stat"
   }
  ]
