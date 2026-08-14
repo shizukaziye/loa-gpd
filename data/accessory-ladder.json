@@ -1,0 +1,2725 @@
+{
+ "neck": [
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     null
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.04026,
+    "gold": 0
+   },
+   "gold": 0,
+   "damage": 0.3689976914344138,
+   "label": "high/— + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     null
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.05161,
+    "gold": 2799
+   },
+   "gold": 2799,
+   "damage": 0.38253465289353866,
+   "label": "high/— + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.07443,
+    "gold": 23438
+   },
+   "gold": 23438,
+   "damage": 0.3900584689411515,
+   "label": "high/low + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.07567,
+    "gold": 24606
+   },
+   "gold": 24606,
+   "damage": 0.3914602654700272,
+   "label": "high/low, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.08208,
+    "gold": 31083
+   },
+   "gold": 31083,
+   "damage": 0.40010353711913094,
+   "label": "mid/high, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.08579,
+    "gold": 34970
+   },
+   "gold": 34970,
+   "damage": 0.4036043479475154,
+   "label": "high/low + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.08702,
+    "gold": 36268
+   },
+   "gold": 36268,
+   "damage": 0.4049948307797913,
+   "label": "high/low, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.08921,
+    "gold": 38774
+   },
+   "gold": 38774,
+   "damage": 0.40779110031877763,
+   "label": "high/low + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.0922,
+    "gold": 42211
+   },
+   "gold": 42211,
+   "damage": 0.4122440026866887,
+   "label": "mid/high + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.09344,
+    "gold": 43642
+   },
+   "gold": 43642,
+   "damage": 0.4136457992155792,
+   "label": "mid/high, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.09714,
+    "gold": 48112
+   },
+   "gold": 48112,
+   "damage": 0.4171425276220109,
+   "label": "high/low + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.09835,
+    "gold": 49576
+   },
+   "gold": 49576,
+   "damage": 0.41850152613935737,
+   "label": "high/low, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.10057,
+    "gold": 52572
+   },
+   "gold": 52572,
+   "damage": 0.4213422614741982,
+   "label": "high/low + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.10356,
+    "gold": 56610
+   },
+   "gold": 56610,
+   "damage": 0.4257898816930488,
+   "label": "mid/high + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.10479,
+    "gold": 58283
+   },
+   "gold": 58283,
+   "damage": 0.4271803645253364,
+   "label": "mid/high, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.10698,
+    "gold": 61425
+   },
+   "gold": 61425,
+   "damage": 0.4299766340643438,
+   "label": "mid/high + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.10848,
+    "gold": 63587
+   },
+   "gold": 63587,
+   "damage": 0.43065282941592675,
+   "label": "high/low + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.10969,
+    "gold": 65350
+   },
+   "gold": 65350,
+   "damage": 0.43202074075890246,
+   "label": "high/low, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.11193,
+    "gold": 69091
+   },
+   "gold": 69091,
+   "damage": 0.43488571958026234,
+   "label": "high/low + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.11407,
+    "gold": 72680
+   },
+   "gold": 72680,
+   "damage": 0.4376267800514243,
+   "label": "high/low + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.11491,
+    "gold": 74088
+   },
+   "gold": 74088,
+   "damage": 0.43932806136754493,
+   "label": "mid/high + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.11612,
+    "gold": 76122
+   },
+   "gold": 76122,
+   "damage": 0.4406870598849101,
+   "label": "mid/high, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.11834,
+    "gold": 80178
+   },
+   "gold": 80178,
+   "damage": 0.44352779521973057,
+   "label": "mid/high + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.11982,
+    "gold": 82881
+   },
+   "gold": 82881,
+   "damage": 0.44417565332485104,
+   "label": "high/low + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.12327,
+    "gold": 89291
+   },
+   "gold": 89291,
+   "damage": 0.44840128822383446,
+   "label": "high/low + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.12545,
+    "gold": 93369
+   },
+   "gold": 93369,
+   "damage": 0.45118682646556746,
+   "label": "high/low + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.12625,
+    "gold": 94861
+   },
+   "gold": 94861,
+   "damage": 0.45283836316148773,
+   "label": "mid/high + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.12746,
+    "gold": 97150
+   },
+   "gold": 97150,
+   "damage": 0.4542062745044765,
+   "label": "mid/high, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.1297,
+    "gold": 101789
+   },
+   "gold": 101789,
+   "damage": 0.4570712533258183,
+   "label": "mid/high + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.13184,
+    "gold": 106230
+   },
+   "gold": 106230,
+   "damage": 0.4598123137969718,
+   "label": "mid/high + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.13462,
+    "gold": 111992
+   },
+   "gold": 111992,
+   "damage": 0.461929383151119,
+   "label": "high/low + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.13682,
+    "gold": 116598
+   },
+   "gold": 116598,
+   "damage": 0.4647391635758982,
+   "label": "high/low + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.13759,
+    "gold": 118216
+   },
+   "gold": 118216,
+   "damage": 0.4663611870703876,
+   "label": "mid/high + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.14104,
+    "gold": 125523
+   },
+   "gold": 125523,
+   "damage": 0.4705868219693805,
+   "label": "mid/high + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.14322,
+    "gold": 130156
+   },
+   "gold": 130156,
+   "damage": 0.4733723602111274,
+   "label": "mid/high + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.14816,
+    "gold": 140681
+   },
+   "gold": 140681,
+   "damage": 0.47826359174003247,
+   "label": "high/low + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.15239,
+    "gold": 149692
+   },
+   "gold": 149692,
+   "damage": 0.48411491689665476,
+   "label": "mid/high + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.15459,
+    "gold": 154403
+   },
+   "gold": 154403,
+   "damage": 0.4869246973214436,
+   "label": "mid/high + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.15952,
+    "gold": 164979
+   },
+   "gold": 164979,
+   "damage": 0.4918005531991448,
+   "label": "high/low + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.16593,
+    "gold": 178760
+   },
+   "gold": 178760,
+   "damage": 0.5004491254855872,
+   "label": "mid/high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.17729,
+    "gold": 203187
+   },
+   "gold": 203187,
+   "damage": 0.5139860869446972,
+   "label": "mid/high + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.19903,
+    "gold": 250000
+   },
+   "gold": 250000,
+   "damage": 0.514332699774486,
+   "label": "high/mid, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.20915,
+    "gold": 274298
+   },
+   "gold": 274298,
+   "damage": 0.5264731653420366,
+   "label": "high/mid + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.21039,
+    "gold": 277308
+   },
+   "gold": 277308,
+   "damage": 0.5278749618708971,
+   "label": "high/mid, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.22051,
+    "gold": 305313
+   },
+   "gold": 305313,
+   "damage": 0.5400190443483913,
+   "label": "high/mid + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.22174,
+    "gold": 308762
+   },
+   "gold": 308762,
+   "damage": 0.5414095271806698,
+   "label": "high/mid, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.22393,
+    "gold": 315986
+   },
+   "gold": 315986,
+   "damage": 0.5442057967196626,
+   "label": "high/mid + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.23186,
+    "gold": 342410
+   },
+   "gold": 342410,
+   "damage": 0.5535572240228851,
+   "label": "high/mid + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.23307,
+    "gold": 346486
+   },
+   "gold": 346486,
+   "damage": 0.5549162225402232,
+   "label": "high/mid, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.23529,
+    "gold": 355893
+   },
+   "gold": 355893,
+   "damage": 0.5577569578750673,
+   "label": "high/mid + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.2432,
+    "gold": 389687
+   },
+   "gold": 389687,
+   "damage": 0.5670675258168134,
+   "label": "high/mid + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.24441,
+    "gold": 394994
+   },
+   "gold": 394994,
+   "damage": 0.5684354371597936,
+   "label": "high/mid, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.24665,
+    "gold": 408894
+   },
+   "gold": 408894,
+   "damage": 0.5713004159811327,
+   "label": "high/mid + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.24879,
+    "gold": 422408
+   },
+   "gold": 422408,
+   "damage": 0.5740414764522899,
+   "label": "high/mid + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.25454,
+    "gold": 458831
+   },
+   "gold": 458831,
+   "damage": 0.5805903497257191,
+   "label": "high/mid + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.25799,
+    "gold": 481664
+   },
+   "gold": 481664,
+   "damage": 0.584815984624707,
+   "label": "high/mid + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.26017,
+    "gold": 496389
+   },
+   "gold": 496389,
+   "damage": 0.5876015228664444,
+   "label": "high/mid + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.26934,
+    "gold": 558672
+   },
+   "gold": 558672,
+   "damage": 0.5983440795519922,
+   "label": "high/mid + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.27154,
+    "gold": 573945
+   },
+   "gold": 573945,
+   "damage": 0.601153859976797,
+   "label": "high/mid + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.28288,
+    "gold": 653143
+   },
+   "gold": 653143,
+   "damage": 0.6146782881408999,
+   "label": "high/mid + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.29424,
+    "gold": 732836
+   },
+   "gold": 732836,
+   "damage": 0.6282152496000241,
+   "label": "high/mid + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.36045,
+    "gold": 1200000
+   },
+   "gold": 1200000,
+   "damage": 0.6777850761843448,
+   "label": "high/high, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.37057,
+    "gold": 1281881
+   },
+   "gold": 1281881,
+   "damage": 0.6899255417518915,
+   "label": "high/high + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.37181,
+    "gold": 1292054
+   },
+   "gold": 1292054,
+   "damage": 0.6913273382807603,
+   "label": "high/high, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.38193,
+    "gold": 1390846
+   },
+   "gold": 1390846,
+   "damage": 0.7034714207582748,
+   "label": "high/high + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.38316,
+    "gold": 1403073
+   },
+   "gold": 1403073,
+   "damage": 0.7048619035905209,
+   "label": "high/high, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.38535,
+    "gold": 1430624
+   },
+   "gold": 1430624,
+   "damage": 0.7076581731295128,
+   "label": "high/high + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.39329,
+    "gold": 1531824
+   },
+   "gold": 1531824,
+   "damage": 0.7170096004327313,
+   "label": "high/high + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.39449,
+    "gold": 1547582
+   },
+   "gold": 1547582,
+   "damage": 0.718368598950086,
+   "label": "high/high, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.39672,
+    "gold": 1590330
+   },
+   "gold": 1590330,
+   "damage": 0.7212093342849295,
+   "label": "high/high + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.40462,
+    "gold": 1745579
+   },
+   "gold": 1745579,
+   "damage": 0.7305199022266787,
+   "label": "high/high + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.40583,
+    "gold": 1770567
+   },
+   "gold": 1770567,
+   "damage": 0.7318878135696558,
+   "label": "high/high, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.40808,
+    "gold": 1905294
+   },
+   "gold": 1905294,
+   "damage": 0.7347527923909962,
+   "label": "high/high + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 15178,
+    "Q": 1.41022,
+    "gold": 2033768
+   },
+   "gold": 2033768,
+   "damage": 0.7374938528621566,
+   "label": "high/high + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.41596,
+    "gold": 2378460
+   },
+   "gold": 2378460,
+   "damage": 0.7440427261355712,
+   "label": "high/high + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.41941,
+    "gold": 2585517
+   },
+   "gold": 2585517,
+   "damage": 0.7482683610345818,
+   "label": "high/high + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 15848,
+    "Q": 1.42159,
+    "gold": 2716243
+   },
+   "gold": 2716243,
+   "damage": 0.7510538992763115,
+   "label": "high/high + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.43076,
+    "gold": 3266383
+   },
+   "gold": 3266383,
+   "damage": 0.7617964559618416,
+   "label": "high/high + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 16518,
+    "Q": 1.43296,
+    "gold": 3398341
+   },
+   "gold": 3398341,
+   "damage": 0.7646062363866506,
+   "label": "high/high + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 17187,
+    "Q": 1.44431,
+    "gold": 4079047
+   },
+   "gold": 4079047,
+   "damage": 0.7781306645507863,
+   "label": "high/high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "neck",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 17857,
+    "Q": 1.45566,
+    "gold": 4760395
+   },
+   "gold": 4760395,
+   "damage": 0.7916676260099028,
+   "label": "high/high + high wpn flat, max main stat"
+  }
+ ],
+ "earring": [
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 11806,
+    "Q": 0.58676,
+    "gold": 0
+   },
+   "gold": 0,
+   "damage": 0,
+   "label": "high, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 12327,
+    "Q": 0.59572,
+    "gold": 3399
+   },
+   "gold": 3399,
+   "damage": 0.010630016081604386,
+   "label": "high, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 11806,
+    "Q": 0.59668,
+    "gold": 10217
+   },
+   "gold": 10217,
+   "damage": 0.012254275339129286,
+   "label": "high + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 12848,
+    "Q": 0.60467,
+    "gold": 66953
+   },
+   "gold": 66953,
+   "damage": 0.0212553225262054,
+   "label": "high, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 12327,
+    "Q": 0.60564,
+    "gold": 73841
+   },
+   "gold": 73841,
+   "damage": 0.022887118459609227,
+   "label": "high + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 11806,
+    "Q": 0.61116,
+    "gold": 113231
+   },
+   "gold": 113231,
+   "damage": 0.030153114715366774,
+   "label": "high + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 13368,
+    "Q": 0.6136,
+    "gold": 130609
+   },
+   "gold": 130609,
+   "damage": 0.03185554380003803,
+   "label": "high, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 12848,
+    "Q": 0.61459,
+    "gold": 137706
+   },
+   "gold": 137706,
+   "damage": 0.033515250390170226,
+   "label": "high + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 12327,
+    "Q": 0.62012,
+    "gold": 177400
+   },
+   "gold": 177400,
+   "damage": 0.04079008644269727,
+   "label": "high + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 13889,
+    "Q": 0.62254,
+    "gold": 194765
+   },
+   "gold": 194765,
+   "damage": 0.04247145496390659,
+   "label": "high, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 13368,
+    "Q": 0.62352,
+    "gold": 201870
+   },
+   "gold": 201870,
+   "damage": 0.04411829018011402,
+   "label": "high + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 12848,
+    "Q": 0.62908,
+    "gold": 242319
+   },
+   "gold": 242319,
+   "damage": 0.05142234471194315,
+   "label": "high + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 13889,
+    "Q": 0.63247,
+    "gold": 267024
+   },
+   "gold": 267024,
+   "damage": 0.054737023732411,
+   "label": "high + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 11806,
+    "Q": 0.63553,
+    "gold": 289507
+   },
+   "gold": 289507,
+   "damage": 0.06026837722237545,
+   "label": "high + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 13368,
+    "Q": 0.63802,
+    "gold": 307750
+   },
+   "gold": 307750,
+   "damage": 0.06202950066146603,
+   "label": "high + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 12327,
+    "Q": 0.6445,
+    "gold": 355596
+   },
+   "gold": 355596,
+   "damage": 0.07091229377019234,
+   "label": "high + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 13889,
+    "Q": 0.64697,
+    "gold": 373826
+   },
+   "gold": 373826,
+   "damage": 0.072652356028244,
+   "label": "high + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 12848,
+    "Q": 0.65346,
+    "gold": 422358
+   },
+   "gold": 422358,
+   "damage": 0.08155149304391122,
+   "label": "high + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 13368,
+    "Q": 0.66241,
+    "gold": 489479
+   },
+   "gold": 489479,
+   "damage": 0.09216557287466609,
+   "label": "high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "earring",
+    "prim": [
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 13889,
+    "Q": 0.67136,
+    "gold": 557258
+   },
+   "gold": 557258,
+   "damage": 0.10279536163397567,
+   "label": "high + high wpn flat, max main stat"
+  }
+ ],
+ "ring": [
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "low",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.30114,
+    "gold": 0
+   },
+   "gold": 0,
+   "damage": 0.851405088814702,
+   "label": "low/high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "low",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.30955,
+    "gold": 1601
+   },
+   "gold": 1601,
+   "damage": 0.8613858011346547,
+   "label": "low/high + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.43441,
+    "gold": 114899
+   },
+   "gold": 114899,
+   "damage": 0.8631823548196573,
+   "label": "high/low + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.44078,
+    "gold": 122505
+   },
+   "gold": 122505,
+   "damage": 0.870603777771006,
+   "label": "high/low, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.44097,
+    "gold": 122752
+   },
+   "gold": 122752,
+   "damage": 0.8711800880146636,
+   "label": "high/low + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.44268,
+    "gold": 125004
+   },
+   "gold": 125004,
+   "damage": 0.8729935400273303,
+   "label": "high/low + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.44926,
+    "gold": 133783
+   },
+   "gold": 133783,
+   "damage": 0.8810194501375391,
+   "label": "high/low + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.45095,
+    "gold": 136053
+   },
+   "gold": 136053,
+   "damage": 0.8828210038074623,
+   "label": "high/low + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.45752,
+    "gold": 144945
+   },
+   "gold": 144945,
+   "damage": 0.8908344509875287,
+   "label": "high/low + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.45765,
+    "gold": 145113
+   },
+   "gold": 145113,
+   "damage": 0.8913352055600686,
+   "label": "high/low + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.4658,
+    "gold": 156212
+   },
+   "gold": 156212,
+   "damage": 0.9006657363654922,
+   "label": "high/low + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.46594,
+    "gold": 156403
+   },
+   "gold": 156403,
+   "damage": 0.9011850544390583,
+   "label": "high/low + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.47423,
+    "gold": 167753
+   },
+   "gold": 167753,
+   "damage": 0.9110308515121271,
+   "label": "high/low + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.4825,
+    "gold": 179087
+   },
+   "gold": 179087,
+   "damage": 0.9208522707488294,
+   "label": "high/low + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "low"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.49079,
+    "gold": 190453
+   },
+   "gold": 190453,
+   "damage": 0.9306899845306021,
+   "label": "high/low + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.56293,
+    "gold": 289532
+   },
+   "gold": 289532,
+   "damage": 1.0973782726130012,
+   "label": "mid/high, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.57135,
+    "gold": 301742
+   },
+   "gold": 301742,
+   "damage": 1.107358352593547,
+   "label": "mid/high, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.57325,
+    "gold": 304675
+   },
+   "gold": 304675,
+   "damage": 1.1097626222988235,
+   "label": "mid/high + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.57976,
+    "gold": 314757
+   },
+   "gold": 314757,
+   "damage": 1.1173343142081231,
+   "label": "mid/high, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.58167,
+    "gold": 317920
+   },
+   "gold": 317920,
+   "damage": 1.119745343492929,
+   "label": "mid/high + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.58815,
+    "gold": 328718
+   },
+   "gold": 328718,
+   "damage": 1.1272855627674054,
+   "label": "mid/high, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.58832,
+    "gold": 329031
+   },
+   "gold": 329031,
+   "damage": 1.1278514219190119,
+   "label": "mid/high + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.59008,
+    "gold": 332198
+   },
+   "gold": 332198,
+   "damage": 1.12972394496766,
+   "label": "mid/high + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.59655,
+    "gold": 343936
+   },
+   "gold": 343936,
+   "damage": 1.1372533083181573,
+   "label": "mid/high, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.59674,
+    "gold": 344312
+   },
+   "gold": 344312,
+   "damage": 1.137838000328332,
+   "label": "mid/high + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.59847,
+    "gold": 347743
+   },
+   "gold": 347743,
+   "damage": 1.139677826584997,
+   "label": "mid/high + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.60516,
+    "gold": 361107
+   },
+   "gold": 361107,
+   "damage": 1.1478204570415071,
+   "label": "mid/high + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.60688,
+    "gold": 364560
+   },
+   "gold": 364560,
+   "damage": 1.1496482092961342,
+   "label": "mid/high + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.61356,
+    "gold": 378069
+   },
+   "gold": 378069,
+   "damage": 1.1577781839633445,
+   "label": "mid/high + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.61368,
+    "gold": 378325
+   },
+   "gold": 378325,
+   "damage": 1.1582862199405506,
+   "label": "mid/high + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.62197,
+    "gold": 395174
+   },
+   "gold": 395174,
+   "damage": 1.167752417969766,
+   "label": "mid/high + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.62211,
+    "gold": 395464
+   },
+   "gold": 395464,
+   "damage": 1.1682792866234972,
+   "label": "mid/high + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.63053,
+    "gold": 412680
+   },
+   "gold": 412680,
+   "damage": 1.1782682282845134,
+   "label": "mid/high + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.63893,
+    "gold": 429870
+   },
+   "gold": 429870,
+   "damage": 1.1882324234435577,
+   "label": "mid/high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "mid",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.64735,
+    "gold": 447106
+   },
+   "gold": 447106,
+   "damage": 1.1982131357634862,
+   "label": "mid/high + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.71935,
+    "gold": 719258
+   },
+   "gold": 719258,
+   "damage": 1.204002163770811,
+   "label": "high/mid + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.71949,
+    "gold": 720128
+   },
+   "gold": 720128,
+   "damage": 1.2045249076514126,
+   "label": "high/mid + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.72784,
+    "gold": 771972
+   },
+   "gold": 771972,
+   "damage": 1.214435651512415,
+   "label": "high/mid + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.73617,
+    "gold": 823946
+   },
+   "gold": 823946,
+   "damage": 1.2243218503187259,
+   "label": "high/mid + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "mid"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 1.74452,
+    "gold": 876268
+   },
+   "gold": 876268,
+   "damage": 1.2342244447249127,
+   "label": "high/mid + high wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.96679,
+    "gold": 2276999
+   },
+   "gold": 2276999,
+   "damage": 1.50007919221334,
+   "label": "high/high, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.9752,
+    "gold": 2337372
+   },
+   "gold": 2337372,
+   "damage": 1.5100592721938884,
+   "label": "high/high, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.97711,
+    "gold": 2353417
+   },
+   "gold": 2353417,
+   "damage": 1.5124635418991303,
+   "label": "high/high + low wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.98361,
+    "gold": 2409165
+   },
+   "gold": 2409165,
+   "damage": 1.5200352338084726,
+   "label": "high/high, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 1.98552,
+    "gold": 2429509
+   },
+   "gold": 2429509,
+   "damage": 1.5224462630932536,
+   "label": "high/high + low wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 1.992,
+    "gold": 2500181
+   },
+   "gold": 2500181,
+   "damage": 1.5299864823677292,
+   "label": "high/high, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 1.99218,
+    "gold": 2502850
+   },
+   "gold": 2502850,
+   "damage": 1.530552341519322,
+   "label": "high/high + mid wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 1.99394,
+    "gold": 2530272
+   },
+   "gold": 2530272,
+   "damage": 1.5324248645679854,
+   "label": "high/high + low wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": null,
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 2.00041,
+    "gold": 2635511
+   },
+   "gold": 2635511,
+   "damage": 1.5399542279185026,
+   "label": "high/high, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 2.0006,
+    "gold": 2642713
+   },
+   "gold": 2642713,
+   "damage": 1.540538919928663,
+   "label": "high/high + mid wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 2.00233,
+    "gold": 2713306
+   },
+   "gold": 2713306,
+   "damage": 1.5423787461853256,
+   "label": "high/high + low wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 2.00901,
+    "gold": 3044689
+   },
+   "gold": 3044689,
+   "damage": 1.5505213766418355,
+   "label": "high/high + mid wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "low",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 2.01074,
+    "gold": 3140577
+   },
+   "gold": 3140577,
+   "damage": 1.5523491288964508,
+   "label": "high/high + low wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 2.01741,
+    "gold": 3541111
+   },
+   "gold": 3541111,
+   "damage": 1.560479103563677,
+   "label": "high/high + mid wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "min",
+    "msVal": 10962,
+    "Q": 2.01754,
+    "gold": 3548668
+   },
+   "gold": 3548668,
+   "damage": 1.5609871395408872,
+   "label": "high/high + high wpn flat, min main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "mid",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 2.02582,
+    "gold": 4045720
+   },
+   "gold": 4045720,
+   "damage": 1.5704533375700782,
+   "label": "high/high + mid wpn flat, max main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "low",
+    "msVal": 11446,
+    "Q": 2.02596,
+    "gold": 4054241
+   },
+   "gold": 4054241,
+   "damage": 1.570980206223835,
+   "label": "high/high + high wpn flat, low main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "mid",
+    "msVal": 11930,
+    "Q": 2.03439,
+    "gold": 4559612
+   },
+   "gold": 4559612,
+   "damage": 1.5809691478848305,
+   "label": "high/high + high wpn flat, mid main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "high",
+    "msVal": 12413,
+    "Q": 2.04279,
+    "gold": 5063736
+   },
+   "gold": 5063736,
+   "damage": 1.5909333430438821,
+   "label": "high/high + high wpn flat, high main stat"
+  },
+  {
+   "cfg": {
+    "slot": "ring",
+    "prim": [
+     "high",
+     "high"
+    ],
+    "flat": "high",
+    "ms": "max",
+    "msVal": 12897,
+    "Q": 2.0512,
+    "gold": 5568700
+   },
+   "gold": 5568700,
+   "damage": 1.6009140553638292,
+   "label": "high/high + high wpn flat, max main stat"
+  }
+ ]
+}

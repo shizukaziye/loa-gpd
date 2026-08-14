@@ -9,67 +9,9 @@
    "detail": "704 stones at 9 pheons each, P(level 5+) = 0.13793%",
    "buy": "uncut Ancient stones at 9 pheons each, 20,132g apiece",
    "odds": "0.13793% of facets reach activation level 5 or more; 725 stones for one, 704 above a 7-7",
-   "minimum": "any 9-7, 10-6, 9-9 or 10-10 — all give the same +1.5% basic attack power"
-  },
-  {
-   "series": "neck",
-   "label": "high → high/low",
-   "gold": 13962,
-   "damage": 0.1093,
-   "detail": "accessory calculator price",
-   "buy": "a cut neck from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a necklace with high Stigma and a low Gauge Gain line"
-  },
-  {
-   "series": "neck",
-   "label": "high/low → high/mid",
-   "gold": 236038,
-   "damage": 0.1364,
-   "detail": "accessory calculator price",
-   "buy": "a cut neck from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a necklace with high Stigma and a low Gauge Gain line"
-  },
-  {
-   "series": "neck",
-   "label": "high/mid → high/high",
-   "gold": 950000,
-   "damage": 0.1635,
-   "detail": "accessory calculator price",
-   "buy": "a cut neck from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a necklace with high Stigma and a mid Gauge Gain line"
-  },
-  {
-   "series": "ring",
-   "label": "high → high/low",
-   "gold": 87688,
-   "damage": 0.2508,
-   "detail": "accessory calculator price",
-   "buy": "a cut ring from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a ring with high Ally Damage and a low Ally Atk line"
-  },
-  {
-   "series": "ring",
-   "label": "high/low → high/mid",
-   "gold": 387031,
-   "damage": 0.3057,
-   "detail": "accessory calculator price",
-   "buy": "a cut ring from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a ring with high Ally Damage and a low Ally Atk line"
-  },
-  {
-   "series": "ring",
-   "label": "high/mid → high/high",
-   "gold": 1802280,
-   "damage": 0.3693,
-   "detail": "accessory calculator price",
-   "buy": "a cut ring from the auction house",
-   "odds": "priced by the accessory calculator, whose necklace anchors are your own market numbers",
-   "minimum": "a ring with high Ally Damage and a mid Ally Atk line"
+   "minimum": "any 9-7, 10-6, 9-9 or 10-10 — all give the same +1.5% basic attack power",
+   "from": "7-7",
+   "to": "9-7"
   },
   {
    "series": "bracelet",
@@ -79,7 +21,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 61/61 bracelet, about 40g plus 20 pheons",
    "odds": "98.78% of rolled bracelets reach D+, so 1 of them on average",
-   "minimum": "86/78 with nothing"
+   "minimum": "spec 86/78, nothing",
+   "from": "D",
+   "to": "D+"
   },
   {
    "series": "bracelet",
@@ -89,7 +33,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 91/91 bracelet, about 4,725g plus 20 pheons",
    "odds": "88.44% of rolled bracelets reach C-, so 1 of them on average",
-   "minimum": "76/76 with weapon power blue"
+   "minimum": "spec 76/76, weapon power blue",
+   "from": "D+",
+   "to": "C-"
   },
   {
    "series": "bracelet",
@@ -99,7 +45,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 87/87 bracelet, about 3,308g plus 20 pheons",
    "odds": "64.34% of rolled bracelets reach C, so 2 of them on average",
-   "minimum": "74/66 with ally damage blue"
+   "minimum": "spec 74/66, ally damage blue",
+   "from": "C-",
+   "to": "C"
   },
   {
    "series": "bracelet",
@@ -109,7 +57,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 93/93 bracelet, about 5,772g plus 20 pheons",
    "odds": "52.78% of rolled bracelets reach C+, so 2 of them on average",
-   "minimum": "93/99 with ally damage blue"
+   "minimum": "spec 93/99, ally damage blue",
+   "from": "C",
+   "to": "C+"
   },
   {
    "series": "bracelet",
@@ -119,7 +69,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 93/94 bracelet, about 6,085g plus 20 pheons",
    "odds": "36.31% of rolled bracelets reach B-, so 3 of them on average",
-   "minimum": "75/96 with crit resist blue"
+   "minimum": "spec 75/96, crit resist blue",
+   "from": "C+",
+   "to": "B-"
   },
   {
    "series": "bracelet",
@@ -129,7 +81,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 94/94 bracelet, about 6,423g plus 20 pheons",
    "odds": "21.35% of rolled bracelets reach B, so 5 of them on average",
-   "minimum": "77/76 with crit dmg resist blue + ally atk power blue"
+   "minimum": "spec 77/76, crit dmg resist blue + ally atk power blue",
+   "from": "B-",
+   "to": "B"
   },
   {
    "series": "bracelet",
@@ -139,7 +93,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 94/94 bracelet, about 6,423g plus 20 pheons",
    "odds": "9.93% of rolled bracelets reach B+, so 10 of them on average",
-   "minimum": "78/110 with crit dmg resist epic + weapon power epic"
+   "minimum": "spec 78/110, crit dmg resist epic + weapon power epic",
+   "from": "B",
+   "to": "B+"
   },
   {
    "series": "bracelet",
@@ -149,7 +105,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 97/97 bracelet, about 9,144g plus 20 pheons",
    "odds": "4.62% of rolled bracelets reach A-, so 22 of them on average",
-   "minimum": "101/73 with crit dmg resist legendary + ally atk power blue"
+   "minimum": "spec 101/73, crit dmg resist legendary + ally atk power blue",
+   "from": "B+",
+   "to": "A-"
   },
   {
    "series": "bracelet",
@@ -159,7 +117,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 95/96 bracelet, about 7,613g plus 20 pheons",
    "odds": "1.62% of rolled bracelets reach A, so 62 of them on average",
-   "minimum": "63/82 with crit dmg resist legendary + defence shred blue"
+   "minimum": "spec 63/82, crit dmg resist legendary + defence shred blue",
+   "from": "A-",
+   "to": "A"
   },
   {
    "series": "bracelet",
@@ -169,7 +129,9 @@
    "detail": "buy unrolled, use all seven rolls",
    "buy": "an unrolled 96/97 bracelet, about 8,588g plus 20 pheons",
    "odds": "0.52% of rolled bracelets reach A+, so 192 of them on average",
-   "minimum": "102/82 with crit dmg resist epic + crit resist blue + weapon power (stacking) epic"
+   "minimum": "spec 102/82, crit dmg resist epic + crit resist blue + weapon power (stacking) epic",
+   "from": "A",
+   "to": "A+"
   },
   {
    "series": "bracelet",
@@ -179,7 +141,9 @@
    "detail": "costs more than it is worth",
    "buy": "an unrolled 98/98 bracelet, about 10,417g plus 20 pheons",
    "odds": "0.17% of rolled bracelets reach S-, so 588 of them on average",
-   "minimum": "76/72 with crit resist epic + crit dmg resist blue + shielded dmg epic"
+   "minimum": "spec 76/72, crit resist epic + crit dmg resist blue + shielded dmg epic",
+   "from": "A+",
+   "to": "S-"
   },
   {
    "series": "bracelet",
@@ -189,7 +153,9 @@
    "detail": "costs more than it is worth",
    "buy": "an unrolled 98/99 bracelet, about 11,148g plus 20 pheons",
    "odds": "0.039% of rolled bracelets reach S, so 2,564 of them on average",
-   "minimum": "76/83 with crit dmg resist epic + crit resist blue + defence shred epic"
+   "minimum": "spec 76/83, crit dmg resist epic + crit resist blue + defence shred epic",
+   "from": "S-",
+   "to": "S"
   },
   {
    "series": "bracelet",
@@ -199,7 +165,9 @@
    "detail": "costs more than it is worth",
    "buy": "an unrolled 104/105 bracelet, about 29,070g plus 20 pheons",
    "odds": "0.011% of rolled bracelets reach S+, so 9,091 of them on average",
-   "minimum": "rarer than 1 in 3 million rolls"
+   "minimum": "rarer than 1 in 3 million rolls",
+   "from": "S",
+   "to": "S+"
   },
   {
    "series": "arkgrid",
@@ -209,7 +177,9 @@
    "detail": "per gem, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at C- — grade 60 on the Loseii ladder, the lowest the grid tool bands"
+   "minimum": "one gem at C- — grade 60 on the Loseii ladder, the lowest the grid tool bands",
+   "from": "ungraded",
+   "to": "C-"
   },
   {
    "series": "arkgrid",
@@ -219,7 +189,9 @@
    "detail": "per gem, epic cuts at 60:30:10, duds fused",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at C on the Loseii grading scale"
+   "minimum": "one gem at C on the Loseii grading scale",
+   "from": "C-",
+   "to": "C"
   },
   {
    "series": "arkgrid",
@@ -229,7 +201,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at C+ on the Loseii grading scale"
+   "minimum": "one gem at C+ on the Loseii grading scale",
+   "from": "C",
+   "to": "C+"
   },
   {
    "series": "arkgrid",
@@ -239,7 +213,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at B- on the Loseii grading scale"
+   "minimum": "one gem at B- on the Loseii grading scale",
+   "from": "C+",
+   "to": "B-"
   },
   {
    "series": "arkgrid",
@@ -249,7 +225,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at B on the Loseii grading scale"
+   "minimum": "one gem at B on the Loseii grading scale",
+   "from": "B-",
+   "to": "B"
   },
   {
    "series": "arkgrid",
@@ -259,7 +237,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at B+ on the Loseii grading scale"
+   "minimum": "one gem at B+ on the Loseii grading scale",
+   "from": "B",
+   "to": "B+"
   },
   {
    "series": "arkgrid",
@@ -269,7 +249,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at A- on the Loseii grading scale"
+   "minimum": "one gem at A- on the Loseii grading scale",
+   "from": "B+",
+   "to": "A-"
   },
   {
    "series": "arkgrid",
@@ -279,7 +261,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at A on the Loseii grading scale"
+   "minimum": "one gem at A on the Loseii grading scale",
+   "from": "A-",
+   "to": "A"
   },
   {
    "series": "arkgrid",
@@ -289,7 +273,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at A+ on the Loseii grading scale"
+   "minimum": "one gem at A+ on the Loseii grading scale",
+   "from": "A",
+   "to": "A+"
   },
   {
    "series": "arkgrid",
@@ -299,7 +285,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at S- on the Loseii grading scale"
+   "minimum": "one gem at S- on the Loseii grading scale",
+   "from": "A+",
+   "to": "S-"
   },
   {
    "series": "arkgrid",
@@ -309,7 +297,9 @@
    "detail": "per gem",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at S on the Loseii grading scale"
+   "minimum": "one gem at S on the Loseii grading scale",
+   "from": "S-",
+   "to": "S"
   },
   {
    "series": "arkgrid",
@@ -319,17 +309,240 @@
    "detail": "per gem; the S to S+ band is only 1.3 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "one gem at S+ on the Loseii grading scale"
+   "minimum": "one gem at S+ on the Loseii grading scale",
+   "from": "S",
+   "to": "S+"
+  },
+  {
+   "series": "neck",
+   "label": "high/low +low flat",
+   "gold": 23438,
+   "damage": 0.02106,
+   "from": "high/— + high wpn flat, high main stat",
+   "to": "high/low + low wpn flat, min main stat",
+   "buy": "a cut neck — high/low + low wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + low wpn flat, min main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/low +mid flat",
+   "gold": 15336,
+   "damage": 0.01773,
+   "from": "high/low + low wpn flat, min main stat",
+   "to": "high/low + mid wpn flat, min main stat",
+   "buy": "a cut neck — high/low + mid wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + mid wpn flat, min main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/low +low flat",
+   "gold": 24813,
+   "damage": 0.02286,
+   "from": "high/low + mid wpn flat, min main stat",
+   "to": "high/low + low wpn flat, high main stat",
+   "buy": "a cut neck — high/low + low wpn flat, high main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + low wpn flat, high main stat"
+  },
+  {
+   "series": "neck",
+   "label": "mid/high +mid flat",
+   "gold": 38202,
+   "damage": 0.02642,
+   "from": "high/low + low wpn flat, high main stat",
+   "to": "mid/high + mid wpn flat, mid main stat",
+   "buy": "a cut neck — mid/high + mid wpn flat, mid main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "mid/high + mid wpn flat, mid main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/low +high flat",
+   "gold": 63190,
+   "damage": 0.03473,
+   "from": "mid/high + mid wpn flat, mid main stat",
+   "to": "high/low + high wpn flat, max main stat",
+   "buy": "a cut neck — high/low + high wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + high wpn flat, max main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/mid +low flat",
+   "gold": 109319,
+   "damage": 0.03467,
+   "from": "high/low + high wpn flat, max main stat",
+   "to": "high/mid + low wpn flat, min main stat",
+   "buy": "a cut neck — high/mid + low wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/mid + low wpn flat, min main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/mid +low flat",
+   "gold": 184533,
+   "damage": 0.05412,
+   "from": "high/mid + low wpn flat, min main stat",
+   "to": "high/mid + low wpn flat, max main stat",
+   "buy": "a cut neck — high/mid + low wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/mid + low wpn flat, max main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/high",
+   "gold": 741169,
+   "damage": 0.09719,
+   "from": "high/mid + low wpn flat, max main stat",
+   "to": "high/high, min main stat",
+   "buy": "a cut neck — high/high, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/high, min main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/high +high flat",
+   "gold": 833768,
+   "damage": 0.05971,
+   "from": "high/high, min main stat",
+   "to": "high/high + high wpn flat, min main stat",
+   "buy": "a cut neck — high/high + high wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/high + high wpn flat, min main stat"
+  },
+  {
+   "series": "neck",
+   "label": "high/high +mid flat",
+   "gold": 1232615,
+   "damage": 0.0243,
+   "from": "high/high + high wpn flat, min main stat",
+   "to": "high/high + mid wpn flat, max main stat",
+   "buy": "a cut neck — high/high + mid wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/high + mid wpn flat, max main stat"
   },
   {
    "series": "earring",
-   "label": "mid wpn → high wpn",
-   "gold": 422358,
-   "damage": 0.1699,
-   "detail": "accessory calculator price, high Weapon Power % with a high Weapon Power+ line",
-   "buy": "a cut earring from the auction house",
-   "odds": "priced by the accessory calculator on the support market",
-   "minimum": "an earring with high Weapon Power % — 3.00%"
+   "label": "high +low flat",
+   "gold": 10217,
+   "damage": 0.01225,
+   "from": "high, min main stat",
+   "to": "high + low wpn flat, min main stat",
+   "buy": "a cut earring — high + low wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high + low wpn flat, min main stat"
+  },
+  {
+   "series": "earring",
+   "label": "high",
+   "gold": 56736,
+   "damage": 0.009,
+   "from": "high + low wpn flat, min main stat",
+   "to": "high, mid main stat",
+   "buy": "a cut earring — high, mid main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high, mid main stat"
+  },
+  {
+   "series": "earring",
+   "label": "high +mid flat",
+   "gold": 46278,
+   "damage": 0.0089,
+   "from": "high, mid main stat",
+   "to": "high + mid wpn flat, min main stat",
+   "buy": "a cut earring — high + mid wpn flat, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high + mid wpn flat, min main stat"
+  },
+  {
+   "series": "earring",
+   "label": "high",
+   "gold": 81534,
+   "damage": 0.01232,
+   "from": "high + mid wpn flat, min main stat",
+   "to": "high, max main stat",
+   "buy": "a cut earring — high, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high, max main stat"
+  },
+  {
+   "series": "earring",
+   "label": "high +high flat",
+   "gold": 160831,
+   "damage": 0.02844,
+   "from": "high, max main stat",
+   "to": "high + high wpn flat, low main stat",
+   "buy": "a cut earring — high + high wpn flat, low main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high + high wpn flat, low main stat"
+  },
+  {
+   "series": "ring",
+   "label": "high/low +low flat",
+   "gold": 114899,
+   "damage": 0.01178,
+   "from": "low/high + high wpn flat, high main stat",
+   "to": "high/low + low wpn flat, mid main stat",
+   "buy": "a cut ring — high/low + low wpn flat, mid main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + low wpn flat, mid main stat"
+  },
+  {
+   "series": "ring",
+   "label": "high/low +high flat",
+   "gold": 75554,
+   "damage": 0.06751,
+   "from": "high/low + low wpn flat, mid main stat",
+   "to": "high/low + high wpn flat, max main stat",
+   "buy": "a cut ring — high/low + high wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/low + high wpn flat, max main stat"
+  },
+  {
+   "series": "ring",
+   "label": "mid/high",
+   "gold": 124304,
+   "damage": 0.18664,
+   "from": "high/low + high wpn flat, max main stat",
+   "to": "mid/high, mid main stat",
+   "buy": "a cut ring — mid/high, mid main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "mid/high, mid main stat"
+  },
+  {
+   "series": "ring",
+   "label": "high/mid +mid flat",
+   "gold": 404501,
+   "damage": 0.08667,
+   "from": "mid/high, mid main stat",
+   "to": "high/mid + mid wpn flat, max main stat",
+   "buy": "a cut ring — high/mid + mid wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/mid + mid wpn flat, max main stat"
+  },
+  {
+   "series": "ring",
+   "label": "high/high",
+   "gold": 1557741,
+   "damage": 0.29608,
+   "from": "high/mid + mid wpn flat, max main stat",
+   "to": "high/high, min main stat",
+   "buy": "a cut ring — high/high, min main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/high, min main stat"
+  },
+  {
+   "series": "ring",
+   "label": "high/high +mid flat",
+   "gold": 1768721,
+   "damage": 0.07037,
+   "from": "high/high, min main stat",
+   "to": "high/high + mid wpn flat, max main stat",
+   "buy": "a cut ring — high/high + mid wpn flat, max main stat",
+   "odds": "priced by the accessory calculator on the support market, cheapest configuration at this damage",
+   "minimum": "high/high + mid wpn flat, max main stat"
   }
  ]
 }

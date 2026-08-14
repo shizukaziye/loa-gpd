@@ -191,6 +191,7 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
         out.push({
           series: track,
           label: "+" + s.from + " → +" + s.to,
+          from: "+" + s.from, to: "+" + s.to,
           gold: s.gold,
           damage: dmg,
           gpd: Support.goldPerDamage(P, s.gold, dmg),
@@ -216,6 +217,7 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
         out.push({
           series: "karma",
           label: "lv " + s.from + " → " + s.to,
+          from: "lv " + s.from, to: "lv " + s.to,
           gold: s.gold,
           damage: dmg,
           gpd: Support.goldPerDamage(P, s.gold, dmg),
@@ -235,7 +237,7 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
         out.push({
           series: r.series, label: r.label, gold: r.gold, damage: r.damage,
           gpd: Support.goldPerDamage(P, r.gold, r.damage), detail: r.detail,
-          buy: r.buy, odds: r.odds, minimum: r.minimum
+          buy: r.buy, odds: r.odds, minimum: r.minimum, from: r.from, to: r.to
         });
       });
     }
@@ -244,40 +246,16 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
 
   var ROWS = [], PLAN = null, BUDGET = 0;
   function tipHtml(r) {
-    return "<b>" + SERIES[r.series].label + " — " + r.label + "</b>" +
-      (r.buy ? "<span class='k'>what you buy</span>" + r.buy : "") +
-      (r.odds ? "<span class='k'>the odds</span>" + r.odds : "") +
-      (r.minimum ? "<span class='k'>minimum that counts</span>" + r.minimum : "") +
-      "<span class='k'>the numbers</span>" + fmtGold(r.gold) + " gold for " + r.damage.toFixed(3) +
-      "% party damage per dealer, " + fmtGold(r.gpd) + " per 1% across three dealers";
-  }
-  /** Why a system stops where it stops. */
-  function planTipHtml(key) {
-    var p = PLAN[key], mine = ROWS.filter(function (r) { return r.series === key; });
-    var next = mine[p.taken];
-    var html = "<b>" + SERIES[key].label + "</b>";
-    if (p.taken === 0) {
-      html += "<span class='k'>you stay at " + BASELINE[key] + "</span>the first step, " + mine[0].label +
-        ", costs " + fmtGold(mine[0].gpd) + " per 1% — more than the " + fmtGold(BUDGET) +
-        " you are willing to pay";
-    } else {
-      html += "<span class='k'>what you take</span>" + p.taken + " step" + (p.taken > 1 ? "s" : "") +
-        ", " + p.first.label.split("→")[0].trim() + " through to " +
-        p.last.label.split("→")[1].trim() + "<br>last one in: " + p.last.label + " at " +
-        fmtGold(p.last.gpd) + " per 1%";
-      html += "<span class='k'>what it costs</span>" + fmtGold(p.gold) + " gold for " +
-        p.damage.toFixed(3) + "% per dealer, " + (p.damage * Support.DEFAULTS.partySize).toFixed(2) +
-        "% across the party — " + fmtGold(p.gold / (p.damage * Support.DEFAULTS.partySize)) + " per 1% on average";
-    }
-    if (next) {
-      html += "<span class='k'>what stops it</span>" + next.label + " would cost " + fmtGold(next.gold) +
-        " for " + next.damage.toFixed(3) + "%, which is " + fmtGold(next.gpd) + " per 1%. You would have to be " +
-        "willing to pay " + (next.gpd / BUDGET).toFixed(1) + "x more.";
-      if (next.buy) html += "<br>" + next.buy;
-    } else if (p.taken > 0) {
-      html += "<span class='k'>what stops it</span>nothing — this system is finished";
-    }
-    return html;
+    var per = r.gold / Math.max(1e-9, r.damage * Support.DEFAULTS.partySize);
+    var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b>";
+    h += "<span class='k'>what this step costs you</span>" +
+      "<b style='color:var(--high)'>" + fmtGold(r.gold) + " gold</b> from where you already are, " +
+      "for <b style='color:var(--good)'>" + r.damage.toFixed(3) + "%</b> more damage on each of three dealers — " +
+      fmtGold(per) + " per 1%.";
+    if (r.minimum) h += "<span class='k'>what it looks like</span>" + r.minimum;
+    if (r.buy) h += "<span class='k'>what you are buying</span>" + r.buy;
+    if (r.odds) h += "<span class='k'>how it goes</span>" + r.odds;
+    return h;
   }
 
   function wireTips() {
