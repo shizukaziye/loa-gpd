@@ -650,23 +650,54 @@ sits far lower on the chart than it did.
 
 ### What the bands look like
 
-Node levels and core points are read off four thousand sampled grids per band,
-then straightened with a line fitted over C- and up. Below C- the sampled
-levels flatten towards zero and would drag the fit down; above it they sit
-almost exactly straight in the grade.
+Node levels and core points are read off four thousand grids per band, each
+twenty-four gems drawn from that band's pool, then straightened with a line
+fitted over C- and up. Below C- the sampled levels flatten towards zero and
+would drag the fit down; above it they sit almost exactly straight in the grade.
 
-| band | side nodes | core points | support, per dealer | DPS |
-|---|---:|---:|---:|---:|
-| C-   | 19 | 17 | 0.79% | 2.49% |
-| C    | 24 | 17 | 1.01% | 3.71% |
-| B    | 40 | 18 | 1.80% | 7.42% |
-| A    | 55 | 19 | 2.59% | 11.11% |
-| A+   | 60 | 19 | 2.86% | 12.35% |
-| S    | 71 | 20 | 3.38% | 14.62% |
-| S+   | 73 | 20 | 3.46% | 15.38% |
+| band | support side nodes | party damage | DPS side nodes | damage |
+|---|---|---:|---|---:|
+| C-   | 17 / 27 / 26 | 2.71% | 21 / 30 / 27 | 3.57% |
+| C    | 25 / 30 / 27 | 3.38% | 24 / 36 / 32 | 4.40% |
+| B    | 49 / 42 / 32 | 5.56% | 33 / 49 / 43 | 7.55% |
+| A    | 74 / 53 / 37 | 8.13% | 41 / 61 / 52 | 11.21% |
+| A+   | 82 / 57 / 39 | 9.01% | 44 / 67 / 56 | 12.45% |
+| S    | 98 / 64 / 42 | 10.70% | 49 / 79 / 64 | 14.66% |
+| S+   | 101 / 66 / 43 | 11.04% | 51 / 84 / 68 | 15.34% |
 
-So 60/60/60 on the reference character is an **A+ grid** — reachable, and about
-three quarters of a perfect 80/80/80. Levels are carried as fractions into the
-damage and rounded only for display: rounding each band to a whole level makes
-the steps alternate five and six, and that shows up as a wobble in gold per
-damage that would make the planner skip rungs.
+Support nodes read ally attack / brand / ally damage, DPS attack power / boss
+damage / additional damage. Support numbers are party damage, three dealers.
+
+### The nodes are not even, and should not be
+
+The draw is uniform within a band, and the three nodes still come out lopsided.
+That is the grade talking. The astrogem calculator scores a support gem's lines
+at 0.019533 for ally attack enhancement, 0.014567 for brand power and 0.007133
+for ally damage enhancement, so a gem carrying ally attack is the gem that
+grades well, and a band's pool is full of them.
+
+`tools/arkgrid-split.js` asks the separate question of how a support *should*
+divide the levels, scoring each split through `model/support.js` rather than
+through the grade. At the reference character one more node level is worth
+
+| node | party damage per level |
+|---|---:|
+| ally attack enhancement | 0.0689% |
+| brand power | 0.0437% |
+| ally damage enhancement | 0.0210% |
+
+Same ordering as the grade, and near enough the same ratios — two models built
+from different sources agreeing that ally damage enhancement is worth about a
+third of ally attack.
+
+The best split of a full 240 levels is **120 ally attack / 120 brand / 0 ally
+damage**, worth 13.51% party damage against 10.72% for an even 80/80/80 — a
+gap of 2.79 points. It is reachable: with a = allyAtk/5 = n9+n10, b = brand/5 =
+n8+n10 and c = allyDmg/5 = n8+n9 over twenty-four gems, that split is n10 = 24
+— **every gem base cost 10, carrying Brand Power and Ally Attack Enh. at level
+five**. Worth knowing, though the chart does not assume it: the band price buys
+gems at a grade, not gems with a chosen pair of lines.
+
+An even split is the one shape nobody should build. 60/60/60 on the reference
+character is close to a B grid in total levels but the wrong shape for any of
+them.

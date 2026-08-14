@@ -7,9 +7,15 @@
  * lines, so a side node can reach 120 and the three of them share 240 levels.
  * Earlier rows here were built on twelve gems, half a grid.
  *
- * Two passes. First we draw grids at random from each band's gem pool, picking
- * each gem to keep the three side nodes level the way a player does, and read
- * off where the nodes and the core points land. The second pass fits a line
+ * Two passes. First we draw twenty-four gems at random from each band's pool
+ * and read off where the side nodes and the core points land.
+ *
+ * The draw is uniform on purpose, and the three nodes still come out uneven.
+ * That is not noise: the grade rewards ally attack enhancement about three
+ * times as hard as ally damage enhancement, so gems carrying ally attack are
+ * the ones that grade well and a band's pool is full of them. Letting the draw
+ * pick its favourites would be cheating — the band price buys gems at a grade,
+ * not gems with a chosen pair of lines. The second pass fits a line
  * through the bands the chart uses and rebuilds one exact grid per band from
  * it. That strips the sampling wobble without flattening the range, which
  * matters because the chart needs gold per damage to climb as you go up the
@@ -38,7 +44,6 @@ var SHORT = { "Ally Attack Enh.": "ally atk", "Brand Power": "brand",
 var bounds = AXIS === "support" ? A.supportValueBounds() : A.valueBounds();
 var anchor = AXIS === "support" ? A.supportValueAnchor() : A.valueAnchor();
 var valueOf = AXIS === "support" ? A.supportValue : A.gemValue;
-var dmgOf   = AXIS === "support" ? A.supportDamage : A.gemDamage;
 function grade(c) { return 100 * (valueOf(c) - bounds.min) / (anchor - bounds.min); }
 
 var ALL = [];
@@ -57,36 +62,17 @@ var LADDER = AXIS === "support" ? A.SUPPORT_RANK_LADDER : A.RANK_LADDER;
 function m32(s){var a=s>>>0;return function(){a=(a+0x6D2B79F5)|0;var t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 var rand = m32(20260814);
 
-/**
- * Twenty-four gems from a band, four to each of six cores. A player does not
- * socket at random: they spread the lines so all three side nodes climb
- * together. So each pick looks at a dozen candidates and takes the one that
- * leaves the nodes most even, tie-broken on the gem's own damage.
- */
+/** Twenty-four gems drawn from a band, four to each of six cores. */
 function sampleGrid(pool) {
-  var node = {}, pts = 0, i, q;
-  for (i = 0; i < NODES.length; i++) node[NODES[i]] = 0;
+  var node = [0, 0, 0], pts = 0, i, q;
   for (i = 0; i < 24; i++) {
-    var best = null, bestScore = -Infinity;
-    for (var k = 0; k < 12; k++) {
-      var c = pool[(rand() * pool.length) | 0];
-      var lo = Infinity, hi = -Infinity;
-      for (q = 0; q < NODES.length; q++) {
-        var n = NODES[q];
-        var v = node[n] + (c.effect1 === n ? c.effect1Level : 0) +
-                          (c.effect2 === n ? c.effect2Level : 0);
-        if (v < lo) lo = v;
-        if (v > hi) hi = v;
-      }
-      var s = lo * 4 - (hi - lo) + dmgOf(c);
-      if (s > bestScore) { bestScore = s; best = c; }
-    }
+    var c = pool[(rand() * pool.length) | 0];
     for (q = 0; q < NODES.length; q++) {
-      var n2 = NODES[q];
-      if (best.effect1 === n2) node[n2] += best.effect1Level;
-      if (best.effect2 === n2) node[n2] += best.effect2Level;
+      var add = (c.effect1 === NODES[q] ? c.effect1Level : 0) +
+                (c.effect2 === NODES[q] ? c.effect2Level : 0);
+      node[q] = Math.min(120, node[q] + add);
     }
-    pts += best.orderLevel;
+    pts += c.orderLevel;
   }
   return { node: node, cores: pts / 6 };
 }
@@ -121,16 +107,14 @@ LADDER.forEach(function (row) {
   var cut = row[1];
   var pool = ALL.filter(function (c) { return c._g >= cut && c._g < cut + 3.4; });
   if (pool.length < 3) return;
-  var acc = {}, cores = 0, i;
-  for (i = 0; i < NODES.length; i++) acc[NODES[i]] = 0;
+  var acc = [0, 0, 0], cores = 0, i;
   for (var r = 0; r < REPS; r++) {
     var g = sampleGrid(pool);
-    for (i = 0; i < NODES.length; i++) acc[NODES[i]] += g.node[NODES[i]];
+    for (i = 0; i < NODES.length; i++) acc[i] += g.node[i];
     cores += g.cores;
   }
-  var sum = 0;
-  for (i = 0; i < NODES.length; i++) sum += acc[NODES[i]] / REPS;
-  obs.push({ rank: row[0], cut: cut, level: sum / 3, cores: cores / REPS });
+  obs.push({ rank: row[0], cut: cut, cores: cores / REPS,
+    levels: acc.map(function (v) { return v / REPS; }) });
 });
 
 // ---- pass two: straighten over the bands the chart uses --------------------
@@ -150,15 +134,19 @@ function fit(pts) {
   return { slope: b, intercept: (sy - b * sx) / n };
 }
 var used = obs.filter(function (o) { return o.cut >= 60; });
-var fLevel = fit(used.map(function (o) { return [o.cut, o.level]; }));
+var fNode = NODES.map(function (n, i) {
+  return fit(used.map(function (o) { return [o.cut, o.levels[i]]; }));
+});
 var fCores = fit(used.map(function (o) { return [o.cut, o.cores]; }));
 
 var out = obs.map(function (o) {
-  var lvl = Math.max(0, Math.min(120, fLevel.slope * o.cut + fLevel.intercept));
+  var lv = fNode.map(function (f) {
+    return Math.max(0, Math.min(120, f.slope * o.cut + f.intercept));
+  });
   var pts = Math.max(0, Math.min(20, fCores.slope * o.cut + fCores.intercept));
   return { rank: o.rank, cut: o.cut, cores: Math.round(pts),
-    damage: A.gridDamage(buildGrid([lvl, lvl, lvl], pts), AXIS),
-    nodes: NODES.map(function (n) { return [SHORT[n], Math.round(lvl)]; }) };
+    damage: A.gridDamage(buildGrid(lv, pts), AXIS),
+    nodes: NODES.map(function (n, i) { return [SHORT[n], Math.round(lv[i])]; }) };
 });
 
 console.log(AXIS.toUpperCase() + " — 24 gems, 6 cores, " + REPS.toLocaleString() +
