@@ -104,10 +104,7 @@ if (process.argv[2] === "dps") {
       effect2: lines[i * 2 + 1][0], effect2Level: lines[i * 2 + 1][1] });
     return A.gridDamage(gems, "dps");
   };
-  console.log("
-
-DPS — what one more node level is worth at 60/60/60:
-");
+  console.log("\n\nDPS — what one more node level is worth at 60/60/60:\n");
   [["attack power", 1, 0, 0], ["boss damage", 0, 1, 0], ["additional damage", 0, 0, 1]]
     .forEach(function (r) {
       console.log("   " + r[0].padEnd(19) +
@@ -120,8 +117,7 @@ DPS — what one more node level is worth at 60/60/60:
     var v = dps([a, b, c]);
     if (!db || v > db[3]) db = [a, b, c, v];
   }
-  console.log("
-   best split  attack " + db[0] + " / boss " + db[1] + " / add " + db[2] +
+  console.log("\n   best split  attack " + db[0] + " / boss " + db[1] + " / add " + db[2] +
     "  ->  " + db[3].toFixed(3) + "%");
   console.log("   even 80 / 80 / 80                 ->  " + dps([80, 80, 80]).toFixed(3) + "%");
 }
