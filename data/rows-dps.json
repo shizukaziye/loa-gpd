@@ -465,26 +465,9 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.0 raw gems per gem that lands at C-",
-   "minimum": "twelve gems at C-, three cores at 17 points, side nodes at 38",
+   "minimum": "twelve gems at C-",
    "from": "ungraded",
-   "to": "C-",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "atk power",
-      38
-     ],
-     [
-      "boss damage",
-      38
-     ],
-     [
-      "add damage",
-      38
-     ]
-    ]
-   }
+   "to": "C-"
   },
   {
    "series": "arkgrid",
@@ -494,26 +477,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.5 raw gems per gem that lands at C",
-   "minimum": "twelve gems at C, three cores at 17 points, side nodes at 40",
+   "minimum": "twelve gems at C",
    "from": "C-",
-   "to": "C",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "atk power",
-      40
-     ],
-     [
-      "boss damage",
-      40
-     ],
-     [
-      "add damage",
-      40
-     ]
-    ]
-   }
+   "to": "C"
   },
   {
    "series": "arkgrid",
@@ -523,26 +489,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 5.2 raw gems per gem that lands at C+",
-   "minimum": "twelve gems at C+, three cores at 17 points, side nodes at 42",
+   "minimum": "twelve gems at C+",
    "from": "C",
-   "to": "C+",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "atk power",
-      42
-     ],
-     [
-      "boss damage",
-      42
-     ],
-     [
-      "add damage",
-      42
-     ]
-    ]
-   }
+   "to": "C+"
   },
   {
    "series": "arkgrid",
@@ -552,26 +501,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 6.2 raw gems per gem that lands at B-",
-   "minimum": "twelve gems at B-, three cores at 18 points, side nodes at 44",
+   "minimum": "twelve gems at B-",
    "from": "C+",
-   "to": "B-",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "atk power",
-      44
-     ],
-     [
-      "boss damage",
-      44
-     ],
-     [
-      "add damage",
-      44
-     ]
-    ]
-   }
+   "to": "B-"
   },
   {
    "series": "arkgrid",
@@ -581,26 +513,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 7.6 raw gems per gem that lands at B",
-   "minimum": "twelve gems at B, three cores at 18 points, side nodes at 46",
+   "minimum": "twelve gems at B",
    "from": "B-",
-   "to": "B",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "atk power",
-      46
-     ],
-     [
-      "boss damage",
-      46
-     ],
-     [
-      "add damage",
-      46
-     ]
-    ]
-   }
+   "to": "B"
   },
   {
    "series": "arkgrid",
@@ -610,26 +525,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 9.8 raw gems per gem that lands at B+",
-   "minimum": "twelve gems at B+, three cores at 18 points, side nodes at 49",
+   "minimum": "twelve gems at B+",
    "from": "B",
-   "to": "B+",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "atk power",
-      49
-     ],
-     [
-      "boss damage",
-      49
-     ],
-     [
-      "add damage",
-      49
-     ]
-    ]
-   }
+   "to": "B+"
   },
   {
    "series": "arkgrid",
@@ -639,26 +537,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 13.3 raw gems per gem that lands at A-",
-   "minimum": "twelve gems at A-, three cores at 19 points, side nodes at 51",
+   "minimum": "twelve gems at A-",
    "from": "B+",
-   "to": "A-",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "atk power",
-      51
-     ],
-     [
-      "boss damage",
-      51
-     ],
-     [
-      "add damage",
-      51
-     ]
-    ]
-   }
+   "to": "A-"
   },
   {
    "series": "arkgrid",
@@ -668,26 +549,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 18.3 raw gems per gem that lands at A",
-   "minimum": "twelve gems at A, three cores at 19 points, side nodes at 53",
+   "minimum": "twelve gems at A",
    "from": "A-",
-   "to": "A",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "atk power",
-      53
-     ],
-     [
-      "boss damage",
-      53
-     ],
-     [
-      "add damage",
-      53
-     ]
-    ]
-   }
+   "to": "A"
   },
   {
    "series": "arkgrid",
@@ -697,26 +561,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 25.9 raw gems per gem that lands at A+",
-   "minimum": "twelve gems at A+, three cores at 19 points, side nodes at 55",
+   "minimum": "twelve gems at A+",
    "from": "A",
-   "to": "A+",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "atk power",
-      55
-     ],
-     [
-      "boss damage",
-      55
-     ],
-     [
-      "add damage",
-      55
-     ]
-    ]
-   }
+   "to": "A+"
   },
   {
    "series": "arkgrid",
@@ -726,26 +573,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 51.2 raw gems per gem that lands at S-",
-   "minimum": "twelve gems at S-, three cores at 20 points, side nodes at 57",
+   "minimum": "twelve gems at S-",
    "from": "A+",
-   "to": "S-",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "atk power",
-      57
-     ],
-     [
-      "boss damage",
-      57
-     ],
-     [
-      "add damage",
-      57
-     ]
-    ]
-   }
+   "to": "S-"
   },
   {
    "series": "arkgrid",
@@ -755,26 +585,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 149.1 raw gems per gem that lands at S",
-   "minimum": "twelve gems at S, three cores at 20 points, side nodes at 59",
+   "minimum": "twelve gems at S",
    "from": "S-",
-   "to": "S",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "atk power",
-      59
-     ],
-     [
-      "boss damage",
-      59
-     ],
-     [
-      "add damage",
-      59
-     ]
-    ]
-   }
+   "to": "S"
   },
   {
    "series": "arkgrid",
@@ -784,26 +597,9 @@
    "detail": "all twelve gems; the S to S+ band is only 2.8 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 419.0 raw gems per gem that lands at S+",
-   "minimum": "twelve gems at S+, three cores at 20 points, side nodes at 60",
+   "minimum": "twelve gems at S+",
    "from": "S",
-   "to": "S+",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "atk power",
-      60
-     ],
-     [
-      "boss damage",
-      60
-     ],
-     [
-      "add damage",
-      60
-     ]
-    ]
-   }
+   "to": "S+"
   },
   {
    "series": "bracelet",

@@ -33,26 +33,9 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C-, three cores at 17 points, side nodes at 38",
+   "minimum": "twelve gems at C-",
    "from": "ungraded",
-   "to": "C-",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "ally damage",
-      38
-     ],
-     [
-      "brand power",
-      38
-     ],
-     [
-      "ally atk enh",
-      38
-     ]
-    ]
-   }
+   "to": "C-"
   },
   {
    "series": "arkgrid",
@@ -62,26 +45,9 @@
    "detail": "all twelve gems, epic cuts at 60:30:10, duds fused",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C, three cores at 17 points, side nodes at 40",
+   "minimum": "twelve gems at C",
    "from": "C-",
-   "to": "C",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "ally damage",
-      40
-     ],
-     [
-      "brand power",
-      40
-     ],
-     [
-      "ally atk enh",
-      40
-     ]
-    ]
-   }
+   "to": "C"
   },
   {
    "series": "arkgrid",
@@ -91,26 +57,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C+, three cores at 17 points, side nodes at 42",
+   "minimum": "twelve gems at C+",
    "from": "C",
-   "to": "C+",
-   "grid": {
-    "cores": 17,
-    "nodes": [
-     [
-      "ally damage",
-      42
-     ],
-     [
-      "brand power",
-      42
-     ],
-     [
-      "ally atk enh",
-      42
-     ]
-    ]
-   }
+   "to": "C+"
   },
   {
    "series": "arkgrid",
@@ -120,26 +69,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B-, three cores at 18 points, side nodes at 44",
+   "minimum": "twelve gems at B-",
    "from": "C+",
-   "to": "B-",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "ally damage",
-      44
-     ],
-     [
-      "brand power",
-      44
-     ],
-     [
-      "ally atk enh",
-      44
-     ]
-    ]
-   }
+   "to": "B-"
   },
   {
    "series": "arkgrid",
@@ -149,26 +81,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B, three cores at 18 points, side nodes at 46",
+   "minimum": "twelve gems at B",
    "from": "B-",
-   "to": "B",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "ally damage",
-      46
-     ],
-     [
-      "brand power",
-      46
-     ],
-     [
-      "ally atk enh",
-      46
-     ]
-    ]
-   }
+   "to": "B"
   },
   {
    "series": "arkgrid",
@@ -178,26 +93,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B+, three cores at 18 points, side nodes at 49",
+   "minimum": "twelve gems at B+",
    "from": "B",
-   "to": "B+",
-   "grid": {
-    "cores": 18,
-    "nodes": [
-     [
-      "ally damage",
-      49
-     ],
-     [
-      "brand power",
-      49
-     ],
-     [
-      "ally atk enh",
-      49
-     ]
-    ]
-   }
+   "to": "B+"
   },
   {
    "series": "arkgrid",
@@ -207,26 +105,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A-, three cores at 19 points, side nodes at 51",
+   "minimum": "twelve gems at A-",
    "from": "B+",
-   "to": "A-",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "ally damage",
-      51
-     ],
-     [
-      "brand power",
-      51
-     ],
-     [
-      "ally atk enh",
-      51
-     ]
-    ]
-   }
+   "to": "A-"
   },
   {
    "series": "arkgrid",
@@ -236,26 +117,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A, three cores at 19 points, side nodes at 53",
+   "minimum": "twelve gems at A",
    "from": "A-",
-   "to": "A",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "ally damage",
-      53
-     ],
-     [
-      "brand power",
-      53
-     ],
-     [
-      "ally atk enh",
-      53
-     ]
-    ]
-   }
+   "to": "A"
   },
   {
    "series": "arkgrid",
@@ -265,26 +129,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A+, three cores at 19 points, side nodes at 55",
+   "minimum": "twelve gems at A+",
    "from": "A",
-   "to": "A+",
-   "grid": {
-    "cores": 19,
-    "nodes": [
-     [
-      "ally damage",
-      55
-     ],
-     [
-      "brand power",
-      55
-     ],
-     [
-      "ally atk enh",
-      55
-     ]
-    ]
-   }
+   "to": "A+"
   },
   {
    "series": "arkgrid",
@@ -294,26 +141,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S-, three cores at 20 points, side nodes at 57",
+   "minimum": "twelve gems at S-",
    "from": "A+",
-   "to": "S-",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "ally damage",
-      57
-     ],
-     [
-      "brand power",
-      57
-     ],
-     [
-      "ally atk enh",
-      57
-     ]
-    ]
-   }
+   "to": "S-"
   },
   {
    "series": "arkgrid",
@@ -323,26 +153,9 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S, three cores at 20 points, side nodes at 59",
+   "minimum": "twelve gems at S",
    "from": "S-",
-   "to": "S",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "ally damage",
-      59
-     ],
-     [
-      "brand power",
-      59
-     ],
-     [
-      "ally atk enh",
-      59
-     ]
-    ]
-   }
+   "to": "S"
   },
   {
    "series": "arkgrid",
@@ -352,26 +165,9 @@
    "detail": "all twelve gems; the S to S+ band is only 1.3 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S+, three cores at 20 points, side nodes at 60",
+   "minimum": "twelve gems at S+",
    "from": "S",
-   "to": "S+",
-   "grid": {
-    "cores": 20,
-    "nodes": [
-     [
-      "ally damage",
-      60
-     ],
-     [
-      "brand power",
-      60
-     ],
-     [
-      "ally atk enh",
-      60
-     ]
-    ]
-   }
+   "to": "S+"
   },
   {
    "series": "gems",
