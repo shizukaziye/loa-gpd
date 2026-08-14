@@ -113,6 +113,20 @@ th.bh .gloss,th .gloss{text-decoration-color:var(--dim)}
   box-shadow:0 6px 22px rgba(0,0,0,.5);pointer-events:none;opacity:0;visibility:hidden;transition:opacity .08s ease}
 #gm-tip.on{opacity:1;visibility:visible}
 
+/* ---- material price grid, laid out like maxroll's upgrade calculator ---- */
+.mats{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:6px 10px}
+.mat{display:flex;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--border);
+  border-radius:7px;padding:4px 7px 4px 5px}
+.mat.off{opacity:.4}
+.mat input[type=checkbox]{accent-color:var(--accent);width:13px;height:13px;flex:none;margin:0}
+.mat .ico{width:30px;height:30px;flex:none;border-radius:4px;background:#0c0f16 center/contain no-repeat;
+  border:1px solid var(--border)}
+.mat input[type=number]{background:transparent;color:var(--text);border:none;border-bottom:1px solid var(--border);
+  border-radius:0;padding:2px 2px;font-size:13px;font-family:inherit;width:100%;min-width:0;
+  text-align:right;font-variant-numeric:tabular-nums}
+.mat input[type=number]:focus{outline:none;border-bottom-color:var(--accent)}
+.mat .per{color:var(--none);font-size:10px;flex:none}
+
 /* ---- gpd chart: the loadout planner, the ranked table and the hover card ---- */
 .slider{display:flex;align-items:center;gap:14px;margin:2px 0 14px}
 .slider input[type=range]{flex:1;accent-color:var(--accent)}
@@ -137,4 +151,7 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
   letter-spacing:.07em;font-weight:700}
 #tip table{margin-top:3px;font-size:11px}
 #tip td{padding:1px 0;border:none}
-#tip td:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--dim)}
+#tip td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+#tip td:first-child{color:var(--dim);padding-right:18px}
+#tip table{width:100%;margin:4px 0 0}
+.card .big .per{font-size:11px;color:var(--none);font-weight:400}

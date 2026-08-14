@@ -33,7 +33,7 @@
 <div class='inputs' id='matPanel'>
   <div class='ihdr'><span class='tgl' id='matToggle'><span id='mat-caret'>▾</span> Material prices</span>
     <span class='note' style='margin:0'>untick anything you already have bound</span></div>
-  <div class='ig' id='matGrid'></div>
+  <div class='mats' id='matGrid'></div>
 </div>
 
 <h2>What to buy at your gold per damage</h2>
@@ -88,6 +88,21 @@
     arkgrid:  { label: "Ark grid",        color: "#e8b75c", base: "ungraded" },
     stone:    { label: "Ability stone",   color: "#97a0b4", base: "7-7" }
   };
+  // the bracelet / astrogem rank ramp: grey -> green -> blue -> purple, then the
+  // cool-elite arc at the top. Ported from loa-bracelet-calc/subrank.js.
+  var RANK_COLOR = {
+    "F-": "#565b61", "F": "#6f747a", "F+": "#7f858c",
+    "D-": "#63806a", "D": "#5b8f5e", "D+": "#4f9d5d",
+    "C-": "#489a72", "C": "#429792", "C+": "#3d8fb0",
+    "B-": "#3b7fd0", "B": "#4f74cd", "B+": "#6468c6",
+    "A-": "#7161c3", "A": "#7e5cc0", "A+": "#a660be",
+    "S-": "#c15cad", "S": "#cc5c81", "S+": "#e6d5a6"
+  };
+  function rankColor(label) {
+    var m = String(label).match(/(S\+|S-|S|A\+|A-|A|B\+|B-|B|C\+|C-|C|D\+|D-|D|F\+|F-|F)\s*$/);
+    return m ? RANK_COLOR[m[1]] : null;
+  }
+
   var MAT_PRICE = { "6861013": 125, "66102007": 900, "66102107": 30,
                     "66110226": 25, "66111131": 300, "66111132": 150 };
 
@@ -115,16 +130,17 @@
       state.enabled[m.id] = on;
       if (m.kind === "shard_pouch") state.enabled.shards = false;
       var row = document.createElement("div");
-      row.className = "fld";
-      row.innerHTML = "<label><input type='checkbox'" + (on ? " checked" : "") + "> " + m.name +
-        (m.unit > 1 ? " (per " + m.unit + ")" : "") + "</label>" +
-        "<input type='number' min='0' step='1' value='" + price + "'>";
+      row.className = "mat" + (on ? "" : " off");
+      row.title = m.name;
+      row.innerHTML = "<input type='checkbox'" + (on ? " checked" : "") + ">" +
+        "<span class='ico' style=\"background-image:url('assets/icons/" + m.id + ".webp')\"></span>" +
+        "<input type='number' min='0' step='1' value='" + price + "'>" +
+        (m.unit > 1 ? "<span class='per'>/" + m.unit + "</span>" : "");
       var box = row.querySelector("input[type=checkbox]"), num = row.querySelector("input[type=number]");
-      row.style.opacity = on ? 1 : 0.45;
       box.addEventListener("change", function () {
         state.enabled[m.id] = box.checked;
         if (m.kind === "shard_pouch") state.enabled.shards = box.checked;
-        row.style.opacity = box.checked ? 1 : 0.45;
+        row.className = "mat" + (box.checked ? "" : " off");
         render();
       });
       num.addEventListener("input", function () {
@@ -162,6 +178,7 @@
           out.push({
             series: track, label: "+" + s.from + " → +" + s.to,
             from: "+" + s.from, to: "+" + s.to,
+            note: (1675 + 5 * s.to) + " ilvl",
             gold: s.gold, damage: Support.delta(P, { gear: before }, { gear: after }), mats: mats,
             buy: (pieces > 1 ? "all five armour pieces" : "the weapon") + " to +" + s.to,
             odds: "base rate " + s.baseRate.toFixed(2) + "%, plus a tenth of base each failure, free once " +
@@ -200,47 +217,51 @@
   }
 
   // ---- tooltips --------------------------------------------------------
+  function num(label, value, colour) {
+    return "<tr><td>" + label + "</td><td" + (colour ? " style='color:" + colour + "'" : "") +
+      ">" + value + "</td></tr>";
+  }
+
   function tipHtml(r) {
-    var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b>";
-    h += "<span class='k'>what this step costs</span><b style='color:var(--high)'>" + fmtGold(r.gold) +
-      " gold</b> from where you are, for <b style='color:var(--good)'>" + r.damage.toFixed(3) + "%</b>" +
-      (party() > 1 ? " on each of three dealers" : " damage") + " — " + fmtGold(r.gpd) + " per 1%.";
-    if (r.minimum) h += "<span class='k'>what it looks like</span>" + r.minimum;
+    var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b><table>";
+    h += num("Cost", fmtGold(r.gold) + "g", "var(--high)");
+    h += num("Damage gained", r.damage.toFixed(3) + "%", "var(--good)");
+    if (party() > 1) h += num("Party damage", (r.damage * 3).toFixed(3) + "%", "var(--good)");
+    h += num("Gold per 1%", fmtGold(r.gpd) + "g");
+    h += "</table>";
     if (r.mats && r.mats.length) {
-      h += "<span class='k'>expected materials</span><table>";
+      h += "<span class='k'>materials</span><table>";
       r.mats.forEach(function (m) {
-        var qty = m[1] === "" ? "" : (typeof m[1] === "number"
-          ? " &times; " + m[1].toLocaleString() : " — " + m[1]);
-        h += "<tr><td>" + m[0] + qty + "</td><td>" +
-          (m[2] ? fmtGold(m[2]) : "") + "</td></tr>";
+        var qty = m[1] === "" ? "" : (typeof m[1] === "number" ? m[1].toLocaleString() : m[1]);
+        h += "<tr><td>" + m[0] + "</td><td>" + qty + (m[2] ? "  <b style='color:var(--dim)'>" +
+          fmtGold(m[2]) + "g</b>" : "") + "</td></tr>";
       });
       h += "</table>";
     }
-    if (r.buy) h += "<span class='k'>what you are buying</span>" + r.buy;
-    if (r.odds) h += "<span class='k'>how it goes</span>" + r.odds;
+    if (r.minimum) h += "<span class='k'>result</span>" + r.minimum;
     return h;
   }
 
   function planTipHtml(key) {
     var p = PLAN[key], mine = ROWS.filter(function (r) { return r.series === key; });
-    var next = mine[p.taken], h = "<b>" + SERIES[key].label + "</b>";
-    if (p.taken === 0) {
-      h += "<span class='k'>you stay at " + SERIES[key].base + "</span>the first step costs " +
-        (mine[0] ? fmtGold(mine[0].gpd) : "—") + " per 1%, dearer than the " + fmtGold(BUDGET) + " you will pay";
-    } else {
-      h += "<span class='k'>what you take</span>" + p.taken + " step" + (p.taken > 1 ? "s" : "") + ", " +
-        (p.first.from || p.first.label) + " through to " + (p.last.to || p.last.label) +
-        "<br>the last one in costs " + fmtGold(p.last.gpd) + " per 1%";
-      h += "<span class='k'>what it costs</span>" + fmtGold(p.gold) + " gold for " + p.damage.toFixed(3) +
-        "%" + (party() > 1 ? " a dealer, " + (p.damage * 3).toFixed(2) + "% across the party" : "") +
-        " — " + fmtGold(p.gold / (p.damage * party())) + " per 1% on average";
-      h += "<span class='k'>what it looks like</span>" + (p.last.minimum || p.last.label);
-    }
+    var next = mine[p.taken];
+    var h = "<b>" + SERIES[key].label + "</b><table>";
+    h += num("At", p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label),
+             rankColor(p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label)));
+    h += num("Steps taken", p.taken + " of " + p.of);
+    h += num("Spent", fmtGold(p.gold) + "g", "var(--high)");
+    h += num("Damage", p.damage.toFixed(3) + "%", "var(--good)");
+    if (party() > 1) h += num("Party damage", (p.damage * 3).toFixed(3) + "%", "var(--good)");
+    if (p.damage > 0) h += num("Average cost", fmtGold(p.gold / (p.damage * party())) + "g / 1%");
+    h += "</table>";
     if (next) {
-      h += "<span class='k'>what stops it</span>" + (next.to || next.label) + " costs " + fmtGold(next.gold) +
-        " for " + next.damage.toFixed(3) + "% — " + fmtGold(next.gpd) + " per 1%, so you would have to pay " +
-        (next.gpd / BUDGET).toFixed(1) + "&times; more.";
-    } else if (p.taken > 0) h += "<span class='k'>what stops it</span>nothing — this system is finished";
+      h += "<span class='k'>next step</span><table>";
+      h += num("To", next.to || next.label, rankColor(next.to || next.label));
+      h += num("Cost", fmtGold(next.gold) + "g", "var(--high)");
+      h += num("Damage", next.damage.toFixed(3) + "%", "var(--good)");
+      h += num("Gold per 1%", fmtGold(next.gpd) + "g", "var(--bad)");
+      h += "</table>";
+    }
     return h;
   }
 
@@ -287,11 +308,13 @@
     }).map(function (key) {
       var p = PLAN[key];
       gold += p.gold; dmg += p.damage;
+      var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
+      var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
-        SERIES[key].label + "</h4><div class='big'>" +
-        (p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label)) + "</div>" +
-        "<div class='sub'>" + p.taken + " of " + p.of + " · " + fmtGold(p.gold) + " · " +
-        p.damage.toFixed(2) + "%</div></div>";
+        SERIES[key].label + "</h4><div class='big'" + (rc ? " style='color:" + rc + "'" : "") + ">" +
+        where + (note ? " <span class='per'>" + note + "</span>" : "") + "</div>" +
+        "<div class='sub'>" + fmtGold(p.gold) + "g · " + p.damage.toFixed(2) + "%" +
+        (party() > 1 ? " · party " + (p.damage * 3).toFixed(2) + "%" : "") + "</div></div>";
     }).join("");
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
@@ -306,7 +329,9 @@
     var html = "<table><tr><th>Step</th><th>System</th><th class='num'>Gold</th>" +
       "<th class='num'>Damage</th><th class='num'>Gold per 1%</th><th></th></tr>";
     priced.slice().sort(function (a, b) { return a.gpd - b.gpd; }).forEach(function (r) {
-      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + (r.to || r.label) + "</td>" +
+      var rc = rankColor(r.to || r.label);
+      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td" + (rc ? " style='color:" + rc + "'" : "") + ">" +
+        (r.to || r.label) + "</td>" +
         "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
         "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
         "<td class='num'>" + fmtGold(r.gpd) + "</td><td style='width:24%'><span class='bar' style='width:" +
@@ -328,7 +353,9 @@
         "<tr><th>Step</th><th class='num'>Gold</th><th class='num'>Damage</th>" +
         "<th class='num'>Gold per 1%</th><th>What it looks like</th></tr>";
       mine.forEach(function (r) {
-        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + (r.to || r.label) + "</td>" +
+        var rc2 = rankColor(r.to || r.label);
+        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td" + (rc2 ? " style='color:" + rc2 + "'" : "") +
+          ">" + (r.to || r.label) + (r.note ? " <span class='per'>" + r.note + "</span>" : "") + "</td>" +
           "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
           "<td class='num'>" + fmtGold(r.gpd) + "</td><td class='unit'>" + (r.minimum || "") + "</td></tr>";
       });
