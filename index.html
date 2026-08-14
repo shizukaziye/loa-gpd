@@ -427,7 +427,18 @@
       });
       h += "</table>";
     }
-    if (at && at.gems != null) h += arkgridEffort(at);
+    if (at && at.gems != null) {
+      var ag = accountGridAt(key, BUDGET);
+      if (ag) {
+        h += "<span class='k'>the grid you would hold</span><table>" +
+          num("Gems average", pill(ag.meanBand) + " <span class='per'>" + ag.mean.toFixed(1) + "</span>") +
+          num("Weakest slot", pill(ag.band) + " <span class='per'>" + ag.weakest.toFixed(1) + "</span>") +
+          "</table><span class='sm'>A real grid is uneven. Slots are filled by what adds " +
+          "the most damage, and a gem can grade low while carrying good lines, so the " +
+          "weakest slot's grade sits well under the average and stays there.</span>";
+      }
+      h += arkgridEffort(at);
+    }
     if (at && at.odds) h += "<span class='k'>chance</span>" + colourTiers(at.odds);
     return h;
   }
@@ -500,7 +511,7 @@
           var nodes = acct ? acct.nodes : last.grid.nodes;
           eg = "<b>" + (acct ? acct.cores : last.grid.cores) + "-point cores</b><span class='sm'>" +
             nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") +
-            (acct ? "<br>mean " + pill(acct.meanBand) + " weakest " + pill(acct.band) : "") +
+            (acct ? "<br>gems average " + pill(acct.meanBand) : "") +
             "</span>";
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");

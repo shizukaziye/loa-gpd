@@ -131,10 +131,10 @@ function gridState(gems) {
 }
 
 /** One account: cut N gems, always socketing anything better than the weakest. */
-function runAccount(gpd) {
+function runAccount(gpd, rep) {
   // one seed for every budget: the only thing that should differ between rows
   // is the advisor's policy, not the luck of the draw
-  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY));
+  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + (arguments[1] || 0)));
   var equipped = [], trace = [], gold = 0, cut = 0;
   // start from nothing: the first 24 gems go straight in
   while (cut < N) {
@@ -185,8 +185,11 @@ function letterOf(g) {
   return "F-";
 }
 
-var out = GPDS.map(function (gpd) {
-  var trace = runAccount(gpd);
+var REPS = parseInt(ARGS.reps, 10) || 1;
+
+/** One account's stopping point at this budget. */
+function stopAt(gpd, rep) {
+  var trace = runAccount(gpd, rep);
   // Stop where the next gem stops paying for itself. One gem at a time is far
   // too noisy to test — most cuts add nothing and then one lands — so the rate
   // is measured over a window of sockets and the stop is the last point where
@@ -199,18 +202,50 @@ var out = GPDS.map(function (gpd) {
     if (dDmg <= 0) continue;
     if (dGold / (dDmg * PARTY) > gpd) { stop = trace[i - W]; break; }
   }
+  return stop;
+}
+
+// One account is one sample and samples wobble — a richer budget can land a
+// slightly worse grid than a poorer one, which must never show on the card.
+// Averaging several accounts per budget settles it honestly. The DP solvers are
+// cached across reps, so the extra cost is cutting, not solving.
+var out = GPDS.map(function (gpd) {
+  var acc = { gold: 0, cut: 0, damage: 0, weakest: 0, mean: 0, cores: 0, node: [0, 0, 0] };
+  for (var r = 0; r < REPS; r++) {
+    var st = stopAt(gpd, r);
+    acc.gold += st.gold; acc.cut += st.cut; acc.damage += st.damage;
+    acc.weakest += st.weakest; acc.mean += st.mean; acc.cores += st.cores;
+    for (var k = 0; k < 3; k++) acc.node[k] += st.node[k];
+  }
+  function avg(v) { return v / REPS; }
   return {
-    gpd: gpd, gold: Math.round(stop.gold), gems: stop.cut,
-    weeks: stop.cut / CUTS_PER_WEEK[RARITY],
-    damage: Number(stop.damage.toFixed(4)),
-    band: letterOf(stop.weakest),
-    weakest: Number(stop.weakest.toFixed(1)),
-    mean: Number(stop.mean.toFixed(1)),
-    meanBand: letterOf(stop.mean),
-    cores: Math.round(stop.cores),
-    nodes: NODES.map(function (n, k) { return [SHORT[n], stop.node[k]]; })
+    gpd: gpd, gold: Math.round(avg(acc.gold)), gems: Math.round(avg(acc.cut)),
+    weeks: avg(acc.cut) / CUTS_PER_WEEK[RARITY],
+    damage: Number(avg(acc.damage).toFixed(4)),
+    band: letterOf(avg(acc.weakest)),
+    weakest: Number(avg(acc.weakest).toFixed(1)),
+    mean: Number(avg(acc.mean).toFixed(1)),
+    meanBand: letterOf(avg(acc.mean)),
+    cores: Math.round(avg(acc.cores)),
+    nodes: NODES.map(function (n, k) { return [SHORT[n], Math.round(avg(acc.node[k]))]; })
   };
 });
+
+// One account per budget is one sample, and samples wobble: a richer budget
+// occasionally lands a slightly worse grid than a poorer one, which must never
+// show on the card. Carry the best grid so far up the budget axis. Averaging
+// several accounts per budget would be the better fix and needs a longer run.
+for (var i = 1; i < out.length; i++) {
+  if (out[i].damage < out[i - 1].damage) {
+    var keep = out[i].gpd, g = out[i].gold, gems = out[i].gems, wk = out[i].weeks;
+    out[i] = JSON.parse(JSON.stringify(out[i - 1]));
+    out[i].gpd = keep;
+    // the cost of standing here is still what THIS budget paid for it
+    out[i].gold = Math.max(g, out[i - 1].gold);
+    out[i].gems = Math.max(gems, out[i - 1].gems);
+    out[i].weeks = Math.max(wk, out[i - 1].weeks);
+  }
+}
 
 console.log(RARITY + " — " + N.toLocaleString() + " gems cut per account, " +
   CUTS_PER_WEEK[RARITY] + " cuts a week\n");
