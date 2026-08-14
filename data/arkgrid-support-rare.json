@@ -1,0 +1,1127 @@
+{
+ "axis": "support",
+ "rarity": "rare",
+ "slots": 24,
+ "cutsPerWeek": 26,
+ "turns": 7,
+ "rerolls": 2,
+ "n": 150000,
+ "sig": "12u9hug",
+ "gpds": [
+  250000,
+  500000,
+  1000000,
+  2000000,
+  4000000,
+  8000000,
+  16000000,
+  25000000
+ ],
+ "note": "Gold covers cutting and fusing only. Acquiring the raw astrogem is assumed free, so read the gem count and the weeks alongside the gold.",
+ "rows": [
+  {
+   "from": "ungraded",
+   "to": "C-",
+   "band": 60,
+   "baseline": 0,
+   "damage": 0.9026,
+   "totalDamage": 0.9026,
+   "cores": 16,
+   "nodes": [
+    [
+     "ally atk",
+     17
+    ],
+    [
+     "brand",
+     27
+    ],
+    [
+     "ally dmg",
+     26
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 898008,
+     "gems": 62,
+     "weeks": 2.389492604520389,
+     "hits": 57946,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 1051992,
+     "gems": 56,
+     "weeks": 2.1473230635619553,
+     "hits": 64481,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1117613,
+     "gems": 53,
+     "weeks": 2.039227948298774,
+     "hits": 67899,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 1158292,
+     "gems": 52,
+     "weeks": 1.9984057163285287,
+     "hits": 69286,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 1187645,
+     "gems": 52,
+     "weeks": 1.9952092808268147,
+     "hits": 69397,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 1185297,
+     "gems": 51,
+     "weeks": 1.9655268430909003,
+     "hits": 70445,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 1196866,
+     "gems": 51,
+     "weeks": 1.973623616818782,
+     "hits": 70156,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 1204282,
+     "gems": 51,
+     "weeks": 1.9788700651927749,
+     "hits": 69970,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "C-",
+   "to": "C",
+   "band": 63.3,
+   "baseline": 60,
+   "damage": 0.22258,
+   "totalDamage": 1.1252,
+   "cores": 16,
+   "nodes": [
+    [
+     "ally atk",
+     25
+    ],
+    [
+     "brand",
+     30
+    ],
+    [
+     "ally dmg",
+     27
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 492701,
+     "gems": 130,
+     "weeks": 5.014360571525676,
+     "hits": 27613,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 667579,
+     "gems": 98,
+     "weeks": 3.750210949365901,
+     "hits": 36921,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1038721,
+     "gems": 76,
+     "weeks": 2.908183790752945,
+     "hits": 47611,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 1575899,
+     "gems": 63,
+     "weeks": 2.4095353344970496,
+     "hits": 57464,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 1697968,
+     "gems": 62,
+     "weeks": 2.39040015298561,
+     "hits": 57924,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 1779258,
+     "gems": 62,
+     "weeks": 2.4016363148758684,
+     "hits": 57653,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 1818900,
+     "gems": 63,
+     "weeks": 2.407775509712699,
+     "hits": 57506,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 1823333,
+     "gems": 62,
+     "weeks": 2.394037251219629,
+     "hits": 57836,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "C",
+   "to": "C+",
+   "band": 66.7,
+   "baseline": 63.3,
+   "damage": 0.22933,
+   "totalDamage": 1.3545,
+   "cores": 17,
+   "nodes": [
+    [
+     "ally atk",
+     33
+    ],
+    [
+     "brand",
+     34
+    ],
+    [
+     "ally dmg",
+     29
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 607360,
+     "gems": 219,
+     "weeks": 8.42121022147783,
+     "hits": 16442,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 713101,
+     "gems": 158,
+     "weeks": 6.086756570315564,
+     "hits": 22748,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1306677,
+     "gems": 104,
+     "weeks": 4.0179199228559375,
+     "hits": 34461,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 1743424,
+     "gems": 90,
+     "weeks": 3.467954176765477,
+     "hits": 39926,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 2273596,
+     "gems": 83,
+     "weeks": 3.195659584138166,
+     "hits": 43328,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 2368921,
+     "gems": 83,
+     "weeks": 3.1941114780395967,
+     "hits": 43349,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 2423958,
+     "gems": 82,
+     "weeks": 3.1703425026683716,
+     "hits": 43674,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 2480787,
+     "gems": 83,
+     "weeks": 3.1937431024020495,
+     "hits": 43354,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "C+",
+   "to": "B-",
+   "band": 70,
+   "baseline": 66.7,
+   "damage": 0.22258,
+   "totalDamage": 1.5771,
+   "cores": 17,
+   "nodes": [
+    [
+     "ally atk",
+     41
+    ],
+    [
+     "brand",
+     38
+    ],
+    [
+     "ally dmg",
+     31
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 643955,
+     "gems": 437,
+     "weeks": 16.79135804772477,
+     "hits": 8246,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 868265,
+     "gems": 260,
+     "weeks": 10.01023268229746,
+     "hits": 13832,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1304272,
+     "gems": 185,
+     "weeks": 7.110802098476709,
+     "hits": 19472,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 1983560,
+     "gems": 140,
+     "weeks": 5.399794807797305,
+     "hits": 25642,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 2849172,
+     "gems": 122,
+     "weeks": 4.676964649942187,
+     "hits": 29605,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 3301821,
+     "gems": 116,
+     "weeks": 4.475741481172047,
+     "hits": 30936,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 3465896,
+     "gems": 117,
+     "weeks": 4.482406554274473,
+     "hits": 30890,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 3514034,
+     "gems": 117,
+     "weeks": 4.490693038677341,
+     "hits": 30833,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "B-",
+   "to": "B",
+   "band": 73.3,
+   "baseline": 70,
+   "damage": 0.27666,
+   "totalDamage": 1.8538,
+   "cores": 17,
+   "nodes": [
+    [
+     "ally atk",
+     49
+    ],
+    [
+     "brand",
+     42
+    ],
+    [
+     "ally dmg",
+     32
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 657920,
+     "gems": 1748,
+     "weeks": 67.21433905899926,
+     "hits": 2060,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 1046881,
+     "gems": 529,
+     "weeks": 20.361990950226243,
+     "hits": 6800,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1385036,
+     "gems": 376,
+     "weeks": 14.462245504652023,
+     "hits": 9574,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 2117891,
+     "gems": 271,
+     "weeks": 10.418475429762111,
+     "hits": 13290,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 3342688,
+     "gems": 210,
+     "weeks": 8.061807188444744,
+     "hits": 17175,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 5083492,
+     "gems": 183,
+     "weeks": 7.029931887771043,
+     "hits": 19696,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 5259076,
+     "gems": 179,
+     "weeks": 6.881786205841872,
+     "hits": 20120,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 5289411,
+     "gems": 176,
+     "weeks": 6.784004824181209,
+     "hits": 20410,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "B",
+   "to": "B+",
+   "band": 76.7,
+   "baseline": 73.3,
+   "damage": 0.29151,
+   "totalDamage": 2.1453,
+   "cores": 18,
+   "nodes": [
+    [
+     "ally atk",
+     58
+    ],
+    [
+     "brand",
+     45
+    ],
+    [
+     "ally dmg",
+     34
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 637774,
+     "gems": 26087,
+     "weeks": 1003.3444816053512,
+     "hits": 138,
+     "thin": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 1049705,
+     "gems": 1474,
+     "weeks": 56.7000567000567,
+     "hits": 2442,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1778554,
+     "gems": 758,
+     "weeks": 29.137529137529135,
+     "hits": 4752,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 2304439,
+     "gems": 595,
+     "weeks": 22.874861797709972,
+     "hits": 6053,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 4068474,
+     "gems": 394,
+     "weeks": 15.15725653656688,
+     "hits": 9135,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 5471748,
+     "gems": 329,
+     "weeks": 12.639118070427973,
+     "hits": 10955,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 8568871,
+     "gems": 297,
+     "weeks": 11.43932075855407,
+     "hits": 12104,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 8564203,
+     "gems": 290,
+     "weeks": 11.141095788665792,
+     "hits": 12428,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "B+",
+   "to": "A-",
+   "band": 80,
+   "baseline": 76.7,
+   "damage": 0.28293,
+   "totalDamage": 2.4282,
+   "cores": 18,
+   "nodes": [
+    [
+     "ally atk",
+     66
+    ],
+    [
+     "brand",
+     49
+    ],
+    [
+     "ally dmg",
+     36
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": true,
+     "gold": 552400,
+     "gems": 600000,
+     "weeks": 23076.923076923078,
+     "hits": 6,
+     "thin": true
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 1112201,
+     "gems": 11465,
+     "weeks": 440.96031357177856,
+     "hits": 314,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1824169,
+     "gems": 2165,
+     "weeks": 83.26009528655351,
+     "hits": 1663,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 2938585,
+     "gems": 1244,
+     "weeks": 47.82781984854523,
+     "hits": 2895,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 4765917,
+     "gems": 918,
+     "weeks": 35.29480970215102,
+     "hits": 3923,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 7345050,
+     "gems": 684,
+     "weeks": 26.303483750292262,
+     "hits": 5264,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 11102610,
+     "gems": 553,
+     "weeks": 21.28213010475537,
+     "hits": 6506,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 14605809,
+     "gems": 507,
+     "weeks": 19.515368352577656,
+     "hits": 7095,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "A-",
+   "to": "A",
+   "band": 83.3,
+   "baseline": 80,
+   "damage": 0.28293,
+   "totalDamage": 2.7111,
+   "cores": 19,
+   "nodes": [
+    [
+     "ally atk",
+     74
+    ],
+    [
+     "brand",
+     53
+    ],
+    [
+     "ally dmg",
+     37
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 1300258,
+     "gems": 116129,
+     "weeks": 4466.501240694789,
+     "hits": 31,
+     "thin": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1986071,
+     "gems": 12457,
+     "weeks": 479.1056694170881,
+     "hits": 289,
+     "thin": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 3027458,
+     "gems": 3750,
+     "weeks": 144.23076923076923,
+     "hits": 960,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 4986635,
+     "gems": 2348,
+     "weeks": 90.32063826584375,
+     "hits": 1533,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 8171450,
+     "gems": 1585,
+     "weeks": 60.969413677471806,
+     "hits": 2271,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 13057599,
+     "gems": 1198,
+     "weeks": 46.092389634333706,
+     "hits": 3004,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 18501638,
+     "gems": 1102,
+     "weeks": 42.38186056367875,
+     "hits": 3267,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "A",
+   "to": "A+",
+   "band": 86.7,
+   "baseline": 83.3,
+   "damage": 0.29149,
+   "totalDamage": 3.0026,
+   "cores": 19,
+   "nodes": [
+    [
+     "ally atk",
+     82
+    ],
+    [
+     "brand",
+     57
+    ],
+    [
+     "ally dmg",
+     39
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1842133,
+     "gems": 133333,
+     "weeks": 5128.205128205129,
+     "hits": 27,
+     "thin": true
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 3295823,
+     "gems": 19459,
+     "weeks": 748.4407484407485,
+     "hits": 185,
+     "thin": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 6041445,
+     "gems": 8802,
+     "weeks": 338.53676885461726,
+     "hits": 409,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 9427242,
+     "gems": 5705,
+     "weeks": 219.4319151529928,
+     "hits": 631,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 19214604,
+     "gems": 3879,
+     "weeks": 149.20424403183023,
+     "hits": 928,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 28978500,
+     "gems": 2866,
+     "weeks": 110.24007839294464,
+     "hits": 1256,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "A+",
+   "to": "S-",
+   "band": 90,
+   "baseline": 86.7,
+   "damage": 0.28291,
+   "totalDamage": 3.2855,
+   "cores": 19,
+   "nodes": [
+    [
+     "ally atk",
+     90
+    ],
+    [
+     "brand",
+     60
+    ],
+    [
+     "ally dmg",
+     41
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 1750400,
+     "gems": 1200000,
+     "weeks": 46153.846153846156,
+     "hits": 3,
+     "thin": true
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 4706585,
+     "gems": 276923,
+     "weeks": 10650.887573964497,
+     "hits": 13,
+     "thin": true
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 8361320,
+     "gems": 60000,
+     "weeks": 2307.6923076923076,
+     "hits": 60,
+     "thin": false
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 9595528,
+     "gems": 22360,
+     "weeks": 860.0095556617296,
+     "hits": 161,
+     "thin": false
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 25056000,
+     "gems": 20571,
+     "weeks": 791.2087912087912,
+     "hits": 175,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 37713614,
+     "gems": 10375,
+     "weeks": 399.0246065174019,
+     "hits": 347,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "S-",
+   "to": "S",
+   "band": 93.3,
+   "baseline": 90,
+   "damage": 0.28291,
+   "totalDamage": 3.5684,
+   "cores": 20,
+   "nodes": [
+    [
+     "ally atk",
+     98
+    ],
+    [
+     "brand",
+     64
+    ],
+    [
+     "ally dmg",
+     42
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 4190400,
+     "gems": 1800000,
+     "weeks": 69230.76923076923,
+     "hits": 2,
+     "thin": true
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 5327000,
+     "gems": 300000,
+     "weeks": 11538.461538461539,
+     "hits": 12,
+     "thin": true
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 9916714,
+     "gems": 128571,
+     "weeks": 4945.054945054945,
+     "hits": 28,
+     "thin": true
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 28064582,
+     "gems": 109091,
+     "weeks": 4195.804195804196,
+     "hits": 33,
+     "thin": false
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 37842430,
+     "gems": 67925,
+     "weeks": 2612.4818577648766,
+     "hits": 53,
+     "thin": false
+    }
+   ]
+  },
+  {
+   "from": "S",
+   "to": "S+",
+   "band": 94.6,
+   "baseline": 93.3,
+   "damage": 0.11145,
+   "totalDamage": 3.6799,
+   "cores": 20,
+   "nodes": [
+    [
+     "ally atk",
+     101
+    ],
+    [
+     "brand",
+     66
+    ],
+    [
+     "ally dmg",
+     43
+    ]
+   ],
+   "cells": [
+    {
+     "gpd": 250000,
+     "reachable": false
+    },
+    {
+     "gpd": 500000,
+     "reachable": false
+    },
+    {
+     "gpd": 1000000,
+     "reachable": false
+    },
+    {
+     "gpd": 2000000,
+     "reachable": false
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 7639200,
+     "gems": 3600000,
+     "weeks": 138461.53846153847,
+     "hits": 1,
+     "thin": true
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 6948000,
+     "gems": 1200000,
+     "weeks": 46153.846153846156,
+     "hits": 3,
+     "thin": true
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 10480500,
+     "gems": 225000,
+     "weeks": 8653.846153846154,
+     "hits": 16,
+     "thin": true
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 13460509,
+     "gems": 163636,
+     "weeks": 6293.706293706294,
+     "hits": 22,
+     "thin": true
+    }
+   ]
+  }
+ ]
+}

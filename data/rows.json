@@ -1,5 +1,5 @@
 {
- "note": "Rows the page cannot compute live. Gold and damage per step; damage is percent of ONE dealer's damage, the page applies the party multiplier on the gold axis.",
+ "note": "Rows the page cannot compute live. Gold and damage per step; damage is percent of ONE dealer's damage, the page applies the party multiplier on the gold axis.  Support damage is per dealer throughout: the chart reports what one dealer gains from the support, with no party multiplier anywhere.",
  "rows": [
   {
    "series": "stone",
@@ -438,7 +438,7 @@
    ],
    "buy": "80/80 unrolled bracelets, about 1,698 each",
    "odds": "1 in 1 rolled bracelets reaches D",
-   "totalDamage": 2.987
+   "totalDamage": 0.9957
   },
   {
    "series": "bracelet",
@@ -472,7 +472,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
    "odds": "1 in 1 rolled bracelets reaches D+",
-   "totalDamage": 3.887
+   "totalDamage": 1.2957
   },
   {
    "series": "bracelet",
@@ -506,7 +506,7 @@
    ],
    "buy": "80/80 unrolled bracelets, about 1,198 each",
    "odds": "1 in 2 rolled bracelets reaches C-",
-   "totalDamage": 4.788
+   "totalDamage": 1.596
   },
   {
    "series": "bracelet",
@@ -540,7 +540,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
    "odds": "1 in 2 rolled bracelets reaches C",
-   "totalDamage": 5.688
+   "totalDamage": 1.896
   },
   {
    "series": "bracelet",
@@ -574,7 +574,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
    "odds": "1 in 3 rolled bracelets reaches C+",
-   "totalDamage": 6.589
+   "totalDamage": 2.1963
   },
   {
    "series": "bracelet",
@@ -608,7 +608,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 5,363 each",
    "odds": "1 in 5 rolled bracelets reaches B-",
-   "totalDamage": 7.94
+   "totalDamage": 2.6467
   },
   {
    "series": "bracelet",
@@ -642,7 +642,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 3,110 each",
    "odds": "1 in 11 rolled bracelets reaches B",
-   "totalDamage": 9.29
+   "totalDamage": 3.0967
   },
   {
    "series": "bracelet",
@@ -680,7 +680,7 @@
    ],
    "buy": "100/100 unrolled bracelets, about 9,248 each",
    "odds": "1 in 23 rolled bracelets reaches B+",
-   "totalDamage": 10.641
+   "totalDamage": 3.547
   },
   {
    "series": "bracelet",
@@ -718,7 +718,7 @@
    ],
    "buy": "100/100 unrolled bracelets, about 9,248 each",
    "odds": "1 in 63 rolled bracelets reaches A-",
-   "totalDamage": 11.992
+   "totalDamage": 3.9973
   },
   {
    "series": "bracelet",
@@ -756,7 +756,7 @@
    ],
    "buy": "100/100 unrolled bracelets, about 11,436 each",
    "odds": "1 in 189 rolled bracelets reaches A",
-   "totalDamage": 13.343
+   "totalDamage": 4.4477
   },
   {
    "series": "bracelet",
@@ -794,7 +794,7 @@
    ],
    "buy": "100/100 unrolled bracelets, about 13,918 each",
    "odds": "1 in 552 rolled bracelets reaches A+",
-   "totalDamage": 14.694
+   "totalDamage": 4.898
   },
   {
    "series": "bracelet",
@@ -832,7 +832,7 @@
    ],
    "buy": "100/100 unrolled bracelets, about 9,979 each",
    "odds": "1 in 2,621 rolled bracelets reaches S-",
-   "totalDamage": 16.045
+   "totalDamage": 5.3483
   },
   {
    "series": "bracelet",
@@ -874,7 +874,7 @@
    ],
    "buy": "90/90 unrolled bracelets, about 8,070 each",
    "odds": "1 in 12,500 rolled bracelets reaches S",
-   "totalDamage": 17.395
+   "totalDamage": 5.7983
   },
   {
    "series": "bracelet",
@@ -916,7 +916,7 @@
    ],
    "buy": "110/110 unrolled bracelets, about 38,974 each",
    "odds": "1 in 117,647 rolled bracelets reaches S+",
-   "totalDamage": 19.196
+   "totalDamage": 6.3987
   },
   {
    "series": "neck",

@@ -85,7 +85,11 @@
     ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
     earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
     bracelet: { label: "Bracelet",        color: "#ff7f7f", base: "D-" },
+    // the DPS axis still runs the single baked ark grid row until its own cost
+    // runs exist; support splits into the two raw-gem supplies
     arkgrid:  { label: "Ark grid",        color: "#e8b75c", base: "ungraded" },
+    arkgridEpic: { label: "Ark grid — infinite epics", color: "#b06fe0", base: "ungraded" },
+    arkgridRare: { label: "Ark grid — fusing and cutting rares", color: "#4f9be0", base: "ungraded" },
     stone:    { label: "Ability stone",   color: "#97a0b4", base: "7-7" }
   };
   // the bracelet / astrogem rank ramp: grey -> green -> blue -> purple, then the
@@ -124,7 +128,7 @@
                    "66111131": "Lava's", "66111132": "Glacier's" };
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
-                rows: { support: null, dps: null } };
+                rows: { support: null, dps: null }, arkgrid: {}, braceletByGpd: null };
   var ROWS = [], PLAN = null, BUDGET = 0;
 
   function fmtGold(g) {
@@ -135,7 +139,12 @@
     return Math.round(g).toString();
   }
   function el(id) { return document.getElementById(id); }
+  // A support's buff lands on all three dealers, and the gold axis counts all
+  // three: gold per damage stays gold / (per-dealer damage x 3), so the slider
+  // means what it has always meant. Only the DISPLAYED figure drops to the
+  // per-dealer number, per Shizu — the damage one dealer gains.
   function party() { return state.axis === "support" ? 3 : 1; }
+  function dmgLabel() { return state.axis === "support" ? "Party damage" : "Damage"; }
 
   // ---- material price inputs -------------------------------------------
   function buildInputs(data) {
@@ -234,11 +243,78 @@
     }
     baked.forEach(function (r) {
       if (dpsDmg && (r.series === "armor" || r.series === "weapon" || r.series === "karma")) return;
+      // the two rarity series supersede the single baked ark grid row, but only
+      // on the axis they were simulated for — the cost harness grades with
+      // supportGrade, so the DPS tab keeps the old row until it has its own runs
+      if (r.series === "arkgrid" && state.axis === "support") return;
       out.push(Object.assign({}, r));
     });
+    // The ark grid is priced with the advisor you would really be running: its
+    // baseline is the band you are standing on and its gold per damage is the
+    // budget on the slider, so these rows are rebuilt whenever the slider moves.
+    if (state.axis === "support") {
+      ["arkgridEpic", "arkgridRare"].forEach(function (key) {
+        arkgridRows(key).forEach(function (r) { out.push(r); });
+      });
+    }
     out.forEach(function (r) {
       r.gpd = r.damage > 0 ? r.gold / (r.damage * party()) : Infinity;
     });
+    return out;
+  }
+
+  var RARITY_OF = { arkgridEpic: "epic", arkgridRare: "rare" };
+
+  /**
+   * What a grid step costs in gems and in time. Weeks use the astrogem
+   * calculator's own throughput: 26 rare cuts a week, or 9 epic. The gold is
+   * only what the cutting and fusing costs — the gems themselves are assumed
+   * free, which is the whole point of "infinite rares" and "infinite epics"
+   * and also the biggest thing the gold number leaves out.
+   */
+  function arkgridEffort(r) {
+    var w = r.weeks, time = w < 1 ? "under a week"
+      : w < 104 ? Math.round(w) + " week" + (Math.round(w) === 1 ? "" : "s")
+      : (w / 52).toFixed(w < 520 ? 1 : 0) + " years";
+    return "<span class='k'>effort</span><table>" +
+      num("Astrogems cut", Math.round(r.gems).toLocaleString() + " " + r.rarity) +
+      num("At " + r.cutsPerWeek + " cuts a week", time, w > 260 ? "var(--bad)" : "") +
+      (r.thin ? num("Sample", "thin — few hits, treat as a rough figure", "var(--bad)") : "") +
+      "</table><span class='sm'>Gold covers cutting and fusing only. Getting hold of " +
+      "the astrogem is not priced.</span>";
+  }
+
+  /** Pick the cell for wherever the slider sits; clamp at both ends. */
+  function cellAt(row, budget) {
+    var pick = null;
+    for (var i = 0; i < row.cells.length; i++) {
+      if (row.cells[i].gpd <= budget) pick = row.cells[i];
+    }
+    return pick || row.cells[0];
+  }
+
+  /** Ark grid rows for one rarity at the current budget. */
+  function arkgridRows(key) {
+    var src = state.arkgrid[RARITY_OF[key]];
+    if (!src) return [];
+    var out = [];
+    for (var i = 0; i < src.rows.length; i++) {
+      var r = src.rows[i], c = cellAt(r, BUDGET);
+      if (!c.reachable) break;                 // and nothing above it is either
+      out.push({
+        series: key, label: r.from + " → " + r.to, from: r.from, to: r.to,
+        gold: c.gold, damage: r.damage, totalDamage: r.totalDamage,
+        grid: { cores: c.cores != null ? c.cores : r.cores,
+                nodes: c.nodes || r.nodes },
+        gems: c.gems, weeks: c.weeks, thin: c.thin, meanGrade: c.meanGrade,
+        cutsPerWeek: src.cutsPerWeek, rarity: src.rarity,
+        turns: src.turns, rerolls: src.rerolls,
+        minimum: "all 24 slots at " + r.to,
+        buy: src.rarity === "rare"
+          ? "rare astrogems, cut at 7 turns and 2 rerolls, duds fused"
+          : "epic astrogems, cut at 9 turns and 3 rerolls, duds fused"
+      });
+    }
     return out;
   }
 
@@ -252,8 +328,7 @@
     var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b><table>";
     h += num("Cost", fmtGold(r.gold), "var(--high)");
     if (r.total) h += num("Total for the piece", fmtGold(r.total), "var(--high)");
-    h += num(party() > 1 ? "Party damage" : "Damage",
-             (r.damage * party()).toFixed(3) + "%", "var(--good)");
+    h += num(dmgLabel(), r.damage.toFixed(3) + "%", "var(--good)");
     h += num("Gold per 1%", fmtGold(r.gpd));
     h += "</table>";
     if (r.mats && r.mats.length) {
@@ -265,10 +340,22 @@
       });
       h += "</table>";
     }
+    if (r.gems != null) h += arkgridEffort(r);
+    if (r.odds) h += "<span class='k'>chance</span>" + colourTiers(r.odds);
     if (r.minimum) h += "<span class='k'>result</span>" + colourTiers(r.minimum);
-    if (r.series === "arkgrid") h += "<span class='k'>cut it with</span>" +
+    if (r.series.indexOf("arkgrid") === 0) h += "<span class='k'>cut it with</span>" +
       "<a href='https://www.loseii.com/loa-astrogem-calc/'>the astrogem calculator</a>";
     return h;
+  }
+
+  /** The bracelet you would be wearing at this budget (tools/bracelet-vs-gpd.js). */
+  function braceletAt(budget) {
+    var rows = state.braceletByGpd;
+    if (!rows || !rows.length) return null;
+    var pick = rows[0];
+    for (var i = 0; i < rows.length; i++) if (rows[i].gpd <= budget) pick = rows[i];
+    return pick.example ? { stats: pick.example.stats, lines: pick.example.lines,
+                            rolls: pick.rolls, score: pick.example.score } : null;
   }
 
   function planTipHtml(key) {
@@ -281,8 +368,7 @@
       var spend = SERIES[key].spend === "last" ? p.last.gold : (p.last.total || p.gold);
       h += num(SERIES[key].spend === "last" ? "Last step" : "Total cost",
                fmtGold(spend), "var(--high)");
-      h += num(party() > 1 ? "Party damage" : "Damage",
-               (p.damage * party()).toFixed(3) + "%", "var(--good)");
+      h += num(dmgLabel(), p.damage.toFixed(3) + "%", "var(--good)");
       h += num("Gold per 1%", fmtGold(p.gold / (p.damage * party())));
     }
     h += "</table>";
@@ -290,11 +376,23 @@
       h += "<span class='k'>next step</span><table>";
       h += num("To", pill(next.to || next.label));
       h += num("Cost", fmtGold(next.gold), "var(--high)");
-      h += num(party() > 1 ? "Party damage" : "Damage",
-               (next.damage * party()).toFixed(3) + "%", "var(--good)");
+      h += num(dmgLabel(), next.damage.toFixed(3) + "%", "var(--good)");
       h += num("Gold per 1%", fmtGold(next.gpd), "var(--bad)");
       h += "</table>";
     }
+    // what you actually have to buy and roll to be standing where you are
+    var at = p.taken ? p.last : null;
+    if (at && at.mats && at.mats.length) {
+      h += "<span class='k'>what it takes</span><table>";
+      at.mats.forEach(function (m) {
+        var qty = m[1] === "" ? "" : (typeof m[1] === "number" ? m[1].toLocaleString() : m[1]);
+        h += "<tr><td>" + m[0] + "</td><td>" + qty + (m[2] ? "  <b style='color:var(--dim)'>" +
+          fmtGold(m[2]) + "</b>" : "") + "</td></tr>";
+      });
+      h += "</table>";
+    }
+    if (at && at.gems != null) h += arkgridEffort(at);
+    if (at && at.odds) h += "<span class='k'>chance</span>" + colourTiers(at.odds);
     return h;
   }
 
@@ -332,8 +430,6 @@
   }
 
   function renderPlan(rows) {
-    BUDGET = 250000 * Math.pow(100, el("gpd").value / 100);
-    el("gpdOut").textContent = fmtGold(BUDGET) + " / 1%";
     PLAN = planAt(rows, BUDGET);
     var gold = 0, dmg = 0;
     el("plan").innerHTML = Object.keys(SERIES).filter(function (k) {
@@ -351,8 +447,13 @@
       var last = p.taken ? p.last : null;
       var eg = "";
       if (last) {
-        if (last.hit) {
-          eg = "<b>" + last.hit.stats + "</b>" + last.hit.lines.map(function (l) {
+        // the bracelet example tracks the budget, not just the band: a bigger
+        // budget buys more rolls and keeps the best of them, so two players
+        // both sitting on A+ do not wear the same A+
+        var hit = (key === "bracelet" && state.axis === "support")
+          ? (braceletAt(BUDGET) || last.hit) : last.hit;
+        if (hit) {
+          eg = "<b>" + hit.stats + "</b>" + hit.lines.map(function (l) {
             return "<span class='sm'>" + l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span></span>";
           }).join("<br>");
         } else if (last.grid) {
@@ -363,7 +464,7 @@
           eg = "<span class='sm'>" + (bits[2] || "") + "<br>" + colourTiers(bits[1] || "") + "</span>";
         }
       }
-      var totalDmg = last && last.totalDamage ? last.totalDamage : (p.damage * party());
+      var totalDmg = last && last.totalDamage ? last.totalDamage : p.damage;
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
         SERIES[key].label + "</h4>" +
         "<div class='top'><div><div class='big'>" + pill(where) + "</div>" +
@@ -372,12 +473,11 @@
         "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
-        (party() > 1 ? "party damage" : "damage") + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
+        dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
     }).join("");
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
-      "<div><span>damage</span>" + dmg.toFixed(2) + "%</div>" +
-      (party() > 1 ? "<div><span>across the party</span>" + (dmg * 3).toFixed(2) + "%</div>" : "") +
+      "<div><span>" + dmgLabel().toLowerCase() + "</span>" + dmg.toFixed(2) + "%</div>" +
       "<div><span>average cost</span>" + fmtGold(dmg > 0 ? gold / (dmg * party()) : 0) + " / 1%</div>";
   }
 
@@ -428,7 +528,13 @@
     }).join("");
   }
 
+  function readBudget() {
+    BUDGET = 250000 * Math.pow(100, el("gpd").value / 100);
+    el("gpdOut").textContent = fmtGold(BUDGET) + " / 1%";
+  }
+
   function render() {
+    readBudget();                 // the ark grid rows are priced at this budget
     ROWS = steps();
     if (!ROWS.length) {
       el("ranked").innerHTML = "<div class='placeholder'>The DPS chart is still being built.</div>";
@@ -454,16 +560,22 @@
     g.style.display = open ? "none" : "";
     el("mat-caret").textContent = open ? "▸" : "▾";
   });
-  el("gpd").addEventListener("input", function () { renderPlan(ROWS); wireTips(); });
+  el("gpd").addEventListener("input", render);
 
   function grab(u) {
     return fetch(u).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   }
   Promise.all([grab("data/honing-t4upper.json"), grab("data/karma.json"),
-               grab("data/rows.json"), grab("data/rows-dps.json")]).then(function (all) {
+               grab("data/rows.json"), grab("data/rows-dps.json"),
+               grab("data/bracelet-vs-gpd.json"),
+               grab("data/arkgrid-support-epic.json"),
+               grab("data/arkgrid-support-rare.json")]).then(function (all) {
+    state.arkgrid.epic = all[5];
+    state.arkgrid.rare = all[6];
     state.honing = all[0]; state.karma = all[1];
     state.rows.support = all[2] ? all[2].rows : [];
     state.rows.dps = all[3] ? all[3].rows : null;
+    state.braceletByGpd = all[4] ? all[4].rows : null;
     state.dpsDamage = all[3] && all[3].honingDamage
       ? { honing: all[3].honingDamage, karma: all[3].karmaDamage } : null;
     if (state.honing) buildInputs(state.honing);
