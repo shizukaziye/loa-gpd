@@ -698,6 +698,20 @@ n8+n10 and c = allyDmg/5 = n8+n9 over twenty-four gems, that split is n10 = 24
 five**. Worth knowing, though the chart does not assume it: the band price buys
 gems at a grade, not gems with a chosen pair of lines.
 
-An even split is the one shape nobody should build. 60/60/60 on the reference
-character is close to a B grid in total levels but the wrong shape for any of
-them.
+The DPS axis has the same shape, scored through `gridDamage`:
+
+| node | damage per level |
+|---|---:|
+| boss damage | 0.0793% |
+| additional damage | 0.0583% |
+| attack power | 0.0321% |
+
+Best split **0 attack power / 120 boss / 120 additional**, 19.40% against
+16.63% for an even 80/80/80 — a gap of 2.77 points, near enough the support
+gap of 2.79. And it is the same gem: cost 10 carries Boss Damage and Additional
+Damage, so twenty-four cost-10 gems again.
+
+So on both axes the answer is twenty-four base-cost-10 gems, taking the two
+lines that cost draws. An even split is the one shape nobody should build, and
+60/60/60 on the reference character is about a B grid in total levels but the
+wrong shape for any of them.

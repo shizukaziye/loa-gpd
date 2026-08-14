@@ -1,7 +1,7 @@
 /**
  * arkgrid-split.js — how a support should divide its ark grid side nodes.
  *
- *   node tools/arkgrid-split.js
+ *   node tools/arkgrid-split.js [dps]
  *
  * The three support side nodes do not pay the same. The game's own table gives
  * brand power the biggest number per level, but brand feeds a bracket that is
@@ -84,3 +84,44 @@ console.log("\nfor comparison:\n");
   console.log("  " + r[0].padEnd(30) + gain(r[1], r[2], r[3]).toFixed(3) + "%  (" +
     (gain(r[1], r[2], r[3]) - best[3]).toFixed(3) + " against best)");
 });
+
+// ---- the DPS axis ----------------------------------------------------------
+// Scored through the astrogem calculator's gridDamage, which is what the DPS
+// rows already use, so the two agree by construction.
+if (process.argv[2] === "dps") {
+  var A = require("../../loastuff/loa-astrogem-calc/model/astrogem.js");
+  var DN = ["Attack Power", "Boss Damage", "Additional Damage"];
+  var dps = function (lv) {
+    var gems = [], lines = [], i;
+    for (i = 0; i < 3; i++) {
+      var left = lv[i];
+      while (left > 1e-9) { var l = Math.min(5, left); lines.push([DN[i], l]); left -= l; }
+    }
+    while (lines.length < 48) lines.push(["__dead__", 1]);
+    for (i = 0; i < 24; i++) gems.push({ baseCost: 8, gemType: "order", coreBase: (i / 4) | 0,
+      willpowerLevel: 5, orderLevel: 5,
+      effect1: lines[i * 2][0], effect1Level: lines[i * 2][1],
+      effect2: lines[i * 2 + 1][0], effect2Level: lines[i * 2 + 1][1] });
+    return A.gridDamage(gems, "dps");
+  };
+  console.log("
+
+DPS — what one more node level is worth at 60/60/60:
+");
+  [["attack power", 1, 0, 0], ["boss damage", 0, 1, 0], ["additional damage", 0, 0, 1]]
+    .forEach(function (r) {
+      console.log("   " + r[0].padEnd(19) +
+        (dps([60 + r[1], 60 + r[2], 60 + r[3]]) - dps([60, 60, 60])).toFixed(5) + "%");
+    });
+  var db = null;
+  for (var a = 0; a <= 120; a += 5) for (var b = 0; b <= 120; b += 5) {
+    var c = 240 - a - b;
+    if (c < 0 || c > 120) continue;
+    var v = dps([a, b, c]);
+    if (!db || v > db[3]) db = [a, b, c, v];
+  }
+  console.log("
+   best split  attack " + db[0] + " / boss " + db[1] + " / add " + db[2] +
+    "  ->  " + db[3].toFixed(3) + "%");
+  console.log("   even 80 / 80 / 80                 ->  " + dps([80, 80, 80]).toFixed(3) + "%");
+}
