@@ -113,6 +113,25 @@ Ancient mid equals Relic high, and Ancient high is a new step above anything a
 Relic can roll. So "legendary" on an Ancient bracelet beats "legendary" on a
 Relic.
 
+
+> **CORRECTION (2026-08-14).** The per-line table below was derived by hand and is
+> wrong for families 17 and 19 at the low and mid tiers. At 90% crit / 280% crit
+> damage the ally crit factor is 2.620, so a point of crit rate is worth 0.68702%
+> and a point of crit damage exactly half that, 0.34351%. Family 19's roll is
+> exactly twice family 17's at low (3.6 against 1.8) and mid (4.2 against 2.1),
+> so the two lines are **identical** at those tiers, not 4.5% apart. They diverge
+> only at high, where 4.8 against 2.5 is 1.92x rather than 2x, leaving 19 at
+> 0.9993 of 17. The shipped model in `model/bracelet.js` is correct — it was
+> regenerated from the bracelet calculator's own `allyCritFactor` by
+> `tools/regen-support-lines.js`. Read the numbers from there, not from here.
+>
+> Worth knowing why the hand derivation missed it: the accessory calculator's
+> crit factor carries a x1.12 term (`cr*cd*1.12 + (1-cr)`) while the bracelet
+> calculator's does not (`(1-cr) + cr*cd`). Under the accessory form the ratio is
+> 2.119 rather than 2.000 and the two families would differ by 5.6%. Bracelet
+> lines are scored with the bracelet calculator's model, so 2.000 is the one that
+> applies here — but the two house tools genuinely disagree about the crit factor.
+
 ### The support's s-tier pool
 
 Scored on `Q = 100*ln(ap * brand * identity)` at the reference character in

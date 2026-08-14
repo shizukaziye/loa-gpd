@@ -172,7 +172,9 @@
   // ---- the rows --------------------------------------------------------
   function steps() {
     var d = state.honing, P = Support.DEFAULTS, out = [];
-    if (state.axis === "support" && d && state.karma) {
+    var baked = state.rows[state.axis] || [];
+    var dpsDmg = state.axis === "dps" ? state.dpsDamage : null;
+    if (d && state.karma) {
       var names = {};
       d.materials.forEach(function (m) { names[m.id] = m.name; });
 
@@ -197,7 +199,10 @@
             series: track, label: "+" + s.from + " → +" + s.to,
             from: "+" + s.from, to: "+" + s.to,
             note: (1675 + 5 * s.to) + " ilvl",
-            gold: s.gold, damage: Support.delta(P, { gear: before }, { gear: after }), mats: mats,
+            gold: s.gold,
+            damage: dpsDmg ? (dpsDmg.honing[track][String(s.to)] || 0)
+                           : Support.delta(P, { gear: before }, { gear: after }),
+            mats: mats,
             buy: (pieces > 1 ? "all five armour pieces" : "the weapon") + " to +" + s.to,
             odds: "base rate " + s.baseRate.toFixed(2) + "%, plus a tenth of base each failure, free once " +
                   "the rates spent reach 215%. " + s.taps.toFixed(1) + " taps expected" +
@@ -216,7 +221,8 @@
         out.push({
           series: "karma", label: "lv " + s.from + " → " + s.to,
           from: "lv " + s.from, to: "lv " + s.to,
-          gold: s.gold, damage: Support.delta(P, { gear: b }, { gear: a }),
+          gold: s.gold,
+          damage: dpsDmg ? (dpsDmg.karma[String(s.to)] || 0) : Support.delta(P, { gear: b }, { gear: a }),
           mats: [["900g a try", s.attempts.toFixed(1) + " tries", s.gold],
                  ["Destiny Stones", Math.ceil(s.attempts), 0]],
           buy: "nothing but gold — 900g and a Destiny Stone a try",
@@ -226,8 +232,10 @@
         });
       });
     }
-    var baked = state.rows[state.axis];
-    if (baked) baked.forEach(function (r) { out.push(Object.assign({}, r)); });
+    baked.forEach(function (r) {
+      if (dpsDmg && (r.series === "armor" || r.series === "weapon" || r.series === "karma")) return;
+      out.push(Object.assign({}, r));
+    });
     out.forEach(function (r) {
       r.gpd = r.damage > 0 ? r.gold / (r.damage * party()) : Infinity;
     });
@@ -437,7 +445,7 @@
       document.querySelectorAll(".tab").forEach(function (x) { x.classList.remove("active"); });
       t.classList.add("active");
       state.axis = t.getAttribute("data-axis");
-      el("matPanel").style.display = state.axis === "support" ? "" : "none";
+
       render();
     });
   });
@@ -456,6 +464,8 @@
     state.honing = all[0]; state.karma = all[1];
     state.rows.support = all[2] ? all[2].rows : [];
     state.rows.dps = all[3] ? all[3].rows : null;
+    state.dpsDamage = all[3] && all[3].honingDamage
+      ? { honing: all[3].honingDamage, karma: all[3].karmaDamage } : null;
     if (state.honing) buildInputs(state.honing);
     render();
   });
