@@ -1,0 +1,213 @@
+/**
+ * arkgrid-account.js — simulate an account building its ark grid.
+ *
+ *   node tools/arkgrid-account.js --rarity=rare --n=4000 --out=data/arkgrid-account-rare.json
+ *
+ * The band model says a grid is "24 gems at grade X". That is enough to price
+ * the ladder but not to show one, because it throws away the spread: the band
+ * is set by the WEAKEST of the 24, and the other 23 sit above it. Two players
+ * both sitting on A+ can hold quite different grids.
+ *
+ * So this builds the grid the way a player does. Cut a gem with the advisor at
+ * your current baseline; if it beats your weakest equipped gem, socket it and
+ * the old one is gone. Your baseline is then the grade of the new weakest,
+ * which is the app's own advice, so the advisor tracks you as you improve.
+ * Duds that reach relic fuse with two legendary fodder, as everywhere else.
+ *
+ * The trace is monotone in gold, so one account answers every budget: walk it
+ * and stop where one more gem stops paying,
+ *
+ *     gold for the next gem / (damage it adds x 3 dealers)  >  your gold per damage
+ *
+ * and report the grid standing there — its weakest grade (the band), its mean,
+ * its node levels and what it cost in gems and weeks.
+ */
+"use strict";
+var REPO = "C:/Users/Shizu/loastuff/loa-astrogem-calc";
+var A = require(REPO + "/model/astrogem.js");
+
+var ARGS = {};
+process.argv.slice(2).forEach(function (a) {
+  var m = a.match(/^--([^=]+)(?:=(.*))?$/);
+  if (m) ARGS[m[1]] = m[2] === undefined ? true : m[2];
+});
+var RARITY = String(ARGS.rarity || "epic");
+var BUDGET_RARITY = { maxTurns: A.RARITY[RARITY].maxTurns, maxRerolls: A.RARITY[RARITY].maxRerolls };
+A.RARITY.epic.maxTurns = BUDGET_RARITY.maxTurns;
+A.RARITY.epic.maxRerolls = BUDGET_RARITY.maxRerolls;
+
+var DP = require(REPO + "/model/dp.js");
+var Engine = require(REPO + "/tools/lib/cut-engine.js");
+var mulberry32 = Engine.mulberry32, fnv1a = Engine.fnv1a, cutOneGem = Engine.cutOneGem;
+
+var SLOTS = 24;
+var CUTS_PER_WEEK = { uncommon: 70, rare: 26, epic: 9 };
+var PARTY = 3;
+var N = parseInt(ARGS.n, 10) || 4000;          // gems cut per account
+var SEED = String(ARGS.seed || "gpd-2026-08-14");
+var GPDS = [250000, 500000, 1000000, 2000000, 4000000, 8000000, 16000000, 25000000];
+var MIX = { 8: 0.6, 9: 0.3, 10: 0.1 };
+var NODES = ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
+var SHORT = { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
+
+function pairsOf(cost) {
+  var pool = A.EFFECT_POOLS[cost], out = [];
+  for (var i = 0; i < pool.length; i++) for (var j = i + 1; j < pool.length; j++) out.push([pool[i], pool[j]]);
+  return out;
+}
+var PAIRS = { 8: pairsOf(8), 9: pairsOf(9), 10: pairsOf(10) };
+
+// Solvers are the expensive part, so they are cached and the baseline is
+// quantised to whole grade points — the advisor does not change its mind over
+// a tenth of a grade.
+var solverCache = {};
+function solverFor(baseline, gpd, cost) {
+  var q = Math.round(baseline);
+  var key = q + "_" + gpd + "_" + cost;
+  if (!solverCache[key]) {
+    solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, false,
+      { axis: "support", maxTurns: BUDGET_RARITY.maxTurns });
+  }
+  return solverCache[key];
+}
+
+var _partCache = {};
+function partsOfSum(s) {
+  if (_partCache[s]) return _partCache[s];
+  var out = [];
+  for (var w = 1; w <= 5; w++) for (var o = 1; o <= 5; o++)
+    for (var a = 1; a <= 5; a++) for (var b = 1; b <= 5; b++)
+      if (w + o + a + b === s) out.push([w, o, a, b]);
+  _partCache[s] = out;
+  return out;
+}
+function sampleTierGem(cost, tierName, rand) {
+  var sumDist = A.outputLevelSumDist(tierName);
+  var r = rand(), acc = 0, sum = null;
+  Object.keys(sumDist).forEach(function (k) {
+    if (sum !== null) return;
+    acc += sumDist[k];
+    if (r <= acc) sum = parseInt(k, 10);
+  });
+  if (sum === null) sum = parseInt(Object.keys(sumDist).pop(), 10);
+  var parts = partsOfSum(sum), p = parts[Math.floor(rand() * parts.length)];
+  var pool = A.EFFECT_POOLS[cost];
+  var i = Math.floor(rand() * pool.length), j = Math.floor(rand() * (pool.length - 1));
+  if (j >= i) j++;
+  return { baseCost: cost, gemType: "order", willpowerLevel: p[0], orderLevel: p[1],
+    effect1: pool[i], effect1Level: p[2], effect2: pool[j], effect2Level: p[3] };
+}
+function drawTier(dist, rand) {
+  var r = rand();
+  if (r <= dist.legendary) return "legendary";
+  if (r <= dist.legendary + dist.relic) return "relic";
+  return "ancient";
+}
+
+/** The grid's damage, and the node levels, through the calculator's own scorer. */
+function gridState(gems) {
+  var placed = gems.map(function (g, i) { return Object.assign({}, g, { coreBase: (i / 4) | 0 }); });
+  var node = [0, 0, 0], pts = 0;
+  placed.forEach(function (g) {
+    for (var q = 0; q < 3; q++) {
+      if (g.effect1 === NODES[q]) node[q] += g.effect1Level;
+      if (g.effect2 === NODES[q]) node[q] += g.effect2Level;
+    }
+    pts += g.orderLevel || 0;
+  });
+  return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6 };
+}
+
+/** One account: cut N gems, always socketing anything better than the weakest. */
+function runAccount(gpd) {
+  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + gpd));
+  var equipped = [], trace = [], gold = 0, cut = 0;
+  // start from nothing: the first 24 gems go straight in
+  while (cut < N) {
+    var weakest = equipped.length < SLOTS ? 0
+      : Math.min.apply(null, equipped.map(function (g) { return A.supportGrade(g); }));
+    var cost = rand() < MIX[8] ? 8 : (rand() < 0.75 ? 9 : 10);
+    var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
+    var res = cutOneGem(solverFor(weakest, gpd, cost),
+      { baseCost: cost, gemType: "order", effect1: pr[0], effect2: pr[1] }, rand, true);
+    gold += res.spent;
+    cut++;
+    var got = res.processes > 0 ? res.cfg : null;
+    // a dud that reached relic is worth fusing rather than binning
+    if (got && equipped.length >= SLOTS && A.supportGrade(got) <= weakest && A.levelSum(got) >= 16) {
+      gold += A.COSTS.fusion;
+      var outTier = drawTier(A.fusionOutputDist([A.classifyTier(A.levelSum(got)), "legendary", "legendary"]), rand);
+      got = outTier === "legendary" ? null : sampleTierGem(got.baseCost, outTier, rand);
+    }
+    if (!got) continue;
+    if (equipped.length < SLOTS) {
+      equipped.push(got);
+    } else {
+      var wi = 0, wg = Infinity;
+      for (var i = 0; i < equipped.length; i++) {
+        var g = A.supportGrade(equipped[i]);
+        if (g < wg) { wg = g; wi = i; }
+      }
+      if (A.supportGrade(got) <= wg) continue;
+      equipped[wi] = got;
+    }
+    if (equipped.length === SLOTS) {
+      var st = gridState(equipped);
+      var grades = equipped.map(function (g) { return A.supportGrade(g); });
+      trace.push({ gold: gold, cut: cut, damage: st.damage,
+        weakest: Math.min.apply(null, grades),
+        mean: grades.reduce(function (a, b) { return a + b; }, 0) / SLOTS,
+        node: st.node.slice(), cores: st.cores });
+    }
+  }
+  return trace;
+}
+
+function letterOf(g) {
+  var L = A.SUPPORT_RANK_LADDER;
+  for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
+  return "F-";
+}
+
+var out = GPDS.map(function (gpd) {
+  var trace = runAccount(gpd);
+  // stop where the next gem stops paying for itself
+  var stop = trace[trace.length - 1];
+  for (var i = 1; i < trace.length; i++) {
+    var dGold = trace[i].gold - trace[i - 1].gold;
+    var dDmg = trace[i].damage - trace[i - 1].damage;
+    if (dDmg <= 0) continue;
+    if (dGold / (dDmg * PARTY) > gpd) { stop = trace[i - 1]; break; }
+  }
+  return {
+    gpd: gpd, gold: Math.round(stop.gold), gems: stop.cut,
+    weeks: stop.cut / CUTS_PER_WEEK[RARITY],
+    damage: Number(stop.damage.toFixed(4)),
+    band: letterOf(stop.weakest),
+    weakest: Number(stop.weakest.toFixed(1)),
+    mean: Number(stop.mean.toFixed(1)),
+    meanBand: letterOf(stop.mean),
+    cores: Math.round(stop.cores),
+    nodes: NODES.map(function (n, k) { return [SHORT[n], stop.node[k]]; })
+  };
+});
+
+console.log(RARITY + " — " + N.toLocaleString() + " gems cut per account, " +
+  CUTS_PER_WEEK[RARITY] + " cuts a week\n");
+console.log("budget".padStart(8) + "gems".padStart(7) + "weeks".padStart(7) + "gold".padStart(9) +
+  "band".padStart(6) + "weakest".padStart(9) + "mean".padStart(7) + "damage".padStart(9) + "  nodes");
+out.forEach(function (r) {
+  console.log(((r.gpd / 1e6).toFixed(2) + "M").padStart(8) + String(r.gems).padStart(7) +
+    r.weeks.toFixed(0).padStart(7) + (Math.round(r.gold / 1000) + "k").padStart(9) +
+    r.band.padStart(6) + r.weakest.toFixed(1).padStart(9) + r.mean.toFixed(1).padStart(7) +
+    (r.damage.toFixed(3) + "%").padStart(9) + "  " +
+    r.nodes.map(function (n) { return n[0] + " " + n[1]; }).join(", "));
+});
+if (ARGS.out) {
+  require("fs").writeFileSync(ARGS.out, JSON.stringify({
+    rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
+    turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
+    n: N, party: PARTY, sig: A.MODEL_SIG, rows: out
+  }, null, 1));
+  console.error("wrote " + ARGS.out);
+}

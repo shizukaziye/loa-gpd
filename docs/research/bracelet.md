@@ -139,13 +139,13 @@ section 3. Points of damage, per line, above no line at all:
 
 | # | line | relic low / mid / high | ancient low / mid / high | channel |
 |---|---|---|---|---|
-| 17 | enemy Crit Resist −A% (1/party); ally AP buff +B% | **1.364 / 1.671 / 1.978** | **1.671 / 1.978 / 2.357** | party crit + `ap` |
-| 19 | enemy Crit DMG Resist −A% (1/party); ally AP buff +B% | 1.303 / 1.598 / 1.893 | 1.598 / 1.893 / 2.188 | party crit dmg + `ap` |
-| 16 | enemy Defense −A% (1/party); ally AP buff +B% | 1.026 / 1.268 / 1.511 | 1.268 / 1.511 / 1.804 | party def shred + `ap` |
-| 18 | shielded-target damage +A% (1/party); ally AP buff +B% | 0.692 / 0.903 / 1.113 | 0.903 / 1.113 / 1.323 | party damage + `ap` |
-| 30 | Ally Damage buff effect +X% | 0.609 / 0.811 / 1.013 | 0.811 / 1.013 / 1.214 | `identity` |
-| 29 | Ally Attack Power buff effect +X% | 0.546 / 0.727 / 0.908 | 0.727 / 0.908 / 1.089 | `ap` |
-| 33 | Weapon Power +X | 0.346 / 0.395 / 0.444 | 0.395 / 0.444 / 0.492 | `ap` |
+| 17 | enemy Crit Resist −A% (1/party); ally AP buff +B% | **1.364 / 1.671 / 1.978** | **1.600 / 1.896 / 2.260** | party crit + `ap` |
+| 19 | enemy Crit DMG Resist −A% (1/party); ally AP buff +B% | 1.303 / 1.598 / 1.893 | **1.600 / 1.896 / 2.192** | party crit dmg + `ap` |
+| 16 | enemy Defense −A% (1/party); ally AP buff +B% | 1.026 / 1.268 / 1.511 | **1.275 / 1.520 / 1.814** | party def shred + `ap` |
+| 18 | shielded-target damage +A% (1/party); ally AP buff +B% | 0.692 / 0.903 / 1.113 | **0.910 / 1.122 / 1.334** | party damage + `ap` |
+| 30 | Ally Damage buff effect +X% | 0.609 / 0.811 / 1.013 | **0.809 / 1.010 / 1.211** | `identity` |
+| 29 | Ally Attack Power buff effect +X% | 0.546 / 0.727 / 0.908 | **0.741 / 0.926 / 1.110** | `ap` |
+| 33 | Weapon Power +X | 0.346 / 0.395 / 0.444 | **0.448 / 0.504 / 0.559** | `ap` |
 | — | basic line, Str/Dex/Int (min / mid / max roll) | 0.117 / 0.176 / 0.234 | 0.176 / 0.234 / 0.292 | `ap` |
 
 The bottom two rows feed `Gear` (`braceletWpFlat` and the main-stat pool), not
