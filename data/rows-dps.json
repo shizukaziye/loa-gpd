@@ -465,15 +465,24 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.0 raw gems per gem that lands at C-",
-   "minimum": "twelve gems at C-, three cores at 17 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at C-, three cores at 17 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "ungraded",
    "to": "C-",
    "grid": {
     "cores": 17,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -485,15 +494,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.5 raw gems per gem that lands at C",
-   "minimum": "twelve gems at C, three cores at 17 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at C, three cores at 17 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "C-",
    "to": "C",
    "grid": {
     "cores": 17,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -505,15 +523,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 5.2 raw gems per gem that lands at C+",
-   "minimum": "twelve gems at C+, three cores at 17 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at C+, three cores at 17 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "C",
    "to": "C+",
    "grid": {
     "cores": 17,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -525,15 +552,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 6.2 raw gems per gem that lands at B-",
-   "minimum": "twelve gems at B-, three cores at 18 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at B-, three cores at 18 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "C+",
    "to": "B-",
    "grid": {
     "cores": 18,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -545,15 +581,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 7.6 raw gems per gem that lands at B",
-   "minimum": "twelve gems at B, three cores at 18 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at B, three cores at 18 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "B-",
    "to": "B",
    "grid": {
     "cores": 18,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -565,15 +610,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 9.8 raw gems per gem that lands at B+",
-   "minimum": "twelve gems at B+, three cores at 18 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at B+, three cores at 18 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "B",
    "to": "B+",
    "grid": {
     "cores": 18,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -585,15 +639,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 13.3 raw gems per gem that lands at A-",
-   "minimum": "twelve gems at A-, three cores at 19 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at A-, three cores at 19 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "B+",
    "to": "A-",
    "grid": {
     "cores": 19,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -605,15 +668,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 18.3 raw gems per gem that lands at A",
-   "minimum": "twelve gems at A, three cores at 19 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at A, three cores at 19 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "A-",
    "to": "A",
    "grid": {
     "cores": 19,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -625,15 +697,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 25.9 raw gems per gem that lands at A+",
-   "minimum": "twelve gems at A+, three cores at 19 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at A+, three cores at 19 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "A",
    "to": "A+",
    "grid": {
     "cores": 19,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -645,15 +726,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 51.2 raw gems per gem that lands at S-",
-   "minimum": "twelve gems at S-, three cores at 20 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at S-, three cores at 20 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "A+",
    "to": "S-",
    "grid": {
     "cores": 20,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -665,15 +755,24 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 149.1 raw gems per gem that lands at S",
-   "minimum": "twelve gems at S, three cores at 20 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at S, three cores at 20 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "S-",
    "to": "S",
    "grid": {
     "cores": 20,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },
@@ -685,15 +784,24 @@
    "detail": "all twelve gems; the S to S+ band is only 2.8 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 419.0 raw gems per gem that lands at S+",
-   "minimum": "twelve gems at S+, three cores at 20 points, atk power / boss damage / add damage even",
+   "minimum": "twelve gems at S+, three cores at 20 points, side nodes atk power 60 / boss damage 60 / add damage 60",
    "from": "S",
    "to": "S+",
    "grid": {
     "cores": 20,
     "nodes": [
-     "atk power",
-     "boss damage",
-     "add damage"
+     [
+      "atk power",
+      60
+     ],
+     [
+      "boss damage",
+      60
+     ],
+     [
+      "add damage",
+      60
+     ]
     ]
    }
   },

@@ -357,7 +357,7 @@
           }).join("<br>");
         } else if (last.grid) {
           eg = "<b>" + last.grid.cores + "-point cores</b><span class='sm'>" +
-            last.grid.nodes.join("<br>") + " even</span>";
+            last.grid.nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") + "</span>";
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");
           eg = "<span class='sm'>" + (bits[2] || "") + "<br>" + colourTiers(bits[1] || "") + "</span>";
