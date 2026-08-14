@@ -488,3 +488,36 @@ a model change, not a spec.
 - `~/loastuff/lost-ark-accessories/METHODOLOGY.md` — the support buff bases
 - `~/loastuff/loa-astrogem-calc/METHODOLOGY.md`, `model/astrogem.js` — the ark
   grid damage constants
+
+---
+
+## Open item, 14 August 2026 — brand power is a point below the table
+
+`model/support.js` ships `brandPower` 45.00, `allyAtkEnh` 68.55 and `allyDmg`
+38.26 against the 46.00 / 69.55 / 39.26 in the table above. All three are
+exactly one point low, and two of them are explained: the reference runs
+**level-9 gems**, and the gem term in each of those two bases is worth its
+level.
+
+- ally attack: evolution T4 44 + gems **9** + bracelet 6 = 59, so 7.80 + 1.75 +
+  59 = **68.55** ✓
+- ally damage: 9.26 + Brave Accent 10 + Brave Pulse 10 + gems **9** = **38.26** ✓
+
+Brand power has no gem term in its own breakdown — evolution T4 4 + karmic rank
+6 + karmic T4 20 = 30, plus node60 10.00 and Echoing Brand Ancient 6.00, which
+comes to **46.00**. So the shipped 45.00 is a point short with nothing to
+account for it.
+
+Worth **0.2619% party damage**, about the size of one whole ark grid band step,
+so it is not noise. Either brand carries a gem term the breakdown omits, in
+which case the table should say so, or 45.00 is a typo for 46.00. Left alone
+until Shizu says which.
+
+### And the split is not even
+
+Separately: the reference is described as 60/60/60 on the side nodes, which is
+reachable — six cores of four gems give 240 levels, so it is three quarters of
+a perfect 80/80/80 — but it is the wrong **shape**. `tools/arkgrid-split.js`
+puts one node level at 0.0689% party damage for ally attack enhancement against
+0.0210% for ally damage enhancement, and the best split of a full grid at 120 /
+120 / 0. See `docs/research/ark-grid.md`.
