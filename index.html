@@ -2,97 +2,53 @@
 <html lang='en'><head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>Lost Ark GPD Chart — Support</title>
-<meta name="description" content="What every Lost Ark progression system costs per 1% damage, on one scale. Supports first.">
+<title>Lost Ark GPD Chart</title>
+<meta name="description" content="What every Lost Ark progression system costs per 1% damage, on one scale — honing, karma, gems, stones, bracelets, accessories and the ark grid.">
 <meta name='theme-color' content='#0d1017'>
 <link rel='canonical' href='https://shizukaziye.github.io/loa-gpd/'>
 <meta property='og:type' content='website'>
-<meta property='og:title' content='Lost Ark GPD Chart — Support'>
-<meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale. Supports first.">
+<meta property='og:title' content='Lost Ark GPD Chart'>
+<meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
+<meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<style>
-:root{
-  --bg:#0d1017;--panel:#161a24;--panel2:#1b2030;--border:#2a3142;--text:#e7e9ee;
-  --dim:#97a0b4;--accent:#66c7ff;--high:#ffb86b;--mid:#c78cff;--low:#6ad4ff;
-  --good:#6ee7a8;--bad:#ff7f7f;--none:#4f5666;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
-body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px}
-h1{font-size:25px;margin:0 0 4px;letter-spacing:-.02em}
-.tag{color:var(--dim);font-size:13px;margin-bottom:18px}
-h2{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:26px 0 10px;font-weight:700}
-h3{font-size:12px;margin:0 0 10px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.panel+.panel{margin-top:12px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:6px 9px;text-align:left;border-bottom:1px solid var(--border)}
-th{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-tr:last-child td{border-bottom:none}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-code,.mono{font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;font-size:12px}
-.inputs{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:6px}
-.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 14px}
-.fld{display:flex;align-items:center;gap:8px}
-.fld label{font-size:12px;color:var(--dim);flex:1;display:flex;align-items:center;gap:6px}
-.fld input[type=number]{background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:6px;
-  padding:5px 7px;font-size:13px;font-family:inherit;width:86px;text-align:right;font-variant-numeric:tabular-nums}
-.fld input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px}
-.fld.off label,.fld.off input[type=number]{opacity:.42}
-.unit{color:var(--none);font-size:11px}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 8px;font-size:12px;color:var(--dim)}
-.legend span{display:flex;align-items:center;gap:6px}
-.swatch{width:14px;height:3px;border-radius:2px;display:inline-block}
-.note{color:var(--dim);font-size:12px;margin:10px 0 0}
-.bar{height:8px;border-radius:4px;display:block}
-.foot{color:var(--none);font-size:12px;margin-top:34px;line-height:1.7}
-a{color:var(--accent)}
-#tip{position:fixed;z-index:99;max-width:340px;background:var(--panel2);border:1px solid var(--border);
-  border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.55;color:var(--text);
-  box-shadow:0 8px 24px rgba(0,0,0,.5);pointer-events:none;display:none}
-#tip b{color:var(--accent);font-weight:600}
-#tip .k{color:var(--dim);display:block;margin-top:6px;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
-tr[data-tip]{cursor:help}
-tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
-.slider{display:flex;align-items:center;gap:14px;margin:2px 0 14px}
-.slider input[type=range]{flex:1;accent-color:var(--accent)}
-.gpdval{font-size:20px;font-variant-numeric:tabular-nums;min-width:110px}
-.plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
-.card[data-plan]{cursor:help}
-.card{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
-.card h4{margin:0 0 4px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.card .big{font-size:16px}
-.card .sub{color:var(--none);font-size:11px;margin-top:3px}
-.totals{display:flex;gap:26px;margin-top:12px;font-variant-numeric:tabular-nums}
-.totals div span{display:block;color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
-  .wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}
-</style>
+<link rel='stylesheet' href='styles.css'>
+<style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
 </head><body>
 <div class='wrap'>
-<h1>Lost Ark GPD chart — support</h1>
-<div class='tag'>What every progression step costs per 1% damage, on one scale. A support's damage is what it hands the party, so a 1% here lands on every dealer.</div>
 
-<div class='inputs'>
-  <h3>Material prices <span class='unit'>gold — untick what you already have bound</span></h3>
+<div class='appbar'>
+  <div>
+    <h1>Lost Ark GPD chart</h1>
+    <div class='tag'>What every progression step costs per 1% damage, on one scale.</div>
+  </div>
+</div>
+
+<div class='tabbar'>
+  <button class='tab active' data-axis='support'>Support</button>
+  <button class='tab' data-axis='dps'>DPS</button>
+</div>
+
+<div class='inputs' id='matPanel'>
+  <div class='ihdr'><span class='tgl' id='matToggle'><span id='mat-caret'>▾</span> Material prices</span>
+    <span class='note' style='margin:0'>untick anything you already have bound</span></div>
   <div class='ig' id='matGrid'></div>
 </div>
 
+<h2>What to buy at your gold per damage</h2>
 <div class='panel'>
-  <h3>What to buy at your gold per damage</h3>
   <div class='slider'>
     <input type='range' id='gpd' min='0' max='100' value='45'>
     <div class='gpdval' id='gpdOut'></div>
   </div>
   <div class='plan' id='plan'></div>
   <div class='totals' id='planTotals'></div>
-  <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Stop a system at the first step that costs more than you are willing to pay.</div>
+  <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Hover any card for what stops it.</div>
 </div>
 
+<h2>Every step, cheapest damage first</h2>
 <div class='panel'>
-  <h3>Every step, cheapest damage first <span class='unit'>hover a row for the detail</span></h3>
   <div class='legend' id='legend'></div>
   <div id='ranked'></div>
 </div>
@@ -102,13 +58,12 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
 
 <div id='tip'></div>
 <div class='foot'>
-  Game tables from Maxroll's planner feed, July 2026 patch, cross-checked against bebkok's gear sheet
-  and the official Stove probability pages. Support damage uses the
-  <a href='https://www.loseii.com/lost-ark-accessories/'>accessory calculator</a>'s model; bracelet ranks
-  use the <a href='https://shizukaziye.github.io/loa-bracelet-calc/'>bracelet calculator</a>'s ladder;
-  ark grid costs come from the <a href='https://www.loseii.com/loa-astrogem-calc/'>astrogem calculator</a>.
-  Method and every assumption: <a href='docs/METHODOLOGY.md'>METHODOLOGY.md</a>.
-  <br>Part of <a href='https://www.loseii.com/'>loseii.com</a>.
+  Game tables from Maxroll's planner feed and the official Stove probability pages, cross-checked against
+  bebkok's gear sheet. Support damage uses the <a href='https://www.loseii.com/lost-ark-accessories/'>accessory
+  calculator</a>'s model, bracelet ranks the <a href='https://shizukaziye.github.io/loa-bracelet-calc/'>bracelet
+  calculator</a>'s ladder, ark grid costs the <a href='https://www.loseii.com/loa-astrogem-calc/'>astrogem
+  calculator</a>'s cut engine. Method and every assumption:
+  <a href='docs/METHODOLOGY.md'>METHODOLOGY.md</a>. Part of <a href='https://www.loseii.com/'>loseii.com</a>.
 </div>
 </div>
 
@@ -116,60 +71,60 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
 <script src='model/gear.js'></script>
 <script src='model/honing.js'></script>
 <script src='model/karma.js'></script>
+<script src='model/gems.js'></script>
 <script>
 (function () {
   "use strict";
 
   var SERIES = {
-    armor:     { label: "Honing — armour, 5 pieces", color: "#6ad4ff" },
-    weapon:    { label: "Honing — weapon",           color: "#ffb86b" },
-    karma:     { label: "Karma — Enlightenment",     color: "#c78cff" },
-    neck:      { label: "Necklace",                  color: "#6ee7a8" },
-    ring:      { label: "Ring",                      color: "#4fd1a5" },
-    earring:   { label: "Earring",                   color: "#3ab795" },
-    bracelet:  { label: "Bracelet",                  color: "#ff7f7f" },
-    arkgrid:   { label: "Ark grid — per gem",        color: "#e8b75c" },
-    stone:     { label: "Ability stone",             color: "#97a0b4" },
-    gems:      { label: "Skill gems, all 11",        color: "#f2a2c0" }
+    armor:    { label: "Honing — armour", color: "#6ad4ff", base: "+11" },
+    weapon:   { label: "Honing — weapon", color: "#ffb86b", base: "+11" },
+    gems:     { label: "Skill gems",      color: "#f2a2c0", base: "level 7" },
+    karma:    { label: "Karma",           color: "#c78cff", base: "lv 21" },
+    neck:     { label: "Necklace",        color: "#6ee7a8", base: "nothing worth pricing" },
+    ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
+    earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
+    bracelet: { label: "Bracelet",        color: "#ff7f7f", base: "D-" },
+    arkgrid:  { label: "Ark grid",        color: "#e8b75c", base: "ungraded" },
+    stone:    { label: "Ability stone",   color: "#97a0b4", base: "7-7" }
   };
+  var MAT_PRICE = { "6861013": 125, "66102007": 900, "66102107": 30,
+                    "66110226": 25, "66111131": 300, "66111132": 150 };
 
-  var BASELINE = {
-    armor: "+11", weapon: "+11", karma: "lv 21", neck: "high", ring: "high",
-    earring: "mid wpn", bracelet: "D-", arkgrid: "ungraded", stone: "7-7",
-    gems: "level 7"
-  };
-
-  var state = { prices: {}, enabled: {}, data: null, karma: null };
+  var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
+                rows: { support: null, dps: null } };
+  var ROWS = [], PLAN = null, BUDGET = 0;
 
   function fmtGold(g) {
+    if (!isFinite(g)) return "—";
+    if (g >= 1e9) return (g / 1e9).toFixed(2) + "B";
     if (g >= 1e6) return (g / 1e6).toFixed(2) + "M";
     if (g >= 1e3) return Math.round(g / 1e3) + "k";
     return Math.round(g).toString();
   }
+  function el(id) { return document.getElementById(id); }
+  function party() { return state.axis === "support" ? 3 : 1; }
 
+  // ---- material price inputs -------------------------------------------
   function buildInputs(data) {
-    var grid = document.getElementById("matGrid");
+    var grid = el("matGrid");
     grid.innerHTML = "";
     data.materials.forEach(function (m) {
-      var on = m.kind !== "shard_pouch";
-      var price = { "6861013": 125, "66102007": 900, "66102107": 30, "66110226": 25,
-                    "66111131": 300, "66111132": 150 }[m.id] || 0;
+      var on = m.kind !== "shard_pouch", price = MAT_PRICE[m.id] || 0;
       state.prices[m.id] = price / m.unit;
       state.enabled[m.id] = on;
       if (m.kind === "shard_pouch") state.enabled.shards = false;
-
       var row = document.createElement("div");
-      row.className = "fld" + (on ? "" : " off");
-      row.innerHTML =
-        "<input type='checkbox'" + (on ? " checked" : "") + ">" +
-        "<label>" + m.name + (m.unit > 1 ? " <span class='unit'>per " + m.unit + "</span>" : "") + "</label>" +
+      row.className = "fld";
+      row.innerHTML = "<label><input type='checkbox'" + (on ? " checked" : "") + "> " + m.name +
+        (m.unit > 1 ? " (per " + m.unit + ")" : "") + "</label>" +
         "<input type='number' min='0' step='1' value='" + price + "'>";
-      var box = row.querySelector("input[type=checkbox]");
-      var num = row.querySelector("input[type=number]");
+      var box = row.querySelector("input[type=checkbox]"), num = row.querySelector("input[type=number]");
+      row.style.opacity = on ? 1 : 0.45;
       box.addEventListener("change", function () {
         state.enabled[m.id] = box.checked;
         if (m.kind === "shard_pouch") state.enabled.shards = box.checked;
-        row.className = "fld" + (box.checked ? "" : " off");
+        row.style.opacity = box.checked ? 1 : 0.45;
         render();
       });
       num.addEventListener("input", function () {
@@ -180,157 +135,134 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
     });
   }
 
-  /** Every system's steps, as { series, label, gold, damage }. */
+  // ---- the rows --------------------------------------------------------
   function steps() {
-    var d = state.data, P = Support.DEFAULTS, out = [];
-    ["armor", "weapon"].forEach(function (track) {
-      Honing.ladder(d, track, state.prices, state.enabled, 11, 25).forEach(function (s) {
-        // measured against a character sitting at the step's starting level
-        var before = Gear.stats(d, {}, s.from, s.from);
-        var after = track === "armor" ? Gear.stats(d, {}, s.to, s.from)
-                                      : Gear.stats(d, {}, s.from, s.to);
-        var dmg = Support.delta(P, { gear: before }, { gear: after });
-        out.push({
-          series: track,
-          label: "+" + s.from + " → +" + s.to,
-          from: "+" + s.from, to: "+" + s.to,
-          gold: s.gold,
-          damage: dmg,
-          gpd: Support.goldPerDamage(P, s.gold, dmg),
-          detail: s.juice + " breath, " + s.taps.toFixed(1) + " taps at " + s.baseRate.toFixed(2) + "%",
-          buy: (track === "armor" ? "five armour pieces" : "the weapon") + " from +" + s.from +
-               " to +" + s.to + ", with " + (s.juice ? s.juice + " breaths a tap" : "no breath — the juice costs more than the taps it saves"),
-          odds: "base rate " + s.baseRate.toFixed(2) + "%, rising 10% of base per failure, guaranteed once the rates spent reach 215%. " +
-                s.taps.toFixed(1) + " taps expected" + (track === "armor" ? ", per piece" : ""),
-          minimum: track === "armor"
-            ? "all five pieces at +" + s.to + " — " + Math.round(s.gain.base).toLocaleString() + " main stat across the set"
-            : "the weapon at +" + s.to + " — " + Math.round(s.gain.base).toLocaleString() + " weapon power"
+    var d = state.honing, P = Support.DEFAULTS, out = [];
+    if (state.axis === "support" && d && state.karma) {
+      var names = {};
+      d.materials.forEach(function (m) { names[m.id] = m.name; });
+
+      ["armor", "weapon"].forEach(function (track) {
+        var pieces = track === "armor" ? 5 : 1;
+        Honing.ladder(d, track, state.prices, state.enabled, 11, 25).forEach(function (s) {
+          var before = Gear.stats(d, {}, s.from, s.from);
+          var after = track === "armor" ? Gear.stats(d, {}, s.to, s.from)
+                                        : Gear.stats(d, {}, s.from, s.to);
+          var recipe = d[track].recipe[String(s.to)], mats = [];
+          for (var id in recipe.mats) {
+            if (state.enabled[id] === false) continue;
+            var n = recipe.mats[id] * s.taps * pieces;
+            mats.push([names[id], Math.round(n), n * (state.prices[id] || 0)]);
+          }
+          if (s.juice) {
+            var j = s.juice * s.taps * pieces;
+            mats.push([names[recipe.juice.id], Math.round(j), j * (state.prices[recipe.juice.id] || 0)]);
+          }
+          mats.push(["honing fee", "", recipe.gold * s.taps * pieces]);
+          out.push({
+            series: track, label: "+" + s.from + " → +" + s.to,
+            from: "+" + s.from, to: "+" + s.to,
+            gold: s.gold, damage: Support.delta(P, { gear: before }, { gear: after }), mats: mats,
+            buy: (pieces > 1 ? "all five armour pieces" : "the weapon") + " to +" + s.to,
+            odds: "base rate " + s.baseRate.toFixed(2) + "%, plus a tenth of base each failure, free once " +
+                  "the rates spent reach 215%. " + s.taps.toFixed(1) + " taps expected" +
+                  (pieces > 1 ? " per piece" : "") + ", " +
+                  (s.juice ? s.juice + " breaths a tap" : "no breath — it costs more than the taps it saves"),
+            minimum: pieces > 1
+              ? "all five pieces at +" + s.to + ", " + Math.round(s.gain.base).toLocaleString() + " main stat"
+              : "the weapon at +" + s.to + ", " + Math.round(s.gain.base).toLocaleString() + " weapon power"
+          });
         });
       });
-    });
 
-    // Karmic Enlightenment past 21 — Weapon Power %, into the same ally
-    // attack-power channel as weapon honing. Destiny Stones cost nothing.
-    if (state.karma) {
       Karma.ladder(state.karma, Karma.ENLIGHTENMENT, {}, 21, 30).forEach(function (s) {
-        var before = Gear.stats(d, { karmaWpPct: (s.total - s.gain) / 100 }, 25, 25);
-        var after = Gear.stats(d, { karmaWpPct: s.total / 100 }, 25, 25);
-        var dmg = Support.delta(P, { gear: before }, { gear: after });
+        var b = Gear.stats(d, { karmaWpPct: (s.total - s.gain) / 100 }, 25, 25);
+        var a = Gear.stats(d, { karmaWpPct: s.total / 100 }, 25, 25);
         out.push({
-          series: "karma",
-          label: "lv " + s.from + " → " + s.to,
+          series: "karma", label: "lv " + s.from + " → " + s.to,
           from: "lv " + s.from, to: "lv " + s.to,
-          gold: s.gold,
-          damage: dmg,
-          gpd: Support.goldPerDamage(P, s.gold, dmg),
-          detail: s.attempts.toFixed(1) + " tries at " + s.rate.toFixed(2) + "%, +" +
-                  s.gain.toFixed(2) + "% weapon power",
-          buy: "nothing — 900g and a Destiny Stone a try, and you have the stones",
-          odds: s.rate.toFixed(2) + "% a try, and each failure banks " + (s.energyPerFail || 0) +
-                " karma energy; the bar guarantees the attempt at 100%. " + s.attempts.toFixed(1) + " tries expected",
-          minimum: "Karmic Enlightenment at level " + s.to + " — " + s.total.toFixed(2) + "% weapon power"
+          gold: s.gold, damage: Support.delta(P, { gear: b }, { gear: a }),
+          mats: [["900g a try", s.attempts.toFixed(1) + " tries", s.gold],
+                 ["Destiny Stones", Math.ceil(s.attempts), 0]],
+          buy: "nothing but gold — 900g and a Destiny Stone a try",
+          odds: s.rate.toFixed(2) + "% a try; every failure banks karma energy and the bar guarantees the " +
+                "attempt at 100%, so " + s.attempts.toFixed(1) + " tries on average",
+          minimum: "Karmic Enlightenment " + s.to + ", " + s.total.toFixed(2) + "% weapon power"
         });
       });
     }
-
-    // rows the page cannot compute live — see data/rows.json
-    if (state.rows) {
-      state.rows.forEach(function (r) {
-        out.push({
-          series: r.series, label: r.label, gold: r.gold, damage: r.damage,
-          gpd: Support.goldPerDamage(P, r.gold, r.damage), detail: r.detail,
-          buy: r.buy, odds: r.odds, minimum: r.minimum, from: r.from, to: r.to
-        });
-      });
-    }
+    var baked = state.rows[state.axis];
+    if (baked) baked.forEach(function (r) { out.push(Object.assign({}, r)); });
+    out.forEach(function (r) {
+      r.gpd = r.damage > 0 ? r.gold / (r.damage * party()) : Infinity;
+    });
     return out;
   }
 
-  var ROWS = [], PLAN = null, BUDGET = 0;
+  // ---- tooltips --------------------------------------------------------
   function tipHtml(r) {
-    var per = r.gold / Math.max(1e-9, r.damage * Support.DEFAULTS.partySize);
     var h = "<b>" + (r.from ? r.from + " → " + r.to : r.label) + "</b>";
-    h += "<span class='k'>what this step costs you</span>" +
-      "<b style='color:var(--high)'>" + fmtGold(r.gold) + " gold</b> from where you already are, " +
-      "for <b style='color:var(--good)'>" + r.damage.toFixed(3) + "%</b> more damage on each of three dealers — " +
-      fmtGold(per) + " per 1%.";
+    h += "<span class='k'>what this step costs</span><b style='color:var(--high)'>" + fmtGold(r.gold) +
+      " gold</b> from where you are, for <b style='color:var(--good)'>" + r.damage.toFixed(3) + "%</b>" +
+      (party() > 1 ? " on each of three dealers" : " damage") + " — " + fmtGold(r.gpd) + " per 1%.";
     if (r.minimum) h += "<span class='k'>what it looks like</span>" + r.minimum;
+    if (r.mats && r.mats.length) {
+      h += "<span class='k'>expected materials</span><table>";
+      r.mats.forEach(function (m) {
+        var qty = m[1] === "" ? "" : (typeof m[1] === "number"
+          ? " &times; " + m[1].toLocaleString() : " — " + m[1]);
+        h += "<tr><td>" + m[0] + qty + "</td><td>" +
+          (m[2] ? fmtGold(m[2]) : "") + "</td></tr>";
+      });
+      h += "</table>";
+    }
     if (r.buy) h += "<span class='k'>what you are buying</span>" + r.buy;
     if (r.odds) h += "<span class='k'>how it goes</span>" + r.odds;
     return h;
   }
 
+  function planTipHtml(key) {
+    var p = PLAN[key], mine = ROWS.filter(function (r) { return r.series === key; });
+    var next = mine[p.taken], h = "<b>" + SERIES[key].label + "</b>";
+    if (p.taken === 0) {
+      h += "<span class='k'>you stay at " + SERIES[key].base + "</span>the first step costs " +
+        (mine[0] ? fmtGold(mine[0].gpd) : "—") + " per 1%, dearer than the " + fmtGold(BUDGET) + " you will pay";
+    } else {
+      h += "<span class='k'>what you take</span>" + p.taken + " step" + (p.taken > 1 ? "s" : "") + ", " +
+        (p.first.from || p.first.label) + " through to " + (p.last.to || p.last.label) +
+        "<br>the last one in costs " + fmtGold(p.last.gpd) + " per 1%";
+      h += "<span class='k'>what it costs</span>" + fmtGold(p.gold) + " gold for " + p.damage.toFixed(3) +
+        "%" + (party() > 1 ? " a dealer, " + (p.damage * 3).toFixed(2) + "% across the party" : "") +
+        " — " + fmtGold(p.gold / (p.damage * party())) + " per 1% on average";
+      h += "<span class='k'>what it looks like</span>" + (p.last.minimum || p.last.label);
+    }
+    if (next) {
+      h += "<span class='k'>what stops it</span>" + (next.to || next.label) + " costs " + fmtGold(next.gold) +
+        " for " + next.damage.toFixed(3) + "% — " + fmtGold(next.gpd) + " per 1%, so you would have to pay " +
+        (next.gpd / BUDGET).toFixed(1) + "&times; more.";
+    } else if (p.taken > 0) h += "<span class='k'>what stops it</span>nothing — this system is finished";
+    return h;
+  }
+
   function wireTips() {
-    var tip = document.getElementById("tip");
-    var targets = [].slice.call(document.querySelectorAll("tr[data-tip]"))
-      .concat([].slice.call(document.querySelectorAll(".card[data-plan]")));
-    targets.forEach(function (tr) {
-      tr.addEventListener("mouseenter", function () {
-        tip.innerHTML = tr.hasAttribute("data-plan")
-          ? planTipHtml(tr.getAttribute("data-plan"))
-          : tipHtml(ROWS[+tr.getAttribute("data-tip")]);
-        tip.style.display = "block";
+    var tip = el("tip");
+    [].slice.call(document.querySelectorAll("tr[data-tip]"))
+      .concat([].slice.call(document.querySelectorAll(".card[data-plan]")))
+      .forEach(function (node) {
+        node.addEventListener("mouseenter", function () {
+          tip.innerHTML = node.hasAttribute("data-plan")
+            ? planTipHtml(node.getAttribute("data-plan")) : tipHtml(ROWS[+node.getAttribute("data-tip")]);
+          tip.style.display = "block";
+        });
+        node.addEventListener("mousemove", function (e) {
+          tip.style.left = Math.min(e.clientX + 16, window.innerWidth - tip.offsetWidth - 12) + "px";
+          tip.style.top = Math.min(e.clientY + 16, window.innerHeight - tip.offsetHeight - 12) + "px";
+        });
+        node.addEventListener("mouseleave", function () { tip.style.display = "none"; });
       });
-      tr.addEventListener("mousemove", function (e) {
-        var w = tip.offsetWidth, h = tip.offsetHeight;
-        tip.style.left = Math.min(e.clientX + 16, window.innerWidth - w - 12) + "px";
-        tip.style.top = Math.min(e.clientY + 16, window.innerHeight - h - 12) + "px";
-      });
-      tr.addEventListener("mouseleave", function () { tip.style.display = "none"; });
-    });
   }
 
-  function renderRanked(rows) {
-    var max = Math.max.apply(null, rows.map(function (r) { return r.gpd; }));
-    var html = "<table><tr><th>Step</th><th>System</th><th class='num'>Gold</th>" +
-               "<th class='num'>Party damage</th><th class='num'>Gold per 1%</th><th></th></tr>";
-    rows.slice().sort(function (a, b) { return a.gpd - b.gpd; }).forEach(function (r) {
-      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + r.label + "</td>" +
-        "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
-        "<td class='num'>" + fmtGold(r.gold) + "</td>" +
-        "<td class='num'>" + r.damage.toFixed(3) + "%</td>" +
-        "<td class='num'>" + fmtGold(r.gpd) + "</td>" +
-        "<td style='width:34%'><span class='bar' style='width:" +
-          (100 * r.gpd / max).toFixed(1) + "%;background:" + SERIES[r.series].color + "'></span></td></tr>";
-    });
-    document.getElementById("ranked").innerHTML = html + "</table>";
-  }
-
-  function renderSystems(rows) {
-    var host = document.getElementById("systems");
-    host.innerHTML = "";
-    Object.keys(SERIES).forEach(function (key) {
-      var mine = rows.filter(function (r) { return r.series === key; });
-      if (!mine.length) return;
-      var gold = mine.reduce(function (a, r) { return a + r.gold; }, 0);
-      var dmg = mine.reduce(function (a, r) { return a + r.damage; }, 0);
-      var html = "<div class='panel'><h3>" + SERIES[key].label + " — " + fmtGold(gold) +
-        " gold for " + dmg.toFixed(2) + "% party damage</h3><table>" +
-        "<tr><th>Step</th><th class='num'>Gold</th><th class='num'>Party damage</th>" +
-        "<th class='num'>Gold per 1%</th><th>How it was honed</th></tr>";
-      mine.forEach(function (r) {
-        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + r.label + "</td><td class='num'>" + fmtGold(r.gold) + "</td>" +
-          "<td class='num'>" + r.damage.toFixed(3) + "%</td>" +
-          "<td class='num'>" + fmtGold(r.gpd) + "</td>" +
-          "<td class='unit'>" + r.detail + "</td></tr>";
-      });
-      host.insertAdjacentHTML("beforeend", html + "</table></div>");
-    });
-  }
-
-  function renderLegend() {
-    document.getElementById("legend").innerHTML = Object.keys(SERIES).map(function (k) {
-      return "<span><span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
-             SERIES[k].label + "</span>";
-    }).join("");
-  }
-
-  /**
-   * The loadout at a given gold-per-damage. Each system is pushed in its own
-   * order and stopped at the first step that costs more than the player is
-   * willing to pay — so a system with an expensive step early stops early, even
-   * if cheaper steps sit behind it.
-   */
+  // ---- the plan --------------------------------------------------------
   function planAt(rows, budget) {
     var out = {};
     Object.keys(SERIES).forEach(function (key) {
@@ -346,61 +278,112 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
   }
 
   function renderPlan(rows) {
-    var slider = document.getElementById("gpd");
-    // log scale, 50k to 100M
-    var budget = 50000 * Math.pow(2000, slider.value / 100);
-    document.getElementById("gpdOut").textContent = fmtGold(budget) + " / 1%";
-    var plan = planAt(rows, budget), host = document.getElementById("plan");
-    PLAN = plan; BUDGET = budget;
+    BUDGET = 50000 * Math.pow(2000, el("gpd").value / 100);
+    el("gpdOut").textContent = fmtGold(BUDGET) + " / 1%";
+    PLAN = planAt(rows, BUDGET);
     var gold = 0, dmg = 0;
-    host.innerHTML = Object.keys(SERIES).map(function (key) {
-      var p = plan[key];
+    el("plan").innerHTML = Object.keys(SERIES).filter(function (k) {
+      return rows.some(function (r) { return r.series === k; });
+    }).map(function (key) {
+      var p = PLAN[key];
       gold += p.gold; dmg += p.damage;
-      var where = p.taken === 0 ? BASELINE[key]
-        : p.last.label.indexOf("→") > 0 ? p.last.label.split("→").pop().trim() : p.last.label;
-      return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" + SERIES[key].label + "</h4>" +
-        "<div class='big'>" + where + "</div>" +
-        "<div class='sub'>" + p.taken + " of " + p.of + " steps · " + fmtGold(p.gold) + " · " +
+      return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
+        SERIES[key].label + "</h4><div class='big'>" +
+        (p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label)) + "</div>" +
+        "<div class='sub'>" + p.taken + " of " + p.of + " · " + fmtGold(p.gold) + " · " +
         p.damage.toFixed(2) + "%</div></div>";
     }).join("");
-    document.getElementById("planTotals").innerHTML =
+    el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
-      "<div><span>party damage</span>" + dmg.toFixed(2) + "% per dealer</div>" +
-      "<div><span>across three dealers</span>" + (dmg * Support.DEFAULTS.partySize).toFixed(2) + "%</div>" +
-      "<div><span>average cost</span>" + fmtGold(dmg > 0 ? gold / (dmg * Support.DEFAULTS.partySize) : 0) + " / 1%</div>";
+      "<div><span>damage</span>" + dmg.toFixed(2) + "%</div>" +
+      (party() > 1 ? "<div><span>across the party</span>" + (dmg * 3).toFixed(2) + "%</div>" : "") +
+      "<div><span>average cost</span>" + fmtGold(dmg > 0 ? gold / (dmg * party()) : 0) + " / 1%</div>";
+  }
+
+  function renderRanked(rows) {
+    var priced = rows.filter(function (r) { return isFinite(r.gpd); });
+    var max = Math.max.apply(null, priced.map(function (r) { return r.gpd; }));
+    var html = "<table><tr><th>Step</th><th>System</th><th class='num'>Gold</th>" +
+      "<th class='num'>Damage</th><th class='num'>Gold per 1%</th><th></th></tr>";
+    priced.slice().sort(function (a, b) { return a.gpd - b.gpd; }).forEach(function (r) {
+      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + (r.to || r.label) + "</td>" +
+        "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
+        "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
+        "<td class='num'>" + fmtGold(r.gpd) + "</td><td style='width:24%'><span class='bar' style='width:" +
+        (100 * r.gpd / max).toFixed(1) + "%;background:" + SERIES[r.series].color + "'></span></td></tr>";
+    });
+    el("ranked").innerHTML = html + "</table>";
+  }
+
+  function renderSystems(rows) {
+    var host = el("systems");
+    host.innerHTML = "";
+    Object.keys(SERIES).forEach(function (key) {
+      var mine = rows.filter(function (r) { return r.series === key; });
+      if (!mine.length) return;
+      var gold = mine.reduce(function (a, r) { return a + r.gold; }, 0);
+      var dmg = mine.reduce(function (a, r) { return a + r.damage; }, 0);
+      var html = "<div class='panel'><h3 style='color:" + SERIES[key].color + "'>" + SERIES[key].label +
+        " — " + fmtGold(gold) + " for " + dmg.toFixed(2) + "%</h3><table>" +
+        "<tr><th>Step</th><th class='num'>Gold</th><th class='num'>Damage</th>" +
+        "<th class='num'>Gold per 1%</th><th>What it looks like</th></tr>";
+      mine.forEach(function (r) {
+        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + (r.to || r.label) + "</td>" +
+          "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
+          "<td class='num'>" + fmtGold(r.gpd) + "</td><td class='unit'>" + (r.minimum || "") + "</td></tr>";
+      });
+      host.insertAdjacentHTML("beforeend", html + "</table></div>");
+    });
+  }
+
+  function renderLegend() {
+    el("legend").innerHTML = Object.keys(SERIES).filter(function (k) {
+      return ROWS.some(function (r) { return r.series === k; });
+    }).map(function (k) {
+      return "<span><span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
+        SERIES[k].label + "</span>";
+    }).join("");
   }
 
   function render() {
-    var rows = steps();
-    ROWS = rows;
-    renderRanked(rows);
-    renderSystems(rows);
-    renderPlan(rows);
-    wireTips();
+    ROWS = steps();
+    if (!ROWS.length) {
+      el("ranked").innerHTML = "<div class='placeholder'>The DPS chart is still being built.</div>";
+      el("plan").innerHTML = ""; el("planTotals").innerHTML = "";
+      el("systems").innerHTML = ""; el("legend").innerHTML = "";
+      return;
+    }
+    renderLegend(); renderRanked(ROWS); renderSystems(ROWS); renderPlan(ROWS); wireTips();
   }
 
-  Promise.all([
-    fetch("data/honing-t4upper.json").then(function (r) { return r.json(); }),
-    fetch("data/karma.json").then(function (r) { return r.json(); }),
-    fetch("data/rows.json").then(function (r) { return r.json(); })
-  ])
-    .then(function (both) {
-      var d = both[0];
-      state.data = d;
-      state.karma = both[1];
-      state.rows = both[2].rows;
-      buildInputs(d);
-      renderLegend();
-      document.getElementById("gpd").addEventListener("input", function () {
-        renderPlan(ROWS.length ? ROWS : steps()); wireTips();
-      });
+  // ---- boot ------------------------------------------------------------
+  document.querySelectorAll(".tab").forEach(function (t) {
+    t.addEventListener("click", function () {
+      document.querySelectorAll(".tab").forEach(function (x) { x.classList.remove("active"); });
+      t.classList.add("active");
+      state.axis = t.getAttribute("data-axis");
+      el("matPanel").style.display = state.axis === "support" ? "" : "none";
       render();
-    })
-    .catch(function (e) {
-      document.getElementById("ranked").innerHTML =
-        "<div class='note'>Could not load the game tables: " + e.message +
-        ". Serve the folder over http rather than opening the file directly.</div>";
     });
+  });
+  el("matToggle").addEventListener("click", function () {
+    var g = el("matGrid"), open = g.style.display !== "none";
+    g.style.display = open ? "none" : "";
+    el("mat-caret").textContent = open ? "▸" : "▾";
+  });
+  el("gpd").addEventListener("input", function () { renderPlan(ROWS); wireTips(); });
+
+  function grab(u) {
+    return fetch(u).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+  Promise.all([grab("data/honing-t4upper.json"), grab("data/karma.json"),
+               grab("data/rows.json"), grab("data/rows-dps.json")]).then(function (all) {
+    state.honing = all[0]; state.karma = all[1];
+    state.rows.support = all[2] ? all[2].rows : [];
+    state.rows.dps = all[3] ? all[3].rows : null;
+    if (state.honing) buildInputs(state.honing);
+    render();
+  });
 })();
 </script>
 </body></html>
