@@ -33,9 +33,17 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C- — the first graded grid, worth far more than any single band after it",
+   "minimum": "twelve gems at C-, three cores at 17 points, ally damage / brand power / ally atk enh even",
    "from": "ungraded",
-   "to": "C-"
+   "to": "C-",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -45,9 +53,17 @@
    "detail": "all twelve gems, epic cuts at 60:30:10, duds fused",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at C on the Loseii grading scale",
+   "minimum": "twelve gems at C, three cores at 17 points, ally damage / brand power / ally atk enh even",
    "from": "C-",
-   "to": "C"
+   "to": "C",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -57,9 +73,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at C+ on the Loseii grading scale",
+   "minimum": "twelve gems at C+, three cores at 17 points, ally damage / brand power / ally atk enh even",
    "from": "C",
-   "to": "C+"
+   "to": "C+",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -69,9 +93,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at B- on the Loseii grading scale",
+   "minimum": "twelve gems at B-, three cores at 18 points, ally damage / brand power / ally atk enh even",
    "from": "C+",
-   "to": "B-"
+   "to": "B-",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -81,9 +113,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at B on the Loseii grading scale",
+   "minimum": "twelve gems at B, three cores at 18 points, ally damage / brand power / ally atk enh even",
    "from": "B-",
-   "to": "B"
+   "to": "B",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -93,9 +133,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at B+ on the Loseii grading scale",
+   "minimum": "twelve gems at B+, three cores at 18 points, ally damage / brand power / ally atk enh even",
    "from": "B",
-   "to": "B+"
+   "to": "B+",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -105,9 +153,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at A- on the Loseii grading scale",
+   "minimum": "twelve gems at A-, three cores at 19 points, ally damage / brand power / ally atk enh even",
    "from": "B+",
-   "to": "A-"
+   "to": "A-",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -117,9 +173,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at A on the Loseii grading scale",
+   "minimum": "twelve gems at A, three cores at 19 points, ally damage / brand power / ally atk enh even",
    "from": "A-",
-   "to": "A"
+   "to": "A",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -129,9 +193,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at A+ on the Loseii grading scale",
+   "minimum": "twelve gems at A+, three cores at 19 points, ally damage / brand power / ally atk enh even",
    "from": "A",
-   "to": "A+"
+   "to": "A+",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -141,9 +213,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at S- on the Loseii grading scale",
+   "minimum": "twelve gems at S-, three cores at 20 points, ally damage / brand power / ally atk enh even",
    "from": "A+",
-   "to": "S-"
+   "to": "S-",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -153,9 +233,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at S on the Loseii grading scale",
+   "minimum": "twelve gems at S, three cores at 20 points, ally damage / brand power / ally atk enh even",
    "from": "S-",
-   "to": "S"
+   "to": "S",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -165,9 +253,17 @@
    "detail": "all twelve gems; the S to S+ band is only 1.3 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "every gem at S+ on the Loseii grading scale",
+   "minimum": "twelve gems at S+, three cores at 20 points, ally damage / brand power / ally atk enh even",
    "from": "S",
-   "to": "S+"
+   "to": "S+",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "ally damage",
+     "brand power",
+     "ally atk enh"
+    ]
+   }
   },
   {
    "series": "gems",
@@ -233,7 +329,8 @@
     ]
    ],
    "buy": "80/80 unrolled bracelets, about 1,698 each",
-   "odds": "1 in 1 rolled bracelets reaches D"
+   "odds": "1 in 1 rolled bracelets reaches D",
+   "totalDamage": 2.987
   },
   {
    "series": "bracelet",
@@ -266,7 +363,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
-   "odds": "1 in 1 rolled bracelets reaches D+"
+   "odds": "1 in 1 rolled bracelets reaches D+",
+   "totalDamage": 3.887
   },
   {
    "series": "bracelet",
@@ -299,7 +397,8 @@
     ]
    ],
    "buy": "80/80 unrolled bracelets, about 1,198 each",
-   "odds": "1 in 2 rolled bracelets reaches C-"
+   "odds": "1 in 2 rolled bracelets reaches C-",
+   "totalDamage": 4.788
   },
   {
    "series": "bracelet",
@@ -332,7 +431,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
-   "odds": "1 in 2 rolled bracelets reaches C"
+   "odds": "1 in 2 rolled bracelets reaches C",
+   "totalDamage": 5.688
   },
   {
    "series": "bracelet",
@@ -365,7 +465,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
-   "odds": "1 in 3 rolled bracelets reaches C+"
+   "odds": "1 in 3 rolled bracelets reaches C+",
+   "totalDamage": 6.589
   },
   {
    "series": "bracelet",
@@ -398,7 +499,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 5,363 each",
-   "odds": "1 in 5 rolled bracelets reaches B-"
+   "odds": "1 in 5 rolled bracelets reaches B-",
+   "totalDamage": 7.94
   },
   {
    "series": "bracelet",
@@ -431,7 +533,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 3,110 each",
-   "odds": "1 in 11 rolled bracelets reaches B"
+   "odds": "1 in 11 rolled bracelets reaches B",
+   "totalDamage": 9.29
   },
   {
    "series": "bracelet",
@@ -468,7 +571,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 9,248 each",
-   "odds": "1 in 23 rolled bracelets reaches B+"
+   "odds": "1 in 23 rolled bracelets reaches B+",
+   "totalDamage": 10.641
   },
   {
    "series": "bracelet",
@@ -505,7 +609,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 9,248 each",
-   "odds": "1 in 63 rolled bracelets reaches A-"
+   "odds": "1 in 63 rolled bracelets reaches A-",
+   "totalDamage": 11.992
   },
   {
    "series": "bracelet",
@@ -542,7 +647,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 11,436 each",
-   "odds": "1 in 189 rolled bracelets reaches A"
+   "odds": "1 in 189 rolled bracelets reaches A",
+   "totalDamage": 13.343
   },
   {
    "series": "bracelet",
@@ -579,7 +685,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 13,918 each",
-   "odds": "1 in 552 rolled bracelets reaches A+"
+   "odds": "1 in 552 rolled bracelets reaches A+",
+   "totalDamage": 14.694
   },
   {
    "series": "bracelet",
@@ -616,7 +723,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 9,979 each",
-   "odds": "1 in 2,621 rolled bracelets reaches S-"
+   "odds": "1 in 2,621 rolled bracelets reaches S-",
+   "totalDamage": 16.045
   },
   {
    "series": "bracelet",
@@ -657,7 +765,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 8,070 each",
-   "odds": "1 in 12,500 rolled bracelets reaches S"
+   "odds": "1 in 12,500 rolled bracelets reaches S",
+   "totalDamage": 17.395
   },
   {
    "series": "bracelet",
@@ -698,7 +807,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 38,974 each",
-   "odds": "1 in 117,647 rolled bracelets reaches S+"
+   "odds": "1 in 117,647 rolled bracelets reaches S+",
+   "totalDamage": 19.196
   },
   {
    "series": "neck",

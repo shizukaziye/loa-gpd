@@ -446,42 +446,6 @@
    "to": "lv 30"
   },
   {
-   "series": "gems",
-   "label": "all lv7 → lv8",
-   "gold": 3080000,
-   "damage": 2.76461,
-   "detail": "+1.2% attack power on the set (0.926%), and 76 swiftness freed into crit (1.839%)",
-   "buy": "11 gems from level 7 to 8 — two more level-7 gems each, 280,000g a gem",
-   "odds": "no chance involved: three of a level make one of the next",
-   "minimum": "every gem at level 8 — 1639 swiftness drops to 1563, so 76 points move into crit (+2.70 crit rate)",
-   "from": "level 7",
-   "to": "level 8"
-  },
-  {
-   "series": "gems",
-   "label": "all lv8 → lv9",
-   "gold": 9240000,
-   "damage": 2.84953,
-   "detail": "+1.2% attack power on the set (0.917%), and 79 swiftness freed into crit (1.932%)",
-   "buy": "11 gems from level 8 to 9 — two more level-8 gems each, 840,000g a gem",
-   "odds": "no chance involved: three of a level make one of the next",
-   "minimum": "every gem at level 9 — 1563 swiftness drops to 1484, so 79 points move into crit (+2.84 crit rate)",
-   "from": "level 8",
-   "to": "level 9"
-  },
-  {
-   "series": "gems",
-   "label": "all lv9 → lv10",
-   "gold": 27720000,
-   "damage": 2.94187,
-   "detail": "+1.2% attack power on the set (0.909%), and 84 swiftness freed into crit (2.033%)",
-   "buy": "11 gems from level 9 to 10 — two more level-9 gems each, 2,520,000g a gem",
-   "odds": "no chance involved: three of a level make one of the next",
-   "minimum": "every gem at level 10 — 1484 swiftness drops to 1400, so 84 points move into crit (+2.99 crit rate)",
-   "from": "level 9",
-   "to": "level 10"
-  },
-  {
    "series": "stone",
    "label": "7-7 → 9-7",
    "gold": 14167000,
@@ -501,9 +465,17 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.0 raw gems per gem that lands at C-",
-   "minimum": "twelve gems at C- — the first graded grid, worth far more than any single band after it",
+   "minimum": "twelve gems at C-, three cores at 17 points, atk power / boss damage / add damage even",
    "from": "ungraded",
-   "to": "C-"
+   "to": "C-",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -513,9 +485,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 4.5 raw gems per gem that lands at C",
-   "minimum": "every gem at C on the Loseii grading scale",
+   "minimum": "twelve gems at C, three cores at 17 points, atk power / boss damage / add damage even",
    "from": "C-",
-   "to": "C"
+   "to": "C",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -525,9 +505,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 5.2 raw gems per gem that lands at C+",
-   "minimum": "every gem at C+ on the Loseii grading scale",
+   "minimum": "twelve gems at C+, three cores at 17 points, atk power / boss damage / add damage even",
    "from": "C",
-   "to": "C+"
+   "to": "C+",
+   "grid": {
+    "cores": 17,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -537,9 +525,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 6.2 raw gems per gem that lands at B-",
-   "minimum": "every gem at B- on the Loseii grading scale",
+   "minimum": "twelve gems at B-, three cores at 18 points, atk power / boss damage / add damage even",
    "from": "C+",
-   "to": "B-"
+   "to": "B-",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -549,9 +545,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 7.6 raw gems per gem that lands at B",
-   "minimum": "every gem at B on the Loseii grading scale",
+   "minimum": "twelve gems at B, three cores at 18 points, atk power / boss damage / add damage even",
    "from": "B-",
-   "to": "B"
+   "to": "B",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -561,9 +565,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 9.8 raw gems per gem that lands at B+",
-   "minimum": "every gem at B+ on the Loseii grading scale",
+   "minimum": "twelve gems at B+, three cores at 18 points, atk power / boss damage / add damage even",
    "from": "B",
-   "to": "B+"
+   "to": "B+",
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -573,9 +585,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 13.3 raw gems per gem that lands at A-",
-   "minimum": "every gem at A- on the Loseii grading scale",
+   "minimum": "twelve gems at A-, three cores at 19 points, atk power / boss damage / add damage even",
    "from": "B+",
-   "to": "A-"
+   "to": "A-",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -585,9 +605,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 18.3 raw gems per gem that lands at A",
-   "minimum": "every gem at A on the Loseii grading scale",
+   "minimum": "twelve gems at A, three cores at 19 points, atk power / boss damage / add damage even",
    "from": "A-",
-   "to": "A"
+   "to": "A",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -597,9 +625,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 25.9 raw gems per gem that lands at A+",
-   "minimum": "every gem at A+ on the Loseii grading scale",
+   "minimum": "twelve gems at A+, three cores at 19 points, atk power / boss damage / add damage even",
    "from": "A",
-   "to": "A+"
+   "to": "A+",
+   "grid": {
+    "cores": 19,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -609,9 +645,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 51.2 raw gems per gem that lands at S-",
-   "minimum": "every gem at S- on the Loseii grading scale",
+   "minimum": "twelve gems at S-, three cores at 20 points, atk power / boss damage / add damage even",
    "from": "A+",
-   "to": "S-"
+   "to": "S-",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -621,9 +665,17 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 149.1 raw gems per gem that lands at S",
-   "minimum": "every gem at S on the Loseii grading scale",
+   "minimum": "twelve gems at S, three cores at 20 points, atk power / boss damage / add damage even",
    "from": "S-",
-   "to": "S"
+   "to": "S",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "arkgrid",
@@ -633,9 +685,17 @@
    "detail": "all twelve gems; the S to S+ band is only 2.8 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, DPS axis, advisor baseline 85 at 2.5M gold per 1%. 419.0 raw gems per gem that lands at S+",
-   "minimum": "every gem at S+ on the Loseii grading scale",
+   "minimum": "twelve gems at S+, three cores at 20 points, atk power / boss damage / add damage even",
    "from": "S",
-   "to": "S+"
+   "to": "S+",
+   "grid": {
+    "cores": 20,
+    "nodes": [
+     "atk power",
+     "boss damage",
+     "add damage"
+    ]
+   }
   },
   {
    "series": "bracelet",
@@ -668,7 +728,8 @@
     ]
    ],
    "buy": "80/80 unrolled bracelets, about 1,698 each",
-   "odds": "1 in 1 rolled bracelets reaches D-"
+   "odds": "1 in 1 rolled bracelets reaches D-",
+   "totalDamage": 6.83
   },
   {
    "series": "bracelet",
@@ -701,7 +762,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 3,564 each",
-   "odds": "1 in 1 rolled bracelets reaches D"
+   "odds": "1 in 1 rolled bracelets reaches D",
+   "totalDamage": 7.643
   },
   {
    "series": "bracelet",
@@ -734,7 +796,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 4,680 each",
-   "odds": "1 in 1 rolled bracelets reaches D+"
+   "odds": "1 in 1 rolled bracelets reaches D+",
+   "totalDamage": 8.455
   },
   {
    "series": "bracelet",
@@ -771,7 +834,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 7,043 each",
-   "odds": "1 in 2 rolled bracelets reaches C-"
+   "odds": "1 in 2 rolled bracelets reaches C-",
+   "totalDamage": 9.267
   },
   {
    "series": "bracelet",
@@ -808,7 +872,8 @@
     ]
    ],
    "buy": "90/90 unrolled bracelets, about 8,708 each",
-   "odds": "1 in 2 rolled bracelets reaches C"
+   "odds": "1 in 2 rolled bracelets reaches C",
+   "totalDamage": 10.08
   },
   {
    "series": "bracelet",
@@ -845,7 +910,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 10,598 each",
-   "odds": "1 in 3 rolled bracelets reaches C+"
+   "odds": "1 in 3 rolled bracelets reaches C+",
+   "totalDamage": 10.892
   },
   {
    "series": "bracelet",
@@ -882,7 +948,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 13,918 each",
-   "odds": "1 in 5 rolled bracelets reaches B-"
+   "odds": "1 in 5 rolled bracelets reaches B-",
+   "totalDamage": 11.705
   },
   {
    "series": "bracelet",
@@ -919,7 +986,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 15,949 each",
-   "odds": "1 in 9 rolled bracelets reaches B"
+   "odds": "1 in 9 rolled bracelets reaches B",
+   "totalDamage": 12.517
   },
   {
    "series": "bracelet",
@@ -956,7 +1024,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 24,002 each",
-   "odds": "1 in 16 rolled bracelets reaches B+"
+   "odds": "1 in 16 rolled bracelets reaches B+",
+   "totalDamage": 13.329
   },
   {
    "series": "bracelet",
@@ -993,7 +1062,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 36,120 each",
-   "odds": "1 in 30 rolled bracelets reaches A-"
+   "odds": "1 in 30 rolled bracelets reaches A-",
+   "totalDamage": 14.142
   },
   {
    "series": "bracelet",
@@ -1030,7 +1100,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 36,120 each",
-   "odds": "1 in 76 rolled bracelets reaches A"
+   "odds": "1 in 76 rolled bracelets reaches A",
+   "totalDamage": 14.954
   },
   {
    "series": "bracelet",
@@ -1071,7 +1142,8 @@
     ]
    ],
    "buy": "100/100 unrolled bracelets, about 31,519 each",
-   "odds": "1 in 247 rolled bracelets reaches A+"
+   "odds": "1 in 247 rolled bracelets reaches A+",
+   "totalDamage": 15.766
   },
   {
    "series": "bracelet",
@@ -1112,7 +1184,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 54,357 each",
-   "odds": "1 in 677 rolled bracelets reaches S-"
+   "odds": "1 in 677 rolled bracelets reaches S-",
+   "totalDamage": 16.579
   },
   {
    "series": "bracelet",
@@ -1153,7 +1226,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 101,147 each",
-   "odds": "1 in 2,219 rolled bracelets reaches S"
+   "odds": "1 in 2,219 rolled bracelets reaches S",
+   "totalDamage": 17.391
   },
   {
    "series": "bracelet",
@@ -1194,7 +1268,8 @@
     ]
    ],
    "buy": "110/110 unrolled bracelets, about 123,101 each",
-   "odds": "1 in 10,949 rolled bracelets reaches S+"
+   "odds": "1 in 10,949 rolled bracelets reaches S+",
+   "totalDamage": 18.22
   },
   {
    "series": "neck",
@@ -3199,6 +3274,90 @@
    "buy": "a ring: high/high primaries, atk power high flat, max main stat",
    "odds": "priced by the accessory calculator on the DPS market, which values an accessory strictly by its damage",
    "minimum": "high/high primaries, atk power high flat, max main stat"
+  },
+  {
+   "series": "gems",
+   "label": "all lv7 → lv8",
+   "from": "level 7",
+   "to": "level 8",
+   "gold": 3080000,
+   "damage": 4.83333,
+   "mats": [
+    [
+     "11 gems, two more lv7 each",
+     22,
+     3080000
+    ],
+    [
+     "skill damage",
+     "32% → 36%",
+     0
+    ],
+    [
+     "cooldown reduction",
+     "18% → 20%",
+     0
+    ]
+   ],
+   "buy": "11 gems from level 7 to 8 — three of a level make one of the next, so two more each",
+   "odds": "no chance involved. 3.03% from the damage bucket and 1.75% from casting 2.50% more often, with 70% of damage on cooldown",
+   "minimum": "every gem at level 8 — 36% skill damage and 20% cooldown"
+  },
+  {
+   "series": "gems",
+   "label": "all lv8 → lv9",
+   "from": "level 8",
+   "to": "level 9",
+   "gold": 9240000,
+   "damage": 4.78884,
+   "mats": [
+    [
+     "11 gems, two more lv8 each",
+     22,
+     9240000
+    ],
+    [
+     "skill damage",
+     "36% → 40%",
+     0
+    ],
+    [
+     "cooldown reduction",
+     "20% → 22%",
+     0
+    ]
+   ],
+   "buy": "11 gems from level 8 to 9 — three of a level make one of the next, so two more each",
+   "odds": "no chance involved. 2.94% from the damage bucket and 1.79% from casting 2.56% more often, with 70% of damage on cooldown",
+   "minimum": "every gem at level 9 — 40% skill damage and 22% cooldown"
+  },
+  {
+   "series": "gems",
+   "label": "all lv9 → lv10",
+   "from": "level 9",
+   "to": "level 10",
+   "gold": 27720000,
+   "damage": 4.75188,
+   "mats": [
+    [
+     "11 gems, two more lv9 each",
+     22,
+     27720000
+    ],
+    [
+     "skill damage",
+     "40% → 44%",
+     0
+    ],
+    [
+     "cooldown reduction",
+     "22% → 24%",
+     0
+    ]
+   ],
+   "buy": "11 gems from level 9 to 10 — three of a level make one of the next, so two more each",
+   "odds": "no chance involved. 2.86% from the damage bucket and 1.84% from casting 2.63% more often, with 70% of damage on cooldown",
+   "minimum": "every gem at level 10 — 44% skill damage and 24% cooldown"
   }
  ]
 }

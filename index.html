@@ -80,7 +80,7 @@
     armor:    { label: "Honing — armour", color: "#6ad4ff", base: "+11", spend: "last" },
     weapon:   { label: "Honing — weapon", color: "#ffb86b", base: "+11", spend: "last" },
     gems:     { label: "Skill gems",      color: "#f2a2c0", base: "level 7", spend: "last" },
-    karma:    { label: "Karma",           color: "#c78cff", base: "lv 21", spend: "last" },
+    karma:    { label: "Karma — Enlightenment", color: "#c78cff", base: "lv 21", spend: "last" },
     neck:     { label: "Necklace",        color: "#6ee7a8", base: "nothing worth pricing" },
     ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
     earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
@@ -253,7 +253,7 @@
       r.mats.forEach(function (m) {
         var qty = m[1] === "" ? "" : (typeof m[1] === "number" ? m[1].toLocaleString() : m[1]);
         h += "<tr><td>" + m[0] + "</td><td>" + qty + (m[2] ? "  <b style='color:var(--dim)'>" +
-          fmtGold(m[2]) + "g</b>" : "") + "</td></tr>";
+          fmtGold(m[2]) + "</b>" : "") + "</td></tr>";
       });
       h += "</table>";
     }
@@ -334,20 +334,37 @@
       var p = PLAN[key];
       gold += p.gold; dmg += p.damage;
       var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
+      // accessories carry their flat and main stat in the example, so the headline
+      // keeps only the primary pair
+      if (["neck", "ring", "earring"].indexOf(key) >= 0) where = where.split(" · ")[0];
       var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
       var spend = SERIES[key].spend === "last" && p.last
         ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
-      var hit = p.taken && p.last.hit ? p.last.hit : null;
+      var last = p.taken ? p.last : null;
+      var eg = "";
+      if (last) {
+        if (last.hit) {
+          eg = "<b>" + last.hit.stats + "</b>" + last.hit.lines.map(function (l) {
+            return "<span class='sm'>" + l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span></span>";
+          }).join("<br>");
+        } else if (last.grid) {
+          eg = "<b>" + last.grid.cores + "-point cores</b><span class='sm'>" +
+            last.grid.nodes.join("<br>") + " even</span>";
+        } else if (key === "neck" || key === "ring" || key === "earring") {
+          var bits = (last.to || "").split(" · ");
+          eg = "<span class='sm'>" + (bits[2] || "") + "<br>" + colourTiers(bits[1] || "") + "</span>";
+        }
+      }
+      var totalDmg = last && last.totalDamage ? last.totalDamage : (p.damage * party());
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
-        SERIES[key].label + "</h4><div class='big'>" + pill(where) + "</div>" +
-        (note ? "<div class='ilvl'>" + note + "</div>" : "") +
-        (hit ? "<div class='lines'><b>" + hit.stats + "</b><br>" + hit.lines.map(function (l) {
-          return l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span>";
-        }).join("<br>") + "</div>" : "") +
+        SERIES[key].label + "</h4>" +
+        "<div class='top'><div><div class='big'>" + pill(where) + "</div>" +
+        (note ? "<div class='ilvl'>" + note + "</div>" : "") + "</div>" +
+        (eg ? "<div class='eg'>" + eg + "</div>" : "") + "</div>" +
         "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
         fmtGold(spend) + "</div>" +
-        "<div class='num2'><span>" + (party() > 1 ? "party damage" : "damage") + "</span>" +
-        (p.damage * party()).toFixed(2) + "%</div></div>";
+        "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
+        (party() > 1 ? "party damage" : "damage") + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
     }).join("");
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
