@@ -33,7 +33,7 @@
    "detail": "all twelve gems, the first gem worth socketing",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C-, three cores at 17 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at C-, three cores at 17 points, side nodes at 38",
    "from": "ungraded",
    "to": "C-",
    "grid": {
@@ -41,15 +41,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      38
      ],
      [
       "brand power",
-      60
+      38
      ],
      [
       "ally atk enh",
-      60
+      38
      ]
     ]
    }
@@ -62,7 +62,7 @@
    "detail": "all twelve gems, epic cuts at 60:30:10, duds fused",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C, three cores at 17 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at C, three cores at 17 points, side nodes at 40",
    "from": "C-",
    "to": "C",
    "grid": {
@@ -70,15 +70,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      40
      ],
      [
       "brand power",
-      60
+      40
      ],
      [
       "ally atk enh",
-      60
+      40
      ]
     ]
    }
@@ -91,7 +91,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at C+, three cores at 17 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at C+, three cores at 17 points, side nodes at 42",
    "from": "C",
    "to": "C+",
    "grid": {
@@ -99,15 +99,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      42
      ],
      [
       "brand power",
-      60
+      42
      ],
      [
       "ally atk enh",
-      60
+      42
      ]
     ]
    }
@@ -120,7 +120,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B-, three cores at 18 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at B-, three cores at 18 points, side nodes at 44",
    "from": "C+",
    "to": "B-",
    "grid": {
@@ -128,15 +128,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      44
      ],
      [
       "brand power",
-      60
+      44
      ],
      [
       "ally atk enh",
-      60
+      44
      ]
     ]
    }
@@ -149,7 +149,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B, three cores at 18 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at B, three cores at 18 points, side nodes at 46",
    "from": "B-",
    "to": "B",
    "grid": {
@@ -157,15 +157,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      46
      ],
      [
       "brand power",
-      60
+      46
      ],
      [
       "ally atk enh",
-      60
+      46
      ]
     ]
    }
@@ -178,7 +178,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at B+, three cores at 18 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at B+, three cores at 18 points, side nodes at 49",
    "from": "B",
    "to": "B+",
    "grid": {
@@ -186,15 +186,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      49
      ],
      [
       "brand power",
-      60
+      49
      ],
      [
       "ally atk enh",
-      60
+      49
      ]
     ]
    }
@@ -207,7 +207,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A-, three cores at 19 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at A-, three cores at 19 points, side nodes at 51",
    "from": "B+",
    "to": "A-",
    "grid": {
@@ -215,15 +215,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      51
      ],
      [
       "brand power",
-      60
+      51
      ],
      [
       "ally atk enh",
-      60
+      51
      ]
     ]
    }
@@ -236,7 +236,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A, three cores at 19 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at A, three cores at 19 points, side nodes at 53",
    "from": "A-",
    "to": "A",
    "grid": {
@@ -244,15 +244,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      53
      ],
      [
       "brand power",
-      60
+      53
      ],
      [
       "ally atk enh",
-      60
+      53
      ]
     ]
    }
@@ -265,7 +265,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at A+, three cores at 19 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at A+, three cores at 19 points, side nodes at 55",
    "from": "A",
    "to": "A+",
    "grid": {
@@ -273,15 +273,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      55
      ],
      [
       "brand power",
-      60
+      55
      ],
      [
       "ally atk enh",
-      60
+      55
      ]
     ]
    }
@@ -294,7 +294,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S-, three cores at 20 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at S-, three cores at 20 points, side nodes at 57",
    "from": "A+",
    "to": "S-",
    "grid": {
@@ -302,15 +302,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      57
      ],
      [
       "brand power",
-      60
+      57
      ],
      [
       "ally atk enh",
-      60
+      57
      ]
     ]
    }
@@ -323,7 +323,7 @@
    "detail": "all twelve gems",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S, three cores at 20 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at S, three cores at 20 points, side nodes at 59",
    "from": "S-",
    "to": "S",
    "grid": {
@@ -331,15 +331,15 @@
     "nodes": [
      [
       "ally damage",
-      60
+      59
      ],
      [
       "brand power",
-      60
+      59
      ],
      [
       "ally atk enh",
-      60
+      59
      ]
     ]
    }
@@ -352,7 +352,7 @@
    "detail": "all twelve gems; the S to S+ band is only 1.3 points wide",
    "buy": "epic astrogems cut at a 60:30:10 cost mix, duds fused — twelve gems for the whole grid",
    "odds": "average over 300,000 simulated cuts, support axis",
-   "minimum": "twelve gems at S+, three cores at 20 points, side nodes ally damage 60 / brand power 60 / ally atk enh 60",
+   "minimum": "twelve gems at S+, three cores at 20 points, side nodes at 60",
    "from": "S",
    "to": "S+",
    "grid": {
