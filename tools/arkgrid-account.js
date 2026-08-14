@@ -9,10 +9,15 @@
  * both sitting on A+ can hold quite different grids.
  *
  * So this builds the grid the way a player does. Cut a gem with the advisor at
- * your current baseline; if it beats your weakest equipped gem, socket it and
- * the old one is gone. Your baseline is then the grade of the new weakest,
- * which is the app's own advice, so the advisor tracks you as you improve.
- * Duds that reach relic fuse with two legendary fodder, as everywhere else.
+ * your current baseline; if it adds more damage than your weakest slot does,
+ * socket it and the old one is gone. Your baseline is then the grade of the new
+ * weakest, which is the app's own advice, so the advisor tracks you as you
+ * improve. Duds that reach relic fuse with two legendary fodder.
+ *
+ * Sockets are decided on DAMAGE, not on grade. The two do not move together: a
+ * gem can grade higher on its willpower and order credit while putting less
+ * into the side nodes, so swapping on grade can lower the grid. Grade still
+ * names the band, because that is what the app's baseline advice reads.
  *
  * The trace is monotone in gold, so one account answers every budget: walk it
  * and stop where one more gem stops paying,
@@ -57,12 +62,19 @@ function pairsOf(cost) {
 }
 var PAIRS = { 8: pairsOf(8), 9: pairsOf(9), 10: pairsOf(10) };
 
-// Solvers are the expensive part, so they are cached and the baseline is
-// quantised to whole grade points — the advisor does not change its mind over
-// a tenth of a grade.
+// Solvers are by far the expensive part — a whole DP solve each — so they are
+// cached and the baseline is snapped to the grade band it sits in. A player
+// does not re-read the advisor over a tenth of a grade, and snapping keeps the
+// solver count to twelve bands rather than forty-odd grade points.
+var BAND_CUTS = [0, 60, 63.3, 66.7, 70, 73.3, 76.7, 80, 83.3, 86.7, 90, 93.3, 94.6];
+function snap(g) {
+  var q = BAND_CUTS[0];
+  for (var i = 0; i < BAND_CUTS.length; i++) if (g >= BAND_CUTS[i]) q = BAND_CUTS[i];
+  return q;
+}
 var solverCache = {};
 function solverFor(baseline, gpd, cost) {
-  var q = Math.round(baseline);
+  var q = snap(baseline);
   var key = q + "_" + gpd + "_" + cost;
   if (!solverCache[key]) {
     solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, false,
@@ -120,12 +132,16 @@ function gridState(gems) {
 
 /** One account: cut N gems, always socketing anything better than the weakest. */
 function runAccount(gpd) {
-  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + gpd));
+  // one seed for every budget: the only thing that should differ between rows
+  // is the advisor's policy, not the luck of the draw
+  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY));
   var equipped = [], trace = [], gold = 0, cut = 0;
   // start from nothing: the first 24 gems go straight in
   while (cut < N) {
     var weakest = equipped.length < SLOTS ? 0
       : Math.min.apply(null, equipped.map(function (g) { return A.supportGrade(g); }));
+    var weakestDmg = equipped.length < SLOTS ? -Infinity
+      : Math.min.apply(null, equipped.map(function (g) { return A.supportDamage(g); }));
     var cost = rand() < MIX[8] ? 8 : (rand() < 0.75 ? 9 : 10);
     var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
     var res = cutOneGem(solverFor(weakest, gpd, cost),
@@ -134,7 +150,7 @@ function runAccount(gpd) {
     cut++;
     var got = res.processes > 0 ? res.cfg : null;
     // a dud that reached relic is worth fusing rather than binning
-    if (got && equipped.length >= SLOTS && A.supportGrade(got) <= weakest && A.levelSum(got) >= 16) {
+    if (got && equipped.length >= SLOTS && A.supportDamage(got) <= weakestDmg && A.levelSum(got) >= 16) {
       gold += A.COSTS.fusion;
       var outTier = drawTier(A.fusionOutputDist([A.classifyTier(A.levelSum(got)), "legendary", "legendary"]), rand);
       got = outTier === "legendary" ? null : sampleTierGem(got.baseCost, outTier, rand);
@@ -143,12 +159,12 @@ function runAccount(gpd) {
     if (equipped.length < SLOTS) {
       equipped.push(got);
     } else {
-      var wi = 0, wg = Infinity;
+      var wi = 0, wd = Infinity;
       for (var i = 0; i < equipped.length; i++) {
-        var g = A.supportGrade(equipped[i]);
-        if (g < wg) { wg = g; wi = i; }
+        var d = A.supportDamage(equipped[i]);
+        if (d < wd) { wd = d; wi = i; }
       }
-      if (A.supportGrade(got) <= wg) continue;
+      if (A.supportDamage(got) <= wd) continue;
       equipped[wi] = got;
     }
     if (equipped.length === SLOTS) {
@@ -171,13 +187,17 @@ function letterOf(g) {
 
 var out = GPDS.map(function (gpd) {
   var trace = runAccount(gpd);
-  // stop where the next gem stops paying for itself
+  // Stop where the next gem stops paying for itself. One gem at a time is far
+  // too noisy to test — most cuts add nothing and then one lands — so the rate
+  // is measured over a window of sockets and the stop is the last point where
+  // that rate is still under budget.
+  var W = 12;
   var stop = trace[trace.length - 1];
-  for (var i = 1; i < trace.length; i++) {
-    var dGold = trace[i].gold - trace[i - 1].gold;
-    var dDmg = trace[i].damage - trace[i - 1].damage;
+  for (var i = W; i < trace.length; i++) {
+    var dGold = trace[i].gold - trace[i - W].gold;
+    var dDmg = trace[i].damage - trace[i - W].damage;
     if (dDmg <= 0) continue;
-    if (dGold / (dDmg * PARTY) > gpd) { stop = trace[i - 1]; break; }
+    if (dGold / (dDmg * PARTY) > gpd) { stop = trace[i - W]; break; }
   }
   return {
     gpd: gpd, gold: Math.round(stop.gold), gems: stop.cut,

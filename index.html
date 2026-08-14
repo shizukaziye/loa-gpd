@@ -128,7 +128,8 @@
                    "66111131": "Lava's", "66111132": "Glacier's" };
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
-                rows: { support: null, dps: null }, arkgrid: {}, braceletByGpd: null };
+                rows: { support: null, dps: null }, arkgrid: {}, arkgridAccount: {},
+                braceletByGpd: null };
   var ROWS = [], PLAN = null, BUDGET = 0;
 
   function fmtGold(g) {
@@ -284,13 +285,48 @@
       "the astrogem is not priced.</span>";
   }
 
-  /** Pick the cell for wherever the slider sits; clamp at both ends. */
+  /**
+   * The grid an account actually holds at this budget (tools/arkgrid-account.js).
+   * The band ladder prices a grid where all 24 slots clear a grade; a real one
+   * is uneven, so this carries the node levels and the spread between the
+   * weakest slot and the mean.
+   */
+  function accountGridAt(key, budget) {
+    var src = state.arkgridAccount[RARITY_OF[key]];
+    if (!src || !src.rows.length) return null;
+    var pick = src.rows[0];
+    for (var i = 0; i < src.rows.length; i++) if (src.rows[i].gpd <= budget) pick = src.rows[i];
+    return pick;
+  }
+
+  /**
+   * The cell for wherever the slider sits, interpolated between the two the
+   * runs actually measured.
+   *
+   * Snapping to the nearest sampled budget is not good enough: the cost of a
+   * step rises with the budget it was cut at, so a small move of the slider
+   * across a sample point made a step jump in price and drop out of the plan.
+   * That showed up as the grid going BACKWARDS as you got richer, which it
+   * must never do. Cost, gems and weeks are interpolated on log budget, which
+   * is the axis the slider itself is laid out on.
+   */
   function cellAt(row, budget) {
-    var pick = null;
-    for (var i = 0; i < row.cells.length; i++) {
-      if (row.cells[i].gpd <= budget) pick = row.cells[i];
+    var cells = row.cells, lo = null, hi = null;
+    for (var i = 0; i < cells.length; i++) {
+      if (!cells[i].reachable) continue;
+      if (cells[i].gpd <= budget) lo = cells[i];
+      else if (!hi) hi = cells[i];
     }
-    return pick || row.cells[0];
+    if (!lo) return hi || cells[0];
+    if (!hi) return lo;
+    var t = (Math.log(budget) - Math.log(lo.gpd)) / (Math.log(hi.gpd) - Math.log(lo.gpd));
+    function mix(a, b) { return a + (b - a) * t; }
+    return { gpd: budget, reachable: true,
+      gold: Math.round(mix(lo.gold, hi.gold)),
+      gems: Math.round(mix(lo.gems, hi.gems)),
+      weeks: mix(lo.weeks, hi.weeks),
+      cores: lo.cores, nodes: lo.nodes, meanGrade: lo.meanGrade,
+      thin: lo.thin || hi.thin };
   }
 
   /** Ark grid rows for one rarity at the current budget. */
@@ -457,8 +493,15 @@
             return "<span class='sm'>" + l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span></span>";
           }).join("<br>");
         } else if (last.grid) {
-          eg = "<b>" + last.grid.cores + "-point cores</b><span class='sm'>" +
-            last.grid.nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") + "</span>";
+          // the example is the grid a simulated account is holding at this
+          // budget, so it moves with the slider rather than with the band
+          var acct = RARITY_OF[key] ? accountGridAt(key, BUDGET) : null;
+          var g = acct || last.grid;
+          var nodes = acct ? acct.nodes : last.grid.nodes;
+          eg = "<b>" + (acct ? acct.cores : last.grid.cores) + "-point cores</b><span class='sm'>" +
+            nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") +
+            (acct ? "<br>mean " + pill(acct.meanBand) + " weakest " + pill(acct.band) : "") +
+            "</span>";
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");
           eg = "<span class='sm'>" + (bits[2] || "") + "<br>" + colourTiers(bits[1] || "") + "</span>";
@@ -569,9 +612,13 @@
                grab("data/rows.json"), grab("data/rows-dps.json"),
                grab("data/bracelet-vs-gpd.json"),
                grab("data/arkgrid-support-epic.json"),
-               grab("data/arkgrid-support-rare.json")]).then(function (all) {
+               grab("data/arkgrid-support-rare.json"),
+               grab("data/arkgrid-account-epic.json"),
+               grab("data/arkgrid-account-rare.json")]).then(function (all) {
     state.arkgrid.epic = all[5];
     state.arkgrid.rare = all[6];
+    state.arkgridAccount.epic = all[7];
+    state.arkgridAccount.rare = all[8];
     state.honing = all[0]; state.karma = all[1];
     state.rows.support = all[2] ? all[2].rows : [];
     state.rows.dps = all[3] ? all[3].rows : null;
