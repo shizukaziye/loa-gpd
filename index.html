@@ -98,6 +98,19 @@
     "A-": "#7161c3", "A": "#7e5cc0", "A+": "#a660be",
     "S-": "#c15cad", "S": "#cc5c81", "S+": "#e6d5a6"
   };
+  // tier words -> the house colours: blue/low ancient, epic/mid relic, LEG/high legendary
+  function colourTiers(text) {
+    return String(text).replace(/\b(blue|epic|LEG|low|mid|high)\b/g, function (w) {
+      return "<span class='t-" + w + "'>" + w + "</span>";
+    });
+  }
+  function pill(label) {
+    var c = rankColor(label);
+    if (!c) return colourTiers(label);
+    var dark = label.trim() === "S+";
+    return "<span class='pill' style='background:" + c + ";color:" + (dark ? "#4a3a1e" : "#fff") +
+      "'>" + label + "</span>";
+  }
   function rankColor(label) {
     var m = String(label).match(/(S\+|S-|S|A\+|A-|A|B\+|B-|B|C\+|C-|C|D\+|D-|D|F\+|F-|F)\s*$/);
     return m ? RANK_COLOR[m[1]] : null;
@@ -244,7 +257,9 @@
       });
       h += "</table>";
     }
-    if (r.minimum) h += "<span class='k'>result</span>" + r.minimum;
+    if (r.minimum) h += "<span class='k'>result</span>" + colourTiers(r.minimum);
+    if (r.series === "arkgrid") h += "<span class='k'>cut it with</span>" +
+      "<a href='https://www.loseii.com/loa-astrogem-calc/'>the astrogem calculator</a>";
     return h;
   }
 
@@ -253,7 +268,7 @@
     var next = mine[p.taken];
     var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
     var h = "<b>" + SERIES[key].label + "</b><table>";
-    h += num("At", where, rankColor(where));
+    h += num("At", pill(where));
     if (p.taken) {
       var spend = SERIES[key].spend === "last" ? p.last.gold : (p.last.total || p.gold);
       h += num(SERIES[key].spend === "last" ? "Last step" : "Total cost",
@@ -265,7 +280,7 @@
     h += "</table>";
     if (next) {
       h += "<span class='k'>next step</span><table>";
-      h += num("To", next.to || next.label, rankColor(next.to || next.label));
+      h += num("To", pill(next.to || next.label));
       h += num("Cost", fmtGold(next.gold), "var(--high)");
       h += num(party() > 1 ? "Party damage" : "Damage",
                (next.damage * party()).toFixed(3) + "%", "var(--good)");
@@ -322,9 +337,13 @@
       var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
       var spend = SERIES[key].spend === "last" && p.last
         ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
+      var hit = p.taken && p.last.hit ? p.last.hit : null;
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
-        SERIES[key].label + "</h4><div class='big'" + (rc ? " style='color:" + rc + "'" : "") + ">" +
-        where + "</div>" + (note ? "<div class='ilvl'>" + note + "</div>" : "") +
+        SERIES[key].label + "</h4><div class='big'>" + pill(where) + "</div>" +
+        (note ? "<div class='ilvl'>" + note + "</div>" : "") +
+        (hit ? "<div class='lines'><b>" + hit.stats + "</b><br>" + hit.lines.map(function (l) {
+          return l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span>";
+        }).join("<br>") + "</div>" : "") +
         "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (party() > 1 ? "party damage" : "damage") + "</span>" +
@@ -343,9 +362,7 @@
     var html = "<table><tr><th>Step</th><th>System</th><th class='num'>Gold</th>" +
       "<th class='num'>Damage</th><th class='num'>Gold per 1%</th><th></th></tr>";
     priced.slice().sort(function (a, b) { return a.gpd - b.gpd; }).forEach(function (r) {
-      var rc = rankColor(r.to || r.label);
-      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td" + (rc ? " style='color:" + rc + "'" : "") + ">" +
-        (r.to || r.label) + "</td>" +
+      html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + pill(r.to || r.label) + "</td>" +
         "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
         "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
         "<td class='num'>" + fmtGold(r.gpd) + "</td><td style='width:24%'><span class='bar' style='width:" +
@@ -367,11 +384,11 @@
         "<tr><th>Step</th><th class='num'>Gold</th><th class='num'>Damage</th>" +
         "<th class='num'>Gold per 1%</th><th>What it looks like</th></tr>";
       mine.forEach(function (r) {
-        var rc2 = rankColor(r.to || r.label);
-        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td" + (rc2 ? " style='color:" + rc2 + "'" : "") +
-          ">" + (r.to || r.label) + (r.note ? " <span class='per'>" + r.note + "</span>" : "") + "</td>" +
+        html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + pill(r.to || r.label) +
+          (r.note ? " <span class='per'>" + r.note + "</span>" : "") + "</td>" +
           "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
-          "<td class='num'>" + fmtGold(r.gpd) + "</td><td class='unit'>" + (r.minimum || "") + "</td></tr>";
+          "<td class='num'>" + fmtGold(r.gpd) + "</td><td class='unit'>" +
+          colourTiers(r.minimum || "") + "</td></tr>";
       });
       host.insertAdjacentHTML("beforeend", html + "</table></div>");
     });

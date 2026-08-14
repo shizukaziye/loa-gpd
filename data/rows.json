@@ -26,383 +26,6 @@
    ]
   },
   {
-   "series": "bracelet",
-   "label": "D → D+",
-   "gold": 8188,
-   "damage": 0.3,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "60/60 unrolled bracelets at about 40g each",
-   "odds": "98.78% of rolled bracelets land D+ or better, so 1 of them on average — 20 pheons all told",
-   "minimum": "about 90/80 with nothing",
-   "from": "D",
-   "to": "D+",
-   "mats": [
-    [
-     "unrolled bracelets",
-     1,
-     40.49402713099818
-    ],
-    [
-     "pheons",
-     20,
-     45289.37244914269
-    ],
-    [
-     "stats to cut",
-     "60/60",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "D+ → C-",
-   "gold": 18742,
-   "damage": 0.3,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 4,725g each",
-   "odds": "88.44% of rolled bracelets land C- or better, so 1 of them on average — 23 pheons all told",
-   "minimum": "about 80/80 with weapon power blue",
-   "from": "D+",
-   "to": "C-",
-   "mats": [
-    [
-     "unrolled bracelets",
-     1,
-     5342.605156037992
-    ],
-    [
-     "pheons",
-     23,
-     50584.398581256384
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "C- → C",
-   "gold": 21030,
-   "damage": 0.3,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 3,308g each",
-   "odds": "64.34% of rolled bracelets land C or better, so 2 of them on average — 31 pheons all told",
-   "minimum": "about 70/70 with ally damage blue",
-   "from": "C-",
-   "to": "C",
-   "mats": [
-    [
-     "unrolled bracelets",
-     2,
-     5141.4361206092635
-    ],
-    [
-     "pheons",
-     31,
-     69531.9274250282
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "C → C+",
-   "gold": 44266,
-   "damage": 0.3,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 5,772g each",
-   "odds": "52.78% of rolled bracelets land C+ or better, so 2 of them on average — 38 pheons all told",
-   "minimum": "about 90/100 with ally damage blue",
-   "from": "C",
-   "to": "C+",
-   "mats": [
-    [
-     "unrolled bracelets",
-     2,
-     10935.960591133005
-    ],
-    [
-     "pheons",
-     38,
-     84760.97405317005
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "C+ → B-",
-   "gold": 99668,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 6,085g each",
-   "odds": "36.31% of rolled bracelets land B- or better, so 3 of them on average — 55 pheons all told",
-   "minimum": "about 80/100 with crit resist blue",
-   "from": "C+",
-   "to": "B-",
-   "mats": [
-    [
-     "unrolled bracelets",
-     3,
-     16758.468741393554
-    ],
-    [
-     "pheons",
-     55,
-     123208.04765977182
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "B- → B",
-   "gold": 275419,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 6,423g each",
-   "odds": "21.35% of rolled bracelets land B or better, so 5 of them on average — 94 pheons all told",
-   "minimum": "about 80/80 with crit dmg resist blue and ally atk power blue",
-   "from": "B-",
-   "to": "B",
-   "mats": [
-    [
-     "unrolled bracelets",
-     5,
-     30084.30913348946
-    ],
-    [
-     "pheons",
-     94,
-     209540.2440527548
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "B → B+",
-   "gold": 650790,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "90/90 unrolled bracelets at about 6,423g each",
-   "odds": "9.93% of rolled bracelets land B+ or better, so 10 of them on average — 201 pheons all told",
-   "minimum": "about 80/110 with crit dmg resist epic and weapon power epic",
-   "from": "B",
-   "to": "B+",
-   "mats": [
-    [
-     "unrolled bracelets",
-     10,
-     64682.779456193355
-    ],
-    [
-     "pheons",
-     201,
-     450522.07558170345
-    ],
-    [
-     "stats to cut",
-     "90/90",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "B+ → A-",
-   "gold": 2068448,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "100/100 unrolled bracelets at about 9,144g each",
-   "odds": "4.62% of rolled bracelets land A- or better, so 22 of them on average — 433 pheons all told",
-   "minimum": "about 100/70 with crit dmg resist legendary and ally atk power blue",
-   "from": "B+",
-   "to": "A-",
-   "mats": [
-    [
-     "unrolled bracelets",
-     22,
-     197922.0779220779
-    ],
-    [
-     "pheons",
-     433,
-     968329.9156983364
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "A- → A",
-   "gold": 6949104,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "100/100 unrolled bracelets at about 7,613g each",
-   "odds": "1.62% of rolled bracelets land A or better, so 62 of them on average — 1,235 pheons all told",
-   "minimum": "about 60/80 with crit dmg resist legendary and defence shred blue",
-   "from": "A-",
-   "to": "A",
-   "mats": [
-    [
-     "unrolled bracelets",
-     62,
-     469938.27160493826
-    ],
-    [
-     "pheons",
-     1235,
-     2761533.4632878485
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "A → A+",
-   "gold": 21920054,
-   "damage": 0.45,
-   "detail": "buy unrolled, use all seven rolls",
-   "buy": "100/100 unrolled bracelets at about 8,588g each",
-   "odds": "0.52% of rolled bracelets land A+ or better, so 192 of them on average — 3,846 pheons all told",
-   "minimum": "about 100/80 with crit dmg resist epic and crit resist blue and weapon power (stacking) epic",
-   "from": "A",
-   "to": "A+",
-   "mats": [
-    [
-     "unrolled bracelets",
-     192,
-     1651538.4615384615
-    ],
-    [
-     "pheons",
-     3846,
-     8603238.866396759
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "A+ → S-",
-   "gold": 111560465,
-   "damage": 0.45,
-   "detail": "costs more than it is worth",
-   "buy": "100/100 unrolled bracelets at about 10,417g each",
-   "odds": "0.17% of rolled bracelets land S- or better, so 588 of them on average — 11,765 pheons all told",
-   "minimum": "about 80/70 with crit resist epic and crit dmg resist blue and shielded dmg epic",
-   "from": "A+",
-   "to": "S-",
-   "mats": [
-    [
-     "unrolled bracelets",
-     588,
-     6127647.05882353
-    ],
-    [
-     "pheons",
-     11765,
-     26315789.473684203
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "S- → S",
-   "gold": 552625465,
-   "damage": 0.45,
-   "detail": "costs more than it is worth",
-   "buy": "100/100 unrolled bracelets at about 11,148g each",
-   "odds": "0.04% of rolled bracelets land S or better, so 2,564 of them on average — 51,282 pheons all told",
-   "minimum": "about 80/80 with crit dmg resist epic and crit resist blue and defence shred epic",
-   "from": "S-",
-   "to": "S",
-   "mats": [
-    [
-     "unrolled bracelets",
-     2564,
-     28584615.384615384
-    ],
-    [
-     "pheons",
-     51282,
-     114709851.55195679
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
-   "series": "bracelet",
-   "label": "S → S+",
-   "gold": 7278967343,
-   "damage": 0.6,
-   "detail": "costs more than it is worth",
-   "buy": "100/100 unrolled bracelets at about 29,070g each",
-   "odds": "0.01% of rolled bracelets land S+ or better, so 9,091 of them on average — 181,818 pheons all told",
-   "minimum": "rarer than 1 in 3 million rolls",
-   "from": "S",
-   "to": "S+",
-   "mats": [
-    [
-     "unrolled bracelets",
-     9091,
-     264272727.2727273
-    ],
-    [
-     "pheons",
-     181818,
-     406698564.59330136
-    ],
-    [
-     "stats to cut",
-     "100/100",
-     0
-    ]
-   ]
-  },
-  {
    "series": "arkgrid",
    "label": "ungraded → C-",
    "gold": 294996,
@@ -2316,6 +1939,504 @@
    "to": "high/high · high flat · max stat",
    "buy": "a ring: high/high primaries, a high Weapon Power+ line, max main stat",
    "minimum": "high/high primaries, high flat, max main stat"
+  },
+  {
+   "series": "bracelet",
+   "label": "D- → D",
+   "from": "D-",
+   "to": "D",
+   "gold": 2048,
+   "damage": 0.30018,
+   "total": 47116,
+   "hit": {
+    "stats": "80/80",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "80/80 with on hit defence blue",
+   "mats": [
+    [
+     "cut 80/80 bracelets",
+     1,
+     1697.8703340037025
+    ],
+    [
+     "pheons",
+     20,
+     44736.842105263146
+    ]
+   ],
+   "buy": "80/80 unrolled bracelets, about 1,698 each",
+   "odds": "1 in 1 rolled bracelets reaches D"
+  },
+  {
+   "series": "bracelet",
+   "label": "D → D+",
+   "from": "D",
+   "to": "D+",
+   "gold": 9265,
+   "damage": 0.30018,
+   "total": 56381,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit defence blue",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     1,
+     4679.750146563043
+    ],
+    [
+     "pheons",
+     20,
+     44736.842105263146
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 4,680 each",
+   "odds": "1 in 1 rolled bracelets reaches D+"
+  },
+  {
+   "series": "bracelet",
+   "label": "D+ → C-",
+   "from": "D+",
+   "to": "C-",
+   "gold": 17358,
+   "damage": 0.30018,
+   "total": 73739,
+   "hit": {
+    "stats": "80/80",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "80/80 with on hit defence blue",
+   "mats": [
+    [
+     "cut 80/80 bracelets",
+     2,
+     2396.4582101021306
+    ],
+    [
+     "pheons",
+     40,
+     89473.68421052629
+    ]
+   ],
+   "buy": "80/80 unrolled bracelets, about 1,198 each",
+   "odds": "1 in 2 rolled bracelets reaches C-"
+  },
+  {
+   "series": "bracelet",
+   "label": "C- → C",
+   "from": "C-",
+   "to": "C",
+   "gold": 23566,
+   "damage": 0.30018,
+   "total": 97305,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit defence blue",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     2,
+     9359.500293126086
+    ],
+    [
+     "pheons",
+     40,
+     89473.68421052629
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 4,680 each",
+   "odds": "1 in 2 rolled bracelets reaches C"
+  },
+  {
+   "series": "bracelet",
+   "label": "C → C+",
+   "from": "C",
+   "to": "C+",
+   "gold": 45184,
+   "damage": 0.30018,
+   "total": 142489,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "epic"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit defence epic",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     3,
+     14039.250439689129
+    ],
+    [
+     "pheons",
+     60,
+     134210.52631578944
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 4,680 each",
+   "odds": "1 in 3 rolled bracelets reaches C+"
+  },
+  {
+   "series": "bracelet",
+   "label": "C+ → B-",
+   "from": "C+",
+   "to": "B-",
+   "gold": 103076,
+   "damage": 0.45027,
+   "total": 245564,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit defence",
+      "tier": "LEG"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit defence LEG",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     5,
+     26813.959625455762
+    ],
+    [
+     "pheons",
+     100,
+     223684.21052631576
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 5,363 each",
+   "odds": "1 in 5 rolled bracelets reaches B-"
+  },
+  {
+   "series": "bracelet",
+   "label": "B- → B",
+   "from": "B-",
+   "to": "B",
+   "gold": 275302,
+   "damage": 0.45027,
+   "total": 520867,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit crit rate",
+      "tier": "LEG"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit crit rate LEG",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     11,
+     34206.64740731055
+    ],
+    [
+     "pheons",
+     220,
+     492105.26315789466
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 3,110 each",
+   "odds": "1 in 11 rolled bracelets reaches B"
+  },
+  {
+   "series": "bracelet",
+   "label": "B → B+",
+   "from": "B",
+   "to": "B+",
+   "gold": 703440,
+   "damage": 0.45027,
+   "total": 1224307,
+   "hit": {
+    "stats": "100/100",
+    "lines": [
+     {
+      "name": "on hit crit dmg",
+      "tier": "blue"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "100/100 with on hit crit dmg blue and on hit defence blue",
+   "mats": [
+    [
+     "cut 100/100 bracelets",
+     23,
+     212711.9572114555
+    ],
+    [
+     "pheons",
+     460,
+     1028947.3684210525
+    ]
+   ],
+   "buy": "100/100 unrolled bracelets, about 9,248 each",
+   "odds": "1 in 23 rolled bracelets reaches B+"
+  },
+  {
+   "series": "bracelet",
+   "label": "B+ → A-",
+   "from": "B+",
+   "to": "A-",
+   "gold": 2177407,
+   "damage": 0.45027,
+   "total": 3401713,
+   "hit": {
+    "stats": "100/100",
+    "lines": [
+     {
+      "name": "on hit crit dmg",
+      "tier": "blue"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "epic"
+     }
+    ]
+   },
+   "minimum": "100/100 with on hit crit dmg blue and on hit defence epic",
+   "mats": [
+    [
+     "cut 100/100 bracelets",
+     63,
+     582645.7958400737
+    ],
+    [
+     "pheons",
+     1260,
+     2818421.0526315784
+    ]
+   ],
+   "buy": "100/100 unrolled bracelets, about 9,248 each",
+   "odds": "1 in 63 rolled bracelets reaches A-"
+  },
+  {
+   "series": "bracelet",
+   "label": "A- → A",
+   "from": "A-",
+   "to": "A",
+   "gold": 7196868,
+   "damage": 0.45027,
+   "total": 10598581,
+   "hit": {
+    "stats": "100/100",
+    "lines": [
+     {
+      "name": "on hit crit dmg",
+      "tier": "LEG"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "blue"
+     }
+    ]
+   },
+   "minimum": "100/100 with on hit crit dmg LEG and on hit defence blue",
+   "mats": [
+    [
+     "cut 100/100 bracelets",
+     189,
+     2161335.801339768
+    ],
+    [
+     "pheons",
+     3780,
+     8455263.157894734
+    ]
+   ],
+   "buy": "100/100 unrolled bracelets, about 11,436 each",
+   "odds": "1 in 189 rolled bracelets reaches A"
+  },
+  {
+   "series": "bracelet",
+   "label": "A → A+",
+   "from": "A",
+   "to": "A+",
+   "gold": 21753646,
+   "damage": 0.45027,
+   "total": 32352227,
+   "hit": {
+    "stats": "100/100",
+    "lines": [
+     {
+      "name": "on hit crit dmg",
+      "tier": "LEG"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "LEG"
+     }
+    ]
+   },
+   "minimum": "100/100 with on hit crit dmg LEG and on hit defence LEG",
+   "mats": [
+    [
+     "cut 100/100 bracelets",
+     552,
+     7682595.826650507
+    ],
+    [
+     "pheons",
+     11040,
+     24694736.84210526
+    ]
+   ],
+   "buy": "100/100 unrolled bracelets, about 13,918 each",
+   "odds": "1 in 552 rolled bracelets reaches A+"
+  },
+  {
+   "series": "bracelet",
+   "label": "A+ → S-",
+   "from": "A+",
+   "to": "S-",
+   "gold": 111070997,
+   "damage": 0.45027,
+   "total": 143423225,
+   "hit": {
+    "stats": "100/100",
+    "lines": [
+     {
+      "name": "on hit crit rate",
+      "tier": "LEG"
+     },
+     {
+      "name": "on hit crit dmg",
+      "tier": "LEG"
+     }
+    ]
+   },
+   "minimum": "100/100 with on hit crit rate LEG and on hit crit dmg LEG",
+   "mats": [
+    [
+     "cut 100/100 bracelets",
+     2621,
+     26155268.574952595
+    ],
+    [
+     "pheons",
+     52420,
+     117255263.15789472
+    ]
+   ],
+   "buy": "100/100 unrolled bracelets, about 9,979 each",
+   "odds": "1 in 2,621 rolled bracelets reaches S-"
+  },
+  {
+   "series": "bracelet",
+   "label": "S- → S",
+   "from": "S-",
+   "to": "S",
+   "gold": 516667470,
+   "damage": 0.45027,
+   "total": 660090695,
+   "hit": {
+    "stats": "90/90",
+    "lines": [
+     {
+      "name": "on hit crit rate",
+      "tier": "blue"
+     },
+     {
+      "name": "on hit crit dmg",
+      "tier": "blue"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "LEG"
+     }
+    ]
+   },
+   "minimum": "90/90 with on hit crit rate blue and on hit crit dmg blue and on hit defence LEG",
+   "mats": [
+    [
+     "cut 90/90 bracelets",
+     12500,
+     100880168.83991586
+    ],
+    [
+     "pheons",
+     250000,
+     559210526.3157893
+    ]
+   ],
+   "buy": "90/90 unrolled bracelets, about 8,070 each",
+   "odds": "1 in 12,500 rolled bracelets reaches S"
+  },
+  {
+   "series": "bracelet",
+   "label": "S → S+",
+   "from": "S",
+   "to": "S+",
+   "gold": 9188243505,
+   "damage": 0.60036,
+   "total": 9848334200,
+   "hit": {
+    "stats": "110/110",
+    "lines": [
+     {
+      "name": "on hit crit rate",
+      "tier": "blue"
+     },
+     {
+      "name": "on hit crit dmg",
+      "tier": "LEG"
+     },
+     {
+      "name": "on hit defence",
+      "tier": "epic"
+     }
+    ]
+   },
+   "minimum": "110/110 with on hit crit rate blue and on hit crit dmg LEG and on hit defence epic",
+   "mats": [
+    [
+     "cut 110/110 bracelets",
+     117647,
+     4585174012.364808
+    ],
+    [
+     "pheons",
+     2352940,
+     5263155263.157894
+    ]
+   ],
+   "buy": "110/110 unrolled bracelets, about 38,974 each",
+   "odds": "1 in 117,647 rolled bracelets reaches S+"
   }
  ]
 }

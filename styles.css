@@ -137,6 +137,14 @@ th.bh .gloss,th .gloss{text-decoration-color:var(--dim)}
 .plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
 .card{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;cursor:help}
 .card h4{margin:0 0 4px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.pill{display:inline-block;padding:2px 11px;border-radius:99px;font-weight:800;
+  font-size:16px;line-height:1.45;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+td .pill{font-size:13px;padding:1px 9px}
+#tip .pill{font-size:13px;padding:0 8px}
+.lines{margin-top:6px;font-size:12px;line-height:1.5}
+.lines b{font-weight:700}
+.t-blue{color:var(--ancient)}.t-epic{color:var(--relic)}.t-LEG{color:var(--legendary)}
+.t-low{color:var(--low)}.t-mid{color:var(--mid)}.t-high{color:var(--high)}
 .card .big{font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
 .card .ilvl{color:var(--dim);font-size:12px;margin:-1px 0 6px}
 .card .num2{display:flex;justify-content:space-between;align-items:baseline;gap:10px;

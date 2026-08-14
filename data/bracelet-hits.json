@@ -1,0 +1,173 @@
+{
+ "D-": {
+  "stats": "70/70",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "D": {
+  "stats": "80/80",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "D+": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C-": {
+  "stats": "80/80",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C+": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "epic"
+   }
+  ]
+ },
+ "B-": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit defence",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "B": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit crit rate",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "B+": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "on hit crit dmg",
+    "tier": "blue"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "A-": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "on hit crit dmg",
+    "tier": "blue"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "epic"
+   }
+  ]
+ },
+ "A": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "on hit crit dmg",
+    "tier": "LEG"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "blue"
+   }
+  ]
+ },
+ "A+": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "on hit crit dmg",
+    "tier": "LEG"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "S-": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "on hit crit rate",
+    "tier": "LEG"
+   },
+   {
+    "name": "on hit crit dmg",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "S": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "on hit crit rate",
+    "tier": "blue"
+   },
+   {
+    "name": "on hit crit dmg",
+    "tier": "blue"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "S+": {
+  "stats": "110/110",
+  "lines": [
+   {
+    "name": "on hit crit rate",
+    "tier": "blue"
+   },
+   {
+    "name": "on hit crit dmg",
+    "tier": "LEG"
+   },
+   {
+    "name": "on hit defence",
+    "tier": "epic"
+   }
+  ]
+ }
+}
