@@ -2,7 +2,7 @@
  "axis": "support",
  "rarity": "epic",
  "model": "account",
- "draw": "mc",
+ "draw": "dd",
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -15,10 +15,10 @@
    "from": "ungraded",
    "to": "C+",
    "note": "mean 71",
-   "gold": 695735,
-   "damage": 1.4026,
-   "total": 695735,
-   "totalDamage": 1.4026,
+   "gold": 701519,
+   "damage": 1.4059,
+   "total": 701519,
+   "totalDamage": 1.4059,
    "gems": 38,
    "weeks": 4.222222222222222,
    "grid": {
@@ -34,227 +34,22 @@
     "nodes": [
      [
       "ally atk",
-      20
+      19
      ],
      [
       "brand",
-      42
+      43
      ],
      [
       "ally dmg",
-      41
+      39
      ]
     ]
    },
    "meanGrade": 71,
-   "weakest": 52.6,
+   "weakest": 52.9,
    "weakBand": "D-",
    "minimum": "all 24 slots filled, gems averaging C+",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "C+",
-   "to": "B",
-   "note": "mean 75",
-   "gold": 349627,
-   "damage": 0.1979,
-   "total": 1045362,
-   "totalDamage": 1.6005,
-   "gems": 4,
-   "weeks": 0.4444444444444444,
-   "grid": {
-    "cores": 18,
-    "coresPer": [
-     19,
-     18,
-     16,
-     19,
-     18,
-     16
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      24
-     ],
-     [
-      "brand",
-      46
-     ],
-     [
-      "ally dmg",
-      41
-     ]
-    ]
-   },
-   "meanGrade": 74.5,
-   "weakest": 58.4,
-   "weakBand": "D+",
-   "minimum": "all 24 slots filled, gems averaging B",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "B",
-   "to": "B+",
-   "note": "mean 77",
-   "gold": 673801,
-   "damage": 0.2001,
-   "total": 1719163,
-   "totalDamage": 1.8006,
-   "gems": 22,
-   "weeks": 2.4444444444444446,
-   "grid": {
-    "cores": 18,
-    "coresPer": [
-     19,
-     18,
-     17,
-     19,
-     18,
-     17
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      29
-     ],
-     [
-      "brand",
-      53
-     ],
-     [
-      "ally dmg",
-      38
-     ]
-    ]
-   },
-   "meanGrade": 77.1,
-   "weakest": 62.9,
-   "weakBand": "C-",
-   "minimum": "all 24 slots filled, gems averaging B+",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "B+",
-   "to": "A-",
-   "note": "mean 80",
-   "gold": 1721819,
-   "damage": 0.1643,
-   "total": 3440982,
-   "totalDamage": 1.9649,
-   "gems": 56,
-   "weeks": 6.222222222222222,
-   "grid": {
-    "cores": 18,
-    "coresPer": [
-     19,
-     18,
-     17,
-     20,
-     19,
-     17
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      28
-     ],
-     [
-      "brand",
-      62
-     ],
-     [
-      "ally dmg",
-      40
-     ]
-    ]
-   },
-   "meanGrade": 80.3,
-   "weakest": 70.6,
-   "weakBand": "B-",
-   "minimum": "all 24 slots filled, gems averaging A-",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "A-",
-   "to": "A",
-   "note": "mean 84",
-   "gold": 2846590,
-   "damage": 0.225,
-   "total": 6287572,
-   "totalDamage": 2.1899,
-   "gems": 86,
-   "weeks": 9.555555555555555,
-   "grid": {
-    "cores": 19,
-    "coresPer": [
-     20,
-     18,
-     17,
-     20,
-     19,
-     18
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      28
-     ],
-     [
-      "brand",
-      72
-     ],
-     [
-      "ally dmg",
-      44
-     ]
-    ]
-   },
-   "meanGrade": 83.5,
-   "weakest": 74.9,
-   "weakBand": "B",
-   "minimum": "all 24 slots filled, gems averaging A",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "A",
-   "to": "A+",
-   "note": "mean 87",
-   "gold": 5915276,
-   "damage": 0.3228,
-   "total": 12202848,
-   "totalDamage": 2.5127,
-   "gems": 187,
-   "weeks": 20.77777777777778,
-   "grid": {
-    "cores": 19,
-    "coresPer": [
-     20,
-     19,
-     18,
-     20,
-     20,
-     19
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      43
-     ],
-     [
-      "brand",
-      66
-     ],
-     [
-      "ally dmg",
-      49
-     ]
-    ]
-   },
-   "meanGrade": 86.9,
-   "weakest": 80.5,
-   "weakBand": "A-",
-   "minimum": "all 24 slots filled, gems averaging A+",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ]
