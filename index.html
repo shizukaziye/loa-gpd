@@ -541,22 +541,31 @@
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
         dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
     }).join("") + (function () {
-      if (state.axis === "support" && arkLive("rare") && arkLive("epic")) return "";
-      var p = state.arkProgress, sub, det;
-      if (state.axis !== "support") {
-        sub = "DPS run queued behind the support sweep";
-        det = "Exact cut distributions, simulated accounts, every grade priced.";
-      } else {
-        sub = "being recomputed end to end";
-        det = "Exact cut distributions, simulated accounts, every grade priced. " +
-          "Rungs appear here tier by tier as the run completes.";
-        if (p && p.total) det += " Progress: rares " + (p.rare ? p.rare.done : 0) +
-          "/" + p.total + " · epics " + (p.epic ? p.epic.done : 0) + "/" + p.total + " tiers.";
-      }
-      return "<div class='card coming'><h4 style='color:#e8b75c'>Ark grid</h4>" +
-        "<div class='big'>coming soon</div>" +
-        "<div class='ilvl'>" + sub + "</div>" +
-        "<div class='sm2'>" + det + "</div></div>";
+      // The card outlives the flip: while the sweep runs, the live ladders
+      // stop mid-band, and without this nothing on the page says the top
+      // is still cooking. It leaves only when both series hit every tier.
+      var card = function (big, sub, det) {
+        return "<div class='card coming'><h4 style='color:#e8b75c'>Ark grid</h4>" +
+          "<div class='big'>" + big + "</div>" +
+          "<div class='ilvl'>" + sub + "</div>" +
+          "<div class='sm2'>" + det + "</div></div>";
+      };
+      if (state.axis !== "support")
+        return card("coming soon", "DPS run queued behind the support sweep",
+          "Exact cut distributions, simulated accounts, every grade priced.");
+      var p = state.arkProgress, total = p && p.total;
+      var prog = !total ? "" : " Progress: rares " + (p.rare ? p.rare.done : 0) +
+        "/" + total + " · epics " + (p.epic ? p.epic.done : 0) + "/" + total + " tiers.";
+      var sweeping = total && ((p.rare ? p.rare.done : 0) < total ||
+                               (p.epic ? p.epic.done : 0) < total);
+      var live = arkLive("rare") || arkLive("epic");
+      if (live && !sweeping) return "";
+      if (!live)
+        return card("coming soon", "being recomputed end to end",
+          "Exact cut distributions, simulated accounts, every grade priced. " +
+          "Rungs appear here tier by tier as the run completes." + prog);
+      return card("filling in", "low tiers first — the top is still cooking",
+        "The rungs shown are final; higher ones land as their tiers finish." + prog);
     })();
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
