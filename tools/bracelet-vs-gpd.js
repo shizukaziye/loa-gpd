@@ -18,8 +18,13 @@
  * example reported at each budget is a real rolled bracelet whose score sits
  * closest to E[best of n], not a constructed one.
  *
- * Base stats are held at the pair the band's own row buys, matching the rest of
- * the bracelet model — the budget buys MORE tries here, not better bases.
+ * The roll being priced matches the roll being scored: a bracelet drawn with
+ * BANDED RANDOM stats, costing the exact expectation of the market fit over
+ * that stat distribution. The first version charged the current rank's pair
+ * while scoring random-stat rolls — cost and score disagreed, and because the
+ * pair rose with the running rank, every earlier roll was silently repriced;
+ * the audit measured rolls 16-18 costing 131k each while the stopping rule
+ * compared 63k against the budget.
  */
 "use strict";
 var B = require("../model/bracelet.js");
@@ -48,13 +53,16 @@ function linesOf(br) {
 var BIN = 0.25, MAXS = 140;
 var nbin = Math.ceil(MAXS / BIN);
 var count = new Float64Array(nbin), cand = new Array(nbin);
+// score is affine in damage, so a bin's damage is its centre mapped back —
+// the last bracelet to land in the bin was a sample, not the bin
+var spanD = B.anchor() - B.floor();
 var damages = new Float64Array(nbin);
+for (var db = 0; db < nbin; db++) damages[db] = B.floor() + (db + 0.5) * BIN * spanD / 100;
 for (var i = 0; i < M; i++) {
   var br = B.rollBracelet(rand, 7, th);
   var sc = B.score(br.damage);
   var b = Math.max(0, Math.min(nbin - 1, Math.floor(sc / BIN)));
   count[b]++;
-  damages[b] = br.damage;
   if (!cand[b]) cand[b] = [];
   if (cand[b].length < 60) {
     cand[b].push({ spec: br.spec, swift: br.swift, lines: linesOf(br), score: sc });
@@ -87,14 +95,25 @@ function bestOf(n) {
   return { score: es, damage: ed };
 }
 
-// ---- what a roll costs, at the base stats each band's row buys --------------
-// the row's own stat pair by rank, from data/bracelet-hits.json
-var HITS = JSON.parse(require("fs").readFileSync("data/bracelet-hits.json", "utf8"));
-function costOfRoll(rank) {
-  var st = (HITS[rank] && HITS[rank].stats) || "100/100";
-  var p = st.split("/").map(Number);
-  return P.allIn(p[0], p[1]);
-}
+// ---- what a roll costs -----------------------------------------------------
+// The exact expectation of the market fit over Stove's banded stat pair —
+// one constant, because the rolls being averaged are random-stat rolls. 3,600
+// (stat, stat) combinations, each weighted by its band probabilities.
+var BANDS = [[10, 61, 66], [16, 67, 72], [16, 73, 78], [16, 79, 84], [10, 85, 90],
+  [10, 91, 96], [10, 97, 102], [4, 103, 108], [4, 109, 114], [4, 115, 120]];
+var ROLL_COST = (function () {
+  var e = 0, w = 0;
+  BANDS.forEach(function (a) {
+    BANDS.forEach(function (b) {
+      for (var x = a[1]; x <= a[2]; x++) for (var y = b[1]; y <= b[2]; y++) {
+        var pw = (a[0] / (a[2] - a[1] + 1)) * (b[0] / (b[2] - b[1] + 1));
+        e += pw * P.allIn(x, y); w += pw;
+      }
+    });
+  });
+  return e / w;
+})();
+function costOfRoll() { return ROLL_COST; }
 
 // ---- walk the budget --------------------------------------------------------
 var GPDS = [];
@@ -106,8 +125,7 @@ var out = GPDS.map(function (gpd) {
     var nxt = bestOf(n + 1);
     var gain = nxt.damage - cur.damage;
     if (gain <= 1e-9) break;
-    var roll = costOfRoll(B.rank(cur.score));
-    if (roll / (gain * PARTY) > gpd) break;
+    if (ROLL_COST / (gain * PARTY) > gpd) break;
     n++; cur = nxt;
   }
   // the real bracelet nearest E[best of n]
@@ -119,7 +137,7 @@ var out = GPDS.map(function (gpd) {
   }
   return { gpd: gpd, rolls: n, score: Number(cur.score.toFixed(2)),
     damage: Number(cur.damage.toFixed(4)), rank: B.rank(cur.score),
-    gold: Math.round(n * costOfRoll(B.rank(cur.score))),
+    gold: Math.round(n * ROLL_COST),
     example: found ? { stats: found.spec + "/" + found.swift, lines: found.lines,
                        score: Number(found.score.toFixed(1)) } : null };
 });
