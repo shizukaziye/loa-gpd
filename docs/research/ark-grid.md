@@ -763,11 +763,14 @@ worse grid.
 
 ### The band-vs-account gap, measured on the final data
 
-At a 2M budget, same damage on both sides, roster-bound throughout: the band
-ladder pays **3.9x the gold and 3.5x the gems** of the account model on epics
-(5.50M / 201 gems against 1.40M / 57 for 1.69% per dealer), and **2.4x / 2.3x**
-on rares. An earlier claim of 2.5-5x was measured with a floor-damage artefact
-and retracted; this is the clean comparison, and it is still large. The reason
+At a 2M budget, same damage on both sides, roster-bound throughout, on the
+deep corrected-stop runs (6,000 gems, two accounts a budget): the band ladder
+pays **3.3x the gold and 3.1x the gems** of the account model on epics (8.87M /
+331 gems against 2.71M / 107 for 2.09% per dealer) and **3.2x / 3.2x** on
+rares. Two earlier figures preceded this one — a 2.5-5x with a floor-damage
+artefact, then a 3.9x / 2.4x measured on accounts whose stopping rule quit at
+the first drought — both retracted; the comparison is clean now, and still
+large. The reason
 stands: demanding all twenty-four slots clear one grade buys uniformity that
 adds nothing. Shizu ruled on 15 August: **the chart prices the account model.** The rows in
 data/arkgrid-rows-{epic,rare}.json are pooled stretches of the account trace

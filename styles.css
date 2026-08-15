@@ -152,6 +152,7 @@ th.bh .gloss,th .gloss{text-decoration-color:var(--dim)}
 .card .top .eg{text-align:right;font-size:14px;line-height:1.3;color:var(--text);flex:1;min-width:0;
   padding-top:3px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .card .top .eg i{font-style:normal;font-weight:600;font-size:11px;color:var(--dim)}
+.card .top .eg .cores6{font-size:12px;letter-spacing:-.02em}
 .card .chips{display:flex;flex-wrap:nowrap;gap:4px;margin-top:7px;min-width:0}
 /* no colour here: .t-blue / .t-epic / .t-LEG carry the rarity and a colour on
    .card .chip would out-specify them */

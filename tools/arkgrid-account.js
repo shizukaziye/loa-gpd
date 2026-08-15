@@ -90,13 +90,19 @@ function snap(g) {
 // save gold the cutter charges anyway, and the chart reads cheaper than a
 // player following the site's advisor actually pays.
 var ROSTER = true;
-var solverCache = {};
+// The cache holds at most a handful of solvers. A deep epic run kept every
+// (band, gpd) solver it ever built — the nine-turn memos run to hundreds of
+// megabytes each — and died of heap. Baselines only climb inside a run, so
+// evicting the oldest costs nearly nothing.
+var solverCache = {}, solverOrder = [];
 function solverFor(baseline, gpd) {
   var q = snap(baseline);
   var key = q + "_" + gpd;
   if (!solverCache[key]) {
     solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, ROSTER,
       { axis: "support", maxTurns: BUDGET_RARITY.maxTurns });
+    solverOrder.push(key);
+    while (solverOrder.length > 4) delete solverCache[solverOrder.shift()];
   }
   return solverCache[key];
 }
@@ -270,8 +276,13 @@ function packHalf(inv, half) {
  * gems can do to a character. So the packer avoids sub-17 cores at almost any
  * cost, and the number reported is the damage the worn grid actually adds.
  */
+// display order for the six cores: order half then chaos half, each in the
+// CORES arrays' own sequence, so the card reads the same grid every time
+var CORE_SEQ = CORES.order.concat(CORES.chaos);
 function gridState(packed) {
   var placed = packed.order.concat(packed.chaos);
+  var per = {};
+  placed.forEach(function (g) { per[g.coreBase] = (per[g.coreBase] || 0) + (g.orderLevel || 0); });
   var node = [0, 0, 0], pts = 0, corePts = {};
   placed.forEach(function (g) {
     for (var q = 0; q < 3; q++) {
@@ -281,7 +292,8 @@ function gridState(packed) {
     pts += g.orderLevel || 0;
     corePts[g.coreBase] = (corePts[g.coreBase] || 0) + (g.orderLevel || 0);
   });
-  return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6 };
+  return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6,
+    perCore: CORE_SEQ.map(function (id) { return per[id] || 0; }) };
 }
 
 /**
@@ -356,7 +368,7 @@ function runAccount(gpd, rep) {
       trace.push({ gold: gold, cut: cut, damage: st.damage,
         weakest: Math.min.apply(null, grades),
         mean: grades.reduce(function (a, b) { return a + b; }, 0) / SLOTS,
-        node: st.node.slice(), cores: st.cores });
+        node: st.node.slice(), cores: st.cores, perCore: st.perCore });
     }
   }
   return trace;
@@ -378,18 +390,55 @@ function stopAt(gpd, rep) {
   // empty trace. That is a real outcome, not an error: it says this budget
   // never reached a wearable grid.
   if (!trace.length) return null;
-  // Stop where the next gem stops paying for itself. One gem at a time is far
-  // too noisy to test — most cuts add nothing and then one lands — so the rate
-  // is measured over a window of sockets and the stop is the last point where
-  // that rate is still under budget.
-  var W = 12;
-  var stop = trace[trace.length - 1];
-  for (var i = W; i < trace.length; i++) {
-    var dGold = trace[i].gold - trace[i - W].gold;
-    var dDmg = trace[i].damage - trace[i - W].damage;
-    if (dDmg <= 0) continue;
-    if (dGold / (dDmg * PARTY) > gpd) { stop = trace[i - W]; break; }
+  // Stop where continuing stops paying. The first version tested a fixed
+  // twelve-CUT window and quit at the first crossing — but at higher grids an
+  // improvement lands once in fifty cuts, so nearly every window is a drought
+  // and the account quit at the first dry spell. A 25M account was stopping
+  // after a sixth of its cuts, which is why the chart recommended tiers Shizu
+  // could smell were too low.
+  //
+  // The honest accounting: a dry cut's gold belongs to the next improvement
+  // it eventually buys. So the trace reduces to improvement EVENTS carrying
+  // all gold since the previous event, events pool into groups of five to tame
+  // single-event noise, and the account stops after the LAST group that still
+  // paid inside the budget — a later cheap group can rescue an expensive
+  // stretch, which is exactly how sunk droughts work.
+  var events = [], lastIdx = 0;
+  for (var i = 1; i < trace.length; i++) {
+    if (trace[i].damage > trace[lastIdx].damage + 1e-9) {
+      events.push({ gold: trace[i].gold - trace[lastIdx].gold,
+                    dmg: trace[i].damage - trace[lastIdx].damage, idx: i });
+      lastIdx = i;
+    }
   }
+  // Groups of five events tame single-event noise; PAVA then pools adjacent
+  // groups whenever a later one is cheaper per damage, so an expensive stretch
+  // and the cheap group behind it merge into one purchase — bought only if the
+  // POOLED rate fits the budget. The first version accepted any group that fit
+  // on its own, which quietly bought the dear stretch in front of it: a 1M
+  // budget was averaging 1.27M per percent. Pooled blocks have monotone rates,
+  // so the stop is a clean first crossing.
+  var GROUP = 5, blocks = [];
+  for (var g = 0; g < events.length; g += GROUP) {
+    var slice = events.slice(g, g + GROUP);
+    var gG = 0, gD = 0;
+    slice.forEach(function (e) { gG += e.gold; gD += e.dmg; });
+    blocks.push({ gold: gG, dmg: gD, idx: slice[slice.length - 1].idx });
+    while (blocks.length > 1) {
+      var a = blocks[blocks.length - 2], b = blocks[blocks.length - 1];
+      if (b.gold / b.dmg >= a.gold / a.dmg) break;
+      blocks.splice(blocks.length - 2, 2,
+        { gold: a.gold + b.gold, dmg: a.dmg + b.dmg, idx: b.idx });
+    }
+  }
+  var stop = trace[0], capped = true;
+  for (var bi = 0; bi < blocks.length; bi++) {
+    if (blocks[bi].gold / (blocks[bi].dmg * PARTY) > gpd) { capped = false; break; }
+    stop = trace[blocks[bi].idx];
+  }
+  // capped means even the final group was worth buying: the account ran out
+  // of gems, not of reasons — the tier reported is a floor, so raise N
+  stop = Object.assign({ capped: capped }, stop);
   return stop;
 }
 
@@ -401,15 +450,18 @@ var _t0 = process.hrtime.bigint();
 var out = GPDS.map(function (gpd) {
   console.error("  gpd " + (gpd / 1e6).toFixed(2) + "M  at " +
     (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
-  var acc = { gold: 0, cut: 0, damage: 0, weakest: 0, mean: 0, cores: 0, node: [0, 0, 0] };
-  var got = 0;
+  var acc = { gold: 0, cut: 0, damage: 0, weakest: 0, mean: 0, cores: 0,
+              node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0] };
+  var got = 0, cappedReps = 0;
   for (var r = 0; r < REPS; r++) {
     var st = stopAt(gpd, r);
     if (!st) continue;
     got++;
+    if (st.capped) cappedReps++;
     acc.gold += st.gold; acc.cut += st.cut; acc.damage += st.damage;
     acc.weakest += st.weakest; acc.mean += st.mean; acc.cores += st.cores;
     for (var k = 0; k < 3; k++) acc.node[k] += st.node[k];
+    for (var q = 0; q < 6; q++) acc.perCore[q] += (st.perCore ? st.perCore[q] : 0);
   }
   if (!got) return { gpd: gpd, reachable: false };
   function avg(v) { return v / got; }
@@ -422,6 +474,8 @@ var out = GPDS.map(function (gpd) {
     mean: Number(avg(acc.mean).toFixed(1)),
     meanBand: letterOf(avg(acc.mean)),
     cores: Math.round(avg(acc.cores)),
+    capped: cappedReps > 0,
+    perCore: acc.perCore.map(function (v) { return Math.round(avg(v)); }),
     nodes: NODES.map(function (n, k) { return [SHORT[n], Math.round(avg(acc.node[k]))]; })
   };
 });
@@ -450,7 +504,7 @@ out.forEach(function (r) {
   console.log(((r.gpd / 1e6).toFixed(2) + "M").padStart(8) + String(r.gems).padStart(7) +
     r.weeks.toFixed(0).padStart(7) + (Math.round(r.gold / 1000) + "k").padStart(9) +
     r.band.padStart(6) + r.weakest.toFixed(1).padStart(9) + r.mean.toFixed(1).padStart(7) +
-    (r.damage.toFixed(3) + "%").padStart(9) + "  " +
+    (r.damage.toFixed(3) + "%").padStart(9) + (r.capped ? " CAPPED" : "") + "  " +
     r.nodes.map(function (n) { return n[0] + " " + n[1]; }).join(", "));
 });
 if (ARGS.out) {

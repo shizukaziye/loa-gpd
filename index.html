@@ -503,7 +503,11 @@
           // the planned row carries its own grid — price and picture from one
           // simulated account, never two lookups that can disagree
           var nodes = last.grid.nodes;
-          egHead = last.grid.cores + "-point <i>cores</i>";
+          // per-core order points, order half then chaos half — "19-point
+          // cores" hid that the six cores rarely match
+          egHead = last.grid.coresPer
+            ? "<span class='cores6'>" + last.grid.coresPer.join("/") + "</span>"
+            : last.grid.cores + "-point <i>cores</i>";
           chips = nodes.map(function (n) {
             return "<span class='chip' title='" + n[0] + "'>" +
               n[0].replace("ally ", "a.") + " <b>" + n[1] + "</b></span>";

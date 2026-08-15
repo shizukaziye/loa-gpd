@@ -39,14 +39,18 @@ var fs = require("fs");
     stops.push(r);
   });
 
-  // segments: entry first, then stop-to-stop marginals
-  var segs = [];
-  for (var i = 0; i < stops.length; i++) {
-    var prev = i ? stops[i - 1] : { gold: 0, damage: 0, gems: 0 };
-    var dG = stops[i].gold - prev.gold, dD = stops[i].damage - prev.damage;
-    if (dD <= 0) continue;                       // folded into the next segment's end
-    segs.push({ gold: dG, damage: dD, end: stops[i] });
-  }
+  // Segments: entry first, then stop-to-stop marginals. The BASE only advances
+  // when damage does: budgets run separate advisor streams, so a later stop can
+  // be marginally cheaper than an earlier one, and measuring from the skipped
+  // stop would mint a negative-gold row. A skipped stop's spend rolls into the
+  // next real segment instead.
+  var segs = [], base = { gold: 0, damage: 0, gems: 0 };
+  stops.forEach(function (st) {
+    var dG = st.gold - base.gold, dD = st.damage - base.damage;
+    if (dD <= 1e-9) return;                      // hold the base, fold the spend
+    segs.push({ gold: Math.max(0, dG), damage: dD, end: st });
+    base = st;
+  });
 
   // pool until gold per damage is monotone (pair-adjacent-violators)
   var pooled = [];
@@ -74,7 +78,7 @@ var fs = require("fs");
       totalDamage: Number(cumD.toFixed(4)),
       gems: dGems,
       weeks: dGems / acct.cutsPerWeek,
-      grid: { cores: e.cores, nodes: e.nodes },
+      grid: { cores: e.cores, coresPer: e.perCore, nodes: e.nodes },
       meanGrade: e.mean, weakest: e.weakest, weakBand: e.band,
       minimum: "all 24 slots filled, gems averaging " + e.meanBand,
       buy: rarity + " astrogems at " + acct.turns + " turns and " + acct.rerolls +
