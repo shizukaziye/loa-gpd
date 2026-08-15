@@ -117,7 +117,7 @@ LADDER_ASC.forEach(function (row, k) {
 fs.writeFileSync(OUT, JSON.stringify({
   rarity: RARITY, slots: head.slots, cutsPerWeek: head.cutsPerWeek,
   turns: head.turns, rerolls: head.rerolls,
-  n: head.n, party: head.party, sig: head.sig,
+  n: head.n, party: head.party, sig: head.sig, draw: head.draw || "mc",
   merged: files.length, tiers: rows.length,
   rows: rows, rungs: rungs, crossRaw: AVG
 }, null, 1));
