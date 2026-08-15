@@ -497,7 +497,9 @@
           ? (braceletAt(BUDGET) || last.hit) : last.hit;
         if (hit) {
           var st = String(hit.stats).split("/");
-          egHead = st[0] + " <i>spec</i> &nbsp;" + st[1] + " <i>swift</i>";
+          // support bracelets carry spec/swift, DPS ones crit/spec
+          var sn = state.axis === "support" ? ["spec", "swift"] : ["crit", "spec"];
+          egHead = st[0] + " <i>" + sn[0] + "</i> &nbsp;" + st[1] + " <i>" + sn[1] + "</i>";
           chips = hit.lines.map(function (l) {
             return "<span class='chip t-" + l.tier + "' title='" + l.name + "'>" +
               shortLine(l.name) + "</span>";

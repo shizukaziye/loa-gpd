@@ -1,0 +1,246 @@
+{
+ "F+": {
+  "stats": "80/80",
+  "lines": [
+   {
+    "name": "wp x30",
+    "tier": "blue"
+   },
+   {
+    "name": "specialty",
+    "tier": "blue"
+   },
+   {
+    "name": "outgoing",
+    "tier": "blue"
+   }
+  ]
+ },
+ "D-": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "front atk",
+    "tier": "blue"
+   },
+   {
+    "name": "crit dmg",
+    "tier": "epic"
+   }
+  ]
+ },
+ "D": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "atk when hit",
+    "tier": "blue"
+   }
+  ]
+ },
+ "D+": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "crit shred",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C-": {
+  "stats": "90/90",
+  "lines": [
+   {
+    "name": "front atk",
+    "tier": "blue"
+   },
+   {
+    "name": "shield self",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "cdmg shred",
+    "tier": "blue"
+   },
+   {
+    "name": "dmg to full",
+    "tier": "blue"
+   },
+   {
+    "name": "wp",
+    "tier": "blue"
+   }
+  ]
+ },
+ "C+": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "wp x6",
+    "tier": "blue"
+   },
+   {
+    "name": "cdmg shred",
+    "tier": "blue"
+   }
+  ]
+ },
+ "B-": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "atk when hit",
+    "tier": "epic"
+   },
+   {
+    "name": "non-dir",
+    "tier": "blue"
+   },
+   {
+    "name": "wp x6",
+    "tier": "blue"
+   }
+  ]
+ },
+ "B": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "crit rate",
+    "tier": "blue"
+   },
+   {
+    "name": "wp x30",
+    "tier": "blue"
+   },
+   {
+    "name": "dmg to full",
+    "tier": "blue"
+   }
+  ]
+ },
+ "B+": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "crit dmg",
+    "tier": "epic"
+   },
+   {
+    "name": "back atk",
+    "tier": "blue"
+   },
+   {
+    "name": "dmg to full",
+    "tier": "blue"
+   }
+  ]
+ },
+ "A-": {
+  "stats": "100/100",
+  "lines": [
+   {
+    "name": "cd→dmg",
+    "tier": "blue"
+   },
+   {
+    "name": "shield self",
+    "tier": "LEG"
+   },
+   {
+    "name": "back atk",
+    "tier": "blue"
+   }
+  ]
+ },
+ "A": {
+  "stats": "110/110",
+  "lines": [
+   {
+    "name": "cdmg shred",
+    "tier": "epic"
+   },
+   {
+    "name": "shield self",
+    "tier": "LEG"
+   },
+   {
+    "name": "shield dmg",
+    "tier": "LEG"
+   }
+  ]
+ },
+ "A+": {
+  "stats": "110/110",
+  "lines": [
+   {
+    "name": "crit rate",
+    "tier": "epic"
+   },
+   {
+    "name": "cdmg shred",
+    "tier": "blue"
+   },
+   {
+    "name": "def shred",
+    "tier": "blue"
+   }
+  ]
+ },
+ "S-": {
+  "stats": "110/110",
+  "lines": [
+   {
+    "name": "crit rate",
+    "tier": "LEG"
+   },
+   {
+    "name": "crit shred",
+    "tier": "blue"
+   },
+   {
+    "name": "non-dir",
+    "tier": "epic"
+   }
+  ]
+ },
+ "S": {
+  "stats": "110/110",
+  "lines": [
+   {
+    "name": "crit shred",
+    "tier": "epic"
+   },
+   {
+    "name": "cdmg shred",
+    "tier": "epic"
+   },
+   {
+    "name": "crit dmg",
+    "tier": "blue"
+   }
+  ]
+ },
+ "S+": {
+  "stats": "120/120",
+  "lines": [
+   {
+    "name": "crit shred",
+    "tier": "LEG"
+   },
+   {
+    "name": "crit dmg",
+    "tier": "epic"
+   },
+   {
+    "name": "def shred",
+    "tier": "epic"
+   }
+  ]
+ }
+}
