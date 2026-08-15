@@ -30,9 +30,18 @@ var fs = require("fs");
 ["epic", "rare"].forEach(function (rarity) {
   var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + rarity + ".json", "utf8"));
 
+  // Grade rungs when the sim recorded them — one stop per band the accounts
+  // passed through, so the ladder shows every letter (Shizu: "seems like
+  // you're missing every other grade"). Budget stops remain the fallback.
+  var raw = acct.rungs && acct.rungs.length ? acct.rungs.map(function (r) {
+    return { gold: r.gold, damage: r.damage, gems: r.gems,
+      mean: r.mean, meanBand: r.band, weakest: r.weakest,
+      band: r.weakBand || r.band, cores: r.cores, perCore: r.perCore, nodes: r.nodes };
+  }) : acct.rows;
+
   // drop unreachable and duplicate stops
   var stops = [];
-  acct.rows.forEach(function (r) {
+  raw.forEach(function (r) {
     if (r.reachable === false) return;
     var last = stops[stops.length - 1];
     if (last && r.gold === last.gold && r.damage === last.damage) return;

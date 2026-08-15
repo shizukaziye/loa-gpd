@@ -94,15 +94,20 @@ var ROSTER = true;
 // (band, gpd) solver it ever built — the nine-turn memos run to hundreds of
 // megabytes each — and died of heap. Baselines only climb inside a run, so
 // evicting the oldest costs nearly nothing.
-var solverCache = {}, solverOrder = [];
+// Warm across every account of one budget — a hundred accounts climb the same
+// band sequence, and refilling a nine-turn memo per account was most of the
+// bill — then cleared when the budget changes, because another gpd's memos are
+// dead weight and the epic ones run to hundreds of megabytes.
+var solverCache = {}, solverOrder = [], solverGpd = null;
 function solverFor(baseline, gpd) {
+  if (gpd !== solverGpd) { solverCache = {}; solverOrder = []; solverGpd = gpd; }
   var q = snap(baseline);
   var key = q + "_" + gpd;
   if (!solverCache[key]) {
     solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, ROSTER,
       { axis: "support", maxTurns: BUDGET_RARITY.maxTurns });
     solverOrder.push(key);
-    while (solverOrder.length > 4) delete solverCache[solverOrder.shift()];
+    while (solverOrder.length > 10) delete solverCache[solverOrder.shift()];
   }
   return solverCache[key];
 }
@@ -313,7 +318,7 @@ function runAccount(gpd, rep) {
   var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + (rep || 0)));
   var inv = { order: [], chaos: [] };
   var packed = { order: null, chaos: null };
-  var trace = [], gold = 0, cut = 0;
+  var trace = [], gold = 0, cut = 0, lastImpGold = 0;
 
   while (cut < N) {
     var half = rand() < 0.5 ? "order" : "chaos";
@@ -331,6 +336,7 @@ function runAccount(gpd, rep) {
     if (!got) continue;
 
     var mine = inv[half];
+    var fused = false;
     mine.push(got);
     if (mine.length > KEEP) {
       // Choose the drop, and never a budget-enabler if it can be helped: a gem
@@ -344,6 +350,7 @@ function runAccount(gpd, rep) {
         return mine.length - 1;
       };
       var drop = mine.splice(dropAt(), 1)[0];
+      fused = true;              // the pack may have been wearing the drop
       // a dud deep in the pile is worth fusing rather than carrying
       if (A.levelSum(drop) >= 16) {
         gold += A.COSTS.fusion;
@@ -354,17 +361,36 @@ function runAccount(gpd, rep) {
         }
       }
     }
-    // Repack on every inventory change. The old gate (beats the weakest, or
-    // cheapest willpower) missed exactly the cases Shizu called out: a gem
-    // that displaces a middle slot, a fusion output, and re-packs like
-    // 4+4+4+5 into 3+4+5+5 where the new gem itself never gets worn. The
-    // packer is typed-array cheap now; the gate was guarding a cost that no
-    // longer exists.
-    packed[half] = packHalf(mine, half) || packed[half];
+    // Repack unless the new gem is dominated on every axis a core can want —
+    // less damage than everything worn, no cheaper willpower, no more order
+    // points. Such a gem cannot enter any optimal core, and most cuts produce
+    // one; skipping them is what makes a hundred accounts a budget affordable.
+    // Fusion always repacks: it REMOVED a gem, so the pack must be re-solved.
+    var mustPack = fused || !packed[half];
+    if (!mustPack) {
+      var gD = A.supportDamage(got), gC = effCost(got), gO = got.orderLevel || 0;
+      var minD = Infinity, maxC = 0, minO = Infinity;
+      for (var pi2 = 0; pi2 < packed[half].length; pi2++) {
+        var pg = packed[half][pi2];
+        var d2 = A.supportDamage(pg);
+        if (d2 < minD) minD = d2;
+        var c2 = effCost(pg);
+        if (c2 > maxC) maxC = c2;
+        var o2 = pg.orderLevel || 0;
+        if (o2 < minO) minO = o2;
+      }
+      mustPack = gD > minD || gC < maxC || gO > minO;
+    }
+    if (mustPack) packed[half] = packHalf(mine, half) || packed[half];
+    // a drought so long that even a generous future socket (0.1% a dealer at
+    // twice the budget) could not repay it ends the account: the stop rule
+    // would never buy anything past this point
+    if (trace.length && (gold - lastImpGold) > gpd * 0.6) break;
     if (packed.order && packed.chaos) {
       var st = gridState(packed);
       var all = packed.order.concat(packed.chaos);
       var grades = all.map(function (g) { return A.supportGrade(g); });
+      if (!trace.length || st.damage > trace[trace.length - 1].damage + 1e-9) lastImpGold = gold;
       trace.push({ gold: gold, cut: cut, damage: st.damage,
         weakest: Math.min.apply(null, grades),
         mean: grades.reduce(function (a, b) { return a + b; }, 0) / SLOTS,
@@ -380,7 +406,11 @@ function letterOf(g) {
   return "F-";
 }
 
-var REPS = parseInt(ARGS.reps, 10) || 1;
+// --reps takes one number or a comma list aligned to the budgets: a hundred
+// cheap accounts cost less than five dear ones, so the sampling goes where
+// the gold is thin and the rung selection actually reads.
+var REPS_LIST = String(ARGS.reps || "1").split(",").map(function (x) { return parseInt(x, 10) || 1; });
+function repsFor(gi) { return REPS_LIST[Math.min(gi, REPS_LIST.length - 1)]; }
 
 /** One account's stopping point at this budget. */
 function stopAt(gpd, rep) {
@@ -439,6 +469,22 @@ function stopAt(gpd, rep) {
   // capped means even the final group was worth buying: the account ran out
   // of gems, not of reasons — the tier reported is a floor, so raise N
   stop = Object.assign({ capped: capped }, stop);
+  // Every band the account CROSSED on its way to the stop, with the state the
+  // moment the gems' mean first cleared the cut. Budget stops alone made the
+  // chart skip grades — no budget's optimum lands on B+, so B+ vanished. The
+  // rungs give the ladder every letter an account actually passed through.
+  var LADDER_ASC = A.SUPPORT_RANK_LADDER.slice().reverse();
+  var stopIdx = trace.indexOf(stop.capped != null ? trace.find(function (t) {
+    return t.gold === stop.gold && t.cut === stop.cut; }) : stop);
+  if (stopIdx < 0) stopIdx = trace.length - 1;
+  var crossings = [];
+  LADDER_ASC.forEach(function (row) {
+    var cut = row[1] === -Infinity ? 0 : row[1];
+    for (var ci = 0; ci <= stopIdx; ci++) {
+      if (trace[ci].mean >= cut) { crossings.push(Object.assign({ band: row[0] }, trace[ci])); return; }
+    }
+  });
+  stop.crossings = crossings;
   return stop;
 }
 
@@ -447,17 +493,33 @@ function stopAt(gpd, rep) {
 // Averaging several accounts per budget settles it honestly. The DP solvers are
 // cached across reps, so the extra cost is cutting, not solving.
 var _t0 = process.hrtime.bigint();
-var out = GPDS.map(function (gpd) {
-  console.error("  gpd " + (gpd / 1e6).toFixed(2) + "M  at " +
+var CROSS = {};   // band -> gpd -> { sums..., count }
+function feedCross(gpd, c) {
+  var byG = CROSS[c.band] = CROSS[c.band] || {};
+  var a = byG[gpd] = byG[gpd] || { gold: 0, damage: 0, cut: 0, mean: 0, weakest: 0,
+    cores: 0, node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0], count: 0 };
+  a.gold += c.gold; a.damage += c.damage; a.cut += c.cut;
+  a.mean += c.mean; a.weakest += c.weakest; a.cores += c.cores;
+  for (var k = 0; k < 3; k++) a.node[k] += c.node[k];
+  for (var q = 0; q < 6; q++) a.perCore[q] += (c.perCore ? c.perCore[q] : 0);
+  a.count++;
+}
+
+var out = GPDS.map(function (gpd, gi) {
+  var REPS = repsFor(gi);
+  console.error("  gpd " + (gpd / 1e6).toFixed(2) + "M  x" + REPS + " accounts  at " +
     (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
   var acc = { gold: 0, cut: 0, damage: 0, weakest: 0, mean: 0, cores: 0,
               node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0] };
   var got = 0, cappedReps = 0;
   for (var r = 0; r < REPS; r++) {
+    if (r && r % 10 === 0) console.error("    rep " + r + "/" + REPS + "  at " +
+      (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
     var st = stopAt(gpd, r);
     if (!st) continue;
     got++;
     if (st.capped) cappedReps++;
+    (st.crossings || []).forEach(function (c) { feedCross(gpd, c); });
     acc.gold += st.gold; acc.cut += st.cut; acc.damage += st.damage;
     acc.weakest += st.weakest; acc.mean += st.mean; acc.cores += st.cores;
     for (var k = 0; k < 3; k++) acc.node[k] += st.node[k];
@@ -507,11 +569,62 @@ out.forEach(function (r) {
     (r.damage.toFixed(3) + "%").padStart(9) + (r.capped ? " CAPPED" : "") + "  " +
     r.nodes.map(function (n) { return n[0] + " " + n[1]; }).join(", "));
 });
+// Per-budget averages first; then each rung takes the cheapest state whose
+// mean CLEARS the cut, searching every band at or above it. A state at B
+// clears B- by definition, so a lower rung can never price above a higher
+// one — gold is monotone by construction. The per-band chained selection this
+// replaces handed B- a dearer crossing than B when budget curves crossed.
+var LADDER_ASC2 = A.SUPPORT_RANK_LADDER.slice().reverse();
+// A cell only qualifies when at least 80% of its budget's accounts crossed
+// the band. Without the gate, the lucky minority of 250k accounts that
+// reached B before their economic cutoff priced EVERY band below it — their
+// crossings are cheap at every band precisely because they are the lucky
+// ones, and the whole bottom of the ladder collapsed onto one survivor.
+var AVG = {};
+LADDER_ASC2.forEach(function (row) {
+  var byG = CROSS[row[0]];
+  if (!byG) return;
+  AVG[row[0]] = Object.keys(byG).map(function (g) {
+    var a = byG[g], c = a.count;
+    var gi = GPDS.indexOf(Number(g));
+    return { gpd: Number(g), gold: a.gold / c, damage: a.damage / c, gems: a.cut / c,
+      mean: a.mean / c, weakest: a.weakest / c, cores: a.cores / c,
+      node: a.node.map(function (v) { return v / c; }),
+      perCore: a.perCore.map(function (v) { return v / c; }),
+      count: c, coverage: gi >= 0 ? c / repsFor(gi) : 0 };
+  });
+});
+var rungs = [];
+LADDER_ASC2.forEach(function (row, k) {
+  var best = null;
+  for (var j = k; j < LADDER_ASC2.length; j++) {
+    (AVG[LADDER_ASC2[j][0]] || []).forEach(function (a) {
+      if (a.coverage < 0.8) return;
+      if (!best || a.gold < best.gold) best = a;
+    });
+  }
+  if (!best) return;
+  rungs.push({ band: row[0], weakBand: letterOf(best.weakest),
+    cut: row[1] === -Infinity ? 0 : row[1],
+    gold: Math.round(best.gold), damage: Number(best.damage.toFixed(4)),
+    gems: Math.round(best.gems), weeks: best.gems / CUTS_PER_WEEK[RARITY],
+    mean: Number(best.mean.toFixed(1)), weakest: Number(best.weakest.toFixed(1)),
+    cores: Math.round(best.cores), samples: best.count,
+    perCore: best.perCore.map(function (v) { return Math.round(v); }),
+    nodes: NODES.map(function (n, q) { return [SHORT[n], Math.round(best.node[q])]; }) });
+});
+console.log("\nrungs (cheapest crossing per band):");
+rungs.forEach(function (r) {
+  console.log("  " + r.band.padEnd(4) + Math.round(r.gold / 1000).toLocaleString().padStart(8) +
+    "k" + (r.damage.toFixed(3) + "%").padStart(9) + String(r.gems).padStart(6) + " gems");
+});
+
 if (ARGS.out) {
   require("fs").writeFileSync(ARGS.out, JSON.stringify({
     rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
     turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
-    n: N, party: PARTY, sig: A.MODEL_SIG, rows: out
+    n: N, party: PARTY, sig: A.MODEL_SIG, rows: out, rungs: rungs,
+    crossRaw: AVG
   }, null, 1));
   console.error("wrote " + ARGS.out);
 }
