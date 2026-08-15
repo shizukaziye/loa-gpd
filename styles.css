@@ -135,9 +135,19 @@ th.bh .gloss,th .gloss{text-decoration-color:var(--dim)}
 .slider input[type=range]{flex:1;accent-color:var(--accent)}
 .gpdval{font-size:20px;font-variant-numeric:tabular-nums;min-width:120px;font-weight:700;color:var(--accent)}
 .plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
-.card{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;cursor:help}
+/* Every plan card is the same height, so dragging the slider cannot resize the
+   grid under the cursor. The bracelet was the worst offender — its example runs
+   one to three rolled lines — but the ark grid's node list is the tallest, so
+   that sets the height and everything else fits inside it. The two numbers are
+   pinned to the bottom, which keeps them on one line across the whole row. */
+.card{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;
+  cursor:help;height:200px;display:flex;flex-direction:column;overflow:hidden}
+/* margin-bottom:auto on the top block pushes the two numbers to the card's
+   foot. (:first-of-type cannot be used on .num2 — .top is the first div.) */
+.card .top{flex:0 0 auto;min-height:0;margin-bottom:auto}
 .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.card .top .eg{text-align:right;font-size:10.5px;line-height:1.4;color:var(--text);flex:1;min-width:0;padding-top:2px}
+.card .top .eg{text-align:right;font-size:10.5px;line-height:1.4;color:var(--text);flex:1;min-width:0;
+  padding-top:2px;max-height:104px;overflow:hidden}
 .card .top .eg b{display:block;color:var(--text);font-size:11.5px;font-weight:700}
 .card .top .eg .sm{font-size:10px;color:var(--text)}
 .card h4{margin:0 0 4px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
