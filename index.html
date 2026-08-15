@@ -485,6 +485,14 @@
       var p = PLAN[key];
       gold += p.gold; dmg += p.damage;
       var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
+      // The ark grid reads its headline off the grid an account would actually
+      // be holding, not off the band ladder's rung. A rung means "all 24 slots
+      // have cleared this grade", which is a floor nobody's grid really sits at;
+      // the average is what you would see looking at your own gems.
+      if (RARITY_OF[key] && p.taken) {
+        var head = accountGridAt(key, BUDGET);
+        if (head) where = head.meanBand;
+      }
       // accessories carry their flat and main stat in the example, so the headline
       // keeps only the primary pair
       if (["neck", "ring", "earring"].indexOf(key) >= 0) where = where.split(" · ")[0];
@@ -511,7 +519,6 @@
           var nodes = acct ? acct.nodes : last.grid.nodes;
           eg = "<b>" + (acct ? acct.cores : last.grid.cores) + "-point cores</b><span class='sm'>" +
             nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") +
-            (acct ? "<br>gems average " + pill(acct.meanBand) : "") +
             "</span>";
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");
