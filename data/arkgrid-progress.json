@@ -1,10 +1,10 @@
 {
- "updated": "2026-08-15T11:18:06.739Z",
+ "updated": "2026-08-15T11:47:22.423Z",
  "total": 29,
  "reps": 10000,
  "draw": "dd",
  "rare": {
-  "done": 3,
+  "done": 4,
   "quarantined": 0
  },
  "epic": {
