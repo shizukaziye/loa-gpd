@@ -1,0 +1,113 @@
+{
+ "axis": "support",
+ "rarity": "rare",
+ "model": "account",
+ "slots": 24,
+ "cutsPerWeek": 26,
+ "turns": 7,
+ "rerolls": 2,
+ "n": 1200,
+ "sig": "12u9hug",
+ "note": "Priced by the account simulator: cut with the advisor at your weakest slot's grade and your budget, socket what beats the pack, willpower-legal cores only. Gold covers cutting and fusing; the raw astrogem is free. The band ladder (docs/research/ark-grid.md) is the uniformity-cost reference, not the price.",
+ "rows": [
+  {
+   "from": "ungraded",
+   "to": "C",
+   "note": "mean 65",
+   "gold": 931850,
+   "damage": 1.0713,
+   "total": 931850,
+   "totalDamage": 1.0713,
+   "gems": 46,
+   "weeks": 1.7692307692307692,
+   "grid": {
+    "cores": 15,
+    "nodes": [
+     [
+      "ally atk",
+      15
+     ],
+     [
+      "brand",
+      35
+     ],
+     [
+      "ally dmg",
+      24
+     ]
+    ]
+   },
+   "meanGrade": 65.2,
+   "weakest": 45.1,
+   "weakBand": "F+",
+   "minimum": "all 24 slots filled, gems averaging C",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "C",
+   "to": "C+",
+   "note": "mean 69",
+   "gold": 799550,
+   "damage": 0.1946,
+   "total": 1731400,
+   "totalDamage": 1.2659,
+   "gems": 27,
+   "weeks": 1.0384615384615385,
+   "grid": {
+    "cores": 16,
+    "nodes": [
+     [
+      "ally atk",
+      19
+     ],
+     [
+      "brand",
+      40
+     ],
+     [
+      "ally dmg",
+      35
+     ]
+    ]
+   },
+   "meanGrade": 68.6,
+   "weakest": 48.1,
+   "weakBand": "F+",
+   "minimum": "all 24 slots filled, gems averaging C+",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "C+",
+   "to": "B",
+   "note": "mean 76",
+   "gold": 4981650,
+   "damage": 0.327,
+   "total": 6713050,
+   "totalDamage": 1.5929,
+   "gems": 166,
+   "weeks": 6.384615384615385,
+   "grid": {
+    "cores": 18,
+    "nodes": [
+     [
+      "ally atk",
+      28
+     ],
+     [
+      "brand",
+      49
+     ],
+     [
+      "ally dmg",
+      28
+     ]
+    ]
+   },
+   "meanGrade": 76.2,
+   "weakest": 68.3,
+   "weakBand": "C+",
+   "minimum": "all 24 slots filled, gems averaging B",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  }
+ ]
+}

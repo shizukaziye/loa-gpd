@@ -128,7 +128,7 @@
                    "66111131": "Lava's", "66111132": "Glacier's" };
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
-                rows: { support: null, dps: null }, arkgrid: {}, arkgridAccount: {},
+                rows: { support: null, dps: null }, arkgridRows: {},
                 braceletByGpd: null };
   var ROWS = [], PLAN = null, BUDGET = 0;
 
@@ -250,12 +250,18 @@
       if (r.series === "arkgrid" && state.axis === "support") return;
       out.push(Object.assign({}, r));
     });
-    // The ark grid is priced with the advisor you would really be running: its
-    // baseline is the band you are standing on and its gold per damage is the
-    // budget on the slider, so these rows are rebuilt whenever the slider moves.
+    // The ark grid is priced by the ACCOUNT model, per Shizu: rows are the
+    // stretches of a simulated account's build, so the price, the damage, the
+    // example and the pill all describe one grid. The band ladder lives on in
+    // docs/research as the uniformity-cost reference only.
     if (state.axis === "support") {
       ["arkgridEpic", "arkgridRare"].forEach(function (key) {
-        arkgridRows(key).forEach(function (r) { out.push(r); });
+        var src = state.arkgridRows[RARITY_OF[key]];
+        if (!src) return;
+        src.rows.forEach(function (r) {
+          out.push(Object.assign({ series: key, label: r.from + " → " + r.to,
+            cutsPerWeek: src.cutsPerWeek, rarity: src.rarity }, r));
+        });
       });
     }
     out.forEach(function (r) {
@@ -300,73 +306,40 @@
       "the astrogem is not priced.</span>";
   }
 
-  /**
-   * The grid an account actually holds at this budget (tools/arkgrid-account.js).
-   * The band ladder prices a grid where all 24 slots clear a grade; a real one
-   * is uneven, so this carries the node levels and the spread between the
-   * weakest slot and the mean.
-   */
-  function accountGridAt(key, budget) {
-    var src = state.arkgridAccount[RARITY_OF[key]];
-    if (!src || !src.rows.length) return null;
-    var pick = src.rows[0];
-    for (var i = 0; i < src.rows.length; i++) if (src.rows[i].gpd <= budget) pick = src.rows[i];
-    return pick;
-  }
+  var RARITY_OF = { arkgridEpic: "epic", arkgridRare: "rare" };
+
+  // Chips have to sit on ONE row inside a 215px card, which leaves about seven
+  // characters each once three of them are up. These are the shortest forms
+  // that still read: the debuffs keep "res" so they are not mistaken for the
+  // buff of the same stat, and the three weapon-power families keep what tells
+  // them apart (plain, six stacks, thirty).
+  var SHORT_LINE = {
+    "defence shred": "def shred", "crit resist": "crit res",
+    "crit dmg resist": "cdmg res", "shielded dmg": "shield",
+    "weapon power (stacking)": "wp x6", "weapon power (stacks)": "wp x30",
+    "weapon power": "wp", "ally atk power": "ally atk", "ally damage": "ally dmg",
+    "on hit crit rate": "crit", "on hit crit dmg": "crit dmg",
+    "on hit defence": "def", "mainstat": "stat"
+  };
+  function shortLine(name) { return SHORT_LINE[name] || name; }
 
   /**
-   * The cell for wherever the slider sits, interpolated between the two the
-   * runs actually measured.
-   *
-   * Snapping to the nearest sampled budget is not good enough: the cost of a
-   * step rises with the budget it was cut at, so a small move of the slider
-   * across a sample point made a step jump in price and drop out of the plan.
-   * That showed up as the grid going BACKWARDS as you got richer, which it
-   * must never do. Cost, gems and weeks are interpolated on log budget, which
-   * is the axis the slider itself is laid out on.
+   * What a grid step costs in gems and in time. Weeks use the astrogem
+   * calculator's own throughput: 26 rare cuts a week, or 9 epic. The gold is
+   * only what the cutting and fusing costs — the gems themselves are assumed
+   * free, which is the whole point of "infinite rares" and "infinite epics"
+   * and also the biggest thing the gold number leaves out.
    */
-  function cellAt(row, budget) {
-    var cells = row.cells, lo = null, hi = null;
-    for (var i = 0; i < cells.length; i++) {
-      if (!cells[i].reachable) continue;
-      if (cells[i].gpd <= budget) lo = cells[i];
-      else if (!hi) hi = cells[i];
-    }
-    if (!lo) return hi || cells[0];
-    if (!hi) return lo;
-    var t = (Math.log(budget) - Math.log(lo.gpd)) / (Math.log(hi.gpd) - Math.log(lo.gpd));
-    function mix(a, b) { return a + (b - a) * t; }
-    return { gpd: budget, reachable: true,
-      gold: Math.round(mix(lo.gold, hi.gold)),
-      gems: Math.round(mix(lo.gems, hi.gems)),
-      weeks: mix(lo.weeks, hi.weeks),
-      cores: lo.cores, nodes: lo.nodes, meanGrade: lo.meanGrade,
-      thin: lo.thin || hi.thin };
-  }
-
-  /** Ark grid rows for one rarity at the current budget. */
-  function arkgridRows(key) {
-    var src = state.arkgrid[RARITY_OF[key]];
-    if (!src) return [];
-    var out = [];
-    for (var i = 0; i < src.rows.length; i++) {
-      var r = src.rows[i], c = cellAt(r, BUDGET);
-      if (!c.reachable) break;                 // and nothing above it is either
-      out.push({
-        series: key, label: r.from + " → " + r.to, from: r.from, to: r.to,
-        gold: c.gold, damage: r.damage, totalDamage: r.totalDamage,
-        grid: { cores: c.cores != null ? c.cores : r.cores,
-                nodes: c.nodes || r.nodes },
-        gems: c.gems, weeks: c.weeks, thin: c.thin, meanGrade: c.meanGrade,
-        cutsPerWeek: src.cutsPerWeek, rarity: src.rarity,
-        turns: src.turns, rerolls: src.rerolls,
-        minimum: "all 24 slots at " + r.to,
-        buy: src.rarity === "rare"
-          ? "rare astrogems, cut at 7 turns and 2 rerolls, duds fused"
-          : "epic astrogems, cut at 9 turns and 3 rerolls, duds fused"
-      });
-    }
-    return out;
+  function arkgridEffort(r) {
+    var w = r.weeks, time = w < 1 ? "under a week"
+      : w < 104 ? Math.round(w) + " week" + (Math.round(w) === 1 ? "" : "s")
+      : (w / 52).toFixed(w < 520 ? 1 : 0) + " years";
+    return "<span class='k'>effort</span><table>" +
+      num("Astrogems cut", Math.round(r.gems).toLocaleString() + " " + r.rarity) +
+      num("At " + r.cutsPerWeek + " cuts a week", time, w > 260 ? "var(--bad)" : "") +
+      (r.thin ? num("Sample", "thin — few hits, treat as a rough figure", "var(--bad)") : "") +
+      "</table><span class='sm'>Gold covers cutting and fusing only. Getting hold of " +
+      "the astrogem is not priced.</span>";
   }
 
   // ---- tooltips --------------------------------------------------------
@@ -443,11 +416,10 @@
       h += "</table>";
     }
     if (at && at.gems != null) {
-      var ag = accountGridAt(key, BUDGET);
-      if (ag) {
+      if (at.meanGrade != null) {
         h += "<span class='k'>the grid you would hold</span><table>" +
-          num("Gems average", pill(ag.meanBand) + " <span class='per'>" + ag.mean.toFixed(1) + "</span>") +
-          num("Weakest slot", pill(ag.band) + " <span class='per'>" + ag.weakest.toFixed(1) + "</span>") +
+          num("Gems average", pill(at.to) + " <span class='per'>" + at.meanGrade.toFixed(1) + "</span>") +
+          num("Weakest slot", pill(at.weakBand) + " <span class='per'>" + at.weakest.toFixed(1) + "</span>") +
           "</table><span class='sm'>A real grid is uneven. Slots are filled by what adds " +
           "the most damage, and a gem can grade low while carrying good lines, so the " +
           "weakest slot's grade sits well under the average and stays there.</span>";
@@ -500,18 +472,13 @@
       var p = PLAN[key];
       gold += p.gold; dmg += p.damage;
       var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
-      // The ark grid reads its headline off the grid an account would actually
-      // be holding, not off the band ladder's rung. A rung means "all 24 slots
-      // have cleared this grade", which is a floor nobody's grid really sits at;
-      // the average is what you would see looking at your own gems.
-      if (RARITY_OF[key] && p.taken) {
-        var head = accountGridAt(key, BUDGET);
-        if (head) where = head.meanBand;
-      }
       // accessories carry their flat and main stat in the example, so the headline
       // keeps only the primary pair
       if (["neck", "ring", "earring"].indexOf(key) >= 0) where = where.split(" · ")[0];
       var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
+      // the ark grid note ("mean 83") duplicates the pill on the card and its
+      // two-line title leaves no room — the ranked table keeps the note
+      if (RARITY_OF[key]) note = "";
       var spend = SERIES[key].spend === "last" && p.last
         ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
       var last = p.taken ? p.last : null;
@@ -533,11 +500,10 @@
               shortLine(l.name) + "</span>";
           });
         } else if (last.grid) {
-          // the example is the grid a simulated account is holding at this
-          // budget, so it moves with the slider rather than with the band
-          var acct = RARITY_OF[key] ? accountGridAt(key, BUDGET) : null;
-          var nodes = acct ? acct.nodes : last.grid.nodes;
-          egHead = (acct ? acct.cores : last.grid.cores) + "-point <i>cores</i>";
+          // the planned row carries its own grid — price and picture from one
+          // simulated account, never two lookups that can disagree
+          var nodes = last.grid.nodes;
+          egHead = last.grid.cores + "-point <i>cores</i>";
           chips = nodes.map(function (n) {
             return "<span class='chip' title='" + n[0] + "'>" +
               n[0].replace("ally ", "a.") + " <b>" + n[1] + "</b></span>";
@@ -659,14 +625,10 @@
   Promise.all([grab("data/honing-t4upper.json"), grab("data/karma.json"),
                grab("data/rows.json"), grab("data/rows-dps.json"),
                grab("data/bracelet-vs-gpd.json"),
-               grab("data/arkgrid-support-epic.json"),
-               grab("data/arkgrid-support-rare.json"),
-               grab("data/arkgrid-account-epic.json"),
-               grab("data/arkgrid-account-rare.json")]).then(function (all) {
-    state.arkgrid.epic = all[5];
-    state.arkgrid.rare = all[6];
-    state.arkgridAccount.epic = all[7];
-    state.arkgridAccount.rare = all[8];
+               grab("data/arkgrid-rows-epic.json"),
+               grab("data/arkgrid-rows-rare.json")]).then(function (all) {
+    state.arkgridRows.epic = all[5];
+    state.arkgridRows.rare = all[6];
     state.honing = all[0]; state.karma = all[1];
     state.rows.support = all[2] ? all[2].rows : [];
     state.rows.dps = all[3] ? all[3].rows : null;

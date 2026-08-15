@@ -769,6 +769,8 @@ ladder pays **3.9x the gold and 3.5x the gems** of the account model on epics
 on rares. An earlier claim of 2.5-5x was measured with a floor-damage artefact
 and retracted; this is the clean comparison, and it is still large. The reason
 stands: demanding all twenty-four slots clear one grade buys uniformity that
-adds nothing. Which model prices the chart is Shizu's open decision — today the
-gold and damage come from the band ladder, the headline and example from the
-account model.
+adds nothing. Shizu ruled on 15 August: **the chart prices the account model.** The rows in
+data/arkgrid-rows-{epic,rare}.json are pooled stretches of the account trace
+(tools/build-arkgrid-account-rows.js), so the price, the damage, the pill, the
+example and the effort all describe one simulated grid. The band ladder stays
+in this file as the uniformity-cost reference, nothing more.
