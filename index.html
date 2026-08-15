@@ -127,10 +127,14 @@
                    "66102107": "Blue Stones", "66110226": "Leapstones",
                    "66111131": "Lava's", "66111132": "Glacier's" };
 
-  // The ark grid is down for its deterministic recompute (exact finished-gem
-  // distributions -> direct-draw accounts -> live per-tier updates). Flip this
-  // when the pipeline starts shipping rungs and the placeholder gives way.
-  var ARKGRID_LIVE = false;
+  // The ark grid recompute ships tier by tier: a series goes live on its own
+  // the moment its rows file carries direct-draw data (draw: "dd"), and the
+  // placeholder card stays — with a progress line — until both series are
+  // whole. No flag to flip; the data is the switch.
+  function arkLive(r) {
+    var s = state.arkgridRows[r];
+    return !!(s && s.draw === "dd" && s.rows && s.rows.length);
+  }
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
                 rows: { support: null, dps: null }, arkgridRows: {},
@@ -257,10 +261,10 @@
     // stretches of a simulated account's build, so the price, the damage, the
     // example and the pill all describe one grid. The band ladder lives on in
     // docs/research as the uniformity-cost reference only.
-    if (ARKGRID_LIVE && state.axis === "support") {
+    if (state.axis === "support") {
       ["arkgridEpic", "arkgridRare"].forEach(function (key) {
+        if (!arkLive(RARITY_OF[key])) return;
         var src = state.arkgridRows[RARITY_OF[key]];
-        if (!src) return;
         src.rows.forEach(function (r) {
           out.push(Object.assign({ series: key, label: r.from + " → " + r.to,
             cutsPerWeek: src.cutsPerWeek, rarity: src.rarity }, r));
@@ -536,12 +540,24 @@
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
         dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
-    }).join("") + (ARKGRID_LIVE ? "" :
-      "<div class='card coming'><h4 style='color:#e8b75c'>Ark grid</h4>" +
-      "<div class='big'>coming soon</div>" +
-      "<div class='ilvl'>being recomputed end to end</div>" +
-      "<div class='sm2'>Exact cut distributions, simulated accounts, every grade " +
-      "priced. Rungs will appear here tier by tier as the run completes.</div></div>");
+    }).join("") + (function () {
+      if (state.axis === "support" && arkLive("rare") && arkLive("epic")) return "";
+      var p = state.arkProgress, sub, det;
+      if (state.axis !== "support") {
+        sub = "DPS run queued behind the support sweep";
+        det = "Exact cut distributions, simulated accounts, every grade priced.";
+      } else {
+        sub = "being recomputed end to end";
+        det = "Exact cut distributions, simulated accounts, every grade priced. " +
+          "Rungs appear here tier by tier as the run completes.";
+        if (p && p.total) det += " Progress: rares " + (p.rare ? p.rare.done : 0) +
+          "/" + p.total + " · epics " + (p.epic ? p.epic.done : 0) + "/" + p.total + " tiers.";
+      }
+      return "<div class='card coming'><h4 style='color:#e8b75c'>Ark grid</h4>" +
+        "<div class='big'>coming soon</div>" +
+        "<div class='ilvl'>" + sub + "</div>" +
+        "<div class='sm2'>" + det + "</div></div>";
+    })();
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
       "<div><span>" + dmgLabel().toLowerCase() + "</span>" + dmg.toFixed(2) + "%</div>" +
@@ -640,9 +656,11 @@
                grab("data/rows.json"), grab("data/rows-dps.json"),
                grab("data/bracelet-vs-gpd.json"),
                grab("data/arkgrid-rows-epic.json"),
-               grab("data/arkgrid-rows-rare.json")]).then(function (all) {
+               grab("data/arkgrid-rows-rare.json"),
+               grab("data/arkgrid-progress.json")]).then(function (all) {
     state.arkgridRows.epic = all[5];
     state.arkgridRows.rare = all[6];
+    state.arkProgress = all[7];
     state.honing = all[0]; state.karma = all[1];
     state.rows.support = all[2] ? all[2].rows : [];
     state.rows.dps = all[3] ? all[3].rows : null;

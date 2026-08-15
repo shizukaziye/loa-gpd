@@ -171,29 +171,32 @@ function lawFor(c, cm, t, probs) {
       }
     for (i = 0; i < subs.p.length; i++) subs.p[i] /= tot;
   } else {
-    // sequential-proportional without replacement, collapsed over order
-    var acc = new Map();
-    var idx = probs.map(function (_, q) { return q; });
-    (function rec(chosen, rem, remSum, pAcc) {
-      if (chosen.length === 4) {
-        var s = chosen.slice().sort(function (x, y) { return x - y; });
-        var kk = ((s[0] * 32 + s[1]) * 32 + s[2]) * 32 + s[3];
-        acc.set(kk, (acc.get(kk) || 0) + pAcc);
-        return;
+    // sequential-proportional without replacement, collapsed over order.
+    // For subset {i,j,k,l} the 24 orderings share numerator w_i w_j w_k w_l
+    // and chain denominators S, S-x, S-x-y, R+u (R = S minus the subset) —
+    // summed with scalars only. The recursive version allocated two arrays
+    // per node (~1M per class) and turned a 16ms law into minutes.
+    var S = 0, i4, j4, k4, l4;
+    for (i4 = 0; i4 < n; i4++) S += probs[i4];
+    var w4 = [0, 0, 0, 0];
+    for (i4 = 0; i4 < n; i4++) for (j4 = i4 + 1; j4 < n; j4++)
+      for (k4 = j4 + 1; k4 < n; k4++) for (l4 = k4 + 1; l4 < n; l4++) {
+        w4[0] = probs[i4]; w4[1] = probs[j4]; w4[2] = probs[k4]; w4[3] = probs[l4];
+        var num = w4[0] * w4[1] * w4[2] * w4[3];
+        if (num === 0) continue;
+        var R = S - w4[0] - w4[1] - w4[2] - w4[3];
+        var inv = 0;
+        for (var f4 = 0; f4 < 4; f4++) for (var s4 = 0; s4 < 4; s4++) {
+          if (s4 === f4) continue;
+          var d1 = S - w4[f4], d2 = d1 - w4[s4];
+          for (var t4 = 0; t4 < 4; t4++) {
+            if (t4 === f4 || t4 === s4) continue;
+            inv += 1 / (d1 * d2 * (R + w4[6 - f4 - s4 - t4]));
+          }
+        }
+        subs.a.push(i4); subs.b.push(j4); subs.c.push(k4); subs.d.push(l4);
+        subs.p.push(num / S * inv);
       }
-      for (var q = 0; q < rem.length; q++) {
-        var i2 = rem[q], p2 = probs[i2] / remSum;
-        var rem2 = rem.slice(0, q).concat(rem.slice(q + 1));
-        rec(chosen.concat([i2]), rem2, remSum - probs[i2], pAcc * p2);
-      }
-    })([], idx, probs.reduce(function (x, y) { return x + y; }, 0), 1);
-    acc.forEach(function (p3, kk) {
-      var s3 = kk % 32, kk2 = (kk / 32) | 0;
-      var s2 = kk2 % 32, kk3 = (kk2 / 32) | 0;
-      var s1 = kk3 % 32, s0 = (kk3 / 32) | 0;
-      subs.a.push(s0); subs.b.push(s1); subs.c.push(s2); subs.d.push(s3);
-      subs.p.push(p3);
-    });
   }
   var out = {
     a: Uint8Array.from(subs.a), b: Uint8Array.from(subs.b),

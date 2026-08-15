@@ -570,7 +570,7 @@ function writeOut(partial) {
   require("fs").writeFileSync(ARGS.out, JSON.stringify({
     rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
     turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
-    n: N, party: PARTY, sig: A.MODEL_SIG, partial: partial, rows: out
+    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, partial: partial, rows: out
   }, null, 1));
 }
 
@@ -698,7 +698,7 @@ if (ARGS.out) {
   require("fs").writeFileSync(ARGS.out, JSON.stringify({
     rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
     turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
-    n: N, party: PARTY, sig: A.MODEL_SIG, rows: out, rungs: rungs,
+    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, rows: out, rungs: rungs,
     crossRaw: AVG
   }, null, 1));
   console.error("wrote " + ARGS.out);

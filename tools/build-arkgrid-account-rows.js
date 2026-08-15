@@ -98,6 +98,7 @@ var fs = require("fs");
 
   var out = {
     axis: "support", rarity: rarity, model: "account",
+    draw: acct.draw || "mc",
     slots: acct.slots, cutsPerWeek: acct.cutsPerWeek,
     turns: acct.turns, rerolls: acct.rerolls, n: acct.n, sig: acct.sig,
     note: "Priced by the account simulator: cut with the advisor at your " +
