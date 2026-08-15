@@ -92,6 +92,47 @@
    "weakBand": "F+",
    "minimum": "all 24 slots filled, gems averaging C-",
    "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "C-",
+   "to": "C",
+   "note": "mean 66",
+   "gold": 112643,
+   "damage": 0.0431,
+   "total": 978424,
+   "totalDamage": 1.1272,
+   "gems": 1,
+   "weeks": 0.038461538461538464,
+   "grid": {
+    "cores": 15,
+    "coresPer": [
+     18,
+     15,
+     13,
+     18,
+     16,
+     12
+    ],
+    "nodes": [
+     [
+      "ally atk",
+      14
+     ],
+     [
+      "brand",
+      37
+     ],
+     [
+      "ally dmg",
+      34
+     ]
+    ]
+   },
+   "meanGrade": 66.1,
+   "weakest": 47.9,
+   "weakBand": "F+",
+   "minimum": "all 24 slots filled, gems averaging C",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ]
 }
