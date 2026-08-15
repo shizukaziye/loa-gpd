@@ -72,12 +72,12 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 898008,
-     "gems": 62,
-     "weeks": 2.389492604520389,
-     "hits": 57946,
+     "gold": 946778,
+     "gems": 59,
+     "weeks": 2.2858245858212842,
+     "hits": 60574,
      "thin": false,
-     "meanGrade": 68.32,
+     "meanGrade": 68.36,
      "nodes": [
       [
        "ally atk",
@@ -97,12 +97,12 @@
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 1051992,
-     "gems": 56,
-     "weeks": 2.1473230635619553,
-     "hits": 64481,
+     "gold": 1069189,
+     "gems": 55,
+     "weeks": 2.1005755577028107,
+     "hits": 65916,
      "thin": false,
-     "meanGrade": 68.49,
+     "meanGrade": 68.51,
      "nodes": [
       [
        "ally atk",
@@ -122,12 +122,12 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1117613,
+     "gold": 1133577,
      "gems": 53,
-     "weeks": 2.039227948298774,
-     "hits": 67899,
+     "weeks": 2.0227241824542164,
+     "hits": 68453,
      "thin": false,
-     "meanGrade": 68.57,
+     "meanGrade": 68.6,
      "nodes": [
       [
        "ally atk",
@@ -147,12 +147,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 1158292,
+     "gold": 1169612,
      "gems": 52,
-     "weeks": 1.9984057163285287,
-     "hits": 69286,
+     "weeks": 2.001178471766707,
+     "hits": 69190,
      "thin": false,
-     "meanGrade": 68.62,
+     "meanGrade": 68.61,
      "nodes": [
       [
        "ally atk",
@@ -172,12 +172,12 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 1187645,
+     "gold": 1190507,
      "gems": 52,
-     "weeks": 1.9952092808268147,
-     "hits": 69397,
+     "weeks": 1.9860797874453273,
+     "hits": 69716,
      "thin": false,
-     "meanGrade": 68.65,
+     "meanGrade": 68.67,
      "nodes": [
       [
        "ally atk",
@@ -197,12 +197,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 1185297,
+     "gold": 1192406,
      "gems": 51,
-     "weeks": 1.9655268430909003,
-     "hits": 70445,
+     "weeks": 1.972274207474481,
+     "hits": 70204,
      "thin": false,
-     "meanGrade": 68.65,
+     "meanGrade": 68.67,
      "nodes": [
       [
        "ally atk",
@@ -222,12 +222,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 1196866,
+     "gold": 1197458,
      "gems": 51,
-     "weeks": 1.973623616818782,
-     "hits": 70156,
+     "weeks": 1.972161839983171,
+     "hits": 70208,
      "thin": false,
-     "meanGrade": 68.69,
+     "meanGrade": 68.7,
      "nodes": [
       [
        "ally atk",
@@ -247,12 +247,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 1204282,
-     "gems": 51,
-     "weeks": 1.9788700651927749,
-     "hits": 69970,
+     "gold": 1211687,
+     "gems": 52,
+     "weeks": 1.985310905202507,
+     "hits": 69743,
      "thin": false,
-     "meanGrade": 68.69,
+     "meanGrade": 68.7,
      "nodes": [
       [
        "ally atk",
@@ -297,16 +297,16 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 492701,
-     "gems": 130,
-     "weeks": 5.014360571525676,
-     "hits": 27613,
+     "gold": 690698,
+     "gems": 104,
+     "weeks": 3.99531216705732,
+     "hits": 34656,
      "thin": false,
-     "meanGrade": 71.3,
+     "meanGrade": 70.79,
      "nodes": [
       [
        "ally atk",
-       44
+       43
       ],
       [
        "brand",
@@ -322,12 +322,12 @@
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 667579,
-     "gems": 98,
-     "weeks": 3.750210949365901,
-     "hits": 36921,
+     "gold": 831678,
+     "gems": 90,
+     "weeks": 3.4623174829721304,
+     "hits": 39991,
      "thin": false,
-     "meanGrade": 71.06,
+     "meanGrade": 71.09,
      "nodes": [
       [
        "ally atk",
@@ -347,12 +347,12 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1038721,
-     "gems": 76,
-     "weeks": 2.908183790752945,
-     "hits": 47611,
+     "gold": 1294415,
+     "gems": 68,
+     "weeks": 2.6211861741166604,
+     "hits": 52824,
      "thin": false,
-     "meanGrade": 71.29,
+     "meanGrade": 71.23,
      "nodes": [
       [
        "ally atk",
@@ -372,12 +372,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 1575899,
-     "gems": 63,
-     "weeks": 2.4095353344970496,
-     "hits": 57464,
+     "gold": 1641829,
+     "gems": 62,
+     "weeks": 2.4022196509574845,
+     "hits": 57639,
      "thin": false,
-     "meanGrade": 71.15,
+     "meanGrade": 71.18,
      "nodes": [
       [
        "ally atk",
@@ -397,12 +397,12 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 1697968,
+     "gold": 1752870,
      "gems": 62,
-     "weeks": 2.39040015298561,
-     "hits": 57924,
+     "weeks": 2.3963575365444525,
+     "hits": 57780,
      "thin": false,
-     "meanGrade": 71.25,
+     "meanGrade": 71.21,
      "nodes": [
       [
        "ally atk",
@@ -422,12 +422,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 1779258,
-     "gems": 62,
-     "weeks": 2.4016363148758684,
-     "hits": 57653,
+     "gold": 1812484,
+     "gems": 63,
+     "weeks": 2.404096580573297,
+     "hits": 57594,
      "thin": false,
-     "meanGrade": 71.26,
+     "meanGrade": 71.32,
      "nodes": [
       [
        "ally atk",
@@ -447,12 +447,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 1818900,
-     "gems": 63,
-     "weeks": 2.407775509712699,
-     "hits": 57506,
+     "gold": 1829703,
+     "gems": 62,
+     "weeks": 2.3917627690234826,
+     "hits": 57891,
      "thin": false,
-     "meanGrade": 71.3,
+     "meanGrade": 71.31,
      "nodes": [
       [
        "ally atk",
@@ -472,16 +472,16 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 1823333,
+     "gold": 1848391,
      "gems": 62,
-     "weeks": 2.394037251219629,
-     "hits": 57836,
+     "weeks": 2.4007618417577845,
+     "hits": 57674,
      "thin": false,
-     "meanGrade": 71.33,
+     "meanGrade": 71.32,
      "nodes": [
       [
        "ally atk",
-       45
+       44
       ],
       [
        "brand",
@@ -522,16 +522,16 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 607360,
-     "gems": 219,
-     "weeks": 8.42121022147783,
-     "hits": 16442,
+     "gold": 983450,
+     "gems": 151,
+     "weeks": 5.792158061557769,
+     "hits": 23905,
      "thin": false,
-     "meanGrade": 74,
+     "meanGrade": 73.29,
      "nodes": [
       [
        "ally atk",
-       51
+       49
       ],
       [
        "brand",
@@ -539,24 +539,24 @@
       ],
       [
        "ally dmg",
-       33
+       32
       ]
      ],
-     "cores": 18
+     "cores": 17
     },
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 713101,
-     "gems": 158,
-     "weeks": 6.086756570315564,
-     "hits": 22748,
+     "gold": 996203,
+     "gems": 143,
+     "weeks": 5.499306476349927,
+     "hits": 25178,
      "thin": false,
-     "meanGrade": 73.63,
+     "meanGrade": 73.3,
      "nodes": [
       [
        "ally atk",
-       50
+       49
       ],
       [
        "brand",
@@ -572,12 +572,12 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1306677,
-     "gems": 104,
-     "weeks": 4.0179199228559375,
-     "hits": 34461,
+     "gold": 1521088,
+     "gems": 101,
+     "weeks": 3.8654812524159254,
+     "hits": 35820,
      "thin": false,
-     "meanGrade": 73.64,
+     "meanGrade": 73.67,
      "nodes": [
       [
        "ally atk",
@@ -597,12 +597,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 1743424,
-     "gems": 90,
-     "weeks": 3.467954176765477,
-     "hits": 39926,
+     "gold": 2130921,
+     "gems": 84,
+     "weeks": 3.2438744836833115,
+     "hits": 42684,
      "thin": false,
-     "meanGrade": 73.55,
+     "meanGrade": 73.54,
      "nodes": [
       [
        "ally atk",
@@ -622,10 +622,10 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 2273596,
+     "gold": 2351654,
      "gems": 83,
-     "weeks": 3.195659584138166,
-     "hits": 43328,
+     "weeks": 3.1937431024020495,
+     "hits": 43354,
      "thin": false,
      "meanGrade": 73.55,
      "nodes": [
@@ -647,12 +647,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 2368921,
+     "gold": 2419626,
      "gems": 83,
-     "weeks": 3.1941114780395967,
-     "hits": 43349,
+     "weeks": 3.1756505231884233,
+     "hits": 43601,
      "thin": false,
-     "meanGrade": 73.52,
+     "meanGrade": 73.62,
      "nodes": [
       [
        "ally atk",
@@ -672,10 +672,10 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 2423958,
-     "gems": 82,
-     "weeks": 3.1703425026683716,
-     "hits": 43674,
+     "gold": 2523468,
+     "gems": 84,
+     "weeks": 3.2196613989428777,
+     "hits": 43005,
      "thin": false,
      "meanGrade": 73.63,
      "nodes": [
@@ -697,12 +697,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 2480787,
+     "gold": 2535226,
      "gems": 83,
-     "weeks": 3.1937431024020495,
-     "hits": 43354,
+     "weeks": 3.206909821695814,
+     "hits": 43176,
      "thin": false,
-     "meanGrade": 73.64,
+     "meanGrade": 73.68,
      "nodes": [
       [
        "ally atk",
@@ -747,20 +747,20 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 643955,
-     "gems": 437,
-     "weeks": 16.79135804772477,
-     "hits": 8246,
+     "gold": 1443560,
+     "gems": 224,
+     "weeks": 8.625812263988193,
+     "hits": 16052,
      "thin": false,
-     "meanGrade": 76.72,
+     "meanGrade": 75.82,
      "nodes": [
       [
        "ally atk",
-       58
+       55
       ],
       [
        "brand",
-       45
+       44
       ],
       [
        "ally dmg",
@@ -772,12 +772,12 @@
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 868265,
-     "gems": 260,
-     "weeks": 10.01023268229746,
-     "hits": 13832,
+     "gold": 1414407,
+     "gems": 210,
+     "weeks": 8.07732694327024,
+     "hits": 17142,
      "thin": false,
-     "meanGrade": 76.19,
+     "meanGrade": 75.9,
      "nodes": [
       [
        "ally atk",
@@ -797,12 +797,12 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1304272,
-     "gems": 185,
-     "weeks": 7.110802098476709,
-     "hits": 19472,
+     "gold": 1699117,
+     "gems": 172,
+     "weeks": 6.601265242504813,
+     "hits": 20975,
      "thin": false,
-     "meanGrade": 76.08,
+     "meanGrade": 76.04,
      "nodes": [
       [
        "ally atk",
@@ -822,12 +822,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 1983560,
-     "gems": 140,
-     "weeks": 5.399794807797305,
-     "hits": 25642,
+     "gold": 2326504,
+     "gems": 135,
+     "weeks": 5.196334851817852,
+     "hits": 26646,
      "thin": false,
-     "meanGrade": 76.09,
+     "meanGrade": 76.06,
      "nodes": [
       [
        "ally atk",
@@ -847,12 +847,12 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 2849172,
-     "gems": 122,
-     "weeks": 4.676964649942187,
-     "hits": 29605,
+     "gold": 3254506,
+     "gems": 117,
+     "weeks": 4.501204072089283,
+     "hits": 30761,
      "thin": false,
-     "meanGrade": 76.01,
+     "meanGrade": 76.02,
      "nodes": [
       [
        "ally atk",
@@ -872,12 +872,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 3301821,
-     "gems": 116,
-     "weeks": 4.475741481172047,
-     "hits": 30936,
+     "gold": 3436011,
+     "gems": 117,
+     "weeks": 4.499741264877269,
+     "hits": 30771,
      "thin": false,
-     "meanGrade": 76.05,
+     "meanGrade": 76.03,
      "nodes": [
       [
        "ally atk",
@@ -897,12 +897,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 3465896,
-     "gems": 117,
-     "weeks": 4.482406554274473,
-     "hits": 30890,
+     "gold": 3537271,
+     "gems": 116,
+     "weeks": 4.460745440126884,
+     "hits": 31040,
      "thin": false,
-     "meanGrade": 76.07,
+     "meanGrade": 76.09,
      "nodes": [
       [
        "ally atk",
@@ -922,12 +922,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 3514034,
-     "gems": 117,
-     "weeks": 4.490693038677341,
-     "hits": 30833,
+     "gold": 3566838,
+     "gems": 116,
+     "weeks": 4.457586068557673,
+     "hits": 31062,
      "thin": false,
-     "meanGrade": 76.06,
+     "meanGrade": 76.1,
      "nodes": [
       [
        "ally atk",
@@ -972,24 +972,24 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 657920,
-     "gems": 1748,
-     "weeks": 67.21433905899926,
-     "hits": 2060,
+     "gold": 2384683,
+     "gems": 373,
+     "weeks": 14.364720247073187,
+     "hits": 9639,
      "thin": false,
-     "meanGrade": 79.84,
+     "meanGrade": 78.71,
      "nodes": [
       [
        "ally atk",
-       65
+       63
       ],
       [
        "brand",
-       49
+       48
       ],
       [
        "ally dmg",
-       36
+       35
       ]
      ],
      "cores": 18
@@ -997,16 +997,16 @@
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 1046881,
-     "gems": 529,
-     "weeks": 20.361990950226243,
-     "hits": 6800,
+     "gold": 2322600,
+     "gems": 354,
+     "weeks": 13.62140073404215,
+     "hits": 10165,
      "thin": false,
-     "meanGrade": 79.17,
+     "meanGrade": 78.6,
      "nodes": [
       [
        "ally atk",
-       64
+       62
       ],
       [
        "brand",
@@ -1022,12 +1022,12 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1385036,
-     "gems": 376,
-     "weeks": 14.462245504652023,
-     "hits": 9574,
+     "gold": 2334753,
+     "gems": 340,
+     "weeks": 13.064874359458242,
+     "hits": 10598,
      "thin": false,
-     "meanGrade": 78.87,
+     "meanGrade": 78.73,
      "nodes": [
       [
        "ally atk",
@@ -1047,12 +1047,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 2117891,
-     "gems": 271,
-     "weeks": 10.418475429762111,
-     "hits": 13290,
+     "gold": 3438302,
+     "gems": 211,
+     "weeks": 8.113773129887985,
+     "hits": 17065,
      "thin": false,
-     "meanGrade": 78.89,
+     "meanGrade": 78.8,
      "nodes": [
       [
        "ally atk",
@@ -1072,12 +1072,12 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 3342688,
-     "gems": 210,
-     "weeks": 8.061807188444744,
-     "hits": 17175,
+     "gold": 3750451,
+     "gems": 205,
+     "weeks": 7.889995923502107,
+     "hits": 17549,
      "thin": false,
-     "meanGrade": 78.94,
+     "meanGrade": 78.91,
      "nodes": [
       [
        "ally atk",
@@ -1097,12 +1097,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 5083492,
-     "gems": 183,
-     "weeks": 7.029931887771043,
-     "hits": 19696,
+     "gold": 5345575,
+     "gems": 181,
+     "weeks": 6.946347186150527,
+     "hits": 19933,
      "thin": false,
-     "meanGrade": 78.86,
+     "meanGrade": 78.87,
      "nodes": [
       [
        "ally atk",
@@ -1122,10 +1122,10 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 5259076,
+     "gold": 5441101,
      "gems": 179,
-     "weeks": 6.881786205841872,
-     "hits": 20120,
+     "weeks": 6.8657479278791325,
+     "hits": 20167,
      "thin": false,
      "meanGrade": 78.81,
      "nodes": [
@@ -1147,12 +1147,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 5289411,
-     "gems": 176,
-     "weeks": 6.784004824181209,
-     "hits": 20410,
+     "gold": 5496955,
+     "gems": 177,
+     "weeks": 6.82547266398198,
+     "hits": 20286,
      "thin": false,
-     "meanGrade": 78.83,
+     "meanGrade": 78.88,
      "nodes": [
       [
        "ally atk",
@@ -1197,160 +1197,35 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 637774,
-     "gems": 26087,
-     "weeks": 1003.3444816053512,
-     "hits": 138,
+     "gold": 4018614,
+     "gems": 633,
+     "weeks": 24.32991362880662,
+     "hits": 5691,
      "thin": false,
-     "meanGrade": 83.34,
+     "meanGrade": 81.45,
      "nodes": [
       [
        "ally atk",
-       74
+       69
       ],
       [
        "brand",
-       53
+       51
       ],
       [
        "ally dmg",
-       37
+       36
       ]
      ],
-     "cores": 19
+     "cores": 18
     },
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 1049705,
-     "gems": 1474,
-     "weeks": 56.7000567000567,
-     "hits": 2442,
-     "thin": false,
-     "meanGrade": 82.13,
-     "nodes": [
-      [
-       "ally atk",
-       71
-      ],
-      [
-       "brand",
-       52
-      ],
-      [
-       "ally dmg",
-       37
-      ]
-     ],
-     "cores": 18
-    },
-    {
-     "gpd": 1000000,
-     "reachable": true,
-     "gold": 1778554,
-     "gems": 758,
-     "weeks": 29.137529137529135,
-     "hits": 4752,
-     "thin": false,
-     "meanGrade": 81.71,
-     "nodes": [
-      [
-       "ally atk",
-       70
-      ],
-      [
-       "brand",
-       51
-      ],
-      [
-       "ally dmg",
-       37
-      ]
-     ],
-     "cores": 18
-    },
-    {
-     "gpd": 2000000,
-     "reachable": true,
-     "gold": 2304439,
-     "gems": 595,
-     "weeks": 22.874861797709972,
-     "hits": 6053,
-     "thin": false,
-     "meanGrade": 81.57,
-     "nodes": [
-      [
-       "ally atk",
-       69
-      ],
-      [
-       "brand",
-       51
-      ],
-      [
-       "ally dmg",
-       36
-      ]
-     ],
-     "cores": 18
-    },
-    {
-     "gpd": 4000000,
-     "reachable": true,
-     "gold": 4068474,
-     "gems": 394,
-     "weeks": 15.15725653656688,
-     "hits": 9135,
-     "thin": false,
-     "meanGrade": 81.64,
-     "nodes": [
-      [
-       "ally atk",
-       70
-      ],
-      [
-       "brand",
-       51
-      ],
-      [
-       "ally dmg",
-       36
-      ]
-     ],
-     "cores": 18
-    },
-    {
-     "gpd": 8000000,
-     "reachable": true,
-     "gold": 5471748,
-     "gems": 329,
-     "weeks": 12.639118070427973,
-     "hits": 10955,
-     "thin": false,
-     "meanGrade": 81.55,
-     "nodes": [
-      [
-       "ally atk",
-       69
-      ],
-      [
-       "brand",
-       51
-      ],
-      [
-       "ally dmg",
-       36
-      ]
-     ],
-     "cores": 18
-    },
-    {
-     "gpd": 16000000,
-     "reachable": true,
-     "gold": 8568871,
-     "gems": 297,
-     "weeks": 11.43932075855407,
-     "hits": 12104,
+     "gold": 4022322,
+     "gems": 624,
+     "weeks": 24.000960038401537,
+     "hits": 5769,
      "thin": false,
      "meanGrade": 81.6,
      "nodes": [
@@ -1370,14 +1245,14 @@
      "cores": 18
     },
     {
-     "gpd": 25000000,
+     "gpd": 1000000,
      "reachable": true,
-     "gold": 8564203,
-     "gems": 290,
-     "weeks": 11.141095788665792,
-     "hits": 12428,
+     "gold": 3807402,
+     "gems": 572,
+     "weeks": 21.991985143192263,
+     "hits": 6296,
      "thin": false,
-     "meanGrade": 81.66,
+     "meanGrade": 81.67,
      "nodes": [
       [
        "ally atk",
@@ -1390,6 +1265,131 @@
       [
        "ally dmg",
        36
+      ]
+     ],
+     "cores": 18
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 4353492,
+     "gems": 423,
+     "weeks": 16.264717310177197,
+     "hits": 8513,
+     "thin": false,
+     "meanGrade": 81.64,
+     "nodes": [
+      [
+       "ally atk",
+       70
+      ],
+      [
+       "brand",
+       51
+      ],
+      [
+       "ally dmg",
+       36
+      ]
+     ],
+     "cores": 18
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 5838169,
+     "gems": 339,
+     "weeks": 13.019420635781707,
+     "hits": 10635,
+     "thin": false,
+     "meanGrade": 81.55,
+     "nodes": [
+      [
+       "ally atk",
+       69
+      ],
+      [
+       "brand",
+       51
+      ],
+      [
+       "ally dmg",
+       36
+      ]
+     ],
+     "cores": 18
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 7808456,
+     "gems": 301,
+     "weeks": 11.557724412482342,
+     "hits": 11980,
+     "thin": false,
+     "meanGrade": 81.58,
+     "nodes": [
+      [
+       "ally atk",
+       69
+      ],
+      [
+       "brand",
+       51
+      ],
+      [
+       "ally dmg",
+       36
+      ]
+     ],
+     "cores": 18
+    },
+    {
+     "gpd": 16000000,
+     "reachable": true,
+     "gold": 8937376,
+     "gems": 295,
+     "weeks": 11.328877308258752,
+     "hits": 12222,
+     "thin": false,
+     "meanGrade": 81.69,
+     "nodes": [
+      [
+       "ally atk",
+       70
+      ],
+      [
+       "brand",
+       51
+      ],
+      [
+       "ally dmg",
+       37
+      ]
+     ],
+     "cores": 18
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 8826771,
+     "gems": 286,
+     "weeks": 11.000360567374152,
+     "hits": 12587,
+     "thin": false,
+     "meanGrade": 81.69,
+     "nodes": [
+      [
+       "ally atk",
+       70
+      ],
+      [
+       "brand",
+       51
+      ],
+      [
+       "ally dmg",
+       37
       ]
      ],
      "cores": 18
@@ -1422,24 +1422,24 @@
     {
      "gpd": 250000,
      "reachable": true,
-     "gold": 552400,
-     "gems": 600000,
-     "weeks": 23076.923076923078,
-     "hits": 6,
-     "thin": true,
-     "meanGrade": 87.2,
+     "gold": 8067265,
+     "gems": 1273,
+     "weeks": 48.96094005004896,
+     "hits": 2828,
+     "thin": false,
+     "meanGrade": 84.37,
      "nodes": [
       [
        "ally atk",
-       83
+       76
       ],
       [
        "brand",
-       57
+       54
       ],
       [
        "ally dmg",
-       39
+       38
       ]
      ],
      "cores": 19
@@ -1447,24 +1447,24 @@
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 1112201,
-     "gems": 11465,
-     "weeks": 440.96031357177856,
-     "hits": 314,
+     "gold": 7447447,
+     "gems": 1166,
+     "weeks": 44.838581108011155,
+     "hits": 3088,
      "thin": false,
-     "meanGrade": 85.78,
+     "meanGrade": 84.3,
      "nodes": [
       [
        "ally atk",
-       80
+       76
       ],
       [
        "brand",
-       56
+       54
       ],
       [
        "ally dmg",
-       39
+       38
       ]
      ],
      "cores": 19
@@ -1472,16 +1472,16 @@
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1824169,
-     "gems": 2165,
-     "weeks": 83.26009528655351,
-     "hits": 1663,
+     "gold": 7107300,
+     "gems": 1095,
+     "weeks": 42.11117349803481,
+     "hits": 3288,
      "thin": false,
-     "meanGrade": 84.61,
+     "meanGrade": 84.26,
      "nodes": [
       [
        "ally atk",
-       77
+       76
       ],
       [
        "brand",
@@ -1497,12 +1497,12 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 2938585,
-     "gems": 1244,
-     "weeks": 47.82781984854523,
-     "hits": 2895,
+     "gold": 6934216,
+     "gems": 1039,
+     "weeks": 39.94851080829153,
+     "hits": 3466,
      "thin": false,
-     "meanGrade": 84.34,
+     "meanGrade": 84.26,
      "nodes": [
       [
        "ally atk",
@@ -1522,12 +1522,12 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 4765917,
-     "gems": 918,
-     "weeks": 35.29480970215102,
-     "hits": 3923,
+     "gold": 7644228,
+     "gems": 712,
+     "weeks": 27.385589094449852,
+     "hits": 5056,
      "thin": false,
-     "meanGrade": 84.4,
+     "meanGrade": 84.37,
      "nodes": [
       [
        "ally atk",
@@ -1547,12 +1547,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 7345050,
-     "gems": 684,
-     "weeks": 26.303483750292262,
-     "hits": 5264,
+     "gold": 10451452,
+     "gems": 580,
+     "weeks": 22.32530449234738,
+     "hits": 6202,
      "thin": false,
-     "meanGrade": 84.34,
+     "meanGrade": 84.37,
      "nodes": [
       [
        "ally atk",
@@ -1572,12 +1572,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 11102610,
-     "gems": 553,
-     "weeks": 21.28213010475537,
-     "hits": 6506,
+     "gold": 14478330,
+     "gems": 523,
+     "weeks": 20.098931406813538,
+     "hits": 6889,
      "thin": false,
-     "meanGrade": 84.36,
+     "meanGrade": 84.33,
      "nodes": [
       [
        "ally atk",
@@ -1597,10 +1597,10 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 14605809,
-     "gems": 507,
-     "weeks": 19.515368352577656,
-     "hits": 7095,
+     "gold": 15352748,
+     "gems": 500,
+     "weeks": 19.244133212166567,
+     "hits": 7195,
      "thin": false,
      "meanGrade": 84.26,
      "nodes": [
@@ -1646,90 +1646,36 @@
    "cells": [
     {
      "gpd": 250000,
-     "reachable": false
+     "reachable": true,
+     "gold": 14685622,
+     "gems": 2317,
+     "weeks": 89.10008910008911,
+     "hits": 1554,
+     "thin": false,
+     "meanGrade": 86.92,
+     "nodes": [
+      [
+       "ally atk",
+       83
+      ],
+      [
+       "brand",
+       57
+      ],
+      [
+       "ally dmg",
+       39
+      ]
+     ],
+     "cores": 19
     },
     {
      "gpd": 500000,
      "reachable": true,
-     "gold": 1300258,
-     "gems": 116129,
-     "weeks": 4466.501240694789,
-     "hits": 31,
-     "thin": false,
-     "meanGrade": 88.19,
-     "nodes": [
-      [
-       "ally atk",
-       86
-      ],
-      [
-       "brand",
-       58
-      ],
-      [
-       "ally dmg",
-       40
-      ]
-     ],
-     "cores": 19
-    },
-    {
-     "gpd": 1000000,
-     "reachable": true,
-     "gold": 1986071,
-     "gems": 12457,
-     "weeks": 479.1056694170881,
-     "hits": 289,
-     "thin": false,
-     "meanGrade": 87.31,
-     "nodes": [
-      [
-       "ally atk",
-       83
-      ],
-      [
-       "brand",
-       57
-      ],
-      [
-       "ally dmg",
-       39
-      ]
-     ],
-     "cores": 19
-    },
-    {
-     "gpd": 2000000,
-     "reachable": true,
-     "gold": 3027458,
-     "gems": 3750,
-     "weeks": 144.23076923076923,
-     "hits": 960,
-     "thin": false,
-     "meanGrade": 87.11,
-     "nodes": [
-      [
-       "ally atk",
-       83
-      ],
-      [
-       "brand",
-       57
-      ],
-      [
-       "ally dmg",
-       39
-      ]
-     ],
-     "cores": 19
-    },
-    {
-     "gpd": 4000000,
-     "reachable": true,
-     "gold": 4986635,
-     "gems": 2348,
-     "weeks": 90.32063826584375,
-     "hits": 1533,
+     "gold": 14298652,
+     "gems": 2251,
+     "weeks": 86.59258190215039,
+     "hits": 1599,
      "thin": false,
      "meanGrade": 86.91,
      "nodes": [
@@ -1749,18 +1695,93 @@
      "cores": 19
     },
     {
-     "gpd": 8000000,
+     "gpd": 1000000,
      "reachable": true,
-     "gold": 8171450,
-     "gems": 1585,
-     "weeks": 60.969413677471806,
-     "hits": 2271,
+     "gold": 13347831,
+     "gems": 2082,
+     "weeks": 80.08186145837968,
+     "hits": 1729,
      "thin": false,
-     "meanGrade": 87.13,
+     "meanGrade": 87.04,
      "nodes": [
       [
        "ally atk",
        83
+      ],
+      [
+       "brand",
+       57
+      ],
+      [
+       "ally dmg",
+       39
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 12944258,
+     "gems": 1993,
+     "weeks": 76.66751852798365,
+     "hits": 1806,
+     "thin": false,
+     "meanGrade": 86.87,
+     "nodes": [
+      [
+       "ally atk",
+       82
+      ],
+      [
+       "brand",
+       57
+      ],
+      [
+       "ally dmg",
+       39
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 4000000,
+     "reachable": true,
+     "gold": 12966909,
+     "gems": 1939,
+     "weeks": 74.5619485522555,
+     "hits": 1857,
+     "thin": false,
+     "meanGrade": 86.83,
+     "nodes": [
+      [
+       "ally atk",
+       82
+      ],
+      [
+       "brand",
+       57
+      ],
+      [
+       "ally dmg",
+       39
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 8000000,
+     "reachable": true,
+     "gold": 14493249,
+     "gems": 1320,
+     "weeks": 50.755695916986234,
+     "hits": 2728,
+     "thin": false,
+     "meanGrade": 86.85,
+     "nodes": [
+      [
+       "ally atk",
+       82
       ],
       [
        "brand",
@@ -1776,16 +1797,16 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 13057599,
-     "gems": 1198,
-     "weeks": 46.092389634333706,
-     "hits": 3004,
+     "gold": 20146647,
+     "gems": 1102,
+     "weeks": 42.36889181809623,
+     "hits": 3268,
      "thin": false,
-     "meanGrade": 86.96,
+     "meanGrade": 86.81,
      "nodes": [
       [
        "ally atk",
-       83
+       82
       ],
       [
        "brand",
@@ -1801,12 +1822,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 18501638,
-     "gems": 1102,
-     "weeks": 42.38186056367875,
-     "hits": 3267,
+     "gold": 22977136,
+     "gems": 1029,
+     "weeks": 39.571745773517705,
+     "hits": 3499,
      "thin": false,
-     "meanGrade": 86.83,
+     "meanGrade": 86.89,
      "nodes": [
       [
        "ally atk",
@@ -1850,54 +1871,21 @@
    "cells": [
     {
      "gpd": 250000,
-     "reachable": false
-    },
-    {
-     "gpd": 500000,
-     "reachable": false
-    },
-    {
-     "gpd": 1000000,
      "reachable": true,
-     "gold": 1842133,
-     "gems": 133333,
-     "weeks": 5128.205128205129,
-     "hits": 27,
-     "thin": true,
-     "meanGrade": 91.31,
-     "nodes": [
-      [
-       "ally atk",
-       93
-      ],
-      [
-       "brand",
-       62
-      ],
-      [
-       "ally dmg",
-       41
-      ]
-     ],
-     "cores": 20
-    },
-    {
-     "gpd": 2000000,
-     "reachable": true,
-     "gold": 3295823,
-     "gems": 19459,
-     "weeks": 748.4407484407485,
-     "hits": 185,
+     "gold": 37235259,
+     "gems": 5882,
+     "weeks": 226.2443438914027,
+     "hits": 612,
      "thin": false,
-     "meanGrade": 90.14,
+     "meanGrade": 89.76,
      "nodes": [
       [
        "ally atk",
-       90
+       89
       ],
       [
        "brand",
-       61
+       60
       ],
       [
        "ally dmg",
@@ -1907,14 +1895,89 @@
      "cores": 19
     },
     {
+     "gpd": 500000,
+     "reachable": true,
+     "gold": 33376712,
+     "gems": 5263,
+     "weeks": 202.42914979757086,
+     "hits": 684,
+     "thin": false,
+     "meanGrade": 89.52,
+     "nodes": [
+      [
+       "ally atk",
+       89
+      ],
+      [
+       "brand",
+       60
+      ],
+      [
+       "ally dmg",
+       40
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 1000000,
+     "reachable": true,
+     "gold": 31217304,
+     "gems": 4911,
+     "weeks": 188.8970511071466,
+     "hits": 733,
+     "thin": false,
+     "meanGrade": 89.49,
+     "nodes": [
+      [
+       "ally atk",
+       89
+      ],
+      [
+       "brand",
+       60
+      ],
+      [
+       "ally dmg",
+       40
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 2000000,
+     "reachable": true,
+     "gold": 30664618,
+     "gems": 4787,
+     "weeks": 184.1243862520458,
+     "hits": 752,
+     "thin": false,
+     "meanGrade": 89.62,
+     "nodes": [
+      [
+       "ally atk",
+       89
+      ],
+      [
+       "brand",
+       60
+      ],
+      [
+       "ally dmg",
+       40
+      ]
+     ],
+     "cores": 19
+    },
+    {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 6041445,
-     "gems": 8802,
-     "weeks": 338.53676885461726,
-     "hits": 409,
+     "gold": 28805656,
+     "gems": 4444,
+     "weeks": 170.94017094017093,
+     "hits": 810,
      "thin": false,
-     "meanGrade": 89.68,
+     "meanGrade": 89.59,
      "nodes": [
       [
        "ally atk",
@@ -1934,41 +1997,16 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 9427242,
-     "gems": 5705,
-     "weeks": 219.4319151529928,
-     "hits": 631,
+     "gold": 28265364,
+     "gems": 4027,
+     "weeks": 154.87867836861125,
+     "hits": 894,
      "thin": false,
-     "meanGrade": 89.65,
+     "meanGrade": 89.77,
      "nodes": [
       [
        "ally atk",
        89
-      ],
-      [
-       "brand",
-       60
-      ],
-      [
-       "ally dmg",
-       40
-      ]
-     ],
-     "cores": 19
-    },
-    {
-     "gpd": 16000000,
-     "reachable": true,
-     "gold": 19214604,
-     "gems": 3879,
-     "weeks": 149.20424403183023,
-     "hits": 928,
-     "thin": false,
-     "meanGrade": 89.8,
-     "nodes": [
-      [
-       "ally atk",
-       90
       ],
       [
        "brand",
@@ -1982,14 +2020,14 @@
      "cores": 19
     },
     {
-     "gpd": 25000000,
+     "gpd": 16000000,
      "reachable": true,
-     "gold": 28978500,
-     "gems": 2866,
-     "weeks": 110.24007839294464,
-     "hits": 1256,
+     "gold": 33430152,
+     "gems": 3035,
+     "weeks": 116.74665974834609,
+     "hits": 1186,
      "thin": false,
-     "meanGrade": 89.61,
+     "meanGrade": 89.52,
      "nodes": [
       [
        "ally atk",
@@ -2002,6 +2040,31 @@
       [
        "ally dmg",
        40
+      ]
+     ],
+     "cores": 19
+    },
+    {
+     "gpd": 25000000,
+     "reachable": true,
+     "gold": 34448834,
+     "gems": 2532,
+     "weeks": 97.37098344693283,
+     "hits": 1422,
+     "thin": false,
+     "meanGrade": 89.84,
+     "nodes": [
+      [
+       "ally atk",
+       90
+      ],
+      [
+       "brand",
+       60
+      ],
+      [
+       "ally dmg",
+       41
       ]
      ],
      "cores": 19
@@ -2033,33 +2096,75 @@
    "cells": [
     {
      "gpd": 250000,
-     "reachable": false
+     "reachable": true,
+     "gold": 108538937,
+     "gems": 17143,
+     "weeks": 659.3406593406594,
+     "hits": 210,
+     "thin": false,
+     "meanGrade": 92.88,
+     "nodes": [
+      [
+       "ally atk",
+       97
+      ],
+      [
+       "brand",
+       64
+      ],
+      [
+       "ally dmg",
+       42
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 500000,
-     "reachable": false
+     "reachable": true,
+     "gold": 106087345,
+     "gems": 16744,
+     "weeks": 644.0071556350625,
+     "hits": 215,
+     "thin": false,
+     "meanGrade": 92.75,
+     "nodes": [
+      [
+       "ally atk",
+       97
+      ],
+      [
+       "brand",
+       64
+      ],
+      [
+       "ally dmg",
+       42
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 1000000,
      "reachable": true,
-     "gold": 1750400,
-     "gems": 1200000,
-     "weeks": 46153.846153846156,
-     "hits": 3,
-     "thin": true,
-     "meanGrade": 95.3,
+     "gold": 100581632,
+     "gems": 15859,
+     "weeks": 609.9627245001694,
+     "hits": 227,
+     "thin": false,
+     "meanGrade": 92.73,
      "nodes": [
       [
        "ally atk",
-       103
+       97
       ],
       [
        "brand",
-       66
+       64
       ],
       [
        "ally dmg",
-       43
+       42
       ]
      ],
      "cores": 20
@@ -2067,16 +2172,16 @@
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 4706585,
-     "gems": 276923,
-     "weeks": 10650.887573964497,
-     "hits": 13,
-     "thin": true,
-     "meanGrade": 93.09,
+     "gold": 93408598,
+     "gems": 14694,
+     "weeks": 565.149136577708,
+     "hits": 245,
+     "thin": false,
+     "meanGrade": 92.77,
      "nodes": [
       [
        "ally atk",
-       98
+       97
       ],
       [
        "brand",
@@ -2092,20 +2197,20 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 8361320,
-     "gems": 60000,
-     "weeks": 2307.6923076923076,
-     "hits": 60,
+     "gold": 91746451,
+     "gems": 14400,
+     "weeks": 553.8461538461538,
+     "hits": 250,
      "thin": false,
-     "meanGrade": 92.6,
+     "meanGrade": 92.88,
      "nodes": [
       [
        "ally atk",
-       96
+       97
       ],
       [
        "brand",
-       63
+       64
       ],
       [
        "ally dmg",
@@ -2117,16 +2222,16 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 9595528,
-     "gems": 22360,
-     "weeks": 860.0095556617296,
-     "hits": 161,
+     "gold": 81556470,
+     "gems": 12676,
+     "weeks": 487.54062838569877,
+     "hits": 284,
      "thin": false,
-     "meanGrade": 93.08,
+     "meanGrade": 92.73,
      "nodes": [
       [
        "ally atk",
-       98
+       97
       ],
       [
        "brand",
@@ -2142,12 +2247,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 25056000,
-     "gems": 20571,
-     "weeks": 791.2087912087912,
-     "hits": 175,
+     "gold": 84467879,
+     "gems": 12081,
+     "weeks": 464.6360351058338,
+     "hits": 298,
      "thin": false,
-     "meanGrade": 92.94,
+     "meanGrade": 92.84,
      "nodes": [
       [
        "ally atk",
@@ -2167,12 +2272,12 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 37713614,
-     "gems": 10375,
-     "weeks": 399.0246065174019,
-     "hits": 347,
+     "gold": 80942598,
+     "gems": 9600,
+     "weeks": 369.2307692307692,
+     "hits": 375,
      "thin": false,
-     "meanGrade": 92.99,
+     "meanGrade": 92.94,
      "nodes": [
       [
        "ally atk",
@@ -2216,33 +2321,96 @@
    "cells": [
     {
      "gpd": 250000,
-     "reachable": false
+     "reachable": true,
+     "gold": 316512200,
+     "gems": 50000,
+     "weeks": 1923.076923076923,
+     "hits": 72,
+     "thin": false,
+     "meanGrade": 95.68,
+     "nodes": [
+      [
+       "ally atk",
+       104
+      ],
+      [
+       "brand",
+       67
+      ],
+      [
+       "ally dmg",
+       43
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 500000,
-     "reachable": false
+     "reachable": true,
+     "gold": 380582960,
+     "gems": 60000,
+     "weeks": 2307.6923076923076,
+     "hits": 60,
+     "thin": false,
+     "meanGrade": 95.63,
+     "nodes": [
+      [
+       "ally atk",
+       104
+      ],
+      [
+       "brand",
+       67
+      ],
+      [
+       "ally dmg",
+       43
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 1000000,
-     "reachable": false
+     "reachable": true,
+     "gold": 329713704,
+     "gems": 52174,
+     "weeks": 2006.6889632107025,
+     "hits": 69,
+     "thin": false,
+     "meanGrade": 95.46,
+     "nodes": [
+      [
+       "ally atk",
+       103
+      ],
+      [
+       "brand",
+       67
+      ],
+      [
+       "ally dmg",
+       43
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 2000000,
      "reachable": true,
-     "gold": 4190400,
-     "gems": 1800000,
-     "weeks": 69230.76923076923,
-     "hits": 2,
-     "thin": true,
-     "meanGrade": 97.6,
+     "gold": 300070989,
+     "gems": 47368,
+     "weeks": 1821.8623481781376,
+     "hits": 76,
+     "thin": false,
+     "meanGrade": 95.96,
      "nodes": [
       [
        "ally atk",
-       109
+       105
       ],
       [
        "brand",
-       69
+       67
       ],
       [
        "ally dmg",
@@ -2254,20 +2422,20 @@
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 5327000,
-     "gems": 300000,
-     "weeks": 11538.461538461539,
-     "hits": 12,
-     "thin": true,
-     "meanGrade": 96.38,
+     "gold": 278469366,
+     "gems": 43902,
+     "weeks": 1688.5553470919326,
+     "hits": 82,
+     "thin": false,
+     "meanGrade": 95.81,
      "nodes": [
       [
        "ally atk",
-       106
+       104
       ],
       [
        "brand",
-       68
+       67
       ],
       [
        "ally dmg",
@@ -2279,12 +2447,12 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 9916714,
-     "gems": 128571,
-     "weeks": 4945.054945054945,
-     "hits": 28,
-     "thin": true,
-     "meanGrade": 95.85,
+     "gold": 314013074,
+     "gems": 49315,
+     "weeks": 1896.7334035827187,
+     "hits": 73,
+     "thin": false,
+     "meanGrade": 95.9,
      "nodes": [
       [
        "ally atk",
@@ -2304,20 +2472,20 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 28064582,
-     "gems": 109091,
-     "weeks": 4195.804195804196,
-     "hits": 33,
+     "gold": 259133070,
+     "gems": 40449,
+     "weeks": 1555.7476231633534,
+     "hits": 89,
      "thin": false,
-     "meanGrade": 96.35,
+     "meanGrade": 95.84,
      "nodes": [
       [
        "ally atk",
-       106
+       104
       ],
       [
        "brand",
-       68
+       67
       ],
       [
        "ally dmg",
@@ -2329,16 +2497,16 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 37842430,
-     "gems": 67925,
-     "weeks": 2612.4818577648766,
-     "hits": 53,
+     "gold": 233289864,
+     "gems": 36000,
+     "weeks": 1384.6153846153845,
+     "hits": 100,
      "thin": false,
-     "meanGrade": 96.22,
+     "meanGrade": 95.75,
      "nodes": [
       [
        "ally atk",
-       105
+       104
       ],
       [
        "brand",
@@ -2378,41 +2546,125 @@
    "cells": [
     {
      "gpd": 250000,
-     "reachable": false
+     "reachable": true,
+     "gold": 495351287,
+     "gems": 78261,
+     "weeks": 3010.0334448160534,
+     "hits": 46,
+     "thin": false,
+     "meanGrade": 96.88,
+     "nodes": [
+      [
+       "ally atk",
+       107
+      ],
+      [
+       "brand",
+       68
+      ],
+      [
+       "ally dmg",
+       44
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 500000,
-     "reachable": false
+     "reachable": true,
+     "gold": 519048327,
+     "gems": 81818,
+     "weeks": 3146.853146853147,
+     "hits": 44,
+     "thin": false,
+     "meanGrade": 96.68,
+     "nodes": [
+      [
+       "ally atk",
+       106
+      ],
+      [
+       "brand",
+       68
+      ],
+      [
+       "ally dmg",
+       44
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 1000000,
-     "reachable": false
+     "reachable": true,
+     "gold": 671191129,
+     "gems": 105882,
+     "weeks": 4072.398190045249,
+     "hits": 34,
+     "thin": false,
+     "meanGrade": 95.9,
+     "nodes": [
+      [
+       "ally atk",
+       104
+      ],
+      [
+       "brand",
+       67
+      ],
+      [
+       "ally dmg",
+       44
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 2000000,
-     "reachable": false
+     "reachable": true,
+     "gold": 373750111,
+     "gems": 59016,
+     "weeks": 2269.861286254729,
+     "hits": 61,
+     "thin": false,
+     "meanGrade": 96.04,
+     "nodes": [
+      [
+       "ally atk",
+       105
+      ],
+      [
+       "brand",
+       67
+      ],
+      [
+       "ally dmg",
+       44
+      ]
+     ],
+     "cores": 20
     },
     {
      "gpd": 4000000,
      "reachable": true,
-     "gold": 7639200,
-     "gems": 3600000,
-     "weeks": 138461.53846153847,
-     "hits": 1,
-     "thin": true,
-     "meanGrade": 95.2,
+     "gold": 465600980,
+     "gems": 73469,
+     "weeks": 2825.74568288854,
+     "hits": 49,
+     "thin": false,
+     "meanGrade": 96.57,
      "nodes": [
       [
        "ally atk",
-       103
+       106
       ],
       [
        "brand",
-       66
+       68
       ],
       [
        "ally dmg",
-       43
+       44
       ]
      ],
      "cores": 20
@@ -2420,24 +2672,24 @@
     {
      "gpd": 8000000,
      "reachable": true,
-     "gold": 6948000,
-     "gems": 1200000,
-     "weeks": 46153.846153846156,
-     "hits": 3,
-     "thin": true,
-     "meanGrade": 100.07,
+     "gold": 380801120,
+     "gems": 60000,
+     "weeks": 2307.6923076923076,
+     "hits": 60,
+     "thin": false,
+     "meanGrade": 96.49,
      "nodes": [
       [
        "ally atk",
-       115
+       106
       ],
       [
        "brand",
-       72
+       68
       ],
       [
        "ally dmg",
-       46
+       44
       ]
      ],
      "cores": 20
@@ -2445,12 +2697,12 @@
     {
      "gpd": 16000000,
      "reachable": true,
-     "gold": 10480500,
-     "gems": 225000,
-     "weeks": 8653.846153846154,
-     "hits": 16,
-     "thin": true,
-     "meanGrade": 96.58,
+     "gold": 304770080,
+     "gems": 48000,
+     "weeks": 1846.1538461538462,
+     "hits": 75,
+     "thin": false,
+     "meanGrade": 96.64,
      "nodes": [
       [
        "ally atk",
@@ -2470,24 +2722,24 @@
     {
      "gpd": 25000000,
      "reachable": true,
-     "gold": 13460509,
-     "gems": 163636,
-     "weeks": 6293.706293706294,
-     "hits": 22,
-     "thin": true,
-     "meanGrade": 98,
+     "gold": 395626552,
+     "gems": 62069,
+     "weeks": 2387.2679045092837,
+     "hits": 58,
+     "thin": false,
+     "meanGrade": 96.97,
      "nodes": [
       [
        "ally atk",
-       110
+       107
       ],
       [
        "brand",
-       69
+       68
       ],
       [
        "ally dmg",
-       45
+       44
       ]
      ],
      "cores": 20

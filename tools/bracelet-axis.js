@@ -37,8 +37,8 @@ var LADDER_DPS = [["S+",100.1],["S",95],["S-",90],["A+",85],["A",80],["A-",75],
   ["B+",70],["B",65],["B-",60],["C+",55],["C",50],["C-",45],["D+",40],["D",35],
   ["D-",30],["F+",20],["F",10],["F-",-Infinity]];
 var LADDER_SUP = [["S+",100],["S",90],["S-",82.5],["A+",75],["A",67.5],["A-",60],
-  ["B+",52.5],["B",45],["B-",37.5],["C+",30],["C",25],["C-",20],["D+",15],
-  ["D",10],["D-",5],["F+",2.5],["F",-Infinity]];
+  ["B+",52.5],["B",45],["B-",40],["C+",35],["C",30],["C-",25],["D+",20],
+  ["D",15],["D-",10],["F+",5],["F",0],["F-",-Infinity]];
 
 // reference character on the DPS side
 var PROF = DPS.normalizeProfile({
@@ -85,7 +85,8 @@ function traitDamage(t1, t2) {
 var mids = [];
 for (var f2 = 1; f2 <= 33; f2++) mids.push(value[(f2 - 1) * 3 + 1]);
 mids.sort(function (x, y) { return y - x; });
-var FLOOR = traitTable ? DPS.traitDamage({ crit: 40, spec: 40 }, PROF) : 80 * traitPerPoint;
+// floor at 61/61 — the worst stats an Ancient bracelet can drop with
+var FLOOR = traitTable ? DPS.traitDamage({ crit: 61, spec: 61 }, PROF) : 122 * traitPerPoint;
 var ANCHOR = mids[0] + mids[1] + mids[2] + traitDamage(110, 110);
 var SPAN = ANCHOR - FLOOR;
 

@@ -690,28 +690,85 @@ Same ordering as the grade, and near enough the same ratios — two models built
 from different sources agreeing that ally damage enhancement is worth about a
 third of ally attack.
 
-The best split of a full 240 levels is **120 ally attack / 120 brand / 0 ally
-damage**, worth 13.51% party damage against 10.72% for an even 80/80/80 — a
-gap of 2.79 points. It is reachable: with a = allyAtk/5 = n9+n10, b = brand/5 =
-n8+n10 and c = allyDmg/5 = n8+n9 over twenty-four gems, that split is n10 = 24
-— **every gem base cost 10, carrying Brand Power and Ally Attack Enh. at level
-five**. Worth knowing, though the chart does not assume it: the band price buys
-gems at a grade, not gems with a chosen pair of lines.
+**Correction, 15 August 2026.** This section first shipped claiming a best
+split of 120 / 120 / 0 from twenty-four cost-10 gems. That build cannot exist:
+at willpower five a cost-10 gem still has effective cost 5, four of them need
+20 against a core cap of 17, so a core holds at most two. The enumeration now
+carries the budget as two closed rules (n10 <= 12, and a two-c10 core has room
+for at most one c9), and the honest numbers are smaller.
 
-The DPS axis has the same shape, scored through `gridDamage`:
+The best REACHABLE split is **120 ally attack / 30 brand / 90 ally damage** —
+six cost-10 and eighteen cost-9 gems — worth 11.47% party damage against
+10.72% for an even 80/80/80. A gap of 0.75 points, not the 2.79 first claimed.
 
-| node | damage per level |
-|---|---:|
-| boss damage | 0.0793% |
-| additional damage | 0.0583% |
-| attack power | 0.0321% |
+The DPS axis, corrected the same way (its pools pair differently: attack rides
+c8+c9, boss c9+c10, additional c8+c10): best reachable is **60 attack power /
+90 boss / 90 additional** at 17.34% against 16.63% even — 0.71 points.
 
-Best split **0 attack power / 120 boss / 120 additional**, 19.40% against
-16.63% for an even 80/80/80 — a gap of 2.77 points, near enough the support
-gap of 2.79. And it is the same gem: cost 10 carries Boss Damage and Additional
-Damage, so twenty-four cost-10 gems again.
-
-So on both axes the answer is twenty-four base-cost-10 gems, taking the two
-lines that cost draws. An even split is the one shape nobody should build, and
+An even split is the one shape nobody should build, and
 60/60/60 on the reference character is about a B grid in total levels but the
 wrong shape for any of them.
+
+---
+
+## The account model, 15 August 2026 — what the card actually shows
+
+The band ladder above prices a grid where all twenty-four slots clear a grade.
+The card's headline, example and effort figures come from a different machine:
+`tools/arkgrid-account.js` simulates an account building its grid under every
+constraint the game imposes. The audit that forced this section also found the
+first shipped account dataset predated most of these rules; everything below
+describes the tool as it stands, and the data is regenerated from it.
+
+**The rules, in the order they bite:**
+
+- **Two halves, never mixed.** Order gems go in order cores, chaos in chaos.
+  Twelve slots each, separate inventories, and a superb chaos gem does nothing
+  for a weak order core.
+- **A core is four gems against two seventeens.** The four effective costs
+  (base cost minus willpower) must FIT inside 17 — the perfect core is exactly
+  5+5+4+3 — while only order points ABOVE 17 pay anything. Each core is packed
+  by an exact DP over (gems used, willpower spent, order points), and all six
+  orderings of a half's three cores are tried because the greedy fill is
+  order-dependent.
+- **Sub-17 cores tax the whole grid** — Shizu's -3/-6/-9 bands, ported from the
+  calculator's own account study, sit in the packer's OBJECTIVE so it forces
+  seventeens wherever the collection allows. They are NOT subtracted from the
+  reported damage: they stand for core thresholds the gear baseline already
+  carries, and subtracting them let a low-budget grid report negative damage,
+  which no set of equipped gems can do.
+- **Unequipped gems are kept.** A core can be re-packed 4+4+4+5 into 3+4+5+5,
+  so a cheap high-willpower gem earns its slot by letting an expensive one fit
+  beside it. The inventory holds the best twenty-six a side by damage, but a
+  gem at effective cost four or less is never pruned while anything dearer
+  remains — the enablers are the point.
+- **Roster-bound advisor.** The DP that decides each cut runs roster-bound,
+  matching the corpus the live constants were fitted on and the calculator's
+  own default advice. Off, the advisor abandons gems to save gold the cutter
+  charges anyway, and the chart reads cheaper than a player actually pays.
+- **The advisor tracks you.** Its baseline is the grade of the weakest gem you
+  are wearing, snapped to band cuts; its gold-per-damage is the budget on the
+  slider. Both move as the grid improves.
+
+Damage is scored by the astrogem calculator's own `gridDamage` with the
+per-core order rates converted to linear form (`exp(v/100) - 1`) exactly as the
+calculator converts them — the first port passed the raw log-value and
+mis-priced order roughly ninety-fold, which is the kind of thing the packer's
+brute-force self-test exists to catch.
+
+Every budget is averaged over four accounts sharing solver caches. The trace
+stops where a twelve-socket window's marginal gold per damage crosses the
+budget, and the monotone carry guarantees a richer budget never reports a
+worse grid.
+
+### The band-vs-account gap, measured on the final data
+
+At a 2M budget, same damage on both sides, roster-bound throughout: the band
+ladder pays **3.9x the gold and 3.5x the gems** of the account model on epics
+(5.50M / 201 gems against 1.40M / 57 for 1.69% per dealer), and **2.4x / 2.3x**
+on rares. An earlier claim of 2.5-5x was measured with a floor-damage artefact
+and retracted; this is the clean comparison, and it is still large. The reason
+stands: demanding all twenty-four slots clear one grade buys uniformity that
+adds nothing. Which model prices the chart is Shizu's open decision — today the
+gold and damage come from the band ladder, the headline and example from the
+account model.

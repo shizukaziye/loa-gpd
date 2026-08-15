@@ -35,7 +35,10 @@
   var STAT_MIN = 61, STAT_MAX = 120;
   var GRANTED_SLOTS = 3;
   var ATTEMPTS = 7;
-  var TRAIT_PER_POINT = 0.00494;     // per point of spec, and of swiftness
+  var TRAIT_PER_POINT = 0.004978;    // per point of spec, and of swiftness
+                                     // (span average at the current reference
+                                     // character; the calculator's own support
+                                     // traitDamage gives 0.004977 at 110)
   var BASIC_MIN = 0.176, BASIC_MAX = 0.292;   // Str/Dex/Int line, ancient band ends
   var BASIC_LO = 9600, BASIC_HI = 16000;
 
@@ -47,16 +50,16 @@
 
   /** Ancient tier values, low / mid / high. Absent means worth nothing. */
   var SUPPORT_LINE = {
-    16: [1.275, 1.520, 1.814],   // enemy defence shred + ally AP rider
-    17: [1.600, 1.896, 2.260],   // enemy crit resist + ally AP rider
-    18: [0.910, 1.122, 1.334],   // shielded-target damage + ally AP rider
-    19: [1.600, 1.896, 2.192],   // enemy crit damage resist + ally AP rider
-    20: [0.434, 0.493, 0.552],   // stacking weapon power, six stacks
-    21: [0.571, 0.639, 0.706],   // weapon power, rider up
-    22: [0.669, 0.743, 0.816],   // weapon power, thirty stacks
-    29: [0.741, 0.926, 1.110],   // ally attack power buff effect
-    30: [0.809, 1.010, 1.211],   // ally damage buff effect
-    33: [0.448, 0.504, 0.559]    // weapon power
+    16: [1.274, 1.517, 1.812],   // enemy defence shred + ally AP rider
+    17: [1.599, 1.894, 2.257],   // enemy crit resist + ally AP rider
+    18: [0.908, 1.120, 1.331],   // shielded-target damage + ally AP rider
+    19: [1.599, 1.894, 2.189],   // enemy crit damage resist + ally AP rider
+    20: [0.429, 0.487, 0.546],   // stacking weapon power, six stacks
+    21: [0.565, 0.632, 0.699],   // weapon power, rider up
+    22: [0.662, 0.735, 0.807],   // weapon power, thirty stacks
+    29: [0.738, 0.921, 1.105],   // ally attack power buff effect
+    30: [0.795, 0.993, 1.190],   // ally damage buff effect
+    33: [0.444, 0.498, 0.553]    // weapon power
   };
 
   function grantedWeight(family) {
@@ -183,7 +186,10 @@
    *
    * Not clamped: the anchor is beatable, and clearing it is what S+ means.
    */
-  var REFERENCE_STAT = 110, FLOOR_STAT = 40;
+  // Floor at 61/61 — the worst stats an Ancient bracelet can DROP with, per
+  // the bracelet calculator's TRAIT_FLOOR (subrank.js). At the old 40/40 the
+  // worst possible bracelet scored 3.5, so the bottom bands held nothing.
+  var REFERENCE_STAT = 110, FLOOR_STAT = 61;
   function floor() { return 2 * FLOOR_STAT * TRAIT_PER_POINT; }
   function anchor() {
     return 2 * REFERENCE_STAT * TRAIT_PER_POINT +
@@ -192,25 +198,24 @@
   function score(damage) { return 100 * (damage - floor()) / (anchor() - floor()); }
 
   /**
-   * The support ladder. Cut so that a letter means the same RARITY as the same
-   * letter on the DPS axis — the two distributions have different shapes, so a
-   * shared cut would make every support rank a lie. Matched against 100 million
-   * rolls of each (tools/bracelet-axis.js, tools/bracelet-match.js).
-   *
-   * S+ is 100, "you beat the anchor". Below it, 7.5s from 90 down to 30, then
-   * fives. Rarities hold within 15% of their DPS twin from S- through A-.
+   * The support ladder — TAKEN FROM THE BRACELET CALCULATOR, subrank.js
+   * SUPPORT_LADDER, which is the authority on what a letter means. Shizu ruled
+   * the bottom half on 2026-08-14 ("set B- to 40 and have C+ be 35, C 30,
+   * C- 25, D+ 20, D 15, D- 10, F+ 5, F 0") and it shipped there the same
+   * night. S+ through B are unchanged; everything below moved up and F- holds
+   * whatever scores under 0 against the 61/61 floor.
    */
   var LADDER = [
     ["S+", 100], ["S", 90], ["S-", 82.5],
     ["A+", 75], ["A", 67.5], ["A-", 60],
-    ["B+", 52.5], ["B", 45], ["B-", 37.5],
-    ["C+", 30], ["C", 25], ["C-", 20],
-    ["D+", 15], ["D", 10], ["D-", 5],
-    ["F+", 2.5], ["F", -Infinity]
+    ["B+", 52.5], ["B", 45], ["B-", 40],
+    ["C+", 35], ["C", 30], ["C-", 25],
+    ["D+", 20], ["D", 15], ["D-", 10],
+    ["F+", 5], ["F", 0], ["F-", -Infinity]
   ];
   function rank(score) {
     for (var i = 0; i < LADDER.length; i++) if (score >= LADDER[i][1]) return LADDER[i][0];
-    return "F";
+    return "F-";
   }
 
   return {

@@ -84,7 +84,7 @@
     neck:     { label: "Necklace",        color: "#6ee7a8", base: "nothing worth pricing" },
     ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
     earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
-    bracelet: { label: "Bracelet",        color: "#ff7f7f", base: "D-" },
+    bracelet: { label: "Bracelet",        color: "#ff7f7f", base: "F" },
     // the DPS axis still runs the single baked ark grid row until its own cost
     // runs exist; support splits into the two raw-gem supplies
     arkgrid:  { label: "Ark grid",        color: "#e8b75c", base: "ungraded" },
@@ -265,6 +265,21 @@
   }
 
   var RARITY_OF = { arkgridEpic: "epic", arkgridRare: "rare" };
+
+  // Chips have to sit on ONE row inside a 215px card, which leaves about seven
+  // characters each once three of them are up. These are the shortest forms
+  // that still read: the debuffs keep "res" so they are not mistaken for the
+  // buff of the same stat, and the three weapon-power families keep what tells
+  // them apart (plain, six stacks, thirty).
+  var SHORT_LINE = {
+    "defence shred": "def shred", "crit resist": "crit res",
+    "crit dmg resist": "cdmg res", "shielded dmg": "shield",
+    "weapon power (stacking)": "wp x6", "weapon power (stacks)": "wp x30",
+    "weapon power": "wp", "ally atk power": "ally atk", "ally damage": "ally dmg",
+    "on hit crit rate": "crit", "on hit crit dmg": "crit dmg",
+    "on hit defence": "def", "mainstat": "stat"
+  };
+  function shortLine(name) { return SHORT_LINE[name] || name; }
 
   /**
    * What a grid step costs in gems and in time. Weeks use the astrogem
@@ -514,7 +529,8 @@
           var st = String(hit.stats).split("/");
           egHead = st[0] + " <i>spec</i> &nbsp;" + st[1] + " <i>swift</i>";
           chips = hit.lines.map(function (l) {
-            return "<span class='chip t-" + l.tier + "'>" + l.name + "</span>";
+            return "<span class='chip t-" + l.tier + "' title='" + l.name + "'>" +
+              shortLine(l.name) + "</span>";
           });
         } else if (last.grid) {
           // the example is the grid a simulated account is holding at this
@@ -523,7 +539,8 @@
           var nodes = acct ? acct.nodes : last.grid.nodes;
           egHead = (acct ? acct.cores : last.grid.cores) + "-point <i>cores</i>";
           chips = nodes.map(function (n) {
-            return "<span class='chip'>" + n[0] + " <b>" + n[1] + "</b></span>";
+            return "<span class='chip' title='" + n[0] + "'>" +
+              n[0].replace("ally ", "a.") + " <b>" + n[1] + "</b></span>";
           });
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");
@@ -632,8 +649,12 @@
   });
   el("gpd").addEventListener("input", render);
 
+  // no-cache: revalidate every load. Without it the browser's heuristic cache
+  // served day-old rows after a deploy — the page and its data must not drift.
   function grab(u) {
-    return fetch(u).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    return fetch(u, { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
   }
   Promise.all([grab("data/honing-t4upper.json"), grab("data/karma.json"),
                grab("data/rows.json"), grab("data/rows-dps.json"),

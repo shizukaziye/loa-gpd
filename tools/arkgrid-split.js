@@ -17,10 +17,32 @@
  *
  * With n8 + n9 + n10 = 24 and every line at level five, the reachable levels are
  * exactly ally attack 5(n9+n10), brand 5(n8+n10), ally damage 5(n8+n9) — which
- * always sum to 240 with each node at most 120. So the choice is simply how to
- * split 240 levels three ways, in steps of five.
+ * always sum to 240 with each node at most 120.
+ *
+ * BUT the willpower budget prunes the set. At willpower five a gem's effective
+ * cost is baseCost - 5, so c8/c9/c10 cost 3/4/5 against a core cap of 17 over
+ * four gems. A core holds at most TWO cost-10 gems (three would need 15+3 with
+ * one slot left), and a two-c10 core has room for at most one c9. Over six
+ * cores that reduces to two closed rules:
+ *
+ *     n10 <= 12
+ *     n9  <= 24 - n10 - max(0, n10 - 6)
+ *
+ * The first version of this tool skipped the budget and recommended a split
+ * needing twenty-four cost-10 gems — four to a core, 20 willpower against a
+ * cap of 17. Every number it printed above 60/120/60 was unreachable.
  */
 "use strict";
+function feasible(n8, n9, n10) {
+  if (n8 < 0 || n9 < 0 || n10 < 0 || n10 > 12) return false;
+  return n9 <= 24 - n10 - Math.max(0, n10 - 6);
+}
+function countsOf(a, b, c) {
+  // a = 5(n9+n10), b = 5(n8+n10), c = 5(n8+n9)
+  var n8 = (b + c - a) / 10, n9 = (a + c - b) / 10, n10 = (a + b - c) / 10;
+  if (n8 !== Math.round(n8) || n9 !== Math.round(n9) || n10 !== Math.round(n10)) return null;
+  return [n8, n9, n10];
+}
 var S = require("../model/support.js");
 var G = require("../model/gear.js");
 var data = require("../data/honing-t4upper.json");
@@ -63,6 +85,8 @@ for (var a = 0; a <= 120; a += 5) {
   for (var b = 0; b <= 120; b += 5) {
     var c = 240 - a - b;
     if (c < 0 || c > 120) continue;
+    var n = countsOf(a, b, c);
+    if (!n || !feasible(n[0], n[1], n[2])) continue;
     var v = gain(a, b, c);
     rows.push([a, b, c, v]);
     if (!best || v > best[3]) best = [a, b, c, v];
@@ -114,6 +138,10 @@ if (process.argv[2] === "dps") {
   for (var a = 0; a <= 120; a += 5) for (var b = 0; b <= 120; b += 5) {
     var c = 240 - a - b;
     if (c < 0 || c > 120) continue;
+    // DPS pools pair differently: attack = 5(n8+n9), boss = 5(n9+n10),
+    // add = 5(n8+n10) — so the arguments permute against the support mapping
+    var n = countsOf(b, c, a);
+    if (!n || !feasible(n[0], n[1], n[2])) continue;
     var v = dps([a, b, c]);
     if (!db || v > db[3]) db = [a, b, c, v];
   }

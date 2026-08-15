@@ -80,5 +80,18 @@ check("weapon +25 expected taps", w25.taps, 45.7, 1e-2);
 var a12 = Honing.step(honingData, "armor", 12, prices, enabled);
 check("armour +12 buys no breath", a12.juice, 0);
 
+// ---- bracelet model invariants ---------------------------------------------
+// The audit found the floor stranding three bands under a score nothing could
+// reach, and a hand-edited line table drifting from its generator. These pin
+// the invariants that broke.
+var Bracelet = require(path.join(root, "model/bracelet.js"));
+console.log("bracelet — ladder and floor");
+var worst = Bracelet.score(2 * 61 * Bracelet.TRAIT_PER_POINT);   // 61/61, no scoring line
+check("worst possible bracelet scores 0 (F, not F-)", worst, 0);
+check("a 61/61 with nothing ranks F", Bracelet.rank(worst) === "F" ? 1 : 0, 1);
+check("families 17 and 19 identical at low", Bracelet.SUPPORT_LINE[17][0], Bracelet.SUPPORT_LINE[19][0]);
+check("families 17 and 19 identical at mid", Bracelet.SUPPORT_LINE[17][1], Bracelet.SUPPORT_LINE[19][1]);
+check("beating the anchor is S+", Bracelet.rank(100) === "S+" ? 1 : 0, 1);
+
 console.log(fails ? "\n" + fails + " FAILED" : "\nall checks pass");
 process.exit(fails ? 1 : 0);

@@ -37,6 +37,7 @@ process.argv.slice(2).forEach(function (a) {
   if (m) ARGS[m[1]] = m[2] === undefined ? true : m[2];
 });
 var RARITY = String(ARGS.rarity || "epic");
+if (!A.RARITY[RARITY]) throw new Error("unknown rarity " + RARITY);
 var BUDGET_RARITY = { maxTurns: A.RARITY[RARITY].maxTurns, maxRerolls: A.RARITY[RARITY].maxRerolls };
 A.RARITY.epic.maxTurns = BUDGET_RARITY.maxTurns;
 A.RARITY.epic.maxRerolls = BUDGET_RARITY.maxRerolls;
@@ -84,12 +85,17 @@ function snap(g) {
   for (var i = 0; i < BAND_CUTS.length; i++) if (g >= BAND_CUTS[i]) q = BAND_CUTS[i];
   return q;
 }
+// Roster-bound, matching the fitted corpus and the calculator's own default
+// advice since astrogems stopped being sellable. Off, the DP abandons gems to
+// save gold the cutter charges anyway, and the chart reads cheaper than a
+// player following the site's advisor actually pays.
+var ROSTER = true;
 var solverCache = {};
-function solverFor(baseline, gpd, cost) {
+function solverFor(baseline, gpd) {
   var q = snap(baseline);
-  var key = q + "_" + gpd + "_" + cost;
+  var key = q + "_" + gpd;
   if (!solverCache[key]) {
-    solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, false,
+    solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, ROSTER,
       { axis: "support", maxTurns: BUDGET_RARITY.maxTurns });
   }
   return solverCache[key];
@@ -105,7 +111,7 @@ function partsOfSum(s) {
   _partCache[s] = out;
   return out;
 }
-function sampleTierGem(cost, tierName, rand) {
+function sampleTierGem(cost, tierName, rand, gemType) {
   var sumDist = A.outputLevelSumDist(tierName);
   var r = rand(), acc = 0, sum = null;
   Object.keys(sumDist).forEach(function (k) {
@@ -118,7 +124,7 @@ function sampleTierGem(cost, tierName, rand) {
   var pool = A.EFFECT_POOLS[cost];
   var i = Math.floor(rand() * pool.length), j = Math.floor(rand() * (pool.length - 1));
   if (j >= i) j++;
-  return { baseCost: cost, gemType: "order", willpowerLevel: p[0], orderLevel: p[1],
+  return { baseCost: cost, gemType: gemType || "order", willpowerLevel: p[0], orderLevel: p[1],
     effect1: pool[i], effect1Level: p[2], effect2: pool[j], effect2Level: p[3] };
 }
 function drawTier(dist, rand) {
@@ -129,80 +135,223 @@ function drawTier(dist, rand) {
 }
 
 /**
- * Lay a half out across its three cores, then score the whole grid.
+ * Pack one half's three cores out of everything that half owns.
  *
- * A core only pays for the points above seventeen, and the three cores in a
- * half pay at different rates, so the order points want to be concentrated in
- * the best core rather than spread. CORES lists each half best-rate first, so
- * sorting the twelve by order level and dealing them out four at a time puts
- * the highest points where they are worth the most.
+ * A core is FOUR gems and holds two separate seventeens, pulling against each
+ * other:
+ *
+ *   willpower  the four effective costs (baseCost - willpowerLevel) must fit
+ *              inside 17. The perfect core is exactly 5+5+4+3.
+ *   order      only the order points ABOVE 17 pay anything, and four gems can
+ *              reach 20, so the last three points are the whole prize.
+ *
+ * So a gem is never good or bad on its own — a cheap high-willpower gem earns
+ * its place by letting an expensive one fit beside it. That is also why gems
+ * you are not wearing still matter: a core can be re-packed 4+4+4+5 into
+ * 3+4+5+5 using something already in the box, which is Shizu's point and the
+ * reason this keeps an inventory instead of only the equipped twelve.
+ *
+ * Each core is solved exactly, best-paying core first, by a small DP over
+ * (gems used, willpower spent, order points). The state space is 4 x 18 x 21,
+ * so this is cheap enough to redo whenever the inventory changes.
  */
-function placeHalf(gems, half) {
-  var sorted = gems.slice().sort(function (a, b) { return (b.orderLevel || 0) - (a.orderLevel || 0); });
-  return sorted.map(function (g, i) {
-    return Object.assign({}, g, { coreBase: CORES[half][(i / 4) | 0] });
-  });
+var CORE_WP = 17, ORDER_FLOOR = 17, PER_CORE = 4;
+function effCost(g) { return g.baseCost - (g.willpowerLevel || 0); }
+
+/**
+ * A core that misses seventeen order points does not merely earn nothing — it
+ * taxes the WHOLE grid. Ported from the astrogem calculator's own account study
+ * (tools/account-study.js, Shizu 2026-08-09), where it is applied log-additively
+ * per core so the multiplier lands on the total.
+ *
+ * Three percent sounds mild and is not: on the support axis it is worth about
+ * ninety to a hundred and ninety order points depending on the core, far more
+ * than any side-node trade can return. That is
+ * deliberate — it makes the packer force 17+ wherever the collection allows,
+ * rather than quietly settling for a fourteen-point core with prettier lines.
+ */
+function bandPenalty(pts) {
+  if (pts >= 17) return 0;
+  if (pts >= 14) return 0.03;
+  if (pts >= 10) return 0.06;
+  return 0.09;
 }
 
-/** The grid's damage, and the node levels, through the calculator's own scorer. */
-function gridState(pools) {
-  var placed = placeHalf(pools.order, "order").concat(placeHalf(pools.chaos, "chaos"));
-  var node = [0, 0, 0], pts = 0;
+var WSPAN = CORE_WP + 1, DSPAN = 4 * 5 + 1, NSTATE = (PER_CORE + 1) * WSPAN * DSPAN;
+function stateIdx(u, w, d) { return (u * WSPAN + w) * DSPAN + d; }
+
+// Scratch buffers, reused across calls — this runs after every socketed gem and
+// allocating a fresh DP each time was the whole cost of the simulation.
+var _score = new Float64Array(NSTATE);
+var _prev = new Int32Array(NSTATE);
+var _took = new Int32Array(NSTATE);
+
+function packCore(pool, rate) {
+  _score.fill(-Infinity);
+  _prev.fill(-1);
+  _took.fill(-1);
+  _score[stateIdx(0, 0, 0)] = 0;
+  for (var i = 0; i < pool.length; i++) {
+    var g = pool[i], c = effCost(g), o = g.orderLevel || 0;
+    if (c > CORE_WP) continue;
+    var eff = A.supportDamage(g, 0);          // effects only; order priced below
+    for (var u = PER_CORE - 1; u >= 0; u--) {
+      for (var w = 0; w + c <= CORE_WP; w++) {
+        for (var d = 0; d + o < DSPAN; d++) {
+          var from = stateIdx(u, w, d);
+          var base = _score[from];
+          if (base === -Infinity) continue;
+          var to = stateIdx(u + 1, w + c, d + o);
+          var val = base + eff;
+          if (val > _score[to]) { _score[to] = val; _prev[to] = from; _took[to] = i; }
+        }
+      }
+    }
+  }
+  var winner = -1, winVal = -Infinity;
+  for (var w2 = 0; w2 <= CORE_WP; w2++) {
+    for (var d2 = 0; d2 < DSPAN; d2++) {
+      var st = stateIdx(PER_CORE, w2, d2);
+      if (_score[st] === -Infinity) continue;
+      var total = _score[st] + 100 * Math.log(1 + rate * Math.max(0, d2 - ORDER_FLOOR))
+        + 100 * Math.log(1 - bandPenalty(d2));
+      if (total > winVal) { winVal = total; winner = st; }
+    }
+  }
+  if (winner < 0) return null;
+  var picks = [];
+  for (var cur = winner; cur >= 0 && _took[cur] >= 0; cur = _prev[cur]) picks.push(_took[cur]);
+  return { picks: picks, value: winVal };
+}
+
+/**
+ * Best legal layout of a half: three cores, four gems each, from the inventory.
+ *
+ * The cores are filled greedily one after another, which depends on the order
+ * they are filled in — so all six orderings of the three cores are tried and
+ * the best total kept. Not a full joint solve, but it removes the one bias the
+ * fixed ordering had: the first core skimming gems a later core needed more.
+ */
+var PERMS = [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+function packHalf(inv, half) {
+  var bestPlaced = null, bestVal = -Infinity;
+  for (var pi = 0; pi < PERMS.length; pi++) {
+    var left = inv.slice(), placed = [], val = 0, ok = true;
+    for (var k = 0; k < 3 && ok; k++) {
+      var coreId = CORES[half][PERMS[pi][k]];
+      // supportOrderValueForCore returns log-damage per point; the order
+      // bracket needs the linear rate, exp(v/100)-1, exactly as the
+      // calculator converts it (astrogem.js supportGridDamage)
+      var rate = Math.exp(A.supportOrderValueForCore(coreId) / 100) - 1;
+      var got = packCore(left, rate);
+      if (!got) { ok = false; break; }
+      val += got.value;
+      var taken = {};
+      got.picks.forEach(function (idx) {
+        taken[idx] = true;
+        placed.push(Object.assign({}, left[idx], { coreBase: coreId }));
+      });
+      left = left.filter(function (_, idx) { return !taken[idx]; });
+    }
+    if (ok && val > bestVal) { bestVal = val; bestPlaced = placed; }
+  }
+  return bestPlaced;
+}
+
+/**
+ * The grid's damage and its node levels.
+ *
+ * The band penalty is NOT subtracted here, on purpose. Its job is in the
+ * packer's objective, where it forces cores to seventeen the way Shizu ruled
+ * ("even -3% should be enough to force all 17s"). Physically it stands for the
+ * core threshold bonuses a sub-17 core fails to unlock — and those live in the
+ * gear baseline (the weapon core's flats), not in this row. Subtracting it
+ * here made low-budget grids report NEGATIVE damage, which no set of equipped
+ * gems can do to a character. So the packer avoids sub-17 cores at almost any
+ * cost, and the number reported is the damage the worn grid actually adds.
+ */
+function gridState(packed) {
+  var placed = packed.order.concat(packed.chaos);
+  var node = [0, 0, 0], pts = 0, corePts = {};
   placed.forEach(function (g) {
     for (var q = 0; q < 3; q++) {
       if (g.effect1 === NODES[q]) node[q] += g.effect1Level;
       if (g.effect2 === NODES[q]) node[q] += g.effect2Level;
     }
     pts += g.orderLevel || 0;
+    corePts[g.coreBase] = (corePts[g.coreBase] || 0) + (g.orderLevel || 0);
   });
   return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6 };
 }
 
 /**
- * One account. Each cut is an order gem or a chaos one, and it can only take a
- * slot in its own half — which is what makes the grid expensive: a superb chaos
- * gem does nothing for a weak order core.
+ * One account. Each cut is an order gem or a chaos one and can only ever go in
+ * its own half. Everything cut is KEPT: an unequipped gem is not waste, it is a
+ * packing option, so the inventory is what gets solved rather than a fixed
+ * twenty-four.
+ *
+ * The inventory is pruned to the best few dozen a side. Solving the pack is
+ * cheap but not free, and a gem outside the top of the pile can never earn a
+ * core slot — it is beaten on damage AND it frees no willpower a better gem
+ * does not free more of.
  */
+var KEEP = 26;
+
 function runAccount(gpd, rep) {
   var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + (rep || 0)));
-  var pools = { order: [], chaos: [] }, trace = [], gold = 0, cut = 0;
+  var inv = { order: [], chaos: [] };
+  var packed = { order: null, chaos: null };
+  var trace = [], gold = 0, cut = 0;
+
   while (cut < N) {
     var half = rand() < 0.5 ? "order" : "chaos";
-    var mine = pools[half];
-    var full = mine.length >= HALF;
-    var weakestDmg = full
-      ? Math.min.apply(null, mine.map(function (g) { return A.supportDamage(g); }))
-      : -Infinity;
-    var weakest = full
-      ? Math.min.apply(null, mine.map(function (g) { return A.supportGrade(g); }))
-      : 0;
-    var cost = rand() < MIX[8] ? 8 : (rand() < 0.75 ? 9 : 10);
+    var eq = packed[half];
+    // the advisor's baseline is the weakest grade you are actually wearing
+    var weakest = eq ? Math.min.apply(null, eq.map(function (g) { return A.supportGrade(g); })) : 0;
+    var r0 = rand();
+    var cost = r0 < MIX[8] ? 8 : (r0 < MIX[8] + MIX[9] ? 9 : 10);
     var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
-    var res = cutOneGem(solverFor(weakest, gpd, cost),
+    var res = cutOneGem(solverFor(weakest, gpd),
       { baseCost: cost, gemType: half, effect1: pr[0], effect2: pr[1] }, rand, true);
     gold += res.spent;
     cut++;
     var got = res.processes > 0 ? res.cfg : null;
-    if (got && full && A.supportDamage(got) <= weakestDmg && A.levelSum(got) >= 16) {
-      gold += A.COSTS.fusion;
-      var outTier = drawTier(A.fusionOutputDist([A.classifyTier(A.levelSum(got)), "legendary", "legendary"]), rand);
-      got = outTier === "legendary" ? null : sampleTierGem(got.baseCost, outTier, rand);
-    }
     if (!got) continue;
-    if (!full) {
-      mine.push(got);
-    } else {
-      var wi = 0, wd = Infinity;
-      for (var i = 0; i < mine.length; i++) {
-        var d = A.supportDamage(mine[i]);
-        if (d < wd) { wd = d; wi = i; }
+
+    var mine = inv[half];
+    mine.push(got);
+    if (mine.length > KEEP) {
+      // Choose the drop, and never a budget-enabler if it can be helped: a gem
+      // at effective cost four or less is willpower headroom, and the packer
+      // turns headroom into damage the gem itself does not carry. Pruning on
+      // damage alone would throw away precisely the gems that make 5+5+4+3
+      // cores possible.
+      var dropAt = function () {
+        mine.sort(function (a, b) { return A.supportDamage(b) - A.supportDamage(a); });
+        for (var j = mine.length - 1; j >= 0; j--) if (effCost(mine[j]) > 4) return j;
+        return mine.length - 1;
+      };
+      var drop = mine.splice(dropAt(), 1)[0];
+      // a dud deep in the pile is worth fusing rather than carrying
+      if (A.levelSum(drop) >= 16) {
+        gold += A.COSTS.fusion;
+        var outTier = drawTier(A.fusionOutputDist([A.classifyTier(A.levelSum(drop)), "legendary", "legendary"]), rand);
+        if (outTier !== "legendary") {
+          mine.push(sampleTierGem(drop.baseCost, outTier, rand, half));
+          if (mine.length > KEEP) mine.splice(dropAt(), 1);
+        }
       }
-      if (A.supportDamage(got) <= wd) continue;
-      mine[wi] = got;
     }
-    if (pools.order.length === HALF && pools.chaos.length === HALF) {
-      var st = gridState(pools);
-      var all = pools.order.concat(pools.chaos);
+    // Repack on every inventory change. The old gate (beats the weakest, or
+    // cheapest willpower) missed exactly the cases Shizu called out: a gem
+    // that displaces a middle slot, a fusion output, and re-packs like
+    // 4+4+4+5 into 3+4+5+5 where the new gem itself never gets worn. The
+    // packer is typed-array cheap now; the gate was guarding a cost that no
+    // longer exists.
+    packed[half] = packHalf(mine, half) || packed[half];
+    if (packed.order && packed.chaos) {
+      var st = gridState(packed);
+      var all = packed.order.concat(packed.chaos);
       var grades = all.map(function (g) { return A.supportGrade(g); });
       trace.push({ gold: gold, cut: cut, damage: st.damage,
         weakest: Math.min.apply(null, grades),
@@ -224,6 +373,11 @@ var REPS = parseInt(ARGS.reps, 10) || 1;
 /** One account's stopping point at this budget. */
 function stopAt(gpd, rep) {
   var trace = runAccount(gpd, rep);
+  // Until twelve gems a side can form three cores inside their willpower
+  // budget there is no legal grid at all, so an account can finish with an
+  // empty trace. That is a real outcome, not an error: it says this budget
+  // never reached a wearable grid.
+  if (!trace.length) return null;
   // Stop where the next gem stops paying for itself. One gem at a time is far
   // too noisy to test — most cuts add nothing and then one lands — so the rate
   // is measured over a window of sockets and the stop is the last point where
@@ -243,15 +397,22 @@ function stopAt(gpd, rep) {
 // slightly worse grid than a poorer one, which must never show on the card.
 // Averaging several accounts per budget settles it honestly. The DP solvers are
 // cached across reps, so the extra cost is cutting, not solving.
+var _t0 = process.hrtime.bigint();
 var out = GPDS.map(function (gpd) {
+  console.error("  gpd " + (gpd / 1e6).toFixed(2) + "M  at " +
+    (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
   var acc = { gold: 0, cut: 0, damage: 0, weakest: 0, mean: 0, cores: 0, node: [0, 0, 0] };
+  var got = 0;
   for (var r = 0; r < REPS; r++) {
     var st = stopAt(gpd, r);
+    if (!st) continue;
+    got++;
     acc.gold += st.gold; acc.cut += st.cut; acc.damage += st.damage;
     acc.weakest += st.weakest; acc.mean += st.mean; acc.cores += st.cores;
     for (var k = 0; k < 3; k++) acc.node[k] += st.node[k];
   }
-  function avg(v) { return v / REPS; }
+  if (!got) return { gpd: gpd, reachable: false };
+  function avg(v) { return v / got; }
   return {
     gpd: gpd, gold: Math.round(avg(acc.gold)), gems: Math.round(avg(acc.cut)),
     weeks: avg(acc.cut) / CUTS_PER_WEEK[RARITY],
