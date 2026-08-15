@@ -99,6 +99,9 @@ var fs = require("fs");
   var out = {
     axis: "support", rarity: rarity, model: "account",
     draw: acct.draw || "mc",
+    // highest budget tier actually simulated — the page marks anything the
+    // slider asks for beyond this as still filling in
+    maxGpd: (acct.rows || []).reduce(function (m, r) { return Math.max(m, r.gpd || 0); }, 0),
     slots: acct.slots, cutsPerWeek: acct.cutsPerWeek,
     turns: acct.turns, rerolls: acct.rerolls, n: acct.n, sig: acct.sig,
     note: "Priced by the account simulator: cut with the advisor at your " +

@@ -135,6 +135,15 @@
     var s = state.arkgridRows[r];
     return !!(s && s.draw === "dd" && s.rows && s.rows.length);
   }
+  // "filling in" the moment the slider passes the highest tier this series
+  // has finished — inside coverage the rungs are final and say nothing
+  function arkFillNote(r) {
+    var s = state.arkgridRows[r], p = state.arkProgress;
+    if (!s || !s.maxGpd) return "";
+    if (p && p.total && p[r] && p[r].done >= p.total) return "";
+    if (BUDGET <= s.maxGpd) return "";
+    return "filling in — priced to " + fmtGold(s.maxGpd) + "/1% so far";
+  }
 
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
                 rows: { support: null, dps: null }, arkgridRows: {},
@@ -484,8 +493,9 @@
       if (["neck", "ring", "earring"].indexOf(key) >= 0) where = where.split(" · ")[0];
       var rc = rankColor(where), note = p.taken ? (p.last.note || "") : "";
       // the ark grid note ("mean 83") duplicates the pill on the card and its
-      // two-line title leaves no room — the ranked table keeps the note
-      if (RARITY_OF[key]) note = "";
+      // two-line title leaves no room — the slot instead says when the slider
+      // sits beyond the tiers the sweep has finished for this series
+      if (RARITY_OF[key]) note = arkFillNote(RARITY_OF[key]);
       var spend = SERIES[key].spend === "last" && p.last
         ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
       var last = p.taken ? p.last : null;
@@ -556,16 +566,10 @@
       var p = state.arkProgress, total = p && p.total;
       var prog = !total ? "" : " Progress: rares " + (p.rare ? p.rare.done : 0) +
         "/" + total + " · epics " + (p.epic ? p.epic.done : 0) + "/" + total + " tiers.";
-      var sweeping = total && ((p.rare ? p.rare.done : 0) < total ||
-                               (p.epic ? p.epic.done : 0) < total);
-      var live = arkLive("rare") || arkLive("epic");
-      if (live && !sweeping) return "";
-      if (!live)
-        return card("coming soon", "being recomputed end to end",
-          "Exact cut distributions, simulated accounts, every grade priced. " +
-          "Rungs appear here tier by tier as the run completes." + prog);
-      return card("filling in", "low tiers first — the top is still cooking",
-        "The rungs shown are final; higher ones land as their tiers finish." + prog);
+      if (arkLive("rare") || arkLive("epic")) return "";   // series cards carry their own filling-in notes
+      return card("coming soon", "being recomputed end to end",
+        "Exact cut distributions, simulated accounts, every grade priced. " +
+        "Rungs appear here tier by tier as the run completes." + prog);
     })();
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
