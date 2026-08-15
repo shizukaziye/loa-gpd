@@ -44,6 +44,8 @@ A.RARITY.epic.maxRerolls = BUDGET_RARITY.maxRerolls;
 
 var DP = require(REPO + "/model/dp.js");
 var Engine = require(REPO + "/tools/lib/cut-engine.js");
+var DPX = require("./dp-extract.js");
+var fsMod = require("fs"), pathMod = require("path");
 var mulberry32 = Engine.mulberry32, fnv1a = Engine.fnv1a, cutOneGem = Engine.cutOneGem;
 
 var SLOTS = 24;
@@ -63,8 +65,64 @@ var CUTS_PER_WEEK = { uncommon: 70, rare: 26, epic: 9 };
 var PARTY = 3;
 var N = parseInt(ARGS.n, 10) || 4000;          // gems cut per account
 var SEED = String(ARGS.seed || "gpd-2026-08-14");
-var GPDS = [250000, 500000, 1000000, 2000000, 4000000, 8000000, 16000000, 25000000];
+// default is the original eight; --gpds=comma-list overrides so the anchor
+// sweep can shard the 28-tier grid across processes
+var GPDS = ARGS.gpds
+  ? String(ARGS.gpds).split(",").map(function (x) { return parseInt(x, 10); })
+  : [250000, 500000, 1000000, 2000000, 4000000, 8000000, 16000000, 25000000];
 var MIX = { 8: 0.6, 9: 0.3, 10: 0.1 };
+// --draw=dd samples finished gems from the EXACT per-cell distribution the
+// extractor computes (game mode: sequential law, decide's gate, ledger gold),
+// instead of walking nine turns per gem. Cells cache to disk and are shared
+// by every shard; once warm, a draw is a binary search.
+var DRAW = String(ARGS.draw || "mc");
+var CELL_DIR = "data/cells/" + RARITY;
+if (DRAW === "dd") fsMod.mkdirSync(CELL_DIR, { recursive: true });
+var cfgTables = { 8: DPX.buildCfgTable(8), 9: DPX.buildCfgTable(9), 10: DPX.buildCfgTable(10) };
+var cellCache = {}, cellOrder = [];
+function cellFor(cost, pairIdx, band, gpd) {
+  var key = cost + "_" + pairIdx + "_" + band + "_" + gpd;
+  var got = cellCache[key];
+  if (got) return got;
+  var file = pathMod.join(CELL_DIR, "bl" + band + "-g" + gpd + "-c" + cost + "-p" + pairIdx + ".json");
+  var cell;
+  if (fsMod.existsSync(file)) {
+    var d = JSON.parse(fsMod.readFileSync(file, "utf8"));
+    cell = { fin: Float64Array.from(d.fin), finG: Float64Array.from(d.finG),
+      dis: d.dis, disG: d.disG };
+  } else {
+    // share the account's own solver so a block's 18 cells reuse one DP memo
+    var ex = DPX.extract({ rarity: RARITY, cost: cost, pair: pairIdx, baseline: band,
+      gpd: gpd, roster: ROSTER, axis: "support", mode: "game", allowReset: true,
+      solver: solverFor(band, gpd) });
+    cell = { fin: ex.fin, finG: ex.finG, dis: ex.dis, disG: ex.disG };
+    var tmp = file + "." + process.pid + ".tmp";
+    fsMod.writeFileSync(tmp, JSON.stringify({ fin: Array.from(ex.fin),
+      finG: Array.from(ex.finG), dis: ex.dis, disG: ex.disG, sig: A.MODEL_SIG }));
+    fsMod.renameSync(tmp, file);
+  }
+  // prefix sums over the 3,751 atoms for O(log n) sampling
+  var cum = new Float64Array(3751), acc = 0;
+  for (var i = 0; i < 3750; i++) { acc += cell.fin[i]; cum[i] = acc; }
+  cum[3750] = acc + cell.dis;
+  cell.cum = cum; cell.tot = cum[3750];
+  cellCache[key] = cell;
+  cellOrder.push(key);
+  if (cellOrder.length > 4000) delete cellCache[cellOrder.shift()];
+  return cell;
+}
+/** One gem, drawn from the exact distribution. Mirrors cutOneGem's contract. */
+function drawGemDD(cost, pairIdx, band, gpd, rand) {
+  var cell = cellFor(cost, pairIdx, band, gpd);
+  var x = rand() * cell.tot, lo = 0, hi = 3750;
+  while (lo < hi) { var mid = (lo + hi) >> 1; if (cell.cum[mid] < x) lo = mid + 1; else hi = mid; }
+  if (x > cell.cum[3749]) {                          // the dismantled atom
+    return { spent: cell.dis > 0 ? cell.disG / cell.dis : 0, processes: 0, cfg: null };
+  }
+  var mass = cell.fin[lo];
+  return { spent: mass > 0 ? cell.finG[lo] / mass : 0, processes: 1,
+    cfg: cfgTables[cost][lo] };
+}
 var NODES = ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
 var SHORT = { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
 
@@ -328,8 +386,10 @@ function runAccount(gpd, rep) {
     var r0 = rand();
     var cost = r0 < MIX[8] ? 8 : (r0 < MIX[8] + MIX[9] ? 9 : 10);
     var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
-    var res = cutOneGem(solverFor(weakest, gpd),
-      { baseCost: cost, gemType: half, effect1: pr[0], effect2: pr[1] }, rand, true);
+    var res = DRAW === "dd"
+      ? drawGemDD(cost, PAIRS[cost].indexOf(pr), snap(weakest), gpd, rand)
+      : cutOneGem(solverFor(weakest, gpd),
+          { baseCost: cost, gemType: half, effect1: pr[0], effect2: pr[1] }, rand, true);
     gold += res.spent;
     cut++;
     var got = res.processes > 0 ? res.cfg : null;
@@ -505,7 +565,17 @@ function feedCross(gpd, c) {
   a.count++;
 }
 
-var out = GPDS.map(function (gpd, gi) {
+function writeOut(partial) {
+  if (!ARGS.out) return;
+  require("fs").writeFileSync(ARGS.out, JSON.stringify({
+    rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
+    turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
+    n: N, party: PARTY, sig: A.MODEL_SIG, partial: partial, rows: out
+  }, null, 1));
+}
+
+var out = [];
+GPDS.forEach(function (gpd, gi) {
   var REPS = repsFor(gi);
   console.error("  gpd " + (gpd / 1e6).toFixed(2) + "M  x" + REPS + " accounts  at " +
     (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
@@ -525,9 +595,13 @@ var out = GPDS.map(function (gpd, gi) {
     for (var k = 0; k < 3; k++) acc.node[k] += st.node[k];
     for (var q = 0; q < 6; q++) acc.perCore[q] += (st.perCore ? st.perCore[q] : 0);
   }
-  if (!got) return { gpd: gpd, reachable: false };
+  if (!got) {
+    out.push({ gpd: gpd, reachable: false });
+    writeOut(true);                              // checkpoint: one tier per write
+    return;
+  }
   function avg(v) { return v / got; }
-  return {
+  out.push({
     gpd: gpd, gold: Math.round(avg(acc.gold)), gems: Math.round(avg(acc.cut)),
     weeks: avg(acc.cut) / CUTS_PER_WEEK[RARITY],
     damage: Number(avg(acc.damage).toFixed(4)),
@@ -539,7 +613,8 @@ var out = GPDS.map(function (gpd, gi) {
     capped: cappedReps > 0,
     perCore: acc.perCore.map(function (v) { return Math.round(avg(v)); }),
     nodes: NODES.map(function (n, k) { return [SHORT[n], Math.round(avg(acc.node[k]))]; })
-  };
+  });
+  writeOut(true);                                // checkpoint: one tier per write
 });
 
 // One account per budget is one sample, and samples wobble: a richer budget
