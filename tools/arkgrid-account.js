@@ -46,6 +46,18 @@ var Engine = require(REPO + "/tools/lib/cut-engine.js");
 var mulberry32 = Engine.mulberry32, fnv1a = Engine.fnv1a, cutOneGem = Engine.cutOneGem;
 
 var SLOTS = 24;
+// The grid is two separate halves and a gem cannot cross between them: an order
+// gem only ever goes in an order core. So the account keeps two pools of twelve
+// and a fresh gem only competes with its own kind.
+//
+// The six cores pay different rates per order/chaos point — Chaos Moon is worth
+// more than twice Order Star — and coreKeyOf reads these IDs, so passing 0..5
+// silently fell back to the average rate for all six.
+var CORES = {
+  order: [10002, 10001, 10003],   // Moon 0.0702, Sun 0.0682, Star 0.0486
+  chaos: [10005, 10006, 10004]    // Moon 0.1052, Star 0.0869, Sun 0.0826
+};
+var HALF = 12;
 var CUTS_PER_WEEK = { uncommon: 70, rare: 26, epic: 9 };
 var PARTY = 3;
 var N = parseInt(ARGS.n, 10) || 4000;          // gems cut per account
@@ -116,9 +128,25 @@ function drawTier(dist, rand) {
   return "ancient";
 }
 
+/**
+ * Lay a half out across its three cores, then score the whole grid.
+ *
+ * A core only pays for the points above seventeen, and the three cores in a
+ * half pay at different rates, so the order points want to be concentrated in
+ * the best core rather than spread. CORES lists each half best-rate first, so
+ * sorting the twelve by order level and dealing them out four at a time puts
+ * the highest points where they are worth the most.
+ */
+function placeHalf(gems, half) {
+  var sorted = gems.slice().sort(function (a, b) { return (b.orderLevel || 0) - (a.orderLevel || 0); });
+  return sorted.map(function (g, i) {
+    return Object.assign({}, g, { coreBase: CORES[half][(i / 4) | 0] });
+  });
+}
+
 /** The grid's damage, and the node levels, through the calculator's own scorer. */
-function gridState(gems) {
-  var placed = gems.map(function (g, i) { return Object.assign({}, g, { coreBase: (i / 4) | 0 }); });
+function gridState(pools) {
+  var placed = placeHalf(pools.order, "order").concat(placeHalf(pools.chaos, "chaos"));
   var node = [0, 0, 0], pts = 0;
   placed.forEach(function (g) {
     for (var q = 0; q < 3; q++) {
@@ -130,46 +158,52 @@ function gridState(gems) {
   return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6 };
 }
 
-/** One account: cut N gems, always socketing anything better than the weakest. */
+/**
+ * One account. Each cut is an order gem or a chaos one, and it can only take a
+ * slot in its own half — which is what makes the grid expensive: a superb chaos
+ * gem does nothing for a weak order core.
+ */
 function runAccount(gpd, rep) {
-  // one seed for every budget: the only thing that should differ between rows
-  // is the advisor's policy, not the luck of the draw
-  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + (arguments[1] || 0)));
-  var equipped = [], trace = [], gold = 0, cut = 0;
-  // start from nothing: the first 24 gems go straight in
+  var rand = mulberry32(fnv1a("acct:" + SEED + ":" + RARITY + ":" + (rep || 0)));
+  var pools = { order: [], chaos: [] }, trace = [], gold = 0, cut = 0;
   while (cut < N) {
-    var weakest = equipped.length < SLOTS ? 0
-      : Math.min.apply(null, equipped.map(function (g) { return A.supportGrade(g); }));
-    var weakestDmg = equipped.length < SLOTS ? -Infinity
-      : Math.min.apply(null, equipped.map(function (g) { return A.supportDamage(g); }));
+    var half = rand() < 0.5 ? "order" : "chaos";
+    var mine = pools[half];
+    var full = mine.length >= HALF;
+    var weakestDmg = full
+      ? Math.min.apply(null, mine.map(function (g) { return A.supportDamage(g); }))
+      : -Infinity;
+    var weakest = full
+      ? Math.min.apply(null, mine.map(function (g) { return A.supportGrade(g); }))
+      : 0;
     var cost = rand() < MIX[8] ? 8 : (rand() < 0.75 ? 9 : 10);
     var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
     var res = cutOneGem(solverFor(weakest, gpd, cost),
-      { baseCost: cost, gemType: "order", effect1: pr[0], effect2: pr[1] }, rand, true);
+      { baseCost: cost, gemType: half, effect1: pr[0], effect2: pr[1] }, rand, true);
     gold += res.spent;
     cut++;
     var got = res.processes > 0 ? res.cfg : null;
-    // a dud that reached relic is worth fusing rather than binning
-    if (got && equipped.length >= SLOTS && A.supportDamage(got) <= weakestDmg && A.levelSum(got) >= 16) {
+    if (got && full && A.supportDamage(got) <= weakestDmg && A.levelSum(got) >= 16) {
       gold += A.COSTS.fusion;
       var outTier = drawTier(A.fusionOutputDist([A.classifyTier(A.levelSum(got)), "legendary", "legendary"]), rand);
       got = outTier === "legendary" ? null : sampleTierGem(got.baseCost, outTier, rand);
     }
     if (!got) continue;
-    if (equipped.length < SLOTS) {
-      equipped.push(got);
+    if (!full) {
+      mine.push(got);
     } else {
       var wi = 0, wd = Infinity;
-      for (var i = 0; i < equipped.length; i++) {
-        var d = A.supportDamage(equipped[i]);
+      for (var i = 0; i < mine.length; i++) {
+        var d = A.supportDamage(mine[i]);
         if (d < wd) { wd = d; wi = i; }
       }
       if (A.supportDamage(got) <= wd) continue;
-      equipped[wi] = got;
+      mine[wi] = got;
     }
-    if (equipped.length === SLOTS) {
-      var st = gridState(equipped);
-      var grades = equipped.map(function (g) { return A.supportGrade(g); });
+    if (pools.order.length === HALF && pools.chaos.length === HALF) {
+      var st = gridState(pools);
+      var all = pools.order.concat(pools.chaos);
+      var grades = all.map(function (g) { return A.supportGrade(g); });
       trace.push({ gold: gold, cut: cut, damage: st.damage,
         weakest: Math.min.apply(null, grades),
         mean: grades.reduce(function (a, b) { return a + b; }, 0) / SLOTS,

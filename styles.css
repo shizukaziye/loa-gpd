@@ -146,10 +146,18 @@ th.bh .gloss,th .gloss{text-decoration-color:var(--dim)}
    foot. (:first-of-type cannot be used on .num2 — .top is the first div.) */
 .card .top{flex:0 0 auto;min-height:0;margin-bottom:auto}
 .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.card .top .eg{text-align:right;font-size:10.5px;line-height:1.4;color:var(--text);flex:1;min-width:0;
-  padding-top:2px;max-height:88px;overflow:hidden}
-.card .top .eg b{display:block;color:var(--text);font-size:11.5px;font-weight:700}
-.card .top .eg .sm{font-size:10px;color:var(--text)}
+/* The example's headline sits opposite the rank, and its effects go in chips
+   on their own row underneath — one chip an effect, left to right, at a size
+   you can actually read. */
+.card .top .eg{text-align:right;font-size:14px;line-height:1.3;color:var(--text);flex:1;min-width:0;
+  padding-top:3px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.card .top .eg i{font-style:normal;font-weight:600;font-size:11px;color:var(--dim)}
+.card .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+/* no colour here: .t-blue / .t-epic / .t-LEG carry the rarity and a colour on
+   .card .chip would out-specify them */
+.card .chip{background:var(--panel);border:1px solid var(--border);border-radius:5px;
+  padding:2px 8px;font-size:11.5px;line-height:1.5;white-space:nowrap}
+.card .chip b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
 .card h4{margin:0 0 4px;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
 .pill{display:inline-block;padding:2px 11px;border-radius:99px;font-weight:800;
   font-size:16px;line-height:1.45;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
@@ -167,6 +175,11 @@ td .pill{font-size:13px;padding:1px 9px}
 .totals div{font-size:17px;font-weight:700}
 .totals div span{display:block;color:var(--dim);font-size:10px;text-transform:uppercase;
   letter-spacing:.06em;font-weight:700;margin-bottom:2px}
+/* The legend had no rule at all, so its entries ran into one another. It only
+   showed once the ark grid split into two long names. */
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:10px;font-size:11.5px;color:var(--text)}
+.legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.legend .swatch{width:9px;height:9px;border-radius:2px;flex:0 0 auto}
 .bar{height:8px;border-radius:4px;display:block}
 tr[data-tip]{cursor:help}
 tr[data-tip]:hover td{background:rgba(102,199,255,.06)}

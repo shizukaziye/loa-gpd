@@ -500,7 +500,10 @@
       var spend = SERIES[key].spend === "last" && p.last
         ? p.last.gold : (p.last && p.last.total ? p.last.total : p.gold);
       var last = p.taken ? p.last : null;
-      var eg = "";
+      // Each example is a headline value and a row of chips, one chip per
+      // effect, read left to right. Chips carry normal-sized text: the old
+      // right-aligned fine print was unreadable and it resized the card.
+      var egHead = "", chips = [];
       if (last) {
         // the bracelet example tracks the budget, not just the band: a bigger
         // budget buys more rolls and keeps the best of them, so two players
@@ -508,29 +511,35 @@
         var hit = (key === "bracelet" && state.axis === "support")
           ? (braceletAt(BUDGET) || last.hit) : last.hit;
         if (hit) {
-          eg = "<b>" + hit.stats + "</b>" + hit.lines.map(function (l) {
-            return "<span class='sm'>" + l.name + " <span class='t-" + l.tier + "'>" + l.tier + "</span></span>";
-          }).join("<br>");
+          var st = String(hit.stats).split("/");
+          egHead = st[0] + " <i>spec</i> &nbsp;" + st[1] + " <i>swift</i>";
+          chips = hit.lines.map(function (l) {
+            return "<span class='chip t-" + l.tier + "'>" + l.name + "</span>";
+          });
         } else if (last.grid) {
           // the example is the grid a simulated account is holding at this
           // budget, so it moves with the slider rather than with the band
           var acct = RARITY_OF[key] ? accountGridAt(key, BUDGET) : null;
-          var g = acct || last.grid;
           var nodes = acct ? acct.nodes : last.grid.nodes;
-          eg = "<b>" + (acct ? acct.cores : last.grid.cores) + "-point cores</b><span class='sm'>" +
-            nodes.map(function (n) { return n[0] + " " + n[1]; }).join("<br>") +
-            "</span>";
+          egHead = (acct ? acct.cores : last.grid.cores) + "-point <i>cores</i>";
+          chips = nodes.map(function (n) {
+            return "<span class='chip'>" + n[0] + " <b>" + n[1] + "</b></span>";
+          });
         } else if (key === "neck" || key === "ring" || key === "earring") {
           var bits = (last.to || "").split(" · ");
-          eg = "<span class='sm'>" + (bits[2] || "") + "<br>" + colourTiers(bits[1] || "") + "</span>";
+          chips = bits.slice(1).filter(Boolean).map(function (b) {
+            return "<span class='chip'>" + colourTiers(b) + "</span>";
+          });
         }
       }
+      var eg = egHead ? "<div class='eg'>" + egHead + "</div>" : "";
+      var chipRow = chips.length ? "<div class='chips'>" + chips.join("") + "</div>" : "";
       var totalDmg = last && last.totalDamage ? last.totalDamage : p.damage;
       return "<div class='card' data-plan='" + key + "'><h4 style='color:" + SERIES[key].color + "'>" +
         SERIES[key].label + "</h4>" +
         "<div class='top'><div><div class='big'>" + pill(where) + "</div>" +
         (note ? "<div class='ilvl'>" + note + "</div>" : "") + "</div>" +
-        (eg ? "<div class='eg'>" + eg + "</div>" : "") + "</div>" +
+        eg + "</div>" + chipRow +
         "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
