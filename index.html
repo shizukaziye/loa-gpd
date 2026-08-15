@@ -127,6 +127,11 @@
                    "66102107": "Blue Stones", "66110226": "Leapstones",
                    "66111131": "Lava's", "66111132": "Glacier's" };
 
+  // The ark grid is down for its deterministic recompute (exact finished-gem
+  // distributions -> direct-draw accounts -> live per-tier updates). Flip this
+  // when the pipeline starts shipping rungs and the placeholder gives way.
+  var ARKGRID_LIVE = false;
+
   var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
                 rows: { support: null, dps: null }, arkgridRows: {},
                 braceletByGpd: null };
@@ -244,17 +249,15 @@
     }
     baked.forEach(function (r) {
       if (dpsDmg && (r.series === "armor" || r.series === "weapon" || r.series === "karma")) return;
-      // the two rarity series supersede the single baked ark grid row, but only
-      // on the axis they were simulated for — the cost harness grades with
-      // supportGrade, so the DPS tab keeps the old row until it has its own runs
-      if (r.series === "arkgrid" && state.axis === "support") return;
+      // no baked ark grid rows on either axis while the recompute runs
+      if (r.series === "arkgrid") return;
       out.push(Object.assign({}, r));
     });
     // The ark grid is priced by the ACCOUNT model, per Shizu: rows are the
     // stretches of a simulated account's build, so the price, the damage, the
     // example and the pill all describe one grid. The band ladder lives on in
     // docs/research as the uniformity-cost reference only.
-    if (state.axis === "support") {
+    if (ARKGRID_LIVE && state.axis === "support") {
       ["arkgridEpic", "arkgridRare"].forEach(function (key) {
         var src = state.arkgridRows[RARITY_OF[key]];
         if (!src) return;
@@ -531,7 +534,12 @@
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
         dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
-    }).join("");
+    }).join("") + (ARKGRID_LIVE ? "" :
+      "<div class='card coming'><h4 style='color:#e8b75c'>Ark grid</h4>" +
+      "<div class='big'>coming soon</div>" +
+      "<div class='ilvl'>being recomputed end to end</div>" +
+      "<div class='sm2'>Exact cut distributions, simulated accounts, every grade " +
+      "priced. Rungs will appear here tier by tier as the run completes.</div></div>");
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
       "<div><span>" + dmgLabel().toLowerCase() + "</span>" + dmg.toFixed(2) + "%</div>" +
