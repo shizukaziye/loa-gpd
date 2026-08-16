@@ -537,14 +537,50 @@ function stopAt(gpd, rep) {
   var stopIdx = trace.indexOf(stop.capped != null ? trace.find(function (t) {
     return t.gold === stop.gold && t.cut === stop.cut; }) : stop);
   if (stopIdx < 0) stopIdx = trace.length - 1;
+  // A band's crossing is recorded SUSTAINED: from the point after which the
+  // worn mean never again dips below the cut before the stop. The first touch
+  // catches a lucky wobble of a mean the packer optimizes for damage, not
+  // grade — measured on 62k accounts it underprices the high bands by 3-4%
+  // and, worse, flattens the marginal curve between rungs, which is what hid
+  // B behind B+ on the chart. The first-touch state rides along as fGold for
+  // reference.
   var crossings = [];
   LADDER_ASC.forEach(function (row) {
     var cut = row[1] === -Infinity ? 0 : row[1];
+    var first = null, lastBelow = -1;
     for (var ci = 0; ci <= stopIdx; ci++) {
-      if (trace[ci].mean >= cut) { crossings.push(Object.assign({ band: row[0] }, trace[ci])); return; }
+      if (first === null && trace[ci].mean >= cut) first = ci;
+      if (trace[ci].mean < cut) lastBelow = ci;
     }
+    if (first === null) return;
+    var sus = lastBelow + 1 <= stopIdx && trace[lastBelow + 1] ? lastBelow + 1 : first;
+    crossings.push(Object.assign({ band: row[0], fGold: trace[first].gold }, trace[sus]));
   });
   stop.crossings = crossings;
+  // --xcross=<file>: bias instrumentation. Alongside the FIRST touch of each
+  // cut, record the SUSTAINED crossing — the point after which the worn mean
+  // never again dips below the cut before the stop (swaps optimize damage,
+  // not mean grade, so the mean can regress). First-touch catches lucky
+  // wobbles and flattens the marginal curve between rungs; this measures by
+  // how much. One JSON line per account, raw golds for honest error bars.
+  if (ARGS.xcross) {
+    var xrec = { gpd: gpd, rep: rep, stopGold: stop.gold, capped: !!stop.capped, bands: {} };
+    LADDER_ASC.forEach(function (row) {
+      var cut = row[1] === -Infinity ? 0 : row[1];
+      var first = null, lastBelow = -1;
+      for (var ci = 0; ci <= stopIdx; ci++) {
+        if (first === null && trace[ci].mean >= cut) first = ci;
+        if (trace[ci].mean < cut) lastBelow = ci;
+      }
+      if (first === null) return;
+      var sus = lastBelow + 1 <= stopIdx && trace[lastBelow + 1] ? lastBelow + 1 : null;
+      xrec.bands[row[0]] = {
+        f: [trace[first].gold, trace[first].damage, trace[first].cut],
+        s: sus !== null ? [trace[sus].gold, trace[sus].damage, trace[sus].cut] : null
+      };
+    });
+    require("fs").appendFileSync(ARGS.xcross, JSON.stringify(xrec) + "\n");
+  }
   return stop;
 }
 
@@ -556,10 +592,14 @@ var _t0 = process.hrtime.bigint();
 var CROSS = {};   // band -> gpd -> { sums..., count }
 function feedCross(gpd, c) {
   var byG = CROSS[c.band] = CROSS[c.band] || {};
-  var a = byG[gpd] = byG[gpd] || { gold: 0, damage: 0, cut: 0, mean: 0, weakest: 0,
-    cores: 0, node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0], count: 0 };
-  a.gold += c.gold; a.damage += c.damage; a.cut += c.cut;
+  var a = byG[gpd] = byG[gpd] || { gold: 0, fGold: 0, damage: 0, cut: 0, mean: 0, weakest: 0,
+    cores: 0, node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0], count: 0, golds: [] };
+  a.gold += c.gold; a.fGold += (c.fGold != null ? c.fGold : c.gold); a.damage += c.damage; a.cut += c.cut;
   a.mean += c.mean; a.weakest += c.weakest; a.cores += c.cores;
+  // raw sustained golds, kept in memory only: the cell's price is the MEDIAN,
+  // which the conditional mean cannot give us — at 80% coverage the mean of
+  // the crossers alone runs about 7% under the population's typical cost
+  a.golds.push(Math.round(c.gold));
   for (var k = 0; k < 3; k++) a.node[k] += c.node[k];
   for (var q = 0; q < 6; q++) a.perCore[q] += (c.perCore ? c.perCore[q] : 0);
   a.count++;
@@ -662,7 +702,16 @@ LADDER_ASC2.forEach(function (row) {
   AVG[row[0]] = Object.keys(byG).map(function (g) {
     var a = byG[g], c = a.count;
     var gi = GPDS.indexOf(Number(g));
-    return { gpd: Number(g), gold: a.gold / c, damage: a.damage / c, gems: a.cut / c,
+    a.golds.sort(function (x, y) { return x - y; });
+    // UNCONDITIONAL median: index 50% of the budget's reps, not of the
+    // crossers — accounts that never crossed are censored above everything
+    // observed, so while coverage holds above 50% this order statistic is
+    // exact and carries no survivor tilt. The crossers-only median would
+    // still flatter the cell.
+    var medIdx = gi >= 0 ? Math.floor(0.5 * repsFor(gi)) : (c >> 1);
+    return { gpd: Number(g), gold: a.gold / c,
+      goldMed: medIdx < c ? a.golds[medIdx] : null,
+      fGold: a.fGold / c, damage: a.damage / c, gems: a.cut / c,
       mean: a.mean / c, weakest: a.weakest / c, cores: a.cores / c,
       node: a.node.map(function (v) { return v / c; }),
       perCore: a.perCore.map(function (v) { return v / c; }),
@@ -670,18 +719,21 @@ LADDER_ASC2.forEach(function (row) {
   });
 });
 var rungs = [];
+// a cell's price is its unconditional median; cells too thin to have one
+// (goldMed null) never qualify — the coverage gate already excludes them
+function cellPrice(a) { return a.goldMed != null ? a.goldMed : a.gold; }
 LADDER_ASC2.forEach(function (row, k) {
   var best = null;
   for (var j = k; j < LADDER_ASC2.length; j++) {
     (AVG[LADDER_ASC2[j][0]] || []).forEach(function (a) {
-      if (a.coverage < 0.8) return;
-      if (!best || a.gold < best.gold) best = a;
+      if (a.coverage < 0.8 || a.goldMed == null) return;
+      if (!best || cellPrice(a) < cellPrice(best)) best = a;
     });
   }
   if (!best) return;
   rungs.push({ band: row[0], weakBand: letterOf(best.weakest),
     cut: row[1] === -Infinity ? 0 : row[1],
-    gold: Math.round(best.gold), damage: Number(best.damage.toFixed(4)),
+    gold: Math.round(cellPrice(best)), damage: Number(best.damage.toFixed(4)),
     gems: Math.round(best.gems), weeks: best.gems / CUTS_PER_WEEK[RARITY],
     mean: Number(best.mean.toFixed(1)), weakest: Number(best.weakest.toFixed(1)),
     cores: Math.round(best.cores), samples: best.count,

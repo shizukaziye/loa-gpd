@@ -92,7 +92,11 @@ for (var i = 1; i < rows.length; i++) {
   }
 }
 
-// clearing-cut rung selection over the pooled cells, coverage-gated
+// clearing-cut rung selection over the pooled cells, coverage-gated.
+// Cells are priced by their unconditional median (goldMed) when the shard
+// recorded one — sustained-crossing shards do; old first-touch shards fall
+// back to the conditional mean and should not be mixed into a new ladder.
+function cellPrice(a) { return a.goldMed != null ? a.goldMed : a.gold; }
 var LADDER_ASC = A.SUPPORT_RANK_LADDER.slice().reverse();
 var rungs = [];
 LADDER_ASC.forEach(function (row, k) {
@@ -100,13 +104,13 @@ LADDER_ASC.forEach(function (row, k) {
   for (var j = k; j < LADDER_ASC.length; j++) {
     (AVG[LADDER_ASC[j][0]] || []).forEach(function (a) {
       if (a.coverage < 0.8) return;
-      if (!best || a.gold < best.gold) best = a;
+      if (!best || cellPrice(a) < cellPrice(best)) best = a;
     });
   }
   if (!best) return;
   rungs.push({ band: row[0], weakBand: letterOf(best.weakest),
     cut: row[1] === -Infinity ? 0 : row[1],
-    gold: Math.round(best.gold), damage: Number(best.damage.toFixed(4)),
+    gold: Math.round(cellPrice(best)), damage: Number(best.damage.toFixed(4)),
     gems: Math.round(best.gems), weeks: best.gems / CUTS_PER_WEEK[RARITY],
     mean: Number(best.mean.toFixed(1)), weakest: Number(best.weakest.toFixed(1)),
     cores: Math.round(best.cores), samples: best.count,
