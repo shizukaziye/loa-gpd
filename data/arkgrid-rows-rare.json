@@ -3,7 +3,7 @@
  "rarity": "rare",
  "model": "account",
  "draw": "dd",
- "maxGpd": 1577393,
+ "maxGpd": 1896444,
  "slots": 24,
  "cutsPerWeek": 26,
  "turns": 7,
@@ -180,10 +180,10 @@
    "from": "C",
    "to": "C+",
    "note": "mean 68",
-   "gold": 390754,
-   "damage": 0.0481,
-   "total": 1397835,
-   "totalDamage": 1.1756,
+   "gold": 379461,
+   "damage": 0.0463,
+   "total": 1386542,
+   "totalDamage": 1.1738,
    "gems": 6,
    "weeks": 0.23076923076923078,
    "grid": {
@@ -199,7 +199,7 @@
     "nodes": [
      [
       "ally atk",
-      15
+      14
      ],
      [
       "brand",
