@@ -77,6 +77,17 @@ support's *own* base attack power, which scales the buff it hands out. The
 accessory calculator leaves that out. This tool follows bebkok, which raises
 every ap-channel step by roughly a tenth.
 
+A second deliberate divergence, ruled on 2026-08-16: the ark grid packer taxes
+any core under 17 points at a flat -3% / -6% / -9% of total damage (14-16 /
+10-13 / 0-9). The game's real loss, read off bebkok's "Ark Grid Cores" tab and
+run through this model's buff math, is smaller and lumpier — about 1.5-1.8%
+for the order attack-power cores, 0.4-0.75% for the chaos cores, 0.2% for the
+utility core, nearly flat below 17 because the 14-option is utility. Shizu
+keeps the harsh flat tax on purpose: 17+ points per core is treated as table
+stakes, not a trade the optimizer may sell. The tax lives in the packer's
+objective only; reported damage assumes the standard away-team of 17-point
+cores it enforces.
+
 ## Where the game data comes from
 
 `tools/fetch-game-data.py` pulls Maxroll's planner feed
