@@ -3,7 +3,7 @@
  "rarity": "epic",
  "model": "account",
  "draw": "dd",
- "maxGpd": 250000,
+ "maxGpd": 300566,
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -92,6 +92,47 @@
    "weakest": 52.9,
    "weakBand": "D-",
    "minimum": "all 24 slots filled, gems averaging C+",
+   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "C+",
+   "to": "B-",
+   "note": "mean 72",
+   "gold": 103076,
+   "damage": 0.0591,
+   "total": 791720,
+   "totalDamage": 1.4651,
+   "gems": 2,
+   "weeks": 0.2222222222222222,
+   "grid": {
+    "cores": 17,
+    "coresPer": [
+     18,
+     17,
+     15,
+     19,
+     17,
+     15
+    ],
+    "nodes": [
+     [
+      "ally atk",
+      20
+     ],
+     [
+      "brand",
+      45
+     ],
+     [
+      "ally dmg",
+      40
+     ]
+    ]
+   },
+   "meanGrade": 72.2,
+   "weakest": 54.4,
+   "weakBand": "D",
+   "minimum": "all 24 slots filled, gems averaging B-",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ]
