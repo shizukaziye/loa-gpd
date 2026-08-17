@@ -39,7 +39,7 @@
 <h2>What to buy at your gold per damage</h2>
 <div class='panel'>
   <div class='slider'>
-    <input type='range' id='gpd' min='0' max='100' value='45'>
+    <input type='range' id='gpd' min='0' max='100' value='45' step='any'>
     <div class='gpdval' id='gpdOut'></div>
   </div>
   <div class='slider' id='cpRow' style='display:none'>
@@ -249,7 +249,9 @@
     // budget is at or below the slider
     var shown = curve.floor, next = null;
     for (var ci = 0; ci < curve.cross.length; ci++) {
-      if (curve.cross[ci].b <= BUDGET) shown = curve.cross[ci].cp;
+      // the epsilon forgives float error when the CP slider lands the budget
+      // exactly on a crossing
+      if (curve.cross[ci].b <= BUDGET * 1.000001) shown = curve.cross[ci].cp;
       else { next = curve.cross[ci]; break; }
     }
     // the CP slider rides the same crossing table: hundreds only, and each
@@ -925,7 +927,7 @@
       if (curve.cross[i].cp <= target) b = curve.cross[i].b;
     var v = 0;
     if (b != null) v = Math.min(100, Math.max(0,
-      Math.ceil(100 * Math.log(b / 250000) / Math.log(100))));
+      100 * Math.log(b / 250000) / Math.log(100)));
     el("gpd").value = v;
     render();
   });
