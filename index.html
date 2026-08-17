@@ -135,6 +135,16 @@
     var s = state.arkgridRows[r];
     return !!(s && s.draw === "dd" && s.rows && s.rows.length);
   }
+  // The card's example follows the budget through the per-tier simulated
+  // accounts (the bracelet rule: the example tracks the budget, not just the
+  // band). The rung rows stay the plan's steps; this is what you'd HOLD.
+  function arkTierAt(r, budget) {
+    var s = state.arkgridRows[r], ts = s && s.tiers;
+    if (!ts || !ts.length) return null;
+    var pick = ts[0];
+    for (var i = 0; i < ts.length; i++) if (ts[i].gpd <= budget) pick = ts[i];
+    return pick;
+  }
   // "filling in" the moment the slider passes the highest tier this series
   // has finished — inside coverage the rungs are final and say nothing
   function arkFillNote(r) {
@@ -401,15 +411,20 @@
   function planTipHtml(key) {
     var p = PLAN[key], mine = ROWS.filter(function (r) { return r.series === key; });
     var next = mine[p.taken];
-    var where = p.taken === 0 ? SERIES[key].base : (p.last.to || p.last.label);
+    // the ark grid tip describes the budget-matched simulated account — the
+    // same one the card shows — not the last rung's snapshot
+    var tier = RARITY_OF[key] && p.taken ? arkTierAt(RARITY_OF[key], BUDGET) : null;
+    var where = p.taken === 0 ? SERIES[key].base : (tier ? tier.meanBand : (p.last.to || p.last.label));
     var h = "<b>" + SERIES[key].label + "</b><table>";
     h += num("At", pill(where));
     if (p.taken) {
       var spend = SERIES[key].spend === "last" ? p.last.gold : (p.last.total || p.gold);
+      if (tier) spend = tier.gold;
       h += num(SERIES[key].spend === "last" ? "Last step" : "Total cost",
                fmtGold(spend), "var(--high)");
-      h += num(dmgLabel(), p.damage.toFixed(3) + "%", "var(--good)");
-      h += num("Gold per 1%", fmtGold(p.gold / (p.damage * party())));
+      h += num(dmgLabel(), (tier ? tier.damage : p.damage).toFixed(3) + "%", "var(--good)");
+      h += num("Gold per 1%", fmtGold(tier ? tier.gold / (tier.damage * party())
+                                           : p.gold / (p.damage * party())));
     }
     h += "</table>";
     if (next) {
@@ -422,6 +437,10 @@
     }
     // what you actually have to buy and roll to be standing where you are
     var at = p.taken ? p.last : null;
+    if (tier && at) at = Object.assign({}, at, { to: tier.meanBand,
+      meanGrade: tier.mean, weakBand: tier.weakBand, weakest: tier.weakest,
+      gems: tier.gems, weeks: tier.weeks,
+      rarity: (state.arkgridRows[RARITY_OF[key]] || {}).rarity });
     if (at && at.mats && at.mats.length) {
       h += "<span class='k'>what it takes</span><table>";
       at.mats.forEach(function (m) {
@@ -518,6 +537,22 @@
             return "<span class='chip t-" + l.tier + "' title='" + l.name + "'>" +
               shortLine(l.name) + "</span>";
           });
+        } else if (RARITY_OF[key] && arkTierAt(RARITY_OF[key], BUDGET)) {
+          // one simulated account per budget tier: the pill, the cores, the
+          // chips and the totals below all come from the SAME account — the
+          // one the model says you'd hold at this budget. Rung rows freeze
+          // between grade letters; this is why the card keeps moving.
+          var at = arkTierAt(RARITY_OF[key], BUDGET);
+          where = at.meanBand;
+          spend = at.gold;
+          egHead = at.perCore
+            ? "<span class='cores6'>" + at.perCore.join("/") + "</span>"
+            : at.cores + "-point <i>cores</i>";
+          chips = (at.nodes || []).map(function (n) {
+            return "<span class='chip' title='" + n[0] + "'>" +
+              n[0].replace("ally ", "a.") + " <b>" + n[1] + "</b></span>";
+          });
+          last = Object.assign({}, last, { totalDamage: at.damage });
         } else if (last.grid) {
           // the planned row carries its own grid — price and picture from one
           // simulated account, never two lookups that can disagree

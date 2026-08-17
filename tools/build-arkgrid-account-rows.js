@@ -109,7 +109,17 @@ var fs = require("fs");
       "willpower-legal cores only. Gold covers cutting and fusing; the raw " +
       "astrogem is free. The band ladder (docs/research/ark-grid.md) is the " +
       "uniformity-cost reference, not the price.",
-    rows: rows
+    rows: rows,
+    // one simulated account per budget tier — the card's example tracks the
+    // slider through these (the bracelet rule: the example follows the
+    // budget, not just the band), while the rows above stay the rung steps
+    tiers: (acct.rows || []).filter(function (r) { return r.reachable !== false; })
+      .map(function (r) {
+        return { gpd: r.gpd, gold: r.gold, gems: r.gems, weeks: r.weeks,
+          damage: r.damage, mean: r.mean, meanBand: r.meanBand,
+          weakest: r.weakest, weakBand: r.band, cores: r.cores,
+          capped: !!r.capped, perCore: r.perCore, nodes: r.nodes };
+      })
   };
   fs.writeFileSync("data/arkgrid-rows-" + rarity + ".json", JSON.stringify(out, null, 1));
 
