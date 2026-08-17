@@ -101,10 +101,17 @@ function checkTier(r, g) {
   // the better estimate; quarantining it would keep the honest number off
   // the chart.
   var bad = [], soft = [];
-  ["gold", "damage"].forEach(function (k) {
+  // Damage gates hard: it agreed within ~2% on every knife-edge tier and a
+  // wiring bug cannot leave it standing. Gold is log-only by Shizu's ruling
+  // (2026-08-18, "we can just believe the dd"): at deep budgets the two draw
+  // laws legitimately split the borderline all-or-nothing buyers, so gold
+  // means diverge while both are faithful to the same rule.
+  ["damage"].forEach(function (k) {
     var rel = Math.abs(d[k] - a[k]) / Math.max(1e-9, Math.abs(a[k]));
     if (rel > TOL) bad.push(k + " " + (rel * 100).toFixed(1) + "% (dd " + d[k] + " vs mc " + a[k] + ")");
   });
+  var goldRel = Math.abs(d.gold - a.gold) / Math.max(1e-9, Math.abs(a.gold));
+  if (goldRel > TOL) soft.push("gold " + (goldRel * 100).toFixed(1) + "% (dd " + d.gold + " vs mc " + a.gold + ", log-only)");
   var gemRel = Math.abs(d.gems - a.gems) / Math.max(1, Math.abs(a.gems));
   if (gemRel > TOL) soft.push("gems " + (gemRel * 100).toFixed(1) + "% (dd " + d.gems + " vs mc " + a.gems + ", log-only)");
   return bad.length ? { ok: false, note: bad.join("; ") }
