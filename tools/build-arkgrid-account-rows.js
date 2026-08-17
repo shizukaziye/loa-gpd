@@ -27,6 +27,25 @@
 "use strict";
 var fs = require("fs");
 
+// The displayed loadout is idealized to Shizu's display rules (2026-08-16):
+// node values snap to multiples of five, and the six cores use exactly two
+// numbers in the shape x/x/y/x/x/y with y on the two Star cores. The snap
+// stays as close to the simulated account as rounding allows; grades, gold
+// and damage remain the account's own. perCore arrives in CORE_SEQ order
+// (order Moon/Sun/Star, chaos Moon/STAR/Sun — Stars at 2 and 4) and is
+// emitted per half as Moon/Sun/Star so the pattern lands on the Stars.
+function snapCores(p) {
+  if (!p || p.length !== 6) return p;
+  var x = Math.round((p[0] + p[1] + p[3] + p[5]) / 4);
+  var y = Math.round((p[2] + p[4]) / 2);
+  x = Math.max(0, Math.min(20, x)); y = Math.max(0, Math.min(20, y));
+  return [x, x, y, x, x, y];
+}
+function snapNodes(nodes) {
+  if (!nodes) return nodes;
+  return nodes.map(function (n) { return [n[0], 5 * Math.round(n[1] / 5)]; });
+}
+
 ["epic", "rare"].forEach(function (rarity) {
   var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + rarity + ".json", "utf8"));
 
@@ -36,7 +55,8 @@ var fs = require("fs");
   var raw = acct.rungs && acct.rungs.length ? acct.rungs.map(function (r) {
     return { gold: r.gold, damage: r.damage, gems: r.gems,
       mean: r.mean, meanBand: r.band, weakest: r.weakest,
-      band: r.weakBand || r.band, cores: r.cores, perCore: r.perCore, nodes: r.nodes };
+      band: r.weakBand || r.band, cores: r.cores,
+      perCore: snapCores(r.perCore), nodes: snapNodes(r.nodes) };
   }) : acct.rows;
 
   // drop unreachable and duplicate stops
@@ -118,7 +138,7 @@ var fs = require("fs");
         return { gpd: r.gpd, gold: r.gold, gems: r.gems, weeks: r.weeks,
           damage: r.damage, mean: r.mean, meanBand: r.meanBand,
           weakest: r.weakest, weakBand: r.band, cores: r.cores,
-          capped: !!r.capped, perCore: r.perCore, nodes: r.nodes };
+          capped: !!r.capped, perCore: snapCores(r.perCore), nodes: snapNodes(r.nodes) };
       })
   };
   fs.writeFileSync("data/arkgrid-rows-" + rarity + ".json", JSON.stringify(out, null, 1));
