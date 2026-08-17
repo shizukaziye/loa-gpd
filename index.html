@@ -757,25 +757,89 @@
       "<div><span>average cost</span>" + fmtGold(dmg > 0 ? gold / (dmg * party()) : 0) + " / 1%</div>";
   }
 
+  // ---- the ranked table: filter, search, sort — state survives renders ----
+  var TABLE = { sort: "gpd", dir: 1, off: {}, q: "", under: false };
+  var SORTS = {
+    system: function (a, b) { return SERIES[a.series].label.localeCompare(SERIES[b.series].label) || a.gpd - b.gpd; },
+    gold:   function (a, b) { return a.gold - b.gold || a.gpd - b.gpd; },
+    damage: function (a, b) { return a.damage - b.damage || a.gpd - b.gpd; },
+    gpd:    function (a, b) { return a.gpd - b.gpd; }
+  };
+
+  function tableRows(rows) {
+    var q = TABLE.q.toLowerCase();
+    return rows.filter(function (r) {
+      if (!isFinite(r.gpd)) return false;
+      if (TABLE.off[r.series]) return false;
+      if (TABLE.under && r.gpd > BUDGET) return false;
+      if (q && (String(r.to || r.label) + " " + SERIES[r.series].label)
+            .toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+  }
+
+  function ensureToolbar() {
+    if (el("rk-toolbar")) return;
+    el("ranked").innerHTML =
+      "<div class='rk-toolbar' id='rk-toolbar'>" +
+      "<input class='rk-input' id='rk-q' type='text' placeholder='filter steps…'>" +
+      "<label class='rk-under'><input type='checkbox' id='rk-under'> under the slider only</label>" +
+      "<span class='rk-count' id='rk-count'></span></div>" +
+      "<div id='rk-table'></div>";
+    el("rk-q").value = TABLE.q;
+    el("rk-under").checked = TABLE.under;
+    el("rk-q").addEventListener("input", function () {
+      TABLE.q = this.value; renderRanked(ROWS); wireTips();
+    });
+    el("rk-under").addEventListener("change", function () {
+      TABLE.under = this.checked; renderRanked(ROWS); wireTips();
+    });
+  }
+
   function renderRanked(rows) {
-    var priced = rows.filter(function (r) { return isFinite(r.gpd); });
+    ensureToolbar();
+    var priced = tableRows(rows);
+    var all = rows.filter(function (r) { return isFinite(r.gpd); }).length;
+    el("rk-count").textContent = priced.length === all
+      ? all + " steps" : priced.length + " of " + all + " steps";
+    if (!priced.length) {
+      el("rk-table").innerHTML = "<div class='placeholder'>No steps match.</div>";
+      return;
+    }
     var max = Math.max.apply(null, priced.map(function (r) { return r.gpd; }));
-    var html = "<table><tr><th>Step</th><th>System</th><th class='num'>Gold</th>" +
-      "<th class='num'>Damage</th><th class='num'>Gold per 1%</th><th></th></tr>";
-    priced.slice().sort(function (a, b) { return a.gpd - b.gpd; }).forEach(function (r) {
+    priced.sort(SORTS[TABLE.sort]);
+    if (TABLE.dir < 0) priced.reverse();
+    function th(key, label, num) {
+      var arrow = TABLE.sort === key ? (TABLE.dir > 0 ? " ▲" : " ▼") : "";
+      return "<th class='sortable" + (num ? " num" : "") + "' data-sort='" + key + "'>" +
+        label + arrow + "</th>";
+    }
+    var html = "<table><tr><th>Step</th>" + th("system", "System") +
+      th("gold", "Gold", 1) + th("damage", "Damage", 1) + th("gpd", "Gold per 1%", 1) +
+      "<th></th></tr>";
+    priced.forEach(function (r) {
       html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + pill(r.to || r.label) + "</td>" +
         "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
         "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
         "<td class='num'>" + fmtGold(r.gpd) + "</td><td style='width:24%'><span class='bar' style='width:" +
         (100 * r.gpd / max).toFixed(1) + "%;background:" + SERIES[r.series].color + "'></span></td></tr>";
     });
-    el("ranked").innerHTML = html + "</table>";
+    el("rk-table").innerHTML = html + "</table>";
+    [].slice.call(el("rk-table").querySelectorAll("th.sortable")).forEach(function (node) {
+      node.addEventListener("click", function () {
+        var key = node.getAttribute("data-sort");
+        if (TABLE.sort === key) TABLE.dir = -TABLE.dir;
+        else { TABLE.sort = key; TABLE.dir = 1; }
+        renderRanked(ROWS); wireTips();
+      });
+    });
   }
 
   function renderSystems(rows) {
     var host = el("systems");
     host.innerHTML = "";
     Object.keys(SERIES).forEach(function (key) {
+      if (TABLE.off[key]) return;                   // follow the legend filter
       var mine = rows.filter(function (r) { return r.series === key; });
       if (!mine.length) return;
       var gold = mine.reduce(function (a, r) { return a + r.gold; }, 0);
@@ -795,13 +859,28 @@
     });
   }
 
+  // legend chips double as series filters: click hides a system, "show all"
+  // appears whenever anything is hidden
   function renderLegend() {
-    el("legend").innerHTML = Object.keys(SERIES).filter(function (k) {
+    var keys = Object.keys(SERIES).filter(function (k) {
       return ROWS.some(function (r) { return r.series === k; });
-    }).map(function (k) {
-      return "<span><span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
+    });
+    var anyOff = keys.some(function (k) { return TABLE.off[k]; });
+    el("legend").innerHTML = keys.map(function (k) {
+      return "<span class='lg" + (TABLE.off[k] ? " lg-off" : "") + "' data-series='" + k + "'>" +
+        "<span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
         SERIES[k].label + "</span>";
-    }).join("");
+    }).join("") + (anyOff ? "<span class='lg lg-all' data-all='1'>show all</span>" : "");
+    [].slice.call(el("legend").querySelectorAll(".lg")).forEach(function (node) {
+      node.addEventListener("click", function () {
+        if (node.hasAttribute("data-all")) TABLE.off = {};
+        else {
+          var k = node.getAttribute("data-series");
+          if (TABLE.off[k]) delete TABLE.off[k]; else TABLE.off[k] = true;
+        }
+        renderLegend(); renderRanked(ROWS); renderSystems(ROWS); wireTips();
+      });
+    });
   }
 
   function readBudget() {
