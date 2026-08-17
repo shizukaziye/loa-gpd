@@ -180,7 +180,7 @@
       tier: tier ? { gpd: tier.gpd, perCore: tier.perCore, nodes: tier.nodes } : null,
       est: est };
     return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
-      "<div class='top'><div><div class='big'>&asymp;" + Math.round(est.profileCp).toLocaleString() + "</div>" +
+      "<div class='top'><div><div class='big'>&asymp;" + (Math.round(est.profileCp / 100) * 100).toLocaleString() + "</div>" +
       "<div class='ilvl'>estimated profile CP</div></div></div>" +
       "<div class='sm2'>What this build would read on a bard's profile. Honing, " +
       "gems, bracelet stats and the epic ark grid tier move it; accessories, " +
