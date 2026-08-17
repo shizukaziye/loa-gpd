@@ -43,8 +43,8 @@ var NAME = { 16: "defence shred", 17: "crit resist", 18: "shielded dmg", 19: "cr
 function linesOf(br) {
   return br.held.filter(function (x) { return x.label && x.label !== "mainstat"; })
     .map(function (x) {
-      return { name: NAME[x.family],
-               tier: x.label.indexOf("LEG") > 0 ? "legendary"
+      return { name: NAME[x.family], id: x.family,
+               tier: x.label.indexOf("LEG") > 0 ? "LEG"
                    : x.label.indexOf("epic") > 0 ? "epic" : "blue" };
     });
 }

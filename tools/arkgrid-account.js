@@ -526,6 +526,16 @@ function stopAt(gpd, rep) {
     if (blocks[bi].gold / (blocks[bi].dmg * PARTY) > gpd) { capped = false; break; }
     stop = trace[blocks[bi].idx];
   }
+  // ARKGRID_DUMP_BLOCKS=1: print the pooled sequence the crossing test saw —
+  // evidence for stop-rule audits, dead in normal runs
+  if (process.env.ARKGRID_DUMP_BLOCKS && rep < 3) {
+    console.error("blocks rep " + rep + " (gpd " + gpd + "):");
+    blocks.forEach(function (b, i) {
+      console.error("  #" + i + "  gold " + Math.round(b.gold / 1000) + "k  dmg " +
+        b.dmg.toFixed(4) + "  rate " + Math.round(b.gold / (b.dmg * PARTY) / 1000) +
+        "k  thru gem " + trace[b.idx].cut);
+    });
+  }
   // capped means even the final group was worth buying: the account ran out
   // of gems, not of reasons — the tier reported is a floor, so raise N
   stop = Object.assign({ capped: capped }, stop);

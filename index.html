@@ -42,6 +42,10 @@
     <input type='range' id='gpd' min='0' max='100' value='45'>
     <div class='gpdval' id='gpdOut'></div>
   </div>
+  <div class='slider' id='cpRow' style='display:none'>
+    <input type='range' id='cpSlider' step='100'>
+    <div class='gpdval' id='cpOut'></div>
+  </div>
   <div class='plan' id='plan'></div>
   <div class='totals' id='planTotals'></div>
   <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Hover any card for what stops it.</div>
@@ -108,6 +112,21 @@
     return String(text).replace(/\b(blue|epic|LEG|low|mid|high)\b/g, function (w) {
       return "<span class='t-" + w + "'>" + w + "</span>";
     });
+  }
+  // bracelet line wording: family id -> the in-game label with THIS tier's
+  // ancient value substituted — a legendary roll reads "+3%", never the
+  // whole "+2/2.5/3%" spread
+  function lineInfo(l) {
+    return l && l.id != null && state.braceletLines ? state.braceletLines[l.id] : null;
+  }
+  function lineWording(l) {
+    var f = lineInfo(l);
+    if (!f) return l.name;
+    return (f.tiers || {})[l.tier] || l.name;
+  }
+  function lineChipName(l) {
+    var f = lineInfo(l);
+    return f && f.med ? f.med : shortLine(l.name);
   }
   function pill(label) {
     var c = rankColor(label);
@@ -219,7 +238,11 @@
   }
 
   function cpCard() {
-    if (state.axis !== "support" || !window.CombatPower || !state.honing) return "";
+    var cpRow = el("cpRow");
+    if (state.axis !== "support" || !window.CombatPower || !state.honing) {
+      if (cpRow) cpRow.style.display = "none";
+      return "";
+    }
     var at = cpEstimateAt(BUDGET), est = at.est;
     var curve = cpCrossings();
     // the band: the highest perfect hundred whose interpolated crossing
@@ -228,6 +251,16 @@
     for (var ci = 0; ci < curve.cross.length; ci++) {
       if (curve.cross[ci].b <= BUDGET) shown = curve.cross[ci].cp;
       else { next = curve.cross[ci]; break; }
+    }
+    // the CP slider rides the same crossing table: hundreds only, and each
+    // position lands the gpd slider on the budget that first reaches it
+    if (cpRow) {
+      cpRow.style.display = "";
+      var cs = el("cpSlider");
+      cs.min = curve.floor;
+      cs.max = curve.cross.length ? curve.cross[curve.cross.length - 1].cp : curve.floor;
+      if (+cs.value !== shown) cs.value = shown;
+      el("cpOut").innerHTML = "&asymp;" + shown.toLocaleString() + " CP";
     }
     // audit hook: inputs, ratios, and the crossing table, inspectable from
     // the console as __cpDebug
@@ -534,6 +567,19 @@
       h += num("Gold per 1%", fmtGold(next.gpd), "var(--bad)");
       h += "</table>";
     }
+    // the bracelet's lines, in the game's own words, at THIS roll's tier —
+    // the same example the card shows
+    if (key === "bracelet" && p.taken) {
+      var bh = (state.axis === "support" ? braceletAt(BUDGET) : null) || (p.last && p.last.hit);
+      if (bh && bh.lines && bh.lines.length) {
+        h += "<span class='k'>the lines, exactly</span><table>";
+        bh.lines.forEach(function (l) {
+          h += "<tr><td><span class='t-" + l.tier + "'>" + l.tier + "</span></td><td>" +
+            lineWording(l) + "</td></tr>";
+        });
+        h += "</table>";
+      }
+    }
     // what you actually have to buy and roll to be standing where you are
     var at = p.taken ? p.last : null;
     if (tier && at) at = Object.assign({}, at, { to: tier.meanBand,
@@ -633,8 +679,8 @@
           var sn = state.axis === "support" ? ["spec", "swift"] : ["crit", "spec"];
           egHead = st[0] + " <i>" + sn[0] + "</i> &nbsp;" + st[1] + " <i>" + sn[1] + "</i>";
           chips = hit.lines.map(function (l) {
-            return "<span class='chip t-" + l.tier + "' title='" + l.name + "'>" +
-              shortLine(l.name) + "</span>";
+            return "<span class='chip t-" + l.tier + "' title='" + lineWording(l) + "'>" +
+              lineChipName(l) + "</span>";
           });
         } else if (RARITY_OF[key] && arkTierAt(RARITY_OF[key], BUDGET)) {
           // one simulated account per budget tier: the pill, the cores, the
@@ -791,6 +837,19 @@
     el("mat-caret").textContent = open ? "▸" : "▾";
   });
   el("gpd").addEventListener("input", render);
+  el("cpSlider").addEventListener("input", function () {
+    if (state.axis !== "support" || !window.CombatPower || !state.honing) return;
+    var target = +this.value;
+    var curve = cpCrossings();
+    var b = null;
+    for (var i = 0; i < curve.cross.length; i++)
+      if (curve.cross[i].cp <= target) b = curve.cross[i].b;
+    var v = 0;
+    if (b != null) v = Math.min(100, Math.max(0,
+      Math.ceil(100 * Math.log(b / 250000) / Math.log(100))));
+    el("gpd").value = v;
+    render();
+  });
 
   // no-cache: revalidate every load. Without it the browser's heuristic cache
   // served day-old rows after a deploy — the page and its data must not drift.
@@ -804,7 +863,9 @@
                grab("data/bracelet-vs-gpd.json"),
                grab("data/arkgrid-rows-epic.json"),
                grab("data/arkgrid-rows-rare.json"),
-               grab("data/arkgrid-progress.json")]).then(function (all) {
+               grab("data/arkgrid-progress.json"),
+               grab("data/bracelet-lines.json")]).then(function (all) {
+    state.braceletLines = all[8];
     state.arkgridRows.epic = all[5];
     state.arkgridRows.rare = all[6];
     state.arkProgress = all[7];

@@ -2906,14 +2906,17 @@
     "lines": [
      {
       "name": "wp x30",
+      "id": 22,
       "tier": "blue"
      },
      {
       "name": "specialty",
+      "id": 8,
       "tier": "blue"
      },
      {
       "name": "outgoing",
+      "id": 2,
       "tier": "blue"
      }
     ]
@@ -2948,10 +2951,12 @@
     "lines": [
      {
       "name": "front atk",
+      "id": 26,
       "tier": "blue"
      },
      {
       "name": "crit dmg",
+      "id": 7,
       "tier": "epic"
      }
     ]
@@ -2986,6 +2991,7 @@
     "lines": [
      {
       "name": "atk when hit",
+      "id": 31,
       "tier": "blue"
      }
     ]
@@ -3020,6 +3026,7 @@
     "lines": [
      {
       "name": "crit shred",
+      "id": 17,
       "tier": "blue"
      }
     ]
@@ -3054,10 +3061,12 @@
     "lines": [
      {
       "name": "front atk",
+      "id": 26,
       "tier": "blue"
      },
      {
       "name": "shield self",
+      "id": 32,
       "tier": "blue"
      }
     ]
@@ -3092,14 +3101,17 @@
     "lines": [
      {
       "name": "cdmg shred",
+      "id": 19,
       "tier": "blue"
      },
      {
       "name": "dmg to full",
+      "id": 24,
       "tier": "blue"
      },
      {
       "name": "wp",
+      "id": 5,
       "tier": "blue"
      }
     ]
@@ -3134,10 +3146,12 @@
     "lines": [
      {
       "name": "wp x6",
+      "id": 20,
       "tier": "blue"
      },
      {
       "name": "cdmg shred",
+      "id": 19,
       "tier": "blue"
      }
     ]
@@ -3172,14 +3186,17 @@
     "lines": [
      {
       "name": "atk when hit",
+      "id": 31,
       "tier": "epic"
      },
      {
       "name": "non-dir",
+      "id": 27,
       "tier": "blue"
      },
      {
       "name": "wp x6",
+      "id": 20,
       "tier": "blue"
      }
     ]
@@ -3214,14 +3231,17 @@
     "lines": [
      {
       "name": "crit rate",
+      "id": 11,
       "tier": "blue"
      },
      {
       "name": "wp x30",
+      "id": 22,
       "tier": "blue"
      },
      {
       "name": "dmg to full",
+      "id": 24,
       "tier": "blue"
      }
     ]
@@ -3256,14 +3276,17 @@
     "lines": [
      {
       "name": "crit dmg",
+      "id": 12,
       "tier": "epic"
      },
      {
       "name": "back atk",
+      "id": 25,
       "tier": "blue"
      },
      {
       "name": "dmg to full",
+      "id": 24,
       "tier": "blue"
      }
     ]
@@ -3298,14 +3321,17 @@
     "lines": [
      {
       "name": "cd→dmg",
+      "id": 15,
       "tier": "blue"
      },
      {
       "name": "shield self",
+      "id": 32,
       "tier": "LEG"
      },
      {
       "name": "back atk",
+      "id": 25,
       "tier": "blue"
      }
     ]
@@ -3340,14 +3366,17 @@
     "lines": [
      {
       "name": "cdmg shred",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "shield self",
+      "id": 32,
       "tier": "LEG"
      },
      {
       "name": "shield dmg",
+      "id": 18,
       "tier": "LEG"
      }
     ]
@@ -3382,14 +3411,17 @@
     "lines": [
      {
       "name": "crit rate",
+      "id": 11,
       "tier": "epic"
      },
      {
       "name": "cdmg shred",
+      "id": 19,
       "tier": "blue"
      },
      {
       "name": "def shred",
+      "id": 16,
       "tier": "blue"
      }
     ]
@@ -3424,14 +3456,17 @@
     "lines": [
      {
       "name": "crit rate",
+      "id": 11,
       "tier": "LEG"
      },
      {
       "name": "crit shred",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "non-dir",
+      "id": 27,
       "tier": "epic"
      }
     ]
@@ -3466,14 +3501,17 @@
     "lines": [
      {
       "name": "crit shred",
+      "id": 17,
       "tier": "epic"
      },
      {
       "name": "cdmg shred",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "crit dmg",
+      "id": 12,
       "tier": "blue"
      }
     ]
@@ -3508,14 +3546,17 @@
     "lines": [
      {
       "name": "crit shred",
+      "id": 17,
       "tier": "LEG"
      },
      {
       "name": "crit dmg",
+      "id": 12,
       "tier": "epic"
      },
      {
       "name": "def shred",
+      "id": 16,
       "tier": "epic"
      }
     ]

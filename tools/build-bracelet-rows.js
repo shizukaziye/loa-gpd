@@ -89,7 +89,7 @@ PAIRS.forEach(function (p) {
       hit[p][k]++;
       if (!ex[p][k] && (sc < cuts[k] + 0.8 || k === 0)) {
         ex[p][k] = held.filter(function (x) { return x.label && x.label !== "mainstat"; })
-          .map(function (x) { return { name: NAME[x.family], tier: tierOf(x.label) }; });
+          .map(function (x) { return { name: NAME[x.family], id: x.family, tier: tierOf(x.label) }; });
       }
     }
   }

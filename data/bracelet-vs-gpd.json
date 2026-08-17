@@ -14,6 +14,7 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      }
     ],
@@ -32,10 +33,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "weapon power",
+      "id": 33,
       "tier": "epic"
      }
     ],
@@ -54,10 +57,12 @@
     "lines": [
      {
       "name": "defence shred",
+      "id": 16,
       "tier": "blue"
      },
      {
       "name": "ally damage",
+      "id": 30,
       "tier": "epic"
      }
     ],
@@ -76,14 +81,17 @@
     "lines": [
      {
       "name": "ally damage",
+      "id": 30,
       "tier": "epic"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "epic"
      },
      {
       "name": "weapon power (stacks)",
+      "id": 22,
       "tier": "blue"
      }
     ],
@@ -102,10 +110,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "ally damage",
+      "id": 30,
       "tier": "blue"
      }
     ],
@@ -124,10 +134,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "epic"
      },
      {
       "name": "weapon power",
+      "id": 21,
       "tier": "blue"
      }
     ],
@@ -146,10 +158,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "shielded dmg",
+      "id": 18,
       "tier": "blue"
      }
     ],
@@ -168,10 +182,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "ally damage",
+      "id": 30,
       "tier": "epic"
      }
     ],
@@ -190,10 +206,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "ally damage",
+      "id": 30,
       "tier": "blue"
      }
     ],
@@ -212,14 +230,17 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "blue"
      },
      {
       "name": "weapon power (stacks)",
+      "id": 22,
       "tier": "blue"
      }
     ],
@@ -238,14 +259,17 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "epic"
      },
      {
       "name": "weapon power",
+      "id": 21,
       "tier": "blue"
      }
     ],
@@ -264,10 +288,12 @@
     "lines": [
      {
       "name": "defence shred",
+      "id": 16,
       "tier": "epic"
      },
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "blue"
      }
     ],
@@ -286,10 +312,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "blue"
      },
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      }
     ],
@@ -308,11 +336,13 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "ally damage",
-      "tier": "legendary"
+      "id": 30,
+      "tier": "LEG"
      }
     ],
     "score": 61
@@ -330,10 +360,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "blue"
      }
     ],
@@ -352,10 +384,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "defence shred",
+      "id": 16,
       "tier": "epic"
      }
     ],
@@ -374,14 +408,17 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "epic"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "epic"
      },
      {
       "name": "weapon power (stacks)",
+      "id": 22,
       "tier": "blue"
      }
     ],
@@ -400,14 +437,17 @@
     "lines": [
      {
       "name": "crit resist",
-      "tier": "legendary"
+      "id": 17,
+      "tier": "LEG"
      },
      {
       "name": "weapon power (stacks)",
-      "tier": "legendary"
+      "id": 22,
+      "tier": "LEG"
      },
      {
       "name": "weapon power",
+      "id": 33,
       "tier": "epic"
      }
     ],
@@ -426,14 +466,17 @@
     "lines": [
      {
       "name": "crit resist",
-      "tier": "legendary"
+      "id": 17,
+      "tier": "LEG"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "epic"
      },
      {
       "name": "weapon power",
+      "id": 33,
       "tier": "epic"
      }
     ],
@@ -452,10 +495,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      }
     ],
@@ -474,10 +519,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "epic"
      },
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "blue"
      }
     ],
@@ -496,10 +543,12 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      }
     ],
@@ -518,14 +567,17 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "defence shred",
+      "id": 16,
       "tier": "blue"
      },
      {
       "name": "ally atk power",
+      "id": 29,
       "tier": "blue"
      }
     ],
@@ -544,14 +596,17 @@
     "lines": [
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      },
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "blue"
      },
      {
       "name": "weapon power",
+      "id": 33,
       "tier": "blue"
      }
     ],
@@ -570,10 +625,12 @@
     "lines": [
      {
       "name": "crit resist",
+      "id": 17,
       "tier": "epic"
      },
      {
       "name": "crit dmg resist",
+      "id": 19,
       "tier": "epic"
      }
     ],

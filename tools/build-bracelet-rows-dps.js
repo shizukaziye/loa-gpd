@@ -142,7 +142,7 @@ PAIRS.forEach(function (p) {
       hit[p][k]++;
       if (!ex[p][k] && (sc < cuts[k] + 0.8 || k === 0)) {
         ex[p][k] = held.filter(function (x) { return x.fam && x.tier >= 0; })
-          .map(function (x) { return { name: SHORT[x.fam] || ("f" + x.fam),
+          .map(function (x) { return { name: SHORT[x.fam] || ("f" + x.fam), id: x.fam,
             tier: x.tier === 2 ? "LEG" : x.tier === 1 ? "epic" : "blue" }; });
       }
     }
