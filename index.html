@@ -151,23 +151,21 @@
   // breakdown (model/combat-power.js, docs/research/combat-power-model.md):
   // honing, gems, bracelet stats and the ark grid tier move the estimate;
   // accessories, stone and the skill block ride the anchor.
-  function cpCard() {
-    if (state.axis !== "support" || !window.CombatPower || !state.honing) return "";
-    var armor = PLAN.armor && PLAN.armor.taken ? parseInt(String(PLAN.armor.last.to || "+11").slice(1), 10) : 11;
-    var weapon = PLAN.weapon && PLAN.weapon.taken ? parseInt(String(PLAN.weapon.last.to || "+11").slice(1), 10) : 11;
+  function cpEstimateAt(budget) {
+    var plan = planAt(ROWS, budget);
+    var armor = plan.armor && plan.armor.taken ? parseInt(String(plan.armor.last.to || "+11").slice(1), 10) : 11;
+    var weapon = plan.weapon && plan.weapon.taken ? parseInt(String(plan.weapon.last.to || "+11").slice(1), 10) : 11;
     var g = Gear.stats(state.honing, {}, armor, weapon);
-    var gemLevel = PLAN.gems && PLAN.gems.taken
-      ? (parseInt(String(PLAN.gems.last.to).replace(/[^0-9]/g, ""), 10) || 7) : 7;
-    // bracelet pair moves the battle-stat block off the anchor's assumed
-    // pair. Best pair unlocked at or below the budget, not the current
-    // band's example: a higher band can carry a lower pair, and a richer
-    // player would never equip the downgrade — the chart's base-hold rule.
+    var gemLevel = plan.gems && plan.gems.taken
+      ? (parseInt(String(plan.gems.last.to).replace(/[^0-9]/g, ""), 10) || 7) : 7;
+    // bracelet pair: best unlocked at or below the budget (base-hold — a
+    // richer player never equips the downgrade)
     var pair = 181;
     if (state.braceletByGpd) {
       var bestPair = 0;
       for (var bi = 0; bi < state.braceletByGpd.length; bi++) {
         var row = state.braceletByGpd[bi];
-        if (row.gpd > BUDGET) break;
+        if (row.gpd > budget) break;
         if (row.example && row.example.stats) {
           var st = String(row.example.stats).split("/");
           bestPair = Math.max(bestPair, (+st[0] || 0) + (+st[1] || 0));
@@ -175,23 +173,73 @@
       }
       if (bestPair) pair = bestPair;
     }
-    var tier = arkTierAt("epic", BUDGET);
-    var est = CombatPower.estimate({
+    var tier = arkTierAt("epic", budget);
+    return { est: CombatPower.estimate({
       weaponPower: g.wp, mainStat: g.ms,
       battleStatTotal: CombatPower.ANCHOR.battleStatTotal + (pair - 181),
       karmaRank: 6, gemLevel: gemLevel,
       corePoints: tier ? tier.perCore : null,
       nodeLevels: tier ? tier.nodes.reduce(function (s, n) { return s + n[1]; }, 0) : null
-    });
-    // audit hook: the last card's inputs and every swap ratio, inspectable
-    // from the console as __cpDebug
-    window.__cpDebug = { budget: BUDGET, armor: armor, weapon: weapon,
-      wp: g.wp, ms: g.ms, gemLevel: gemLevel, pair: pair,
-      tier: tier ? { gpd: tier.gpd, perCore: tier.perCore, nodes: tier.nodes } : null,
-      est: est };
+    }), armor: armor, weapon: weapon, g: g, gemLevel: gemLevel, pair: pair, tier: tier };
+  }
+
+  // The whole CP-vs-budget curve, sampled at every slider notch, and the
+  // interpolated budget where each PERFECT hundred is first crossed. The
+  // card's bands come from these crossings — "the band starts where the
+  // build really reaches 4,400", not where a slider notch happens to land.
+  // Budgets are geometric, so interpolation runs on ln(budget).
+  var _cpCurve = null, _cpCurveKey = "";
+  function cpCrossings() {
+    var key = state.axis + "|" + ROWS.length + "|" + JSON.stringify(state.prices) + "|" +
+      (state.arkgridRows.epic ? state.arkgridRows.epic.maxGpd : 0);
+    if (_cpCurve && _cpCurveKey === key) return _cpCurve;
+    var pts = [];
+    for (var v = 0; v <= 100; v++) {
+      var b = 250000 * Math.pow(100, v / 100);
+      pts.push({ b: b, cp: cpEstimateAt(b).est.profileCp });
+    }
+    // running max: the curve the bands read never regresses
+    for (var i = 1; i < pts.length; i++) pts[i].cp = Math.max(pts[i].cp, pts[i - 1].cp);
+    var cross = [];
+    var h0 = Math.ceil(pts[0].cp / 100), h1 = Math.floor(pts[pts.length - 1].cp / 100);
+    for (var h = h0; h <= h1; h++) {
+      var target = h * 100;
+      for (var j = 1; j < pts.length; j++) {
+        if (pts[j].cp >= target && pts[j - 1].cp < target) {
+          var f = (target - pts[j - 1].cp) / (pts[j].cp - pts[j - 1].cp);
+          cross.push({ cp: target,
+            b: Math.exp(Math.log(pts[j - 1].b) + f * (Math.log(pts[j].b) - Math.log(pts[j - 1].b))) });
+          break;
+        }
+      }
+    }
+    _cpCurve = { pts: pts, cross: cross, floor: Math.floor(pts[0].cp / 100) * 100 };
+    _cpCurveKey = key;
+    return _cpCurve;
+  }
+
+  function cpCard() {
+    if (state.axis !== "support" || !window.CombatPower || !state.honing) return "";
+    var at = cpEstimateAt(BUDGET), est = at.est;
+    var curve = cpCrossings();
+    // the band: the highest perfect hundred whose interpolated crossing
+    // budget is at or below the slider
+    var shown = curve.floor, next = null;
+    for (var ci = 0; ci < curve.cross.length; ci++) {
+      if (curve.cross[ci].b <= BUDGET) shown = curve.cross[ci].cp;
+      else { next = curve.cross[ci]; break; }
+    }
+    // audit hook: inputs, ratios, and the crossing table, inspectable from
+    // the console as __cpDebug
+    window.__cpDebug = { budget: BUDGET, armor: at.armor, weapon: at.weapon,
+      wp: at.g.wp, ms: at.g.ms, gemLevel: at.gemLevel, pair: at.pair,
+      tier: at.tier ? { gpd: at.tier.gpd, perCore: at.tier.perCore, nodes: at.tier.nodes } : null,
+      est: est, shown: shown, next: next, crossings: curve.cross };
     return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
-      "<div class='top'><div><div class='big'>&asymp;" + (Math.floor(est.profileCp / 100) * 100).toLocaleString() + "</div>" +
-      "<div class='ilvl'>estimated profile CP</div></div></div>" +
+      "<div class='top'><div><div class='big'>&asymp;" + shown.toLocaleString() + "</div>" +
+      "<div class='ilvl'>" + (next
+        ? "next: &asymp;" + next.cp.toLocaleString() + " at " + fmtGold(next.b) + "/1%"
+        : "estimated profile CP") + "</div></div></div>" +
       "<div class='sm2'>What this build would read on a bard's profile. Honing, " +
       "gems, bracelet stats and the epic ark grid tier move it; accessories, " +
       "stone and skills ride the real-character anchor.</div></div>";
