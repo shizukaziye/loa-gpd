@@ -35,15 +35,15 @@
     "nodes": [
      [
       "ally atk",
-      20
+      35
      ],
      [
       "brand",
-      45
+      35
      ],
      [
       "ally dmg",
-      40
+      35
      ]
     ]
    },
@@ -76,15 +76,15 @@
     "nodes": [
      [
       "ally atk",
-      20
+      35
      ],
      [
       "brand",
-      45
+      35
      ],
      [
       "ally dmg",
-      40
+      35
      ]
     ]
    },
@@ -117,15 +117,15 @@
     "nodes": [
      [
       "ally atk",
-      20
+      35
      ],
      [
       "brand",
-      45
+      35
      ],
      [
       "ally dmg",
-      40
+      35
      ]
     ]
    },
@@ -158,15 +158,15 @@
     "nodes": [
      [
       "ally atk",
-      20
+      35
      ],
      [
       "brand",
-      50
+      35
      ],
      [
       "ally dmg",
-      40
+      35
      ]
     ]
    },
@@ -199,11 +199,11 @@
     "nodes": [
      [
       "ally atk",
-      30
+      40
      ],
      [
       "brand",
-      55
+      40
      ],
      [
       "ally dmg",
@@ -240,11 +240,11 @@
     "nodes": [
      [
       "ally atk",
-      25
+      45
      ],
      [
       "brand",
-      60
+      45
      ],
      [
       "ally dmg",
@@ -283,15 +283,15 @@
    "nodes": [
     [
      "ally atk",
-     20
+     35
     ],
     [
      "brand",
-     45
+     35
     ],
     [
      "ally dmg",
-     40
+     35
     ]
    ]
   },
@@ -318,15 +318,15 @@
    "nodes": [
     [
      "ally atk",
-     20
+     35
     ],
     [
      "brand",
-     45
+     35
     ],
     [
      "ally dmg",
-     40
+     35
     ]
    ]
   },
@@ -353,15 +353,15 @@
    "nodes": [
     [
      "ally atk",
-     25
+     35
     ],
     [
      "brand",
-     50
+     35
     ],
     [
      "ally dmg",
-     40
+     35
     ]
    ]
   },
@@ -388,11 +388,11 @@
    "nodes": [
     [
      "ally atk",
-     25
+     40
     ],
     [
      "brand",
-     50
+     40
     ],
     [
      "ally dmg",
@@ -423,11 +423,11 @@
    "nodes": [
     [
      "ally atk",
-     25
+     40
     ],
     [
      "brand",
-     50
+     40
     ],
     [
      "ally dmg",
@@ -458,11 +458,11 @@
    "nodes": [
     [
      "ally atk",
-     25
+     40
     ],
     [
      "brand",
-     50
+     40
     ],
     [
      "ally dmg",
@@ -493,11 +493,11 @@
    "nodes": [
     [
      "ally atk",
-     30
+     40
     ],
     [
      "brand",
-     55
+     40
     ],
     [
      "ally dmg",
@@ -528,11 +528,11 @@
    "nodes": [
     [
      "ally atk",
-     30
+     40
     ],
     [
      "brand",
-     55
+     40
     ],
     [
      "ally dmg",
@@ -563,11 +563,11 @@
    "nodes": [
     [
      "ally atk",
-     30
+     40
     ],
     [
      "brand",
-     55
+     40
     ],
     [
      "ally dmg",
@@ -598,11 +598,11 @@
    "nodes": [
     [
      "ally atk",
-     30
+     40
     ],
     [
      "brand",
-     55
+     40
     ],
     [
      "ally dmg",
@@ -633,15 +633,15 @@
    "nodes": [
     [
      "ally atk",
-     30
+     45
     ],
     [
      "brand",
-     55
+     45
     ],
     [
      "ally dmg",
-     40
+     45
     ]
    ]
   },
@@ -668,15 +668,15 @@
    "nodes": [
     [
      "ally atk",
-     30
+     45
     ],
     [
      "brand",
-     55
+     45
     ],
     [
      "ally dmg",
-     40
+     45
     ]
    ]
   },
@@ -703,15 +703,15 @@
    "nodes": [
     [
      "ally atk",
-     30
+     45
     ],
     [
      "brand",
-     60
+     45
     ],
     [
      "ally dmg",
-     40
+     45
     ]
    ]
   },
@@ -738,11 +738,11 @@
    "nodes": [
     [
      "ally atk",
-     35
+     45
     ],
     [
      "brand",
-     55
+     45
     ],
     [
      "ally dmg",
@@ -773,11 +773,11 @@
    "nodes": [
     [
      "ally atk",
-     35
+     45
     ],
     [
      "brand",
-     60
+     45
     ],
     [
      "ally dmg",
@@ -808,15 +808,15 @@
    "nodes": [
     [
      "ally atk",
-     35
+     50
     ],
     [
      "brand",
-     65
+     50
     ],
     [
      "ally dmg",
-     45
+     50
     ]
    ]
   },
@@ -843,11 +843,11 @@
    "nodes": [
     [
      "ally atk",
-     40
+     50
     ],
     [
      "brand",
-     65
+     50
     ],
     [
      "ally dmg",

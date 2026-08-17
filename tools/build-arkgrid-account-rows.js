@@ -43,7 +43,11 @@ function snapCores(p) {
 }
 function snapNodes(nodes) {
   if (!nodes) return nodes;
-  return nodes.map(function (n) { return [n[0], 5 * Math.round(n[1] / 5)]; });
+  // one number for all three buff nodes, a multiple of five, nearest the
+  // account's average — Shizu wants the displayed loadout perfectly even
+  var mean = nodes.reduce(function (s, n) { return s + n[1]; }, 0) / nodes.length;
+  var v = 5 * Math.round(mean / 5);
+  return nodes.map(function (n) { return [n[0], v]; });
 }
 
 ["epic", "rare"].forEach(function (rarity) {
