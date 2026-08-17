@@ -84,10 +84,12 @@ run through this model's buff math, is smaller and lumpier — about 1.0-1.2%
 for the Brave order cores (Serenade-scoped 17-options on Shizu's bard;
 Seraphic AP builds run ~1.6-1.8%), 0.5-0.9% for the chaos cores with the
 Echoing Brand damage-taken rider priced in. The Buckshot meter core uses
-Shizu's meter ruling — Buckshot is 10-20% of meter generation and meter
-converts to Serenade uptime at 0.7 — which puts its 17-option at only
-0.1-0.2 but its 14-option (the 500-meter counter proc) at 0.4-0.8: the one
-core whose cliff sits at 14, not 17. Everywhere else it is a cliff at 17,
+the meter rulings on record — Buckshot is 10-20% of meter generation
+(Shizu, 2026-08-16) and meter converts to Serenade uptime at half
+effectiveness (the accessory calculator's documented bar-step
+approximation) — which puts its 17-option at only 0.1-0.2 but its
+14-option (the 500-meter counter proc) at ~0.3-0.6: the one core whose
+cliff sits at 14, not 17. Everywhere else it is a cliff at 17,
 nearly flat below. Shizu
 keeps the harsh flat tax on purpose: 17+ points per core is treated as table
 stakes, not a trade the optimizer may sell. The tax lives in the packer's
