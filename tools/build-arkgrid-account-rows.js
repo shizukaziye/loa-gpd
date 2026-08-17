@@ -160,31 +160,59 @@ function fluidFrontier(tiers) {
       for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
       return "F-";
     };
-    raw = [];
-    var entryDone = false;
+    // Band positions on the frontier: the entry (the frontier's floor, its
+    // true band) then one point per band above it, up to coverage.
+    var bands = [], entry = null;
     LAD.forEach(function (row) {
       var cut = row[1] === -Infinity ? 0 : row[1];
       if (cut <= fluid.baseMean) {
-        // below the frontier's floor there are no stops: the minimum viable
-        // grid already averages past these letters. One entry row, labeled
-        // by its TRUE band, replaces the old zero-information padding rows.
-        if (entryDone) return;
-        entryDone = true;
-        var d0 = fluid.baseDamage, e0 = dispAt(d0);
-        raw.push({ gold: Math.round(fluid.goldAt(d0)), damage: Number(d0.toFixed(4)),
-          gems: gemsAt(d0), mean: e0.mean, meanBand: letterOf(e0.mean),
-          weakest: e0.weakest, band: e0.band, cores: e0.cores,
-          perCore: snapCores(e0.perCore), nodes: snapNodes(e0.nodes) });
+        if (!entry) {
+          var e0 = dispAt(fluid.baseDamage);
+          entry = { d: fluid.baseDamage, gold: fluid.goldAt(fluid.baseDamage),
+            mean: e0.mean, meanBand: letterOf(e0.mean), disp: e0 };
+        }
         return;
       }
       var d = fluid.damageAtMean(cut);
       if (d == null) return;                           // above current coverage
-      var disp = dispAt(d);
-      raw.push({ gold: Math.round(fluid.goldAt(d)), damage: Number(d.toFixed(4)),
-        gems: gemsAt(d), mean: cut, meanBand: row[0],
-        weakest: disp.weakest, band: disp.band,
-        cores: disp.cores, perCore: snapCores(disp.perCore), nodes: snapNodes(disp.nodes) });
+      bands.push({ d: d, cut: cut, meanBand: row[0], disp: dispAt(d) });
     });
+    // Shizu's ladder law (2026-08-18): the gap between consecutive rung
+    // rates must also grow — the ladder accelerates. A geometric rate
+    // ladder rate(k) = entryRate * b^k satisfies it from the entry row on,
+    // and b is solved so the ladder's total gold equals the frontier's
+    // measured climb, so the smoothing never invents or loses gold.
+    raw = [];
+    if (entry) {
+      raw.push({ gold: Math.round(entry.gold), damage: Number(entry.d.toFixed(4)),
+        gems: gemsAt(entry.d), mean: entry.mean, meanBand: entry.meanBand,
+        weakest: entry.disp.weakest, band: entry.disp.band, cores: entry.disp.cores,
+        perCore: snapCores(entry.disp.perCore), nodes: snapNodes(entry.disp.nodes) });
+    }
+    if (entry && bands.length) {
+      var r0 = entry.gold / entry.d;
+      var spans = [], prevD = entry.d;
+      bands.forEach(function (bd) { spans.push(bd.d - prevD); prevD = bd.d; });
+      var target = fluid.goldAt(bands[bands.length - 1].d) - entry.gold;
+      var ladderGold = function (b) {
+        var s = 0;
+        for (var k = 0; k < spans.length; k++) s += r0 * Math.pow(b, k + 1) * spans[k];
+        return s;
+      };
+      var lo = 1.0001, hi = 20;
+      for (var it = 0; it < 80; it++) {
+        var mid = (lo + hi) / 2;
+        if (ladderGold(mid) < target) lo = mid; else hi = mid;
+      }
+      var b = (lo + hi) / 2, cum = entry.gold;
+      bands.forEach(function (bd, k) {
+        cum += r0 * Math.pow(b, k + 1) * spans[k];
+        raw.push({ gold: Math.round(cum), damage: Number(bd.d.toFixed(4)),
+          gems: gemsAt(bd.d), mean: bd.cut, meanBand: bd.meanBand,
+          weakest: bd.disp.weakest, band: bd.disp.band, cores: bd.disp.cores,
+          perCore: snapCores(bd.disp.perCore), nodes: snapNodes(bd.disp.nodes) });
+      });
+    }
   } else raw = acct.rungs && acct.rungs.length ? acct.rungs.map(function (r) {
     return { gold: r.gold, damage: r.damage, gems: r.gems,
       mean: r.mean, meanBand: r.band, weakest: r.weakest,

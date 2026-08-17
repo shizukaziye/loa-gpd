@@ -873,26 +873,35 @@
     });
   }
 
-  // legend chips double as series filters: click hides a system, "show all"
-  // appears whenever anything is hidden
+  // series filters: equal-width boxes in a grid, with select-all / none
   function renderLegend() {
     var keys = Object.keys(SERIES).filter(function (k) {
       return ROWS.some(function (r) { return r.series === k; });
     });
-    var anyOff = keys.some(function (k) { return TABLE.off[k]; });
-    el("legend").innerHTML = keys.map(function (k) {
-      return "<span class='lg" + (TABLE.off[k] ? " lg-off" : "") + "' data-series='" + k + "'>" +
-        "<span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
-        SERIES[k].label + "</span>";
-    }).join("") + (anyOff ? "<span class='lg lg-all' data-all='1'>show all</span>" : "");
+    el("legend").innerHTML =
+      "<div class='lg-ctls'><span class='lg-ctl' data-mode='all'>all</span>" +
+      "<span class='lg-ctl' data-mode='none'>none</span></div>" +
+      "<div class='lg-grid'>" + keys.map(function (k) {
+        return "<span class='lg" + (TABLE.off[k] ? " lg-off" : "") + "' data-series='" + k + "'>" +
+          "<span class='swatch' style='background:" + SERIES[k].color + "'></span>" +
+          SERIES[k].label + "</span>";
+      }).join("") + "</div>";
+    var rerender = function () {
+      renderLegend(); renderRanked(ROWS); renderSystems(ROWS); wireTips();
+    };
     [].slice.call(el("legend").querySelectorAll(".lg")).forEach(function (node) {
       node.addEventListener("click", function () {
-        if (node.hasAttribute("data-all")) TABLE.off = {};
-        else {
-          var k = node.getAttribute("data-series");
-          if (TABLE.off[k]) delete TABLE.off[k]; else TABLE.off[k] = true;
-        }
-        renderLegend(); renderRanked(ROWS); renderSystems(ROWS); wireTips();
+        var k = node.getAttribute("data-series");
+        if (TABLE.off[k]) delete TABLE.off[k]; else TABLE.off[k] = true;
+        rerender();
+      });
+    });
+    [].slice.call(el("legend").querySelectorAll(".lg-ctl")).forEach(function (node) {
+      node.addEventListener("click", function () {
+        TABLE.off = {};
+        if (node.getAttribute("data-mode") === "none")
+          keys.forEach(function (k) { TABLE.off[k] = true; });
+        rerender();
       });
     });
   }

@@ -182,9 +182,13 @@ td .pill{font-size:13px;padding:1px 9px}
 /* The legend had no rule at all, so its entries ran into one another. It only
    showed once the ark grid split into two long names. */
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:10px;font-size:11.5px;color:var(--text)}
-.legend .lg{cursor:pointer;user-select:none;transition:opacity .12s}
+.legend{display:block}
+.lg-ctls{display:flex;gap:8px;margin-bottom:8px}
+.lg-ctl{cursor:pointer;user-select:none;color:var(--dim);border:1px solid var(--border);border-radius:999px;padding:2px 12px;font-size:11px}
+.lg-ctl:hover{color:var(--text)}
+.lg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.legend .lg{cursor:pointer;user-select:none;transition:opacity .12s;display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .legend .lg-off{opacity:.32;text-decoration:line-through}
-.legend .lg-all{color:var(--dim);border:1px solid var(--border);border-radius:999px;padding:1px 9px}
 .rk-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:10px}
 .rk-input{background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:5px 9px;font-size:12.5px;font-family:inherit;width:180px}
 .rk-under{font-size:11.5px;color:var(--dim);display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
