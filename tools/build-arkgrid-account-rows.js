@@ -85,39 +85,47 @@ function snapNodes(nodes) {
     base = st;
   });
 
-  // pool until gold per damage is monotone (pair-adjacent-violators)
-  var pooled = [];
+  // Pool RATES only (pair-adjacent-violators), never the rows: every grade
+  // letter keeps its own row — Shizu has caught vanishing grades twice —
+  // and the members of a pooled stretch share the stretch's unlock rate
+  // (poolG/poolD), so the ladder's price stays monotone and the letters
+  // inside a stretch unlock together, in order.
+  var groups = [];
   segs.forEach(function (s) {
-    pooled.push({ gold: s.gold, damage: s.damage, end: s.end });
-    while (pooled.length > 1) {
-      var a = pooled[pooled.length - 2], b = pooled[pooled.length - 1];
+    groups.push({ gold: s.gold, damage: s.damage, members: [s] });
+    while (groups.length > 1) {
+      var a = groups[groups.length - 2], b = groups[groups.length - 1];
       if (b.gold / b.damage >= a.gold / a.damage) break;
-      pooled.splice(pooled.length - 2, 2,
-        { gold: a.gold + b.gold, damage: a.damage + b.damage, end: b.end });
+      groups.splice(groups.length - 2, 2, { gold: a.gold + b.gold,
+        damage: a.damage + b.damage, members: a.members.concat(b.members) });
     }
   });
 
   var rows = [], cumG = 0, cumD = 0, prevBand = "ungraded", prevGems = 0;
-  pooled.forEach(function (s) {
-    var e = s.end;
-    cumG += s.gold; cumD += s.damage;
-    var dGems = Math.max(0, e.gems - prevGems);
-    rows.push({
-      from: prevBand, to: e.meanBand,
-      note: "mean " + e.mean.toFixed(0),
-      gold: Math.round(s.gold),
-      damage: Number(s.damage.toFixed(5)),
-      total: Math.round(cumG),
-      totalDamage: Number(cumD.toFixed(4)),
-      gems: dGems,
-      weeks: dGems / acct.cutsPerWeek,
-      grid: { cores: e.cores, coresPer: e.perCore, nodes: e.nodes },
-      meanGrade: e.mean, weakest: e.weakest, weakBand: e.band,
-      minimum: "all 24 slots filled, gems averaging " + e.meanBand,
-      buy: rarity + " astrogems at " + acct.turns + " turns and " + acct.rerolls +
-        " rerolls, duds fused, advisor tracking your weakest slot"
+  groups.forEach(function (g) {
+    g.members.forEach(function (s) {
+      var e = s.end;
+      cumG += s.gold; cumD += s.damage;
+      var dGems = Math.max(0, e.gems - prevGems);
+      rows.push({
+        from: prevBand, to: e.meanBand,
+        note: "mean " + e.mean.toFixed(0),
+        gold: Math.round(s.gold),
+        damage: Number(s.damage.toFixed(5)),
+        poolG: Math.round(g.gold),
+        poolD: Number(g.damage.toFixed(5)),
+        total: Math.round(cumG),
+        totalDamage: Number(cumD.toFixed(4)),
+        gems: dGems,
+        weeks: dGems / acct.cutsPerWeek,
+        grid: { cores: e.cores, coresPer: e.perCore, nodes: e.nodes },
+        meanGrade: e.mean, weakest: e.weakest, weakBand: e.band,
+        minimum: "all 24 slots filled, gems averaging " + e.meanBand,
+        buy: rarity + " astrogems at " + acct.turns + " turns and " + acct.rerolls +
+          " rerolls, duds fused, advisor tracking your weakest slot"
+      });
+      prevBand = e.meanBand; prevGems = e.gems;
     });
-    prevBand = e.meanBand; prevGems = e.gems;
   });
 
   var out = {

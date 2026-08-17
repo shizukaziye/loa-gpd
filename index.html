@@ -425,7 +425,10 @@
       });
     }
     out.forEach(function (r) {
-      r.gpd = r.damage > 0 ? r.gold / (r.damage * party()) : Infinity;
+      // rows inside a pooled ark-grid stretch share the stretch's rate, so
+      // the ladder unlocks in order and no grade letter ever vanishes
+      r.gpd = r.poolD > 0 ? r.poolG / (r.poolD * party())
+            : r.damage > 0 ? r.gold / (r.damage * party()) : Infinity;
     });
     return out;
   }
