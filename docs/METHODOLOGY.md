@@ -136,7 +136,7 @@ Defaults:
 |---|---|---|
 | Destiny Shard Pouch S / M / L | 1,000 / 2,000 / 3,000 shards | 0, off |
 | Superior Abidos Fusion Material | each | 125 |
-| Destiny Crystallized Destruction Stone | per 100 | 900 |
+| Destiny Crystallized Destruction Stone | per 100 | 1,800 |
 | Destiny Crystallized Guardian Stone | per 100 | 30 |
 | Great Destiny Leapstone | each | 25 |
 | Lava's Breath | each | 300 |
