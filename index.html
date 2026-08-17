@@ -69,6 +69,7 @@
 
 <script src='model/support.js'></script>
 <script src='model/gear.js'></script>
+<script src='model/combat-power.js'></script>
 <script src='model/honing.js'></script>
 <script src='model/karma.js'></script>
 <script src='model/gems.js'></script>
@@ -144,6 +145,40 @@
     var pick = ts[0];
     for (var i = 0; i < ts.length; i++) if (ts[i].gpd <= budget) pick = ts[i];
     return pick;
+  }
+  // The 12th cell: estimated in-game Combat Power of the build the plan
+  // assembles at this budget. Anchor-swap on a real bard's measured bible
+  // breakdown (model/combat-power.js, docs/research/combat-power-model.md):
+  // honing, gems, bracelet stats and the ark grid tier move the estimate;
+  // accessories, stone and the skill block ride the anchor.
+  function cpCard() {
+    if (state.axis !== "support" || !window.CombatPower || !state.honing) return "";
+    var armor = PLAN.armor && PLAN.armor.taken ? parseInt(String(PLAN.armor.last.to || "+11").slice(1), 10) : 11;
+    var weapon = PLAN.weapon && PLAN.weapon.taken ? parseInt(String(PLAN.weapon.last.to || "+11").slice(1), 10) : 11;
+    var g = Gear.stats(state.honing, {}, armor, weapon);
+    var gemLevel = PLAN.gems && PLAN.gems.taken
+      ? (parseInt(String(PLAN.gems.last.to).replace(/[^0-9]/g, ""), 10) || 7) : 7;
+    // bracelet pair moves the battle-stat block off the anchor's assumed pair
+    var pair = 181;
+    var br = braceletAt(BUDGET);
+    if (br && br.stats) {
+      var st = String(br.stats).split("/");
+      pair = (+st[0] || 0) + (+st[1] || 0);
+    }
+    var tier = arkTierAt("epic", BUDGET);
+    var est = CombatPower.estimate({
+      weaponPower: g.wp, mainStat: g.ms,
+      battleStatTotal: CombatPower.ANCHOR.battleStatTotal + (pair - 181),
+      karmaRank: 6, gemLevel: gemLevel,
+      corePoints: tier ? tier.perCore : null,
+      nodeLevels: tier ? tier.nodes.reduce(function (s, n) { return s + n[1]; }, 0) : null
+    });
+    return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
+      "<div class='top'><div><div class='big'>&asymp;" + Math.round(est.profileCp).toLocaleString() + "</div>" +
+      "<div class='ilvl'>estimated profile CP</div></div></div>" +
+      "<div class='sm2'>What this build would read on a bard's profile. Honing, " +
+      "gems, bracelet stats and the epic ark grid tier move it; accessories, " +
+      "stone and skills ride the real-character anchor.</div></div>";
   }
   // "filling in" the moment the slider passes the highest tier this series
   // has finished — inside coverage the rungs are final and say nothing
@@ -605,7 +640,7 @@
       return card("coming soon", "being recomputed end to end",
         "Exact cut distributions, simulated accounts, every grade priced. " +
         "Rungs appear here tier by tier as the run completes." + prog);
-    })();
+    })() + cpCard();
     el("planTotals").innerHTML =
       "<div><span>total gold</span>" + fmtGold(gold) + "</div>" +
       "<div><span>" + dmgLabel().toLowerCase() + "</span>" + dmg.toFixed(2) + "%</div>" +
