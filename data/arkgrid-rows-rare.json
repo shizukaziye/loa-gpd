@@ -862,41 +862,6 @@
    ]
   },
   {
-   "gpd": 4763652,
-   "gold": 3994822,
-   "gems": 160,
-   "weeks": 6.157180769230769,
-   "damage": 1.5707,
-   "mean": 74,
-   "meanBand": "B",
-   "weakest": 62.1,
-   "weakBand": "C-",
-   "cores": 17,
-   "capped": true,
-   "perCore": [
-    18,
-    18,
-    17,
-    18,
-    18,
-    17
-   ],
-   "nodes": [
-    [
-     "ally atk",
-     35
-    ],
-    [
-     "brand",
-     35
-    ],
-    [
-     "ally dmg",
-     35
-    ]
-   ]
-  },
-  {
    "gpd": 5727169,
    "gold": 5722437,
    "gems": 237,
@@ -967,41 +932,6 @@
    ]
   },
   {
-   "gpd": 8278278,
-   "gold": 11008852,
-   "gems": 419,
-   "weeks": 16.105165384615386,
-   "damage": 1.9156,
-   "mean": 79.5,
-   "meanBand": "B+",
-   "weakest": 71.2,
-   "weakBand": "B-",
-   "cores": 18,
-   "capped": true,
-   "perCore": [
-    19,
-    19,
-    18,
-    19,
-    19,
-    18
-   ],
-   "nodes": [
-    [
-     "ally atk",
-     40
-    ],
-    [
-     "brand",
-     40
-    ],
-    [
-     "ally dmg",
-     40
-    ]
-   ]
-  },
-  {
    "gpd": 9952679,
    "gold": 14806482,
    "gems": 563,
@@ -1012,76 +942,6 @@
    "weakest": 73.8,
    "weakBand": "B",
    "cores": 18,
-   "capped": true,
-   "perCore": [
-    19,
-    19,
-    18,
-    19,
-    19,
-    18
-   ],
-   "nodes": [
-    [
-     "ally atk",
-     45
-    ],
-    [
-     "brand",
-     45
-    ],
-    [
-     "ally dmg",
-     45
-    ]
-   ]
-  },
-  {
-   "gpd": 11965752,
-   "gold": 17507924,
-   "gems": 627,
-   "weeks": 24.12803846153846,
-   "damage": 2.0993,
-   "mean": 82.1,
-   "meanBand": "A-",
-   "weakest": 75.2,
-   "weakBand": "B",
-   "cores": 19,
-   "capped": true,
-   "perCore": [
-    19,
-    19,
-    18,
-    19,
-    19,
-    18
-   ],
-   "nodes": [
-    [
-     "ally atk",
-     45
-    ],
-    [
-     "brand",
-     45
-    ],
-    [
-     "ally dmg",
-     45
-    ]
-   ]
-  },
-  {
-   "gpd": 14385998,
-   "gold": 22608420,
-   "gems": 865,
-   "weeks": 33.26986923076923,
-   "damage": 2.2225,
-   "mean": 83.5,
-   "meanBand": "A",
-   "weakest": 77.3,
-   "weakBand": "B+",
-   "cores": 19,
    "capped": true,
    "perCore": [
     19,
