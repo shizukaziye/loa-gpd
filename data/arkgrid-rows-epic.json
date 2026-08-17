@@ -14,145 +14,16 @@
  "rows": [
   {
    "from": "ungraded",
-   "to": "F-",
-   "note": "mean 71",
-   "gold": 677710,
-   "damage": 1.3955,
-   "poolG": 677710,
-   "poolD": 1.3955,
-   "total": 677710,
-   "totalDamage": 1.3955,
-   "gems": 38,
-   "weeks": 4.222222222222222,
-   "grid": {
-    "cores": 17,
-    "coresPer": [
-     17,
-     17,
-     16,
-     17,
-     17,
-     16
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      35
-     ],
-     [
-      "brand",
-      35
-     ],
-     [
-      "ally dmg",
-      35
-     ]
-    ]
-   },
-   "meanGrade": 70.8,
-   "weakest": 52.7,
-   "weakBand": "D-",
-   "minimum": "all 24 slots filled, gems averaging F-",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "F-",
-   "to": "C",
-   "note": "mean 71",
-   "gold": 306,
-   "damage": 0.0002,
-   "poolG": 10934,
-   "poolD": 0.0105,
-   "total": 678016,
-   "totalDamage": 1.3957,
-   "gems": 0,
-   "weeks": 0,
-   "grid": {
-    "cores": 17,
-    "coresPer": [
-     17,
-     17,
-     16,
-     17,
-     17,
-     16
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      35
-     ],
-     [
-      "brand",
-      35
-     ],
-     [
-      "ally dmg",
-      35
-     ]
-    ]
-   },
-   "meanGrade": 70.8,
-   "weakest": 52.7,
-   "weakBand": "D-",
-   "minimum": "all 24 slots filled, gems averaging C",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "C",
-   "to": "C+",
-   "note": "mean 71",
-   "gold": 10628,
-   "damage": 0.0103,
-   "poolG": 10934,
-   "poolD": 0.0105,
-   "total": 688644,
-   "totalDamage": 1.406,
-   "gems": 0,
-   "weeks": 0,
-   "grid": {
-    "cores": 17,
-    "coresPer": [
-     17,
-     17,
-     16,
-     17,
-     17,
-     16
-    ],
-    "nodes": [
-     [
-      "ally atk",
-      35
-     ],
-     [
-      "brand",
-      35
-     ],
-     [
-      "ally dmg",
-      35
-     ]
-    ]
-   },
-   "meanGrade": 71,
-   "weakest": 52.9,
-   "weakBand": "D-",
-   "minimum": "all 24 slots filled, gems averaging C+",
-   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
-  },
-  {
-   "from": "C+",
    "to": "B-",
    "note": "mean 72",
-   "gold": 103076,
-   "damage": 0.0591,
-   "poolG": 103076,
-   "poolD": 0.0591,
-   "total": 791720,
-   "totalDamage": 1.4651,
-   "gems": 2,
-   "weeks": 0.2222222222222222,
+   "gold": 754322,
+   "damage": 1.5035,
+   "poolG": 754322,
+   "poolD": 1.5035,
+   "total": 754322,
+   "totalDamage": 1.5035,
+   "gems": 43,
+   "weeks": 4.777777777777778,
    "grid": {
     "cores": 17,
     "coresPer": [
@@ -179,7 +50,7 @@
     ]
    },
    "meanGrade": 72.2,
-   "weakest": 54.4,
+   "weakest": 55.3,
    "weakBand": "D",
    "minimum": "all 24 slots filled, gems averaging B-",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
@@ -187,24 +58,24 @@
   {
    "from": "B-",
    "to": "B",
-   "note": "mean 74",
-   "gold": 300402,
-   "damage": 0.1266,
-   "poolG": 300402,
-   "poolD": 0.1266,
-   "total": 1092122,
-   "totalDamage": 1.5917,
-   "gems": 5,
-   "weeks": 0.5555555555555556,
+   "note": "mean 73",
+   "gold": 104515,
+   "damage": 0.0738,
+   "poolG": 104515,
+   "poolD": 0.0738,
+   "total": 858837,
+   "totalDamage": 1.5773,
+   "gems": 3,
+   "weeks": 0.3333333333333333,
    "grid": {
-    "cores": 18,
+    "cores": 17,
     "coresPer": [
-     18,
-     18,
      17,
-     18,
-     18,
-     17
+     17,
+     16,
+     17,
+     17,
+     16
     ],
     "nodes": [
      [
@@ -221,9 +92,9 @@
      ]
     ]
    },
-   "meanGrade": 74.3,
-   "weakest": 58.3,
-   "weakBand": "D+",
+   "meanGrade": 73.3,
+   "weakest": 56.4,
+   "weakBand": "D",
    "minimum": "all 24 slots filled, gems averaging B",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   },
@@ -231,14 +102,14 @@
    "from": "B",
    "to": "B+",
    "note": "mean 77",
-   "gold": 657729,
-   "damage": 0.2288,
-   "poolG": 657729,
-   "poolD": 0.2288,
-   "total": 1749851,
-   "totalDamage": 1.8205,
-   "gems": 18,
-   "weeks": 2,
+   "gold": 565791,
+   "damage": 0.2518,
+   "poolG": 565791,
+   "poolD": 0.2518,
+   "total": 1424628,
+   "totalDamage": 1.8291,
+   "gems": 15,
+   "weeks": 1.6666666666666667,
    "grid": {
     "cores": 18,
     "coresPer": [
@@ -264,9 +135,9 @@
      ]
     ]
    },
-   "meanGrade": 77.1,
-   "weakest": 64.4,
-   "weakBand": "C",
+   "meanGrade": 76.7,
+   "weakest": 62.6,
+   "weakBand": "C-",
    "minimum": "all 24 slots filled, gems averaging B+",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   },
@@ -274,14 +145,14 @@
    "from": "B+",
    "to": "A-",
    "note": "mean 80",
-   "gold": 1999920,
-   "damage": 0.1161,
-   "poolG": 4519132,
-   "poolD": 0.3672,
-   "total": 3749771,
-   "totalDamage": 1.9366,
-   "gems": 62,
-   "weeks": 6.888888888888889,
+   "gold": 1478540,
+   "damage": 0.231,
+   "poolG": 1478540,
+   "poolD": 0.231,
+   "total": 2903168,
+   "totalDamage": 2.0601,
+   "gems": 48,
+   "weeks": 5.333333333333333,
    "grid": {
     "cores": 18,
     "coresPer": [
@@ -307,24 +178,24 @@
      ]
     ]
    },
-   "meanGrade": 80.3,
-   "weakest": 70.8,
-   "weakBand": "B-",
+   "meanGrade": 80,
+   "weakest": 69.3,
+   "weakBand": "C+",
    "minimum": "all 24 slots filled, gems averaging A-",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   },
   {
    "from": "A-",
    "to": "A",
-   "note": "mean 84",
-   "gold": 2519212,
-   "damage": 0.2511,
-   "poolG": 4519132,
-   "poolD": 0.3672,
-   "total": 6268983,
-   "totalDamage": 2.1877,
-   "gems": 86,
-   "weeks": 9.555555555555555,
+   "note": "mean 83",
+   "gold": 2966649,
+   "damage": 0.2238,
+   "poolG": 2966649,
+   "poolD": 0.2238,
+   "total": 5869817,
+   "totalDamage": 2.2839,
+   "gems": 105,
+   "weeks": 11.666666666666666,
    "grid": {
     "cores": 19,
     "coresPer": [
@@ -350,8 +221,8 @@
      ]
     ]
    },
-   "meanGrade": 83.5,
-   "weakest": 75.9,
+   "meanGrade": 83.3,
+   "weakest": 73.6,
    "weakBand": "B",
    "minimum": "all 24 slots filled, gems averaging A",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
@@ -360,14 +231,14 @@
    "from": "A",
    "to": "A+",
    "note": "mean 87",
-   "gold": 5854101,
-   "damage": 0.3264,
-   "poolG": 5854101,
-   "poolD": 0.3264,
-   "total": 12123084,
-   "totalDamage": 2.5141,
-   "gems": 183,
-   "weeks": 20.333333333333332,
+   "gold": 5706781,
+   "damage": 0.2486,
+   "poolG": 5706781,
+   "poolD": 0.2486,
+   "total": 11576598,
+   "totalDamage": 2.5325,
+   "gems": 182,
+   "weeks": 20.22222222222222,
    "grid": {
     "cores": 19,
     "coresPer": [
@@ -393,9 +264,9 @@
      ]
     ]
    },
-   "meanGrade": 86.9,
-   "weakest": 81.2,
-   "weakBand": "A-",
+   "meanGrade": 86.7,
+   "weakest": 80,
+   "weakBand": "B+",
    "minimum": "all 24 slots filled, gems averaging A+",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   }

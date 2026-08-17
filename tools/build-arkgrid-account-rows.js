@@ -26,6 +26,7 @@
  */
 "use strict";
 var fs = require("fs");
+var A = require("C:/Users/Shizu/loastuff/loa-astrogem-calc/model/astrogem.js");
 
 // The displayed loadout is idealized to Shizu's display rules (2026-08-16):
 // node values snap to multiples of five, and the six cores use exactly two
@@ -50,13 +51,141 @@ function snapNodes(nodes) {
   return nodes.map(function (n) { return [n[0], v]; });
 }
 
+// ---- the fluid frontier -----------------------------------------------------
+// One smooth convex gold(damage) curve per rarity, fit to every tier stop at
+// once. Each tier is a frontier point (its accounts' mean damage and gold),
+// and the stop rule pins the slope there to the tier's own budget. Rungs are
+// then read off this single curve at each band's damage, so marginal rates
+// STRICTLY increase — A- prices below A by construction, and no rung is a
+// difference of medians from two different account populations (which is
+// what inverted the B+/A-/A stretch and forced rate pooling).
+function fluidFrontier(tiers) {
+  var pts = tiers.filter(function (r) { return r.reachable !== false; })
+    .sort(function (a, b) { return a.gpd - b.gpd; });
+  if (pts.length < 4) return null;
+  // segment rates between consecutive stops, isotonic (PAVA, damage-weighted)
+  var segs = [];
+  for (var i = 1; i < pts.length; i++) {
+    var dD = pts[i].damage - pts[i - 1].damage, dG = pts[i].gold - pts[i - 1].gold;
+    if (dD <= 1e-9) continue;
+    segs.push({ d0: pts[i - 1].damage, d1: pts[i].damage, w: dD, rate: dG / dD });
+  }
+  var blocks = [];
+  segs.forEach(function (s) {
+    blocks.push({ w: s.w, rate: s.rate, d0: s.d0, d1: s.d1 });
+    while (blocks.length > 1) {
+      var a = blocks[blocks.length - 2], b = blocks[blocks.length - 1];
+      if (b.rate >= a.rate) break;
+      blocks.splice(blocks.length - 2, 2, { w: a.w + b.w, d0: a.d0, d1: b.d1,
+        rate: (a.rate * a.w + b.rate * b.w) / (a.w + b.w) });
+    }
+  });
+  // strictly increasing marginal: log-interpolate the block rates through
+  // their midpoints, so plateaus become gentle slopes instead of ties
+  var mids = blocks.map(function (b) { return { d: (b.d0 + b.d1) / 2, r: Math.log(b.rate) }; });
+  function rateAt(d) {
+    if (d <= mids[0].d) {
+      var s0 = mids.length > 1 ? (mids[1].r - mids[0].r) / (mids[1].d - mids[0].d) : 0;
+      return Math.exp(mids[0].r + s0 * (d - mids[0].d));
+    }
+    for (var i = 1; i < mids.length; i++) {
+      if (d <= mids[i].d) {
+        var f = (d - mids[i - 1].d) / (mids[i].d - mids[i - 1].d);
+        return Math.exp(mids[i - 1].r + f * (mids[i].r - mids[i - 1].r));
+      }
+    }
+    var n = mids.length;
+    var sN = n > 1 ? (mids[n - 1].r - mids[n - 2].r) / (mids[n - 1].d - mids[n - 2].d) : 0;
+    return Math.exp(mids[n - 1].r + sN * (d - mids[n - 1].d));
+  }
+  // integrate the smoothed marginal from the first stop to get gold(damage)
+  var base = { d: pts[0].damage, g: pts[0].gold };
+  function goldAt(d) {
+    if (d <= base.d) return base.g;
+    var steps = 200, h = (d - base.d) / steps, g = base.g;
+    for (var i = 0; i < steps; i++) {
+      var x0 = base.d + i * h, x1 = x0 + h;
+      g += (rateAt(x0) + rateAt(x1)) / 2 * h;
+    }
+    return g;
+  }
+  // damage at a mean-grade cut: tier means rise with damage, same-population
+  var mcurve = pts.map(function (p) { return { m: p.mean, d: p.damage }; })
+    .sort(function (a, b) { return a.m - b.m; });
+  function damageAtMean(cut) {
+    if (cut <= mcurve[0].m) return null;                 // below the frontier's base
+    for (var i = 1; i < mcurve.length; i++) {
+      if (mcurve[i].m >= cut) {
+        var f = (cut - mcurve[i - 1].m) / (mcurve[i].m - mcurve[i - 1].m);
+        return mcurve[i - 1].d + f * (mcurve[i].d - mcurve[i - 1].d);
+      }
+    }
+    return null;                                         // above coverage
+  }
+  return { rateAt: rateAt, goldAt: goldAt, damageAtMean: damageAtMean,
+    baseDamage: base.d, baseGold: base.g, baseMean: mcurve[0].m };
+}
+
 ["epic", "rare"].forEach(function (rarity) {
   var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + rarity + ".json", "utf8"));
 
   // Grade rungs when the sim recorded them — one stop per band the accounts
   // passed through, so the ladder shows every letter (Shizu: "seems like
   // you're missing every other grade"). Budget stops remain the fallback.
-  var raw = acct.rungs && acct.rungs.length ? acct.rungs.map(function (r) {
+  var fluid = fluidFrontier(acct.rows || []);
+  var raw;
+  if (fluid) {
+    // rungs read off the fluid frontier: gold at each band's damage, display
+    // fields from the nearest tier account (same population, no median mixing)
+    var LAD = A.SUPPORT_RANK_LADDER.slice().reverse();
+    var tiersAsc = (acct.rows || []).filter(function (r) { return r.reachable !== false; })
+      .sort(function (a, b) { return a.damage - b.damage; });
+    var dispAt = function (d) {
+      var best = tiersAsc[0];
+      tiersAsc.forEach(function (t) { if (Math.abs(t.damage - d) < Math.abs(best.damage - d)) best = t; });
+      return best;
+    };
+    var gemsAt = function (d) {
+      if (d <= tiersAsc[0].damage) return tiersAsc[0].gems;
+      for (var i = 1; i < tiersAsc.length; i++) {
+        if (tiersAsc[i].damage >= d) {
+          var f = (d - tiersAsc[i - 1].damage) / (tiersAsc[i].damage - tiersAsc[i - 1].damage);
+          return Math.round(tiersAsc[i - 1].gems + f * (tiersAsc[i].gems - tiersAsc[i - 1].gems));
+        }
+      }
+      return tiersAsc[tiersAsc.length - 1].gems;
+    };
+    var letterOf = function (g) {
+      var L = A.SUPPORT_RANK_LADDER;
+      for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
+      return "F-";
+    };
+    raw = [];
+    var entryDone = false;
+    LAD.forEach(function (row) {
+      var cut = row[1] === -Infinity ? 0 : row[1];
+      if (cut <= fluid.baseMean) {
+        // below the frontier's floor there are no stops: the minimum viable
+        // grid already averages past these letters. One entry row, labeled
+        // by its TRUE band, replaces the old zero-information padding rows.
+        if (entryDone) return;
+        entryDone = true;
+        var d0 = fluid.baseDamage, e0 = dispAt(d0);
+        raw.push({ gold: Math.round(fluid.goldAt(d0)), damage: Number(d0.toFixed(4)),
+          gems: gemsAt(d0), mean: e0.mean, meanBand: letterOf(e0.mean),
+          weakest: e0.weakest, band: e0.band, cores: e0.cores,
+          perCore: snapCores(e0.perCore), nodes: snapNodes(e0.nodes) });
+        return;
+      }
+      var d = fluid.damageAtMean(cut);
+      if (d == null) return;                           // above current coverage
+      var disp = dispAt(d);
+      raw.push({ gold: Math.round(fluid.goldAt(d)), damage: Number(d.toFixed(4)),
+        gems: gemsAt(d), mean: cut, meanBand: row[0],
+        weakest: disp.weakest, band: disp.band,
+        cores: disp.cores, perCore: snapCores(disp.perCore), nodes: snapNodes(disp.nodes) });
+    });
+  } else raw = acct.rungs && acct.rungs.length ? acct.rungs.map(function (r) {
     return { gold: r.gold, damage: r.damage, gems: r.gems,
       mean: r.mean, meanBand: r.band, weakest: r.weakest,
       band: r.weakBand || r.band, cores: r.cores,
