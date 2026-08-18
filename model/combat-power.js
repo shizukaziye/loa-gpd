@@ -2,20 +2,27 @@
  * combat-power.js — estimate the in-game Combat Power of the build the chart
  * assembles at a slider position. Support axis only for now.
  *
- * Method (docs/research/combat-power-model.md): lostark.bible's battlePoint
- * parts are basis-point entries, and the SCORE scales with their SUM —
- * score = K x (1 + sumBp/1e4). The site's breakdown panel multiplies the
- * parts per category (that's where +121.56%/+265.8% come from), but that
- * product is a display quantity, not the score law: Limerent's own 10s -> 6s
- * swap (-5,500 bp of 61,142) moved her profile only ~6.9k -> 6,398, which the
- * sum explains and the product does not. The game's score also carries the
- * skill/tripod block the parts do not cover, so this is an ANCHOR-SWAP
- * estimator: start from a real character's measured score and part sum, add
- * the bp deltas for each system the chart moves, and keep everything else
- * (the skill block, elixirs, cards, paradise) riding the anchor.
+ * Method (docs/research/combat-power-model.md): the law is fit to LIVE
+ * in-game profile readings (2026-08-20), not to lostark.bible's breakdown —
+ * the bible's battlePoint parts are that site's own reconstruction, useful
+ * as relative weights but not the game's internals. Measured on Limerent's
+ * raid loadout: 3,781.18 with 6s, 6,354.88 with 10s. The gem set moves the
+ * score x1.68066 — gems compound PER PART (x1.04833 per gem), which no sum
+ * can produce; the per-gem factor pins the level-10 support gem at 1,269.6
+ * bp, so the old "125 bp/level" linearity was the error. Every other system
+ * the chart moves is small (<300 bp), where sum-vs-product is a wash; those
+ * ride additively over the anchor's non-gem part sum. The profile header IS
+ * the loadout score, raw, for every class — the old x1.9964 "support
+ * convention" compared two different skill presets (gem presets ride skill
+ * presets; the armory crawl had caught a weaker preset at 3,205.08).
  *
- *   CP(settings) = anchor.score * baseAttackRatio
- *                  * (1 + (sumBp + dBp)/1e4) / (1 + sumBp/1e4)
+ *   CP(settings) = anchor.raidScore * baseAttackRatio * gemFactor(level)
+ *                  * (1 + (S0 + dSmall)/1e4) / (1 + S0/1e4)
+ *
+ * with S0 = the anchor's non-gem part sum, and gemFactor the measured
+ * per-gem product curve. Everything the chart does not price (engravings,
+ * ark passive, elixirs, cards, skill block) rides the anchor at every
+ * budget — no invented development constants.
  *
  * The anchor is Shizu's bard Limerent, raid loadout, score 3205.08, parts
  * pulled 2026-08-17 (docs/research/cp-fit-limerent.json). Display scales the
@@ -44,9 +51,9 @@
   "use strict";
 
   // ---- the anchors ---------------------------------------------------------
-  // DPS: Paroxysmal, raid loadout, 2026-08-19. score 7,895.29 and the profile
-  // shows the DPS score raw — the x1.9964 profile scaling is a support-only
-  // convention. Grid-gem rates fit exactly per effect: Attack Power 3.32,
+  // DPS: Paroxysmal, raid loadout, 2026-08-19. score 7,895.29; the profile
+  // shows the score raw (as it does for every character — the crawl simply
+  // caught Paroxysmal in the raid skill state, so no correction is needed). Grid-gem rates fit exactly per effect: Attack Power 3.32,
   // Additional Damage 5.833, Boss Damage 8.327 bp/level; cores carry 16 bp
   // per point, so the swap uses the point delta and the grade bases cancel.
   var ANCHOR_DPS = {
@@ -56,15 +63,13 @@
     battleStatTotal: 2592,   // crit+spec+swift -> 3 bp/pt on DPS
     statBp: 3,
     karmaRank: 6,
-    // full level 10s, confirmed by Shizu 2026-08-19 -> 70.4 bp per gem level
+    // full level 10s, confirmed by Shizu 2026-08-19 -> 704 bp per gem at 10.
+    // No second measured level on the DPS curve yet; levels below 10 assume
+    // 70.4 bp per level (the support curve came out near-linear, 129.9/lvl
+    // against a 125 naive, so linear is a fair stand-in until measured).
     gems: { perGem: 704, count: 11, level: 10 },
-    sumBp: 56261,            // every part except base attack/health
-    // bp of the systems the chart does NOT price (engravings, ark passive,
-    // elixirs, cards, accessories, quality, level): sumBp minus the swapped
-    // systems (stats 7,776 + gems 7,744 + grid 4,291 + karma 360). The
-    // development fraction (settings.devFrac) scales this block down at low
-    // budgets — a floor player has not finished these.
-    rideBp: 36090,
+    sumBp: 56261,            // every part except base attack/health (record)
+    sumBpNonGem: 48517,      // sumBp minus the 11 gem rows (7,744)
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19
       coreRate: 16,
@@ -74,16 +79,14 @@
   };
   // Support: Limerent, raid loadout, 2026-08-17.
   var ANCHOR = {
-    score: 3205.08,          // combatPower {id:2} on the raid loadout, 6s era
-    // 6398.63 is the profile HEADER from the same pull — but the header was
-    // STALE: it still showed her 10s-era figure while the loadout parts were
-    // already the 6s rows (Shizu, 2026-08-19: "she was the 6k+ number with
-    // 10s"). So the profile/score ratio is NOT 6398.63/3205.08 = 1.9964.
-    // Derivation: score(10s) = 3205.08 x (1+66642/1e4)/(1+61142/1e4)
-    // = 3452.87, and 6398.63/3452.87 = 1.85314. Her live 6s profile should
-    // read ~5,939.
-    profileCp: 6398.63,      // stale 10s-era header, kept for the record
-    profileRatio: 1.85314,   // profile = score x this (support convention)
+    score: 3205.08,          // combatPower {id:2} on the CRAWLED loadout, 6s
+    // Live readings on the raid loadout (Shizu, 2026-08-20): 3,781.18 with
+    // 6s and 6,354.88 with 10s. The crawl had caught a weaker skill preset
+    // (3,205.08); its PARTS remain valid — the skill block is not a part.
+    // raidScore anchors the estimate; the profile header shows this number
+    // raw (no support display convention — that lore came from comparing
+    // two different presets).
+    raidScore: 3781.18,      // raid loadout, 6s, live 2026-08-20
     // the parts this estimator swaps, as (1 + bp/1e4) multipliers
     baseAttack: { value: 235903.86, weaponPower: 267033, mainStat: 738326 },
     battleStatTotal: 2466,   // crit+spec+swift -> 4 bp/pt
@@ -91,12 +94,12 @@
     // Limerent WEARS level 6 gems (Shizu, 2026-08-19): 750 bp each, and the
     // bible shows +121.56% — so the rate is 125 bp per gem level, and a full
     // 10s set compounds to +265.8%, the figure Shizu quoted from the start.
-    gems: { bpPerLevel: 125, count: 11, level: 6 },
-    sumBp: 61142,            // every part except base attack/health
-    // non-chart systems (engravings 8,597 + ark passive 24,600 + accessories
-    // 2,280 + cards 1,976 + level 476 + bracelet lines 490 + paradise 130):
-    // sumBp minus swapped (stats 9,864 + gems 8,250 + grid 4,119 + karma 360)
-    rideBp: 38549,
+    // measured game curve, two points: 750 bp at level 6 (crawled rows) and
+    // 1,269.6 at level 10 (solved from the live x1.68066 set swap: eleventh
+    // root x1.04833 per gem). Levels between ride the line (129.9 bp/level).
+    gems: { count: 11, level: 6, bpAt: function (L) { return 750 + 129.9 * (L - 6); } },
+    sumBp: 61142,            // every part except base attack/health (record)
+    sumBpNonGem: 52892,      // sumBp minus the 11 gem rows (8,250)
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -132,9 +135,10 @@
     parts.battleStatsBp = A2.statBp * ((s.battleStatTotal || A2.battleStatTotal) - A2.battleStatTotal);
     dBp += parts.battleStatsBp;
 
+    // gems compound per part: each of the 11 gems is its own factor
     var gl = s.gemLevel || A2.gems.level;
-    parts.gemsBp = (A2.gems.perGem / A2.gems.level) * (gl - A2.gems.level) * A2.gems.count;
-    dBp += parts.gemsBp;
+    var bpSet = A2.gems.perGem * gl / A2.gems.level;
+    parts.gemFactor = Math.pow((1 + bpSet / 1e4) / (1 + A2.gems.perGem / 1e4), A2.gems.count);
 
     parts.arkgridBp = 0;
     if (s.corePoints && s.corePoints.length === 6) {
@@ -153,15 +157,8 @@
     }
     dBp += parts.arkgridBp;
 
-    // development: scale the non-chart block (engravings, ark passive,
-    // elixirs, cards...) by how built the player at this budget is. 1 = the
-    // anchor's own near-cap state; the page passes its budget curve.
-    var dv = s.devFrac != null ? s.devFrac : 1;
-    parts.devBp = (dv - 1) * A2.rideBp;
-    dBp += parts.devBp;
-
-    var score = A2.score * parts.baseAttack *
-      (1 + (A2.sumBp + dBp) / 1e4) / (1 + A2.sumBp / 1e4);
+    var score = A2.score * parts.baseAttack * parts.gemFactor *
+      (1 + (A2.sumBpNonGem + dBp) / 1e4) / (1 + A2.sumBpNonGem / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
 
@@ -190,9 +187,12 @@
     parts.karmaBp = 60 * ((s.karmaRank || ANCHOR.karmaRank) - ANCHOR.karmaRank);
     dBp += parts.karmaBp;
 
+    // gems compound per part along the measured curve (750@6 -> 1,269.6@10);
+    // by construction gemFactor(10) = 1.68066, the live set-swap ratio
     var gl = s.gemLevel || ANCHOR.gems.level;
-    parts.gemsBp = ANCHOR.gems.bpPerLevel * (gl - ANCHOR.gems.level) * ANCHOR.gems.count;
-    dBp += parts.gemsBp;
+    parts.gemFactor = Math.pow(
+      (1 + ANCHOR.gems.bpAt(gl) / 1e4) / (1 + ANCHOR.gems.bpAt(ANCHOR.gems.level) / 1e4),
+      ANCHOR.gems.count);
 
     var aCores = ANCHOR.arkgrid.corePoints, sCores = s.corePoints || aCores;
     parts.arkgridBp = 0;
@@ -203,17 +203,9 @@
     parts.arkgridBp += 5 * (sNl - aNl);
     dBp += parts.arkgridBp;
 
-    var dv = s.devFrac != null ? s.devFrac : 1;
-    parts.devBp = (dv - 1) * ANCHOR.rideBp;
-    dBp += parts.devBp;
-
-    var score = ANCHOR.score * parts.baseAttack *
-      (1 + (ANCHOR.sumBp + dBp) / 1e4) / (1 + ANCHOR.sumBp / 1e4);
-    return {
-      score: score,
-      profileCp: score * ANCHOR.profileRatio,
-      parts: parts, dBp: dBp
-    };
+    var score = ANCHOR.raidScore * parts.baseAttack * parts.gemFactor *
+      (1 + (ANCHOR.sumBpNonGem + dBp) / 1e4) / (1 + ANCHOR.sumBpNonGem / 1e4);
+    return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
 
   return { ANCHOR: ANCHOR, ANCHOR_DPS: ANCHOR_DPS, estimate: estimate,
