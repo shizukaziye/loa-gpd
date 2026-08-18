@@ -763,7 +763,8 @@
   }
 
   // ---- the ranked table: filter, search, sort — state survives renders ----
-  var TABLE = { sort: "gpd", dir: 1, off: {}, q: "", under: false };
+  var TABLE = { sort: "gpd", dir: 1, off: {}, q: "", under: false, flat: "any", stat: "any" };
+  var ACC_SERIES = { neck: 1, ring: 1, earring: 1 };
   var SORTS = {
     system: function (a, b) { return SERIES[a.series].label.localeCompare(SERIES[b.series].label) || a.gpd - b.gpd; },
     gold:   function (a, b) { return a.gold - b.gold || a.gpd - b.gpd; },
@@ -777,6 +778,13 @@
       if (!isFinite(r.gpd)) return false;
       if (TABLE.off[r.series]) return false;
       if (TABLE.under && r.gpd > BUDGET) return false;
+      // flat / stat variant filters bite accessory rows only, so they
+      // compose with the series boxes instead of blanking everything else
+      if (ACC_SERIES[r.series]) {
+        var label = String(r.to || r.label);
+        if (TABLE.flat !== "any" && label.indexOf(TABLE.flat + " flat") < 0) return false;
+        if (TABLE.stat !== "any" && label.indexOf(TABLE.stat + " stat") < 0) return false;
+      }
       if (q && (String(r.to || r.label) + " " + SERIES[r.series].label)
             .toLowerCase().indexOf(q) < 0) return false;
       return true;
@@ -785,10 +793,19 @@
 
   function ensureToolbar() {
     if (el("rk-toolbar")) return;
+    function seg(dim, opts) {
+      return "<span class='rk-seg' data-dim='" + dim + "'><span class='rk-lbl'>" + dim + "</span>" +
+        opts.map(function (o) {
+          return "<span class='rk-pill" + (TABLE[dim] === o ? " on" : "") +
+            "' data-val='" + o + "'>" + o + "</span>";
+        }).join("") + "</span>";
+    }
     el("ranked").innerHTML =
       "<div class='rk-toolbar' id='rk-toolbar'>" +
       "<input class='rk-input' id='rk-q' type='text' placeholder='filter steps…'>" +
       "<label class='rk-under'><input type='checkbox' id='rk-under'> under the slider only</label>" +
+      seg("flat", ["any", "no", "low", "mid", "high"]) +
+      seg("stat", ["any", "min", "low", "mid", "high", "max"]) +
       "<span class='rk-count' id='rk-count'></span></div>" +
       "<div id='rk-table'></div>";
     el("rk-q").value = TABLE.q;
@@ -798,6 +815,18 @@
     });
     el("rk-under").addEventListener("change", function () {
       TABLE.under = this.checked; renderRanked(ROWS); wireTips();
+    });
+    [].slice.call(el("rk-toolbar").querySelectorAll(".rk-seg")).forEach(function (group) {
+      var dim = group.getAttribute("data-dim");
+      group.addEventListener("click", function (ev) {
+        var pill = ev.target.closest(".rk-pill");
+        if (!pill) return;
+        TABLE[dim] = pill.getAttribute("data-val");
+        [].slice.call(group.querySelectorAll(".rk-pill")).forEach(function (p) {
+          p.classList.toggle("on", p === pill);
+        });
+        renderRanked(ROWS); wireTips();
+      });
     });
   }
 
