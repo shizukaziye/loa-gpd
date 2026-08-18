@@ -55,11 +55,14 @@ constant.
 
 ## The chart's estimator (design)
 
-CP_est(settings) = anchor.score x PRODUCT over chart systems of
-  (1 + bp_setting/1e4) / (1 + bp_anchor/1e4)
+CP_est(settings) = anchor.score x baseAttackRatio
+  x (1 + (sumBp + dBp)/1e4) / (1 + sumBp/1e4)
 
-with anchor = Limerent's raid loadout (support, score 3205.08) for the support
-axis. Systems the chart moves: honing (type 1 via sqrt(WPxMS) ratio + quality),
+where sumBp is the anchor's measured part sum (every part except base
+attack/health: Limerent 61,142; Paroxysmal 56,261) and dBp is the signed bp
+delta from the systems the chart swaps. See "The score law is additive" below
+for why this is a sum, not a product. Anchor = Limerent's raid loadout
+(support, score 3205.08) for the support axis, Paroxysmal (7895.29) for DPS. Systems the chart moves: honing (type 1 via sqrt(WPxMS) ratio + quality),
 karma (8), gems (22), battle stats via bracelet (26+16), accessories (15/17),
 stone (10 delta), ark grid (29+31 from the tier account's cores/points and
 node levels x 5bp). Skill block, elixirs, cards, paradise ride the anchor.
@@ -70,10 +73,27 @@ type-1 exact 1.24 factor decomposition, accessory line bp table.
 Raw fit rows live in the session scratchpad (`limerent-resolved.json`,
 compact rows for Paroxysmal/Shizukaziye/White/Teal/Noa).
 
+## The score law is additive (2026-08-19)
+
+The score scales with the SUM of the part bps, not their product:
+
+  score = K x (1 + sumBp/1e4)
+
+The panel's category percentages (+121.56% for Limerent's gems, +265.8% for a
+full 10s set) come from multiplying the parts per category — that is a display
+quantity, not the score law. The proof is Limerent's own gem swap: with 10s
+her profile read "6k+"; wearing 6s it reads 6,398.63 (score 3205.08). Dropping
+-5,500 bp out of a 61,142 bp sum moves an additive score by ~-8%, which
+matches. The per-part product predicted ~3.9k — off by a mile. The additive
+estimator puts her 10s profile at ~6,893.
+
+Anchor part sums (every part except base attack/health, types 1/2):
+Limerent 61,142 bp; Paroxysmal 56,261 bp. Base attack stays a separate ratio
+(sqrt(WP x MS)); swaps ADD their bp deltas to the sum.
+
 ## Gem curves, corrected (2026-08-19)
 
-The bible compounds PER PART: every gem, core and grid-gem effect is its own
-(1 + bp/1e4) factor. Measured endpoints, both confirmed against worn sets:
+Per-part bp rates, measured endpoints, both confirmed against worn sets:
 
 - Support gems: **125 bp per gem level** — Limerent wears level 6s (750 bp
   rows) showing +121.56%; a full 10s set compounds to +265.8%. The old study

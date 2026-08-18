@@ -3,15 +3,19 @@
  * assembles at a slider position. Support axis only for now.
  *
  * Method (docs/research/combat-power-model.md): lostark.bible's battlePoint
- * parts are basis-point multipliers that compound, category by category, the
- * way the site's own breakdown panel multiplies them. The game's score also
- * carries the skill/tripod block those parts do not cover, so this is an
- * ANCHOR-SWAP estimator: start from a real support's raid score, divide out
- * the anchor's multiplier for each system the chart moves, multiply in the
- * multiplier implied by the chart's settings, and keep everything else (the
- * skill block, elixirs, cards, paradise) riding the anchor.
+ * parts are basis-point entries, and the SCORE scales with their SUM —
+ * score = K x (1 + sumBp/1e4). The site's breakdown panel multiplies the
+ * parts per category (that's where +121.56%/+265.8% come from), but that
+ * product is a display quantity, not the score law: Limerent's own 10s -> 6s
+ * swap (-5,500 bp of 61,142) moved her profile only ~6.9k -> 6,398, which the
+ * sum explains and the product does not. The game's score also carries the
+ * skill/tripod block the parts do not cover, so this is an ANCHOR-SWAP
+ * estimator: start from a real character's measured score and part sum, add
+ * the bp deltas for each system the chart moves, and keep everything else
+ * (the skill block, elixirs, cards, paradise) riding the anchor.
  *
- *   CP(settings) = anchor.score * PROD (1 + bp_set/1e4) / (1 + bp_anchor/1e4)
+ *   CP(settings) = anchor.score * baseAttackRatio
+ *                  * (1 + (sumBp + dBp)/1e4) / (1 + sumBp/1e4)
  *
  * The anchor is Shizu's bard Limerent, raid loadout, score 3205.08, parts
  * pulled 2026-08-17 (docs/research/cp-fit-limerent.json). Display scales the
@@ -54,6 +58,7 @@
     karmaRank: 6,
     // full level 10s, confirmed by Shizu 2026-08-19 -> 70.4 bp per gem level
     gems: { perGem: 704, count: 11, level: 10 },
+    sumBp: 56261,            // every part except base attack/health
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19
       coreRate: 16,
@@ -73,6 +78,7 @@
     // bible shows +121.56% — so the rate is 125 bp per gem level, and a full
     // 10s set compounds to +265.8%, the figure Shizu quoted from the start.
     gems: { bpPerLevel: 125, count: 11, level: 6 },
+    sumBp: 61142,            // every part except base attack/health
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -91,48 +97,47 @@
     return { cores: bp, gems: 5 * (nodeLevels || 0) };
   }
 
+  // THE ADDITIVE LAW (settled 2026-08-19 on Limerent's own gem swap): the
+  // score scales with the SUM of every part's basis points -- score =
+  // K x (1 + sumBp/1e4) -- not their product. Her 10s era read "6k+" and
+  // dropping to 6s (-5,500 bp of 61,142) barely moved the profile, which
+  // only the sum explains; the per-part product predicted ~3.9k. The bible
+  // panel's +121.56%/+265.8% figures are the display product, a different
+  // quantity. Swaps therefore ADD bp deltas to the anchor's measured sum.
   function estimateDps(s) {
-    var A2 = ANCHOR_DPS, parts = {}, prod = 1;
+    var A2 = ANCHOR_DPS, parts = {}, dBp = 0;
     var aBase = Math.sqrt(A2.baseAttack.weaponPower * A2.baseAttack.mainStat);
     var sBase = Math.sqrt((s.weaponPower || A2.baseAttack.weaponPower) *
                           (s.mainStat || A2.baseAttack.mainStat));
     parts.baseAttack = sBase / aBase;
-    prod *= parts.baseAttack;
 
-    parts.battleStats = mult(A2.statBp * (s.battleStatTotal || A2.battleStatTotal)) /
-                        mult(A2.statBp * A2.battleStatTotal);
-    prod *= parts.battleStats;
+    parts.battleStatsBp = A2.statBp * ((s.battleStatTotal || A2.battleStatTotal) - A2.battleStatTotal);
+    dBp += parts.battleStatsBp;
 
     var gl = s.gemLevel || A2.gems.level;
-    parts.gems = Math.pow(mult(A2.gems.perGem * gl / A2.gems.level) /
-                          mult(A2.gems.perGem), A2.gems.count);
-    prod *= parts.gems;
+    parts.gemsBp = (A2.gems.perGem / A2.gems.level) * (gl - A2.gems.level) * A2.gems.count;
+    dBp += parts.gemsBp;
 
-    // per-part compounding, bible-style: each core is its own factor on its
-    // own anchor bp (16 bp per point delta), each grid-gem effect its own
-    var aCoreBps = [867, 867, 600, 300, 300, 383];
-    var aCorePts = [18, 18, 20, 20, 20, 19];
-    parts.arkgrid = 1;
+    parts.arkgridBp = 0;
     if (s.corePoints && s.corePoints.length === 6) {
-      for (var ci = 0; ci < 6; ci++) {
-        var bpSet = aCoreBps[ci] + A2.arkgrid.coreRate * (s.corePoints[ci] - aCorePts[ci]);
-        parts.arkgrid *= mult(bpSet) / mult(aCoreBps[ci]);
-      }
+      var pts = s.corePoints.reduce(function (a, b) { return a + b; }, 0);
+      parts.arkgridBp += A2.arkgrid.coreRate * (pts - A2.arkgrid.corePointsTotal);
     }
     var nl = s.nodeLevels || null;
     if (nl != null) {
       var R = A2.arkgrid.nodeRates, L = A2.arkgrid.nodeLevels;
-      var pairs = typeof nl === "number"
+      var prs = typeof nl === "number"
         ? [["atk", nl / 3], ["add", nl / 3], ["boss", nl / 3]]
         : [["atk", nl.atk || 0], ["add", nl.add || 0], ["boss", nl.boss || 0]];
-      pairs.forEach(function (pr) {
-        parts.arkgrid *= mult(R[pr[0]] * pr[1]) / mult(R[pr[0]] * L[pr[0]]);
+      prs.forEach(function (pr) {
+        parts.arkgridBp += R[pr[0]] * (pr[1] - L[pr[0]]);
       });
     }
-    prod *= parts.arkgrid;
+    dBp += parts.arkgridBp;
 
-    var score = A2.score * prod;
-    return { score: score, profileCp: score, parts: parts };
+    var score = A2.score * parts.baseAttack *
+      (1 + (A2.sumBp + dBp) / 1e4) / (1 + A2.sumBp / 1e4);
+    return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
 
   /**
@@ -147,46 +152,38 @@
    * ratio so the tooltip can show what moved.
    */
   function estimate(s) {
-    var parts = {}, prod = 1;
+    var parts = {}, dBp = 0;
 
-    // base attack: value scales with sqrt(WP x MS); the dressing factor rides
     var aBase = Math.sqrt(ANCHOR.baseAttack.weaponPower * ANCHOR.baseAttack.mainStat);
     var sBase = Math.sqrt((s.weaponPower || ANCHOR.baseAttack.weaponPower) *
                           (s.mainStat || ANCHOR.baseAttack.mainStat));
     parts.baseAttack = sBase / aBase;
-    prod *= parts.baseAttack;
 
-    parts.battleStats = mult(4 * (s.battleStatTotal || ANCHOR.battleStatTotal)) /
-                        mult(4 * ANCHOR.battleStatTotal);
-    prod *= parts.battleStats;
+    parts.battleStatsBp = 4 * ((s.battleStatTotal || ANCHOR.battleStatTotal) - ANCHOR.battleStatTotal);
+    dBp += parts.battleStatsBp;
 
-    parts.karma = mult(60 * (s.karmaRank || ANCHOR.karmaRank)) / mult(60 * ANCHOR.karmaRank);
-    prod *= parts.karma;
+    parts.karmaBp = 60 * ((s.karmaRank || ANCHOR.karmaRank) - ANCHOR.karmaRank);
+    dBp += parts.karmaBp;
 
-    // bible math multiplies PER PART: each of the 11 gems, each of the six
-    // cores and each of the three grid-gem effects is its own (1 + bp/1e4)
-    // factor. Summing the bps understated every swing (a lv-7 set is -21%,
-    // not -14%).
     var gl = s.gemLevel || ANCHOR.gems.level;
-    parts.gems = Math.pow(mult(ANCHOR.gems.bpPerLevel * gl) /
-                          mult(ANCHOR.gems.bpPerLevel * ANCHOR.gems.level), ANCHOR.gems.count);
-    prod *= parts.gems;
+    parts.gemsBp = ANCHOR.gems.bpPerLevel * (gl - ANCHOR.gems.level) * ANCHOR.gems.count;
+    dBp += parts.gemsBp;
 
     var aCores = ANCHOR.arkgrid.corePoints, sCores = s.corePoints || aCores;
-    parts.arkgridCores = 1;
+    parts.arkgridBp = 0;
     for (var ci = 0; ci < 6; ci++) {
-      parts.arkgridCores *= mult(coreBp(sCores[ci] != null ? sCores[ci] : aCores[ci])) /
-                            mult(coreBp(aCores[ci]));
+      parts.arkgridBp += coreBp(sCores[ci] != null ? sCores[ci] : aCores[ci]) - coreBp(aCores[ci]);
     }
     var aNl = ANCHOR.arkgrid.nodeLevels, sNl = s.nodeLevels != null ? s.nodeLevels : aNl;
-    parts.arkgridGems = Math.pow(mult(5 * sNl / 3) / mult(5 * aNl / 3), 3);
-    prod *= parts.arkgridCores * parts.arkgridGems;
+    parts.arkgridBp += 5 * (sNl - aNl);
+    dBp += parts.arkgridBp;
 
-    var score = ANCHOR.score * prod;
+    var score = ANCHOR.score * parts.baseAttack *
+      (1 + (ANCHOR.sumBp + dBp) / 1e4) / (1 + ANCHOR.sumBp / 1e4);
     return {
       score: score,
       profileCp: score * (ANCHOR.profileCp / ANCHOR.score),
-      parts: parts
+      parts: parts, dBp: dBp
     };
   }
 
