@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css'>
+<link rel='stylesheet' href='styles.css?v=20260819a'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -71,12 +71,12 @@
 </div>
 </div>
 
-<script src='model/support.js'></script>
-<script src='model/gear.js'></script>
-<script src='model/combat-power.js'></script>
-<script src='model/honing.js'></script>
-<script src='model/karma.js'></script>
-<script src='model/gems.js'></script>
+<script src='model/support.js?v=20260819a'></script>
+<script src='model/gear.js?v=20260819a'></script>
+<script src='model/combat-power.js?v=20260819a'></script>
+<script src='model/honing.js?v=20260819a'></script>
+<script src='model/karma.js?v=20260819a'></script>
+<script src='model/gems.js?v=20260819a'></script>
 <script>
 (function () {
   "use strict";
@@ -292,6 +292,13 @@
   }
 
   function cpCard() {
+    try { return cpCardInner(); }
+    catch (e) {
+      var r0 = el("cpRow"); if (r0) r0.style.display = "none";
+      return "";
+    }
+  }
+  function cpCardInner() {
     var cpRow = el("cpRow");
     if (!window.CombatPower || !state.honing) {
       if (cpRow) cpRow.style.display = "none";
