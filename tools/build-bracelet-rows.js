@@ -151,6 +151,19 @@ for (var k2 = 2; k2 < rungs.length; k2++) {
   prevGold = total; prevCut = r.cut; prevRank = r.rank;
 }
 
+// Shizu (2026-08-18): the ladder starts at C+ — fold the pocket-change
+// steps below it into one entry row that carries their gold.
+var folded = [], accG = 0, accD = 0, entered = false;
+rows.forEach(function (r) {
+  if (entered) { folded.push(r); return; }
+  accG += r.gold; accD += r.damage;
+  if (r.to === "C+") {
+    entered = true;
+    folded.push(Object.assign({}, r, { from: "F", gold: accG,
+      damage: Number(accD.toFixed(5)) }));
+  }
+});
+rows = entered ? folded : rows;
 doc.rows = kept.concat(rows);
 fs.writeFileSync("data/rows.json", JSON.stringify(doc, null, 1));
 fs.writeFileSync("data/bracelet-hits.json", JSON.stringify(hits, null, 1));
