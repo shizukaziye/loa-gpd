@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819g'>
+<link rel='stylesheet' href='styles.css?v=20260819i'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -43,7 +43,7 @@
     <div class='gpdval' id='gpdOut'></div>
   </div>
   <div class='slider' id='cpRow' style='display:none'>
-    <input type='range' id='cpSlider' step='100'>
+    <input type='range' id='cpSlider' step='1'>
     <div class='gpdval' id='cpOut'></div>
   </div>
   <div class='plan' id='plan'></div>
@@ -71,12 +71,12 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819g'></script>
-<script src='model/gear.js?v=20260819g'></script>
-<script src='model/combat-power.js?v=20260819g'></script>
-<script src='model/honing.js?v=20260819g'></script>
-<script src='model/karma.js?v=20260819g'></script>
-<script src='model/gems.js?v=20260819g'></script>
+<script src='model/support.js?v=20260819i'></script>
+<script src='model/gear.js?v=20260819i'></script>
+<script src='model/combat-power.js?v=20260819i'></script>
+<script src='model/honing.js?v=20260819i'></script>
+<script src='model/karma.js?v=20260819i'></script>
+<script src='model/gems.js?v=20260819i'></script>
 <script>
 (function () {
   "use strict";
@@ -273,20 +273,27 @@
     }
     // running max: the curve the bands read never regresses
     for (var i = 1; i < pts.length; i++) pts[i].cp = Math.max(pts[i].cp, pts[i - 1].cp);
-    var cross = [];
-    var h0 = Math.ceil(pts[0].cp / 100), h1 = Math.floor(pts[pts.length - 1].cp / 100);
-    for (var h = h0; h <= h1; h++) {
-      var target = h * 100;
+    // honest scale: ~8% per rung (about two sigma of the population fit's
+    // scatter), snapped to hundreds. A 100-CP step claims precision the
+    // model does not have — the leaderboard fit's noise is ±4-5%.
+    var floor100 = Math.floor(pts[0].cp / 100) * 100;
+    var rungs = [{ cp: floor100, b: pts[0].b }];
+    var lastCp = pts[pts.length - 1].cp;
+    var target = Math.ceil(pts[0].cp / 100) * 100;
+    if (target === floor100) target += 100;
+    while (target <= lastCp) {
       for (var j = 1; j < pts.length; j++) {
         if (pts[j].cp >= target && pts[j - 1].cp < target) {
           var f = (target - pts[j - 1].cp) / (pts[j].cp - pts[j - 1].cp);
-          cross.push({ cp: target,
+          rungs.push({ cp: target,
             b: Math.exp(Math.log(pts[j - 1].b) + f * (Math.log(pts[j].b) - Math.log(pts[j - 1].b))) });
           break;
         }
       }
+      var nextT = Math.round(target * 1.08 / 100) * 100;
+      target = nextT > target ? nextT : target + 100;
     }
-    _cpCurve = { pts: pts, cross: cross, floor: Math.floor(pts[0].cp / 100) * 100 };
+    _cpCurve = { pts: pts, rungs: rungs, floor: floor100 };
     _cpCurveKey = key;
     return _cpCurve;
   }
@@ -306,23 +313,23 @@
     }
     var at = cpEstimateAt(BUDGET), est = at.est;
     var curve = cpCrossings();
-    // the band: the highest perfect hundred whose interpolated crossing
-    // budget is at or below the slider
-    var shown = curve.floor, next = null;
-    for (var ci = 0; ci < curve.cross.length; ci++) {
-      // the epsilon forgives float error when the CP slider lands the budget
-      // exactly on a crossing
-      if (curve.cross[ci].b <= BUDGET * 1.000001) shown = curve.cross[ci].cp;
-      else { next = curve.cross[ci]; break; }
+    // the band: the highest rung whose interpolated crossing budget is at
+    // or below the slider (epsilon forgives float error when the CP slider
+    // lands the budget exactly on a crossing)
+    var idx = 0, next = null;
+    for (var ci = 0; ci < curve.rungs.length; ci++) {
+      if (curve.rungs[ci].b <= BUDGET * 1.000001) idx = ci;
+      else { next = curve.rungs[ci]; break; }
     }
-    // the CP slider rides the same crossing table: hundreds only, and each
-    // position lands the gpd slider on the budget that first reaches it
+    var shown = curve.rungs[idx].cp;
+    // the CP slider rides the rung ladder by index; each position lands the
+    // gpd slider on the budget that first reaches that rung
     if (cpRow) {
       cpRow.style.display = "";
       var cs = el("cpSlider");
-      cs.min = curve.floor;
-      cs.max = curve.cross.length ? curve.cross[curve.cross.length - 1].cp : curve.floor;
-      if (+cs.value !== shown) cs.value = shown;
+      cs.min = 0;
+      cs.max = Math.max(0, curve.rungs.length - 1);
+      if (+cs.value !== idx) cs.value = idx;
       el("cpOut").innerHTML = "&asymp;" + shown.toLocaleString() + " CP";
     }
     // audit hook: inputs, ratios, and the crossing table, inspectable from
@@ -330,12 +337,39 @@
     window.__cpDebug = { budget: BUDGET, armor: at.armor, weapon: at.weapon,
       wp: at.g.wp, ms: at.g.ms, gemLevel: at.gemLevel, pair: at.pair,
       tier: at.tier ? { gpd: at.tier.gpd, perCore: at.tier.perCore, nodes: at.tier.nodes } : null,
-      est: est, shown: shown, next: next, crossings: curve.cross };
+      est: est, shown: shown, next: next, rungs: curve.rungs };
+    // name what carries the climb to the next rung. Above ~notch 80 the
+    // priced cards (honing, gems, grid, stats) are maxed and the climb is
+    // skill depth and whale systems — things this chart does NOT price, so
+    // they are labeled as such rather than dressed up as recommendations.
+    var movers = "";
+    if (next) {
+      var estN = cpEstimateAt(next.b).est;
+      var A = state.axis === "dps" ? CombatPower.ANCHOR_DPS : CombatPower.ANCHOR;
+      var den = 1e4 + A.sumBpNonGem + est.dBp;
+      var bpPct = function (key) {
+        return (((estN.parts[key] || 0) - (est.parts[key] || 0)) / den) * 100;
+      };
+      var list = [
+        ["honing", (estN.parts.baseAttack / est.parts.baseAttack - 1) * 100],
+        ["gems", (estN.parts.gemFactor / est.parts.gemFactor - 1) * 100],
+        ["skill depth <i>(not priced here)</i>", (estN.parts.skill / est.parts.skill - 1) * 100],
+        ["transcendence &amp; elixirs <i>(not priced here)</i>", bpPct("whaleBp")],
+        ["ark grid", bpPct("arkgridBp")],
+        ["battle stats", bpPct("battleStatsBp")]
+      ].filter(function (m) { return m[1] > 0.05; })
+       .sort(function (a, b) { return b[1] - a[1]; })
+       .slice(0, 3);
+      if (list.length) movers = "<div class='sm2' style='margin-top:4px'>the step to &asymp;" +
+        next.cp.toLocaleString() + ": " +
+        list.map(function (m) { return m[0] + " +" + m[1].toFixed(1) + "%"; }).join(" &middot; ") +
+        "</div>";
+    }
     return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
       "<div class='top'><div><div class='big'>&asymp;" + shown.toLocaleString() + "</div>" +
       "<div class='ilvl'>" + (next
         ? "next: &asymp;" + next.cp.toLocaleString() + " at " + fmtGold(next.b) + "/1%"
-        : "estimated profile CP") + "</div></div></div>" +
+        : "estimated profile CP") + "</div></div></div>" + movers +
       "<div class='sm2'>My recommendations are based on damage, not CP — " +
       "especially with supports, CP can be very inaccurate, so your CP may " +
       "look very different from this estimate.</div></div>";
@@ -1063,13 +1097,10 @@
   el("gpd").addEventListener("input", render);
   el("cpSlider").addEventListener("input", function () {
     if (!window.CombatPower || !state.honing) return;
-    var target = +this.value;
     var curve = cpCrossings();
-    var b = null;
-    for (var i = 0; i < curve.cross.length; i++)
-      if (curve.cross[i].cp <= target) b = curve.cross[i].b;
-    var v = 0;
-    if (b != null) v = Math.min(100, Math.max(0,
+    var idx = Math.max(0, Math.min(curve.rungs.length - 1, Math.round(+this.value)));
+    var b = curve.rungs[idx].b;
+    var v = Math.min(100, Math.max(0,
       100 * Math.log(b / 250000) / Math.log(100)));
     el("gpd").value = v;
     render();
