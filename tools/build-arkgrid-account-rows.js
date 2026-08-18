@@ -130,7 +130,14 @@ function fluidFrontier(tiers) {
 }
 
 ["epic", "rare"].forEach(function (rarity) {
-  var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + PREFIX + rarity + ".json", "utf8"));
+  var acct;
+  try {
+    acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + PREFIX + rarity + ".json", "utf8"));
+  } catch (e) {
+    // the other rarity's sweep may simply not have published yet
+    console.log(rarity + ": no account file yet, skipping");
+    return;
+  }
 
   // Grade rungs when the sim recorded them — one stop per band the accounts
   // passed through, so the ladder shows every letter (Shizu: "seems like
