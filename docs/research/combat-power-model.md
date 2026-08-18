@@ -36,7 +36,7 @@ constant.
 | 10 | engraving (x5, stone-merged) | per-engraving bp by grade+stone points, grade05 rows 1700-3525 |
 | 15/17 | accessory grinding lines / addon | per-line bp (neck stigma high = 480, etc.) |
 | 16 | bracelet lines | per-line bp; 245 sample, many 0 rows |
-| 19/20 | elixir? / card set | card set 300-906 |
+| 19/20 | (unknown) / card set | card set 300-906. WARNING: this whole taxonomy is the SITE'S — it still carries categories for systems the game removed (transcendence and elixirs left last year), so type-name guesses here are unreliable |
 | 22 | skill gem (x11) | per-gem bp: 704 (DPS lv10), 750 (support sample) |
 | 26 | battlestat (crit+spec+swift) | 3.0 bp/point DPS, 4.0 bp/point support (exact across 5 chars) |
 | 29 | arkgrid core (x6) | per-core bp: f(core grade, points): 300-400 (stars), 600-800, up to 918@18 ancient; NOT points-linear |
@@ -77,7 +77,7 @@ the skill block is not a part.
   52,892 bp; DPS 48,517 bp). Battle stats, cores, grid gems and karma all
   move < 300 bp, where sum-vs-product is a wash.
 - **Everything the chart does not price rides the anchor** (engravings, ark
-  passive, elixirs, cards, skill block). No invented development constants:
+  passive, cards, skill block). No invented development constants:
   the earlier devFrac died with the law fix — the floor now lands ~3,370
   support / ~4,930 DPS naturally, below Limerent's own 3,781 as it must be.
 - DPS grid feed until the dd-dps sweep publishes: data/cp-grid-dps.json from
@@ -102,9 +102,10 @@ Mommyelly) plus two live glances closed every open question:
 - **The skill build alone is x1.60.** Paroxysmal's chaos loadout carries
   IDENTICAL gear, gems and stats — only the skill block differs: 4,943.86
   vs 7,895.29. This is why anchors must come from the raid state, and why
-  Limerent's Aug-17 crawl (3,205.08 in a weak skill state WHILE WEARING
-  10s — gem item 65041061, +28%/16% effects) misled three fits in a row:
-  its 750-bp gem rows described 10s, not 6s.
+  Limerent's Aug-17 crawl (3,205.08 in a weak skill state) misled three
+  fits in a row. Her 750-bp rows WERE 6s (gem item 65041061 carries
+  level-6 values, +28%/16%) — settled once the population pull showed
+  1,250-bp rows on the supports Shizu quoted as wearing 10s.
 - **The site's gem bp table is affine, not proportional.** DPS damage gems
   across the pulls: 448/512/576/640/704 for levels 6-10 (64 bp/level);
   support gems 750 at level 10 per the site. Site bp is that site's model —
@@ -126,8 +127,26 @@ which no part swap can see. Supports run ~0.88 where same-ilvl DPS run
 
 The estimator multiplies by a piecewise-linear skill curve in the budget
 notch — support [[0, .885], [47, 1], [100, 1.0923]], DPS [[0, .835],
-[87, 1], [100, 1.03]] — plus the whale parts ramp (+7,500 bp, transcendence
-and elixir-class systems, Zanilia-grade at cap) above the support anchor.
+[87, 1], [100, 1.03]] — plus a whale parts ramp (+7,500 bp of late account
+systems, Zanilia-grade at cap) above the support anchor. Those +7,500 bp sit
+in part types 27 and 11, which I first labeled transcendence and elixirs —
+WRONG: both systems left the game last year (Shizu). Whatever the site means
+by those types, the measured gap stands and is folded into prog(v).
+
+## Our own formula (2026-08-20, Shizu's directive)
+
+The shipped estimator no longer leans on the site's part taxonomy at all:
+
+  CP(gear, v) = base.score x hone x gemFactor(level) x small(gear) x prog(v)
+
+with base = Limerent's live raid reading (3,781.18, 6s), hone = sqrt(WP x MS)
+ratio, gemFactor = the measured per-gem product curve, small = battle stats /
+grid / karma nudges (assumption-weighted, sub-2%), and prog(v) = the fitted
+progression multiplier (skill depth + late account systems; support
+[[0,.885],[47,1],[100,1.2213]], DPS [[0,.835],[87,1],[100,1.03]]). The bible
+supplies calibration READINGS only (scores, gear, gem levels). Reproduces:
+Limerent 3,781.18 / 6,355; Paroxysmal 7,895.29; Zanilia 8,334 vs 8,342.85
+measured; floors 2,983 support / 4,117 DPS.
 Every constant traces to a pull: the model reproduces Limerent 3,781.18 /
 6,355, Paroxysmal 7,895.29, and Zanilia 8,343 vs 8,342.85 measured. Site
 gem bp tables confirmed across the population: support 125xL (750..1250

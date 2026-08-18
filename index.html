@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819i'>
+<link rel='stylesheet' href='styles.css?v=20260819j'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -71,12 +71,12 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819i'></script>
-<script src='model/gear.js?v=20260819i'></script>
-<script src='model/combat-power.js?v=20260819i'></script>
-<script src='model/honing.js?v=20260819i'></script>
-<script src='model/karma.js?v=20260819i'></script>
-<script src='model/gems.js?v=20260819i'></script>
+<script src='model/support.js?v=20260819j'></script>
+<script src='model/gear.js?v=20260819j'></script>
+<script src='model/combat-power.js?v=20260819j'></script>
+<script src='model/honing.js?v=20260819j'></script>
+<script src='model/karma.js?v=20260819j'></script>
+<script src='model/gems.js?v=20260819j'></script>
 <script>
 (function () {
   "use strict";
@@ -273,25 +273,29 @@
     }
     // running max: the curve the bands read never regresses
     for (var i = 1; i < pts.length; i++) pts[i].cp = Math.max(pts[i].cp, pts[i - 1].cp);
-    // honest scale: ~8% per rung (about two sigma of the population fit's
-    // scatter), snapped to hundreds. A 100-CP step claims precision the
-    // model does not have — the leaderboard fit's noise is ±4-5%.
+    // honest scale: rungs sit on the curve's own plateaus — a new rung only
+    // once CP has really grown ~8% (two sigma of the population fit's
+    // noise) past the last one, AT a sampled state. Interpolating fixed
+    // targets through the curve invented states inside the gem cliffs
+    // (level 10 gems are a +13% leap at one budget): "7,600 at 8.57M" was
+    // half a notch from 7,000 and no build ever reads it.
     var floor100 = Math.floor(pts[0].cp / 100) * 100;
     var rungs = [{ cp: floor100, b: pts[0].b }];
-    var lastCp = pts[pts.length - 1].cp;
-    var target = Math.ceil(pts[0].cp / 100) * 100;
-    if (target === floor100) target += 100;
-    while (target <= lastCp) {
-      for (var j = 1; j < pts.length; j++) {
-        if (pts[j].cp >= target && pts[j - 1].cp < target) {
-          var f = (target - pts[j - 1].cp) / (pts[j].cp - pts[j - 1].cp);
-          rungs.push({ cp: target,
-            b: Math.exp(Math.log(pts[j - 1].b) + f * (Math.log(pts[j].b) - Math.log(pts[j - 1].b))) });
-          break;
+    var lastCp = pts[0].cp;
+    for (var j = 1; j < pts.length; j++) {
+      if (pts[j].cp >= lastCp * 1.08) {
+        var cp100 = Math.round(pts[j].cp / 100) * 100;
+        if (cp100 > rungs[rungs.length - 1].cp) {
+          rungs.push({ cp: cp100, b: pts[j].b });
+          lastCp = pts[j].cp;
         }
       }
-      var nextT = Math.round(target * 1.08 / 100) * 100;
-      target = nextT > target ? nextT : target + 100;
+    }
+    // the ceiling always gets its rung, even when the last plateau grew
+    // less than a full step
+    var capCp = Math.round(pts[pts.length - 1].cp / 100) * 100;
+    if (capCp > rungs[rungs.length - 1].cp) {
+      rungs.push({ cp: capCp, b: pts[pts.length - 1].b });
     }
     _cpCurve = { pts: pts, rungs: rungs, floor: floor100 };
     _cpCurveKey = key;
@@ -353,8 +357,7 @@
       var list = [
         ["honing", (estN.parts.baseAttack / est.parts.baseAttack - 1) * 100],
         ["gems", (estN.parts.gemFactor / est.parts.gemFactor - 1) * 100],
-        ["skill depth <i>(not priced here)</i>", (estN.parts.skill / est.parts.skill - 1) * 100],
-        ["transcendence &amp; elixirs <i>(not priced here)</i>", bpPct("whaleBp")],
+        ["progression depth <i>(not priced here)</i>", (estN.parts.prog / est.parts.prog - 1) * 100],
         ["ark grid", bpPct("arkgridBp")],
         ["battle stats", bpPct("battleStatsBp")]
       ].filter(function (m) { return m[1] > 0.05; })
@@ -760,7 +763,8 @@
         if (mine[i].gpd > budget) break;
         gold += mine[i].gold; dmg += mine[i].damage; taken++; last = mine[i];
       }
-      out[key] = { taken: taken, of: mine.length, gold: gold, damage: dmg, last: last, first: mine[0] };
+      out[key] = { taken: taken, of: mine.length, gold: gold, damage: dmg, last: last, first: mine[0],
+                   next: mine[taken] || null };
     });
     return out;
   }
@@ -851,7 +855,13 @@
         "<div class='num2'><span>" + (SERIES[key].spend === "last" ? "last step" : "total") + "</span>" +
         fmtGold(spend) + "</div>" +
         "<div class='num2'><span>" + (last && last.totalDamage ? "total " : "") +
-        dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div></div>";
+        dmgLabel().toLowerCase() + "</span>" + totalDmg.toFixed(2) + "%</div>" +
+        // the marginal price you paid for the last rung of this series, and
+        // the price of its next one — the two numbers a buyer compares
+        "<div class='num2'><span>last upgrade</span>" +
+        (last && isFinite(last.gpd) && last.gpd != null ? fmtGold(last.gpd) + "/1%" : "&mdash;") + "</div>" +
+        "<div class='num2'><span>next upgrade</span>" +
+        (p.next && isFinite(p.next.gpd) && p.next.gpd != null ? fmtGold(p.next.gpd) + "/1%" : "maxed") + "</div></div>";
     }).join("") + (function () {
       // The card outlives the flip: while the sweep runs, the live ladders
       // stop mid-band, and without this nothing on the page says the top

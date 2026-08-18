@@ -2,48 +2,28 @@
  * combat-power.js — estimate the in-game Combat Power of the build the chart
  * assembles at a slider position. Support axis only for now.
  *
- * Method (docs/research/combat-power-model.md): the law is fit to LIVE
- * in-game profile readings (2026-08-20), not to lostark.bible's breakdown —
- * the bible's battlePoint parts are that site's own reconstruction, useful
- * as relative weights but not the game's internals. Measured on Limerent's
- * raid loadout: 3,781.18 with 6s, 6,354.88 with 10s. The gem set moves the
- * score x1.68066 — gems compound PER PART (x1.04833 per gem), which no sum
- * can produce; the per-gem factor pins the level-10 support gem at 1,269.6
- * bp, so the old "125 bp/level" linearity was the error. Every other system
- * the chart moves is small (<300 bp), where sum-vs-product is a wash; those
- * ride additively over the anchor's non-gem part sum. The profile header IS
- * the loadout score, raw, for every class — the old x1.9964 "support
- * convention" compared two different skill presets (gem presets ride skill
- * presets; the armory crawl had caught a weaker preset at 3,205.08).
+ * OUR OWN FORMULA (Shizu's directive, 2026-08-20), Limerent as baseline:
  *
- *   CP(settings) = anchor.raidScore * baseAttackRatio * gemFactor(level)
- *                  * (1 + (S0 + dSmall)/1e4) / (1 + S0/1e4)
+ *   CP(gear, v) = base.score x hone x gemFactor(level) x small(gear) x prog(v)
  *
- * with S0 = the anchor's non-gem part sum, and gemFactor the measured
- * per-gem product curve. Everything the chart does not price (engravings,
- * ark passive, elixirs, cards, skill block) rides the anchor at every
- * budget — no invented development constants.
+ *   hone       sqrt(WP x MS) ratio vs the baseline gear — the game's own
+ *              attack-power shape
+ *   gemFactor  per-gem product on the curve MEASURED on Limerent's live
+ *              set swap (3,781.18 with 6s -> 6,354.88 with 10s = x1.68066)
+ *   small      battle stats, ark grid cores/nodes, karma — sub-2% nudges,
+ *              damped by a fitted constant; weights are assumptions until
+ *              someone measures a clean swap
+ *   prog(v)    everything progression carries that gear inputs do not:
+ *              skill depth (tripods, runes, skill levels) and late account
+ *              systems. Fitted to a 26-character leaderboard sample plus
+ *              three named whales; 1.0 at each baseline's own budget notch
  *
- * The anchor is Shizu's bard Limerent, raid loadout, score 3205.08, parts
- * pulled 2026-08-17 (docs/research/cp-fit-limerent.json). Display scales the
- * loadout score to the profile figure via the anchor's own profile/loadout
- * ratio, so the card reads like the number players see.
- *
- * Fitted curves (six-character fit set, exact where stated):
- *   battle stats      4.0 bp per point of crit+spec+swift (support, exact)
- *   arkgrid gems      5.0 bp per summed effect level (support ids, exact)
- *   arkgrid cores     16 bp per core point + grade base (ancient ~480,
- *                     relic ~80, legendary ~-20; fits 9 of 12 observed cores
- *                     to within 1, the rest are other grades)
- *   karma evolution   60 bp per rank
- *   level             476 bp at 70 (constant here)
- * Documented assumptions (thin data, flagged in the tooltip):
- *   skill gems        750 bp per gem at level 10, scaled linearly by level
- *   base attack       type-1 value scales with sqrt(weaponPower x mainStat);
- *                     the anchor's 1.24 dressing factor rides along
- *   accessories/stone hold the anchor's rows (the chart's accessory steps are
- *                     small in bp and the per-line table is only half mapped)
- */
+ * Every constant traces to a live in-game reading, a public crawl, or is
+ * labeled an assumption. lostark.bible's battlePoint parts are used ONLY as
+ * calibration readings (score, gear, gem levels) — their type taxonomy is
+ * that site's fiction (it still lists categories for systems the game
+ * removed) and plays no role here.
+  */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory();
   else root.CombatPower = factory();
@@ -70,11 +50,11 @@
     gems: { perGem: 704, count: 11, level: 10 },
     sumBp: 56261,            // every part except base attack/health (record)
     sumBpNonGem: 48517,      // sumBp minus the 11 gem rows (7,744)
-    // fitted like the support curve (leaderboard sample: typical 1760 DPS
-    // run ~0.835 of Paroxysmal's skill state; 1773 full-10s reads 0.95).
-    // Mild 1.03 cap for the 1800+ whales the sample trend points at.
-    skillCurve: [[0, 0.835], [87, 1], [100, 1.03]],
-    notch: 87,               // Paroxysmal's own budget position (deep whale)
+    // prog(v), fitted like the support curve (leaderboard sample: typical
+    // 1760 DPS run ~0.835 of Paroxysmal's skill state; 1773 full-10s reads
+    // 0.95). Mild 1.03 cap for the 1800+ whales the sample trend points at.
+    progCurve: [[0, 0.835], [87, 1], [100, 1.03]],
+    notch: 87,               // the baseline's budget position (deep whale)
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19
       coreRate: 16,
@@ -96,29 +76,20 @@
     baseAttack: { value: 235903.86, weaponPower: 267033, mainStat: 738326 },
     battleStatTotal: 2466,   // crit+spec+swift -> 4 bp/pt
     karmaRank: 6,            // 360 bp
-    // Limerent WEARS level 6 gems (Shizu, 2026-08-19): 750 bp each, and the
-    // bible shows +121.56% — so the rate is 125 bp per gem level, and a full
-    // 10s set compounds to +265.8%, the figure Shizu quoted from the start.
     // measured game curve, two points: 750 bp at level 6 (crawled rows) and
     // 1,269.6 at level 10 (solved from the live x1.68066 set swap: eleventh
     // root x1.04833 per gem). Levels between ride the line (129.9 bp/level).
     gems: { count: 11, level: 6, bpAt: function (L) { return 750 + 129.9 * (L - 6); } },
     sumBp: 61142,            // every part except base attack/health (record)
     sumBpNonGem: 52892,      // sumBp minus the 11 gem rows (8,250)
-    // the whale ceiling, measured on three named supports (2026-08-20):
-    // Zanilia 8,342.85 / Tinyusagi 7,709.62 (fresh crawls, matched Shizu's
-    // live quotes) / Bukkâkæ 7,433 live. Beyond the anchor they carry up to
-    // +7,500 bp of parts the chart does not price — transcendence (+2,100,
-    // Limerent has none) and elixir-class systems (+4,480).
-    // settings.whaleFrac ramps that in; 1 = Zanilia-grade parts.
-    whale: { bpCap: 7500 },
-    // the skill curve: everything the parts do NOT carry (tripods, runes,
-    // skill levels) as a multiplier vs the anchor's own state, fitted to a
-    // 26-character leaderboard sample + the three whales (docs/research/
-    // cp-fit-population.json). Piecewise-linear in the budget notch; 1.0 at
-    // the anchor's own position by construction.
-    skillCurve: [[0, 0.885], [47, 1], [100, 1.0923]],
-    notch: 47,               // the anchor's budget position (~2.2M/1%)
+    // prog(v): skill depth plus the late account systems, as one fitted
+    // multiplier vs the baseline's own state. Floor and interior from the
+    // 26-character leaderboard sample (typical 1750s supports run ~0.885 of
+    // Limerent's skill state); the cap reproduces Zanilia's measured
+    // 8,342.85 (three named whales sit +7-9% in skill and carry ~+7,500 bp
+    // of late systems the chart does not price — folded together here).
+    progCurve: [[0, 0.885], [47, 1], [100, 1.2213]],
+    notch: 47,               // the baseline's budget position (~2.2M/1%)
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -129,8 +100,8 @@
 
   function mult(bp) { return 1 + bp / 1e4; }
 
-  // piecewise-linear skill multiplier at budget notch v (0..100)
-  function skillAt(curve, v) {
+  // piecewise-linear progression multiplier at budget notch v (0..100)
+  function progAt(curve, v) {
     if (v <= curve[0][0]) return curve[0][1];
     for (var i = 1; i < curve.length; i++) {
       if (v <= curve[i][0]) {
@@ -149,13 +120,6 @@
     return { cores: bp, gems: 5 * (nodeLevels || 0) };
   }
 
-  // THE ADDITIVE LAW (settled 2026-08-19 on Limerent's own gem swap): the
-  // score scales with the SUM of every part's basis points -- score =
-  // K x (1 + sumBp/1e4) -- not their product. Her 10s era read "6k+" and
-  // dropping to 6s (-5,500 bp of 61,142) barely moved the profile, which
-  // only the sum explains; the per-part product predicted ~3.9k. The bible
-  // panel's +121.56%/+265.8% figures are the display product, a different
-  // quantity. Swaps therefore ADD bp deltas to the anchor's measured sum.
   function estimateDps(s) {
     var A2 = ANCHOR_DPS, parts = {}, dBp = 0;
     var aBase = Math.sqrt(A2.baseAttack.weaponPower * A2.baseAttack.mainStat);
@@ -188,9 +152,9 @@
     }
     dBp += parts.arkgridBp;
 
-    parts.skill = skillAt(A2.skillCurve, s.notch != null ? s.notch : A2.notch);
+    parts.prog = progAt(A2.progCurve, s.notch != null ? s.notch : A2.notch);
 
-    var score = A2.score * parts.baseAttack * parts.gemFactor * parts.skill *
+    var score = A2.score * parts.baseAttack * parts.gemFactor * parts.prog *
       (1 + (A2.sumBpNonGem + dBp) / 1e4) / (1 + A2.sumBpNonGem / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
@@ -236,16 +200,9 @@
     parts.arkgridBp += 5 * (sNl - aNl);
     dBp += parts.arkgridBp;
 
-    var v = s.notch != null ? s.notch : ANCHOR.notch;
-    // whale parts (transcendence, elixirs) ramp in above the anchor's notch
-    var wf = s.whaleFrac != null ? s.whaleFrac
-      : Math.max(0, Math.min(1, (v - ANCHOR.notch) / (100 - ANCHOR.notch)));
-    parts.whaleBp = wf * ANCHOR.whale.bpCap;
-    dBp += parts.whaleBp;
+    parts.prog = progAt(ANCHOR.progCurve, s.notch != null ? s.notch : ANCHOR.notch);
 
-    parts.skill = skillAt(ANCHOR.skillCurve, v);
-
-    var score = ANCHOR.raidScore * parts.baseAttack * parts.gemFactor * parts.skill *
+    var score = ANCHOR.raidScore * parts.baseAttack * parts.gemFactor * parts.prog *
       (1 + (ANCHOR.sumBpNonGem + dBp) / 1e4) / (1 + ANCHOR.sumBpNonGem / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
