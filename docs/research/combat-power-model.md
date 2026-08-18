@@ -111,6 +111,29 @@ Mommyelly) plus two live glances closed every open question:
   the game's own set ratio (x1.68066, measured) is what the estimator uses,
   so the mislabel never touched the shipped numbers.
 
+## The skill curve — fitted to the leaderboard population (2026-08-20)
+
+Shizu's astrogem leaderboard (19,198 cached characters) supplied a stratified
+26-character NA sample (docs/research/cp-fit-population.json; 22 more pulls
+lost to bible 429s, retryable). Predicting each raid loadout from the anchors
+with its OWN parts, honing and gems leaves a residual that climbs cleanly
+with progression: 0.23 at ilvl 1567, ~0.60 at 1710, ~0.75 at 1720s, ~0.82 at
+1750s, ~0.88 at 1770s, 0.95 at 1773 full-10s, 1.07-1.09 for the 1790-1800
+whales. That residual is the skill block — tripods, runes, skill levels —
+which no part swap can see. Supports run ~0.88 where same-ilvl DPS run
+~0.80, consistent with each axis anchoring at 1.0 on its own character.
+(One corrupt row excluded: a support score id on a DPS build.)
+
+The estimator multiplies by a piecewise-linear skill curve in the budget
+notch — support [[0, .885], [47, 1], [100, 1.0923]], DPS [[0, .835],
+[87, 1], [100, 1.03]] — plus the whale parts ramp (+7,500 bp, transcendence
+and elixir-class systems, Zanilia-grade at cap) above the support anchor.
+Every constant traces to a pull: the model reproduces Limerent 3,781.18 /
+6,355, Paroxysmal 7,895.29, and Zanilia 8,343 vs 8,342.85 measured. Site
+gem bp tables confirmed across the population: support 125xL (750..1250
+all five levels seen in the wild), DPS 64x(L+1) (448..704, 512@7 seen).
+Chart ranges: support 2,900-8,500, DPS 4,100-8,500.
+
 ## Law post-mortem — three wrong fits before the right one
 
 1. **Additive-sum over all parts** matched a cross-character constant

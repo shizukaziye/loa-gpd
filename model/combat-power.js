@@ -70,6 +70,11 @@
     gems: { perGem: 704, count: 11, level: 10 },
     sumBp: 56261,            // every part except base attack/health (record)
     sumBpNonGem: 48517,      // sumBp minus the 11 gem rows (7,744)
+    // fitted like the support curve (leaderboard sample: typical 1760 DPS
+    // run ~0.835 of Paroxysmal's skill state; 1773 full-10s reads 0.95).
+    // Mild 1.03 cap for the 1800+ whales the sample trend points at.
+    skillCurve: [[0, 0.835], [87, 1], [100, 1.03]],
+    notch: 87,               // Paroxysmal's own budget position (deep whale)
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19
       coreRate: 16,
@@ -100,6 +105,20 @@
     gems: { count: 11, level: 6, bpAt: function (L) { return 750 + 129.9 * (L - 6); } },
     sumBp: 61142,            // every part except base attack/health (record)
     sumBpNonGem: 52892,      // sumBp minus the 11 gem rows (8,250)
+    // the whale ceiling, measured on three named supports (2026-08-20):
+    // Zanilia 8,342.85 / Tinyusagi 7,709.62 (fresh crawls, matched Shizu's
+    // live quotes) / Bukkâkæ 7,433 live. Beyond the anchor they carry up to
+    // +7,500 bp of parts the chart does not price — transcendence (+2,100,
+    // Limerent has none) and elixir-class systems (+4,480).
+    // settings.whaleFrac ramps that in; 1 = Zanilia-grade parts.
+    whale: { bpCap: 7500 },
+    // the skill curve: everything the parts do NOT carry (tripods, runes,
+    // skill levels) as a multiplier vs the anchor's own state, fitted to a
+    // 26-character leaderboard sample + the three whales (docs/research/
+    // cp-fit-population.json). Piecewise-linear in the budget notch; 1.0 at
+    // the anchor's own position by construction.
+    skillCurve: [[0, 0.885], [47, 1], [100, 1.0923]],
+    notch: 47,               // the anchor's budget position (~2.2M/1%)
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -109,6 +128,18 @@
   };
 
   function mult(bp) { return 1 + bp / 1e4; }
+
+  // piecewise-linear skill multiplier at budget notch v (0..100)
+  function skillAt(curve, v) {
+    if (v <= curve[0][0]) return curve[0][1];
+    for (var i = 1; i < curve.length; i++) {
+      if (v <= curve[i][0]) {
+        var f = (v - curve[i - 1][0]) / (curve[i][0] - curve[i - 1][0]);
+        return curve[i - 1][1] + f * (curve[i][1] - curve[i - 1][1]);
+      }
+    }
+    return curve[curve.length - 1][1];
+  }
 
   function coreBp(points) { return ANCHOR.arkgrid.coreBase + ANCHOR.arkgrid.coreRate * points; }
 
@@ -157,7 +188,9 @@
     }
     dBp += parts.arkgridBp;
 
-    var score = A2.score * parts.baseAttack * parts.gemFactor *
+    parts.skill = skillAt(A2.skillCurve, s.notch != null ? s.notch : A2.notch);
+
+    var score = A2.score * parts.baseAttack * parts.gemFactor * parts.skill *
       (1 + (A2.sumBpNonGem + dBp) / 1e4) / (1 + A2.sumBpNonGem / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
@@ -203,7 +236,16 @@
     parts.arkgridBp += 5 * (sNl - aNl);
     dBp += parts.arkgridBp;
 
-    var score = ANCHOR.raidScore * parts.baseAttack * parts.gemFactor *
+    var v = s.notch != null ? s.notch : ANCHOR.notch;
+    // whale parts (transcendence, elixirs) ramp in above the anchor's notch
+    var wf = s.whaleFrac != null ? s.whaleFrac
+      : Math.max(0, Math.min(1, (v - ANCHOR.notch) / (100 - ANCHOR.notch)));
+    parts.whaleBp = wf * ANCHOR.whale.bpCap;
+    dBp += parts.whaleBp;
+
+    parts.skill = skillAt(ANCHOR.skillCurve, v);
+
+    var score = ANCHOR.raidScore * parts.baseAttack * parts.gemFactor * parts.skill *
       (1 + (ANCHOR.sumBpNonGem + dBp) / 1e4) / (1 + ANCHOR.sumBpNonGem / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
   }
