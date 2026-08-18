@@ -27,6 +27,9 @@
 "use strict";
 var fs = require("fs");
 var A = require("C:/Users/Shizu/loastuff/loa-astrogem-calc/model/astrogem.js");
+var AXIS = process.argv.indexOf("--axis=dps") >= 0 ? "dps" : "support";
+var LADDER = AXIS === "dps" ? A.RANK_LADDER : A.SUPPORT_RANK_LADDER;
+var PREFIX = AXIS === "dps" ? "dps-" : "";
 
 // The displayed loadout is idealized to Shizu's display rules (2026-08-16):
 // node values snap to multiples of five, and the six cores use exactly two
@@ -127,7 +130,7 @@ function fluidFrontier(tiers) {
 }
 
 ["epic", "rare"].forEach(function (rarity) {
-  var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + rarity + ".json", "utf8"));
+  var acct = JSON.parse(fs.readFileSync("data/arkgrid-account-" + PREFIX + rarity + ".json", "utf8"));
 
   // Grade rungs when the sim recorded them — one stop per band the accounts
   // passed through, so the ladder shows every letter (Shizu: "seems like
@@ -137,7 +140,7 @@ function fluidFrontier(tiers) {
   if (fluid) {
     // rungs read off the fluid frontier: gold at each band's damage, display
     // fields from the nearest tier account (same population, no median mixing)
-    var LAD = A.SUPPORT_RANK_LADDER.slice().reverse();
+    var LAD = LADDER.slice().reverse();
     var tiersAsc = (acct.rows || []).filter(function (r) { return r.reachable !== false; })
       .sort(function (a, b) { return a.damage - b.damage; });
     var dispAt = function (d) {
@@ -156,7 +159,7 @@ function fluidFrontier(tiers) {
       return tiersAsc[tiersAsc.length - 1].gems;
     };
     var letterOf = function (g) {
-      var L = A.SUPPORT_RANK_LADDER;
+      var L = LADDER;
       for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
       return "F-";
     };
@@ -310,7 +313,7 @@ function fluidFrontier(tiers) {
           capped: !!r.capped, perCore: snapCores(r.perCore), nodes: snapNodes(r.nodes) };
       })
   };
-  fs.writeFileSync("data/arkgrid-rows-" + rarity + ".json", JSON.stringify(out, null, 1));
+  fs.writeFileSync("data/arkgrid-rows-" + PREFIX + rarity + ".json", JSON.stringify(out, null, 1));
 
   console.log(rarity + " — " + rows.length + " rows");
   rows.forEach(function (r) {

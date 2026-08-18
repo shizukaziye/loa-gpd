@@ -34,9 +34,14 @@ process.argv.slice(2).forEach(function (a) {
 var WORKERS = parseInt(ARGS.workers, 10) || 8;
 var REPS = parseInt(ARGS.reps, 10) || 10000;
 var RARITIES = String(ARGS.rarities || "rare,epic").split(",");
+var AXIS = String(ARGS.axis || "support");
 var PUSH = ARGS.push !== "0";
-var OUTDIR = ARGS.outdir || "tools/.cache/dd";
-var ANCHDIR = "tools/.cache/anchors";
+var OUTDIR = ARGS.outdir || (AXIS === "dps" ? "tools/.cache/dd-dps" : "tools/.cache/dd");
+var ANCHDIR = AXIS === "dps" ? "tools/.cache/anchors-dps" : "tools/.cache/anchors";
+var ACCT_FILE = function (r) {
+  return "data/arkgrid-account-" + (AXIS === "dps" ? "dps-" : "") + r + ".json";
+};
+var PROG_FILE = AXIS === "dps" ? "data/arkgrid-progress-dps.json" : "data/arkgrid-progress.json";
 fs.mkdirSync(OUTDIR, { recursive: true });
 
 // the 29 slider tiers, 250k to 100M — same lattice the MC anchors ran
@@ -169,24 +174,28 @@ function publish(reason) {
         });
       if (!files.length) return;
       var res = cp.spawnSync("node", ["tools/arkgrid-merge.js", "--rarity=" + r,
-        "--in=" + files.join(","), "--out=data/arkgrid-account-" + r + ".json"],
+        "--axis=" + AXIS, "--in=" + files.join(","), "--out=" + ACCT_FILE(r)],
         { encoding: "utf8" });
       if (res.status !== 0) { log("MERGE FAILED " + r + ": " + (res.stderr || "").slice(0, 300)); return; }
       mergedAny.push(r + ":" + files.length);
     });
     if (!mergedAny.length) return;
-    var rb = cp.spawnSync("node", ["tools/build-arkgrid-account-rows.js"], { encoding: "utf8" });
+    var rb = cp.spawnSync("node", ["tools/build-arkgrid-account-rows.js", "--axis=" + AXIS], { encoding: "utf8" });
     if (rb.status !== 0) { log("ROW BUILD FAILED: " + (rb.stderr || "").slice(0, 300)); return; }
-    var prog = { updated: new Date().toISOString(), total: TIERS.length, reps: REPS, draw: "dd" };
+    var prog = { updated: new Date().toISOString(), total: TIERS.length, reps: REPS, draw: "dd", axis: AXIS };
     RARITIES.forEach(function (r) {
       prog[r] = { done: TIERS.filter(function (g) { return doneShard(r, g); }).length,
                   quarantined: quarantined.filter(function (q) { return q.r === r; }).length };
     });
-    fs.writeFileSync("data/arkgrid-progress.json", JSON.stringify(prog, null, 1));
+    fs.writeFileSync(PROG_FILE, JSON.stringify(prog, null, 1));
     if (PUSH) {
+      var addFiles = AXIS === "dps"
+        ? ["data/arkgrid-account-dps-rare.json", "data/arkgrid-account-dps-epic.json",
+           "data/arkgrid-rows-dps-rare.json", "data/arkgrid-rows-dps-epic.json", PROG_FILE]
+        : ["data/arkgrid-account-rare.json", "data/arkgrid-account-epic.json",
+           "data/arkgrid-rows-rare.json", "data/arkgrid-rows-epic.json", PROG_FILE];
       var seq = [
-        ["add", "data/arkgrid-account-rare.json", "data/arkgrid-account-epic.json",
-         "data/arkgrid-rows-rare.json", "data/arkgrid-rows-epic.json", "data/arkgrid-progress.json"],
+        ["add"].concat(addFiles),
         ["commit", "-m", "arkgrid dd sweep: " + reason],
         ["push"]
       ];
@@ -230,7 +239,7 @@ function launch(job) {
   log("start " + job.r + " gpd " + (job.g / 1e6).toFixed(2) + "M  (" + running + " running, " +
     queue.length + " queued)");
   var ch = cp.spawn("node", ["--max-old-space-size=" + HEAP[job.r], "tools/arkgrid-account.js",
-    "--rarity=" + job.r, "--n=6000", "--gpds=" + job.g, "--reps=" + REPS,
+    "--rarity=" + job.r, "--axis=" + AXIS, "--n=6000", "--gpds=" + job.g, "--reps=" + REPS,
     "--draw=dd", "--out=" + shardPath(job.r, job.g)],
     { stdio: ["ignore", fd, fd] });
   ch.on("exit", function (code) {

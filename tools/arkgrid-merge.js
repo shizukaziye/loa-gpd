@@ -28,6 +28,8 @@ process.argv.slice(2).forEach(function (a) {
   if (m) ARGS[m[1]] = m[2];
 });
 var RARITY = ARGS.rarity || "rare";
+var AXIS = ARGS.axis || "support";
+var LADDER = AXIS === "dps" ? A.RANK_LADDER : A.SUPPORT_RANK_LADDER;
 var OUT = ARGS.out;
 if (!OUT) { console.error("need --out"); process.exit(1); }
 
@@ -39,13 +41,17 @@ else if (ARGS.dir) files = fs.readdirSync(ARGS.dir)
 if (!files.length) { console.error("no shard files"); process.exit(1); }
 
 function letterOf(g) {
-  var L = A.SUPPORT_RANK_LADDER;
+  var L = LADDER;
   for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
   return "F-";
 }
 
-var NODES = ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
-var SHORT = { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
+var NODES = AXIS === "dps"
+  ? ["Attack Power", "Additional Damage", "Boss Damage"]
+  : ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
+var SHORT = AXIS === "dps"
+  ? { "Attack Power": "atk", "Additional Damage": "add dmg", "Boss Damage": "boss" }
+  : { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
 var CUTS_PER_WEEK = { uncommon: 70, rare: 26, epic: 9 };
 
 var head = null, rows = [], AVG = {};
@@ -97,7 +103,7 @@ for (var i = 1; i < rows.length; i++) {
 // recorded one — sustained-crossing shards do; old first-touch shards fall
 // back to the conditional mean and should not be mixed into a new ladder.
 function cellPrice(a) { return a.goldMed != null ? a.goldMed : a.gold; }
-var LADDER_ASC = A.SUPPORT_RANK_LADDER.slice().reverse();
+var LADDER_ASC = LADDER.slice().reverse();
 var rungs = [];
 LADDER_ASC.forEach(function (row, k) {
   var best = null;
@@ -121,7 +127,7 @@ LADDER_ASC.forEach(function (row, k) {
 fs.writeFileSync(OUT, JSON.stringify({
   rarity: RARITY, slots: head.slots, cutsPerWeek: head.cutsPerWeek,
   turns: head.turns, rerolls: head.rerolls,
-  n: head.n, party: head.party, sig: head.sig, draw: head.draw || "mc",
+  n: head.n, party: head.party, sig: head.sig, draw: head.draw || "mc", axis: AXIS,
   merged: files.length, tiers: rows.length,
   rows: rows, rungs: rungs, crossRaw: AVG
 }, null, 1));

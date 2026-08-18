@@ -62,7 +62,29 @@ var CORES = {
 };
 var HALF = 12;
 var CUTS_PER_WEEK = { uncommon: 70, rare: 26, epic: 9 };
-var PARTY = 3;
+var AXIS = String(ARGS.axis || "support");
+var PARTY = AXIS === "dps" ? 1 : 3;
+// Axis facade: every grading, damage, ladder and order-rate call routes
+// through AX, so the same account machinery runs both charts. gemDamage =
+// effects + order, so DPS effects-only = gemDamage minus the order part.
+var DPP = A.orderScore(5) - A.orderScore(4);
+var AX = AXIS === "dps" ? {
+  grade: function (g) { return A.grade(g); },
+  dmgFull: function (g) { return A.gemDamage(g); },
+  dmgEff: function (g) { return A.gemDamage(g) - A.orderScore(g.orderLevel || 0); },
+  ladder: A.RANK_LADDER,
+  gridDamage: function (p) { return A.gridDamage(p, "dps"); },
+  orderRate: function () { return Math.exp(DPP / 100) - 1; },
+  gradeToScore: A.gradeToScore
+} : {
+  grade: function (g) { return A.supportGrade(g); },
+  dmgFull: function (g) { return A.supportDamage(g); },
+  dmgEff: function (g) { return A.supportDamage(g, 0); },
+  ladder: A.SUPPORT_RANK_LADDER,
+  gridDamage: function (p) { return A.gridDamage(p, "support"); },
+  orderRate: function (coreId) { return Math.exp(A.supportOrderValueForCore(coreId) / 100) - 1; },
+  gradeToScore: A.supportGradeToScore
+};
 var N = parseInt(ARGS.n, 10) || 4000;          // gems cut per account
 var SEED = String(ARGS.seed || "gpd-2026-08-14");
 // default is the original eight; --gpds=comma-list overrides so the anchor
@@ -76,7 +98,7 @@ var MIX = { 8: 0.6, 9: 0.3, 10: 0.1 };
 // instead of walking nine turns per gem. Cells cache to disk and are shared
 // by every shard; once warm, a draw is a binary search.
 var DRAW = String(ARGS.draw || "mc");
-var CELL_DIR = "data/cells/" + RARITY;
+var CELL_DIR = "data/cells/" + (AXIS === "dps" ? "dps-" : "") + RARITY;
 if (DRAW === "dd") fsMod.mkdirSync(CELL_DIR, { recursive: true });
 var cfgTables = { 8: DPX.buildCfgTable(8), 9: DPX.buildCfgTable(9), 10: DPX.buildCfgTable(10) };
 var cellCache = {}, cellOrder = [];
@@ -93,7 +115,7 @@ function cellFor(cost, pairIdx, band, gpd) {
   } else {
     // share the account's own solver so a block's 18 cells reuse one DP memo
     var ex = DPX.extract({ rarity: RARITY, cost: cost, pair: pairIdx, baseline: band,
-      gpd: gpd, roster: ROSTER, axis: "support", mode: "game", allowReset: true,
+      gpd: gpd, roster: ROSTER, axis: AXIS, mode: "game", allowReset: true,
       solver: solverFor(band, gpd) });
     cell = { fin: ex.fin, finG: ex.finG, dis: ex.dis, disG: ex.disG };
     var tmp = file + "." + process.pid + ".tmp";
@@ -123,8 +145,12 @@ function drawGemDD(cost, pairIdx, band, gpd, rand) {
   return { spent: mass > 0 ? cell.finG[lo] / mass : 0, processes: 1,
     cfg: cfgTables[cost][lo] };
 }
-var NODES = ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
-var SHORT = { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
+var NODES = AXIS === "dps"
+  ? ["Attack Power", "Additional Damage", "Boss Damage"]
+  : ["Ally Attack Enh.", "Brand Power", "Ally Damage Enh."];
+var SHORT = AXIS === "dps"
+  ? { "Attack Power": "atk", "Additional Damage": "add dmg", "Boss Damage": "boss" }
+  : { "Ally Attack Enh.": "ally atk", "Brand Power": "brand", "Ally Damage Enh.": "ally dmg" };
 
 function pairsOf(cost) {
   var pool = A.EFFECT_POOLS[cost], out = [];
@@ -137,7 +163,9 @@ var PAIRS = { 8: pairsOf(8), 9: pairsOf(9), 10: pairsOf(10) };
 // cached and the baseline is snapped to the grade band it sits in. A player
 // does not re-read the advisor over a tenth of a grade, and snapping keeps the
 // solver count to twelve bands rather than forty-odd grade points.
-var BAND_CUTS = [0, 60, 63.3, 66.7, 70, 73.3, 76.7, 80, 83.3, 86.7, 90, 93.3, 94.6];
+var BAND_CUTS = AX.ladder.slice().reverse().map(function (r) {
+  return r[1] === -Infinity ? 0 : r[1];
+});
 function snap(g) {
   var q = BAND_CUTS[0];
   for (var i = 0; i < BAND_CUTS.length; i++) if (g >= BAND_CUTS[i]) q = BAND_CUTS[i];
@@ -162,8 +190,8 @@ function solverFor(baseline, gpd) {
   var q = snap(baseline);
   var key = q + "_" + gpd;
   if (!solverCache[key]) {
-    solverCache[key] = new DP.Solver(A.supportGradeToScore(q), gpd, ROSTER,
-      { axis: "support", maxTurns: BUDGET_RARITY.maxTurns });
+    solverCache[key] = new DP.Solver(AX.gradeToScore(q), gpd, ROSTER,
+      { axis: AXIS, maxTurns: BUDGET_RARITY.maxTurns });
     solverOrder.push(key);
     while (solverOrder.length > 10) delete solverCache[solverOrder.shift()];
   }
@@ -263,7 +291,7 @@ function packCore(pool, rate) {
   for (var i = 0; i < pool.length; i++) {
     var g = pool[i], c = effCost(g), o = g.orderLevel || 0;
     if (c > CORE_WP) continue;
-    var eff = A.supportDamage(g, 0);          // effects only; order priced below
+    var eff = AX.dmgEff(g);                   // effects only; order priced below
     for (var u = PER_CORE - 1; u >= 0; u--) {
       for (var w = 0; w + c <= CORE_WP; w++) {
         for (var d = 0; d + o < DSPAN; d++) {
@@ -311,7 +339,7 @@ function packHalf(inv, half) {
       // supportOrderValueForCore returns log-damage per point; the order
       // bracket needs the linear rate, exp(v/100)-1, exactly as the
       // calculator converts it (astrogem.js supportGridDamage)
-      var rate = Math.exp(A.supportOrderValueForCore(coreId) / 100) - 1;
+      var rate = AX.orderRate(coreId);
       var got = packCore(left, rate);
       if (!got) { ok = false; break; }
       val += got.value;
@@ -382,7 +410,7 @@ function runAccount(gpd, rep) {
     var half = rand() < 0.5 ? "order" : "chaos";
     var eq = packed[half];
     // the advisor's baseline is the weakest grade you are actually wearing
-    var weakest = eq ? Math.min.apply(null, eq.map(function (g) { return A.supportGrade(g); })) : 0;
+    var weakest = eq ? Math.min.apply(null, eq.map(function (g) { return AX.grade(g); })) : 0;
     var r0 = rand();
     var cost = r0 < MIX[8] ? 8 : (r0 < MIX[8] + MIX[9] ? 9 : 10);
     var pr = PAIRS[cost][Math.floor(rand() * PAIRS[cost].length)];
@@ -405,7 +433,7 @@ function runAccount(gpd, rep) {
       // damage alone would throw away precisely the gems that make 5+5+4+3
       // cores possible.
       var dropAt = function () {
-        mine.sort(function (a, b) { return A.supportDamage(b) - A.supportDamage(a); });
+        mine.sort(function (a, b) { return AX.dmgFull(b) - AX.dmgFull(a); });
         for (var j = mine.length - 1; j >= 0; j--) if (effCost(mine[j]) > 4) return j;
         return mine.length - 1;
       };
@@ -428,11 +456,11 @@ function runAccount(gpd, rep) {
     // Fusion always repacks: it REMOVED a gem, so the pack must be re-solved.
     var mustPack = fused || !packed[half];
     if (!mustPack) {
-      var gD = A.supportDamage(got), gC = effCost(got), gO = got.orderLevel || 0;
+      var gD = AX.dmgFull(got), gC = effCost(got), gO = got.orderLevel || 0;
       var minD = Infinity, maxC = 0, minO = Infinity;
       for (var pi2 = 0; pi2 < packed[half].length; pi2++) {
         var pg = packed[half][pi2];
-        var d2 = A.supportDamage(pg);
+        var d2 = AX.dmgFull(pg);
         if (d2 < minD) minD = d2;
         var c2 = effCost(pg);
         if (c2 > maxC) maxC = c2;
@@ -449,7 +477,7 @@ function runAccount(gpd, rep) {
     if (packed.order && packed.chaos) {
       var st = gridState(packed);
       var all = packed.order.concat(packed.chaos);
-      var grades = all.map(function (g) { return A.supportGrade(g); });
+      var grades = all.map(function (g) { return AX.grade(g); });
       if (!trace.length || st.damage > trace[trace.length - 1].damage + 1e-9) lastImpGold = gold;
       trace.push({ gold: gold, cut: cut, damage: st.damage,
         weakest: Math.min.apply(null, grades),
@@ -461,7 +489,7 @@ function runAccount(gpd, rep) {
 }
 
 function letterOf(g) {
-  var L = A.SUPPORT_RANK_LADDER;
+  var L = AX.ladder;
   for (var i = 0; i < L.length; i++) if (g >= L[i][1] - 1e-9) return L[i][0];
   return "F-";
 }
@@ -543,7 +571,7 @@ function stopAt(gpd, rep) {
   // moment the gems' mean first cleared the cut. Budget stops alone made the
   // chart skip grades — no budget's optimum lands on B+, so B+ vanished. The
   // rungs give the ladder every letter an account actually passed through.
-  var LADDER_ASC = A.SUPPORT_RANK_LADDER.slice().reverse();
+  var LADDER_ASC = AX.ladder.slice().reverse();
   var stopIdx = trace.indexOf(stop.capped != null ? trace.find(function (t) {
     return t.gold === stop.gold && t.cut === stop.cut; }) : stop);
   if (stopIdx < 0) stopIdx = trace.length - 1;
@@ -620,7 +648,7 @@ function writeOut(partial) {
   require("fs").writeFileSync(ARGS.out, JSON.stringify({
     rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
     turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
-    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, partial: partial, rows: out
+    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, axis: AXIS, partial: partial, rows: out
   }, null, 1));
 }
 
@@ -699,7 +727,7 @@ out.forEach(function (r) {
 // clears B- by definition, so a lower rung can never price above a higher
 // one — gold is monotone by construction. The per-band chained selection this
 // replaces handed B- a dearer crossing than B when budget curves crossed.
-var LADDER_ASC2 = A.SUPPORT_RANK_LADDER.slice().reverse();
+var LADDER_ASC2 = AX.ladder.slice().reverse();
 // A cell only qualifies when at least 80% of its budget's accounts crossed
 // the band. Without the gate, the lucky minority of 250k accounts that
 // reached B before their economic cutoff priced EVERY band below it — their
@@ -760,7 +788,7 @@ if (ARGS.out) {
   require("fs").writeFileSync(ARGS.out, JSON.stringify({
     rarity: RARITY, slots: SLOTS, cutsPerWeek: CUTS_PER_WEEK[RARITY],
     turns: BUDGET_RARITY.maxTurns, rerolls: BUDGET_RARITY.maxRerolls,
-    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, rows: out, rungs: rungs,
+    n: N, party: PARTY, sig: A.MODEL_SIG, draw: DRAW, axis: AXIS, rows: out, rungs: rungs,
     crossRaw: AVG
   }, null, 1));
   console.error("wrote " + ARGS.out);
