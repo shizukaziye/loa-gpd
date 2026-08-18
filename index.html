@@ -346,7 +346,7 @@
     return "filling in — priced to " + fmtGold(s.maxGpd) + "/1% so far";
   }
 
-  var state = { axis: "support", prices: {}, enabled: {}, honing: null, karma: null,
+  var state = { axis: "support", prices: {}, enabled: {}, gem8Price: 420000, honing: null, karma: null,
                 rows: { support: null, dps: null }, arkgridRows: {},
                 braceletByGpd: null };
   var ROWS = [], PLAN = null, BUDGET = 0;
@@ -396,6 +396,20 @@
       });
       grid.appendChild(row);
     });
+    // the level-8 gem is an auction-house item, not a market-board one, so
+    // no feed prices it — it is an editable input like the mats, and every
+    // gem step reprices from it: 11 gems x 2 of the current level, x3 a level
+    var gr = document.createElement("div");
+    gr.className = "mat";
+    gr.title = "Level 8 skill gem (auction house)";
+    gr.innerHTML = "<input type='checkbox' checked disabled style='visibility:hidden'>" +
+      "<span class='nm'>Lv 8 gem</span>" +
+      "<input type='number' min='0' step='1000' value='" + state.gem8Price + "'>";
+    gr.querySelector("input[type=number]").addEventListener("input", function () {
+      state.gem8Price = parseFloat(this.value) || 0;
+      render();
+    });
+    grid.appendChild(gr);
   }
 
   // ---- the rows --------------------------------------------------------
@@ -465,7 +479,14 @@
       if (dpsDmg && (r.series === "armor" || r.series === "weapon" || r.series === "karma")) return;
       // no baked ark grid rows on either axis while the recompute runs
       if (r.series === "arkgrid") return;
-      out.push(Object.assign({}, r));
+      var c = Object.assign({}, r);
+      // gem steps reprice from the editable level-8 gem price (baked at 420k)
+      if (r.series === "gems") {
+        var f = state.gem8Price / 420000;
+        c.gold = r.gold * f;
+        if (r.total != null) c.total = r.total * f;
+      }
+      out.push(c);
     });
     // The ark grid is priced by the ACCOUNT model, per Shizu: rows are the
     // stretches of a simulated account's build, so the price, the damage, the
