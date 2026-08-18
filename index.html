@@ -331,8 +331,10 @@
         : "estimated profile CP") + "</div></div></div>" +
       "<div class='sm2'>What this build would read on a " +
       (state.axis === "dps" ? "DPS" : "bard") + "'s profile. Honing, " +
-      "gems, bracelet stats and the epic ark grid tier move it; accessories, " +
-      "stone and skills ride the real-character anchor.</div></div>";
+      "gems and bracelet stats move it" +
+      (at.tier ? ", and so does the epic ark grid tier" :
+        "; the ark grid rides the anchor until this axis's grid run lands") +
+      "; accessories, stone and skills ride the real-character anchor.</div></div>";
   }
   // "filling in" the moment the slider passes the highest tier this series
   // has finished — inside coverage the rungs are final and say nothing
