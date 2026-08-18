@@ -3,7 +3,7 @@
  "rarity": "rare",
  "model": "account",
  "draw": "dd",
- "maxGpd": 361360,
+ "maxGpd": 434450,
  "slots": 24,
  "cutsPerWeek": 26,
  "turns": 7,
@@ -14,14 +14,14 @@
  "rows": [
   {
    "from": "ungraded",
-   "to": "F-",
+   "to": "C",
    "note": "mean 67",
-   "gold": 944800,
-   "damage": 0.6634,
-   "poolG": 944800,
-   "poolD": 0.6634,
-   "total": 944800,
-   "totalDamage": 0.6634,
+   "gold": 984280,
+   "damage": 0.6667,
+   "poolG": 984280,
+   "poolD": 0.6667,
+   "total": 984280,
+   "totalDamage": 0.6667,
    "gems": 50,
    "weeks": 1.9230769230769231,
    "grid": {
@@ -52,7 +52,50 @@
    "meanGrade": 66.5,
    "weakest": 46,
    "weakBand": "F+",
-   "minimum": "all 24 slots filled, gems averaging F-",
+   "minimum": "all 24 slots filled, gems averaging C",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "C",
+   "to": "C+",
+   "note": "mean 67",
+   "gold": 34100,
+   "damage": 0.0017,
+   "poolG": 34100,
+   "poolD": 0.0017,
+   "total": 1018380,
+   "totalDamage": 0.6684,
+   "gems": 0,
+   "weeks": 0,
+   "grid": {
+    "cores": 15,
+    "coresPer": [
+     16,
+     16,
+     14,
+     16,
+     16,
+     14
+    ],
+    "nodes": [
+     [
+      "atk",
+      25
+     ],
+     [
+      "add dmg",
+      25
+     ],
+     [
+      "boss",
+      25
+     ]
+    ]
+   },
+   "meanGrade": 66.7,
+   "weakest": 46.2,
+   "weakBand": "F+",
+   "minimum": "all 24 slots filled, gems averaging C+",
    "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ],
@@ -132,6 +175,41 @@
    "gold": 1052479,
    "gems": 50,
    "weeks": 1.9250884615384616,
+   "damage": 0.6701,
+   "mean": 66.7,
+   "meanBand": "C+",
+   "weakest": 45.9,
+   "weakBand": "F+",
+   "cores": 15,
+   "capped": true,
+   "perCore": [
+    16,
+    16,
+    14,
+    16,
+    16,
+    14
+   ],
+   "nodes": [
+    [
+     "atk",
+     25
+    ],
+    [
+     "add dmg",
+     25
+    ],
+    [
+     "boss",
+     25
+    ]
+   ]
+  },
+  {
+   "gpd": 434450,
+   "gold": 1087289,
+   "gems": 50,
+   "weeks": 1.9297538461538462,
    "damage": 0.6701,
    "mean": 66.7,
    "meanBand": "C+",
