@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819c'>
+<link rel='stylesheet' href='styles.css?v=20260819d'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -71,12 +71,12 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819c'></script>
-<script src='model/gear.js?v=20260819c'></script>
-<script src='model/combat-power.js?v=20260819c'></script>
-<script src='model/honing.js?v=20260819c'></script>
-<script src='model/karma.js?v=20260819c'></script>
-<script src='model/gems.js?v=20260819c'></script>
+<script src='model/support.js?v=20260819d'></script>
+<script src='model/gear.js?v=20260819d'></script>
+<script src='model/combat-power.js?v=20260819d'></script>
+<script src='model/honing.js?v=20260819d'></script>
+<script src='model/karma.js?v=20260819d'></script>
+<script src='model/gems.js?v=20260819d'></script>
 <script>
 (function () {
   "use strict";
@@ -206,31 +206,36 @@
     var g = Gear.stats(state.honing, {}, armor, weapon);
     var gemLevel = plan.gems && plan.gems.taken
       ? (parseInt(String(plan.gems.last.to).replace(/[^0-9]/g, ""), 10) || 7) : 7;
-    // bracelet pair: best unlocked at or below the budget (base-hold — a
-    // richer player never equips the downgrade). Support reads the budget-
-    // conditioned examples; DPS reads its own bracelet rows.
+    // bracelet pair: best TIER unlocked at or below the budget (base-hold —
+    // a richer player never equips the downgrade). Both axes read the
+    // bracelet series rungs; the old support path read the example ROLLS,
+    // whose stats hover in the same band at every budget, so the stat feed
+    // never moved.
     var pair = 181;
     var bestPair = 0;
-    if (state.axis === "support" && state.braceletByGpd) {
-      for (var bi = 0; bi < state.braceletByGpd.length; bi++) {
-        var row = state.braceletByGpd[bi];
-        if (row.gpd > budget) break;
-        if (row.example && row.example.stats) {
-          var st = String(row.example.stats).split("/");
-          bestPair = Math.max(bestPair, (+st[0] || 0) + (+st[1] || 0));
-        }
+    ROWS.forEach(function (r) {
+      if (r.series !== "bracelet" || !isFinite(r.gpd) || r.gpd > budget) return;
+      if (r.hit && r.hit.stats) {
+        var st = String(r.hit.stats).split("/");
+        bestPair = Math.max(bestPair, (+st[0] || 0) + (+st[1] || 0));
       }
-    } else if (state.axis === "dps") {
-      ROWS.forEach(function (r) {
-        if (r.series !== "bracelet" || !isFinite(r.gpd) || r.gpd > budget) return;
-        if (r.hit && r.hit.stats) {
-          var st2 = String(r.hit.stats).split("/");
-          bestPair = Math.max(bestPair, (+st2[0] || 0) + (+st2[1] || 0));
-        }
-      });
-    }
+    });
     if (bestPair) pair = bestPair;
+    // development fraction: how much of the NON-chart block (engravings, ark
+    // passive, elixirs, cards...) the player at this budget has. Saturating
+    // cube — by mid budgets everyone is built; only the floor sheds. The
+    // 0.7104 floor was calibrated so the support floor reads 4,000 (Shizu's
+    // reference for a fresh support, 2026-08-19).
+    var vNotch = Math.max(0, Math.min(1, Math.log(budget / 250000) / Math.log(100)));
+    var devFrac = 1 - (1 - 0.7104) * Math.pow(1 - vNotch, 3);
     var tier = arkTierAt("epic", budget);
+    // DPS: until the dd-dps sweep publishes real rows, fall back to the
+    // spot-anchor grid feed so the grid does not ride the anchor's near-max
+    if (!tier && state.axis === "dps" && state.cpGridDps && state.cpGridDps.tiers) {
+      var cts = state.cpGridDps.tiers;
+      tier = cts[0];
+      for (var ci = 0; ci < cts.length; ci++) if (cts[ci].gpd <= budget) tier = cts[ci];
+    }
     var est;
     if (state.axis === "dps") {
       var nl = null;
@@ -240,7 +245,7 @@
       est = CombatPower.estimateDps({
         weaponPower: g.wp, mainStat: g.ms,
         battleStatTotal: CombatPower.ANCHOR_DPS.battleStatTotal + (pair - 181),
-        gemLevel: gemLevel,
+        gemLevel: gemLevel, devFrac: devFrac,
         corePoints: tier ? tier.perCore : null,
         nodeLevels: nl
       });
@@ -248,7 +253,7 @@
       est = CombatPower.estimate({
         weaponPower: g.wp, mainStat: g.ms,
         battleStatTotal: CombatPower.ANCHOR.battleStatTotal + (pair - 181),
-        karmaRank: 6, gemLevel: gemLevel,
+        karmaRank: 6, gemLevel: gemLevel, devFrac: devFrac,
         corePoints: tier ? tier.perCore : null,
         nodeLevels: tier ? tier.nodes.reduce(function (s, n) { return s + n[1]; }, 0) : null
       });
@@ -1092,7 +1097,9 @@
                grab("data/bracelet-crit-eq.json"),
                grab("data/arkgrid-rows-dps-epic.json"),
                grab("data/arkgrid-rows-dps-rare.json"),
-               grab("data/arkgrid-progress-dps.json")]).then(function (all) {
+               grab("data/arkgrid-progress-dps.json"),
+               grab("data/cp-grid-dps.json")]).then(function (all) {
+    state.cpGridDps = all[13];
     state.braceletLines = all[8];
     state.braceletCritEq = all[9];
     state.arkgridRowsDps = { epic: all[10], rare: all[11] };

@@ -59,6 +59,12 @@
     // full level 10s, confirmed by Shizu 2026-08-19 -> 70.4 bp per gem level
     gems: { perGem: 704, count: 11, level: 10 },
     sumBp: 56261,            // every part except base attack/health
+    // bp of the systems the chart does NOT price (engravings, ark passive,
+    // elixirs, cards, accessories, quality, level): sumBp minus the swapped
+    // systems (stats 7,776 + gems 7,744 + grid 4,291 + karma 360). The
+    // development fraction (settings.devFrac) scales this block down at low
+    // budgets — a floor player has not finished these.
+    rideBp: 36090,
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19
       coreRate: 16,
@@ -68,8 +74,16 @@
   };
   // Support: Limerent, raid loadout, 2026-08-17.
   var ANCHOR = {
-    score: 3205.08,          // combatPower {id:2} on the raid loadout
-    profileCp: 6398.63,      // the header figure the profile shows
+    score: 3205.08,          // combatPower {id:2} on the raid loadout, 6s era
+    // 6398.63 is the profile HEADER from the same pull — but the header was
+    // STALE: it still showed her 10s-era figure while the loadout parts were
+    // already the 6s rows (Shizu, 2026-08-19: "she was the 6k+ number with
+    // 10s"). So the profile/score ratio is NOT 6398.63/3205.08 = 1.9964.
+    // Derivation: score(10s) = 3205.08 x (1+66642/1e4)/(1+61142/1e4)
+    // = 3452.87, and 6398.63/3452.87 = 1.85314. Her live 6s profile should
+    // read ~5,939.
+    profileCp: 6398.63,      // stale 10s-era header, kept for the record
+    profileRatio: 1.85314,   // profile = score x this (support convention)
     // the parts this estimator swaps, as (1 + bp/1e4) multipliers
     baseAttack: { value: 235903.86, weaponPower: 267033, mainStat: 738326 },
     battleStatTotal: 2466,   // crit+spec+swift -> 4 bp/pt
@@ -79,6 +93,10 @@
     // 10s set compounds to +265.8%, the figure Shizu quoted from the start.
     gems: { bpPerLevel: 125, count: 11, level: 6 },
     sumBp: 61142,            // every part except base attack/health
+    // non-chart systems (engravings 8,597 + ark passive 24,600 + accessories
+    // 2,280 + cards 1,976 + level 476 + bracelet lines 490 + paradise 130):
+    // sumBp minus swapped (stats 9,864 + gems 8,250 + grid 4,119 + karma 360)
+    rideBp: 38549,
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -135,6 +153,13 @@
     }
     dBp += parts.arkgridBp;
 
+    // development: scale the non-chart block (engravings, ark passive,
+    // elixirs, cards...) by how built the player at this budget is. 1 = the
+    // anchor's own near-cap state; the page passes its budget curve.
+    var dv = s.devFrac != null ? s.devFrac : 1;
+    parts.devBp = (dv - 1) * A2.rideBp;
+    dBp += parts.devBp;
+
     var score = A2.score * parts.baseAttack *
       (1 + (A2.sumBp + dBp) / 1e4) / (1 + A2.sumBp / 1e4);
     return { score: score, profileCp: score, parts: parts, dBp: dBp };
@@ -178,11 +203,15 @@
     parts.arkgridBp += 5 * (sNl - aNl);
     dBp += parts.arkgridBp;
 
+    var dv = s.devFrac != null ? s.devFrac : 1;
+    parts.devBp = (dv - 1) * ANCHOR.rideBp;
+    dBp += parts.devBp;
+
     var score = ANCHOR.score * parts.baseAttack *
       (1 + (ANCHOR.sumBp + dBp) / 1e4) / (1 + ANCHOR.sumBp / 1e4);
     return {
       score: score,
-      profileCp: score * (ANCHOR.profileCp / ANCHOR.score),
+      profileCp: score * ANCHOR.profileRatio,
       parts: parts, dBp: dBp
     };
   }

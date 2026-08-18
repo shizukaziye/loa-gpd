@@ -81,11 +81,45 @@ The score scales with the SUM of the part bps, not their product:
 
 The panel's category percentages (+121.56% for Limerent's gems, +265.8% for a
 full 10s set) come from multiplying the parts per category — that is a display
-quantity, not the score law. The proof is Limerent's own gem swap: with 10s
-her profile read "6k+"; wearing 6s it reads 6,398.63 (score 3205.08). Dropping
--5,500 bp out of a 61,142 bp sum moves an additive score by ~-8%, which
-matches. The per-part product predicted ~3.9k — off by a mile. The additive
-estimator puts her 10s profile at ~6,893.
+quantity, not the score law. The proof is Limerent's own gem swap: her 10s-era
+profile read 6,398.63; dropping to 6s (-5,500 bp of a 61,142 bp sum) moves an
+additive score by ~-7%, to ~5,939. The per-part product predicted ~3.9k — off
+by a mile.
+
+## The 6,398.63 header was stale (2026-08-19)
+
+The 2026-08-17 pull carried score 3,205.08 with the 6s part rows AND profile
+header 6,398.63 in one payload. Those cannot both be current: the header still
+showed her 10s-era figure while the loadout parts had already updated (Shizu:
+"she was the 6k+ number with 10s"). So the support profile/score ratio is NOT
+6398.63/3205.08 = 1.9964. Working it backwards through the additive law:
+score(10s) = 3205.08 x 7.6642/7.1142 = 3,452.87, and 6398.63/3452.87 =
+**1.85314**. Her live 6s profile should read ~5,939 (unconfirmed — one glance
+at the roster screen settles it). DPS profiles show the score raw, so
+Paroxysmal (7,895.29 = score, fresh and self-consistent) is unaffected.
+
+## The development fraction (2026-08-19)
+
+The chart prices honing, gems, battle stats and the ark grid. Everything else
+in the part sum — engravings, ark passive, elixirs, cards, accessories,
+quality — used to ride the anchor at every budget, which made the floor read
+like "Paroxysmal with 7s" (~6,0 00) instead of a fresh character. Both anchors
+are near-cap characters. Fix: the non-chart block (rideBp: support 38,549 bp,
+DPS 36,090 bp = sumBp minus the swapped systems) scales by a development
+fraction the page derives from the budget notch:
+
+  devFrac(v) = 1 - (1 - 0.7104) x (1 - v/100)^3
+
+Saturating cube: by mid budgets everyone has these systems (a 2M/1% player
+has their engravings and elixirs), so only the floor sheds. The 0.7104 floor
+fraction is calibrated so the support floor reads 4,000, Shizu's reference
+for a fresh support (2026-08-19). Resulting ranges: support 4,000-7,000, DPS
+4,900-8,200. Consistency check: at Limerent's own ~2.2M budget the curve says
+~6,14x with level-8 gems; her gems-8-equivalent real profile is ~6,169 (-0.4%).
+
+Until the dd-dps sweep publishes rows, the DPS grid feed comes from the spot
+anchors (data/cp-grid-dps.json, tools/build-cp-grid-dps.js) instead of riding
+the anchor's near-max grid; the page prefers the real rows once present.
 
 Anchor part sums (every part except base attack/health, types 1/2):
 Limerent 61,142 bp; Paroxysmal 56,261 bp. Base attack stays a separate ratio
