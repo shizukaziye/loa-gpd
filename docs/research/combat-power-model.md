@@ -89,6 +89,28 @@ Reproduced measurements: estimate({}) = 3,781.18 exact; estimate({gemLevel:
 Superseded readings, kept for the record: 6,398.63 (bible header, raid+10s
 at crawl time) and 6,365.26 (first live 10s reading, wrong loadout state).
 
+## Confirmed by cross-loadout pulls (2026-08-20)
+
+Five-character public pull (Limerent, Paroxysmal, Buffgirlthighs, Doranis,
+Mommyelly) plus two live glances closed every open question:
+
+- **Profile = the ACTIVE loadout's score.** Paroxysmal reads 7,895 in game
+  while the bible shows raid 7,895.29 and chaos 4,943.86 side by side. The
+  rival theory (profile sums both loadouts — which fit Limerent's readings
+  exactly as well, and would have made the old 1.9964 "convention" her twin
+  chaos loadout at 6,311.62/3,205.08) predicted ~12.8k. Dead.
+- **The skill build alone is x1.60.** Paroxysmal's chaos loadout carries
+  IDENTICAL gear, gems and stats — only the skill block differs: 4,943.86
+  vs 7,895.29. This is why anchors must come from the raid state, and why
+  Limerent's Aug-17 crawl (3,205.08 in a weak skill state WHILE WEARING
+  10s — gem item 65041061, +28%/16% effects) misled three fits in a row:
+  its 750-bp gem rows described 10s, not 6s.
+- **The site's gem bp table is affine, not proportional.** DPS damage gems
+  across the pulls: 448/512/576/640/704 for levels 6-10 (64 bp/level);
+  support gems 750 at level 10 per the site. Site bp is that site's model —
+  the game's own set ratio (x1.68066, measured) is what the estimator uses,
+  so the mislabel never touched the shipped numbers.
+
 ## Law post-mortem — three wrong fits before the right one
 
 1. **Additive-sum over all parts** matched a cross-character constant
