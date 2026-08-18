@@ -39,7 +39,28 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  // ---- the anchor: Limerent, raid loadout, 2026-08-17 ----------------------
+  // ---- the anchors ---------------------------------------------------------
+  // DPS: Paroxysmal, raid loadout, 2026-08-19. score 7,895.29 and the profile
+  // shows the DPS score raw — the x1.9964 profile scaling is a support-only
+  // convention. Grid-gem rates fit exactly per effect: Attack Power 3.32,
+  // Additional Damage 5.833, Boss Damage 8.327 bp/level; cores carry 16 bp
+  // per point, so the swap uses the point delta and the grade bases cancel.
+  var ANCHOR_DPS = {
+    score: 7895.29,
+    profileCp: 7895.29,
+    baseAttack: { value: 621542.15, weaponPower: 263613, mainStat: 805775 },
+    battleStatTotal: 2592,   // crit+spec+swift -> 3 bp/pt on DPS
+    statBp: 3,
+    karmaRank: 6,
+    gems: { perGem: 704, count: 11, level: 10 },
+    arkgrid: {
+      corePointsTotal: 115,  // 18+18+20+20+20+19
+      coreRate: 16,
+      nodeRates: { atk: 3.32, add: 5.833, boss: 8.327 },
+      nodeLevels: { atk: 50, add: 60, boss: 55 }
+    }
+  };
+  // Support: Limerent, raid loadout, 2026-08-17.
   var ANCHOR = {
     score: 3205.08,          // combatPower {id:2} on the raid loadout
     profileCp: 6398.63,      // the header figure the profile shows
@@ -64,6 +85,48 @@
     var bp = 0;
     (corePoints || []).forEach(function (p) { bp += coreBp(p); });
     return { cores: bp, gems: 5 * (nodeLevels || 0) };
+  }
+
+  function estimateDps(s) {
+    var A2 = ANCHOR_DPS, parts = {}, prod = 1;
+    var aBase = Math.sqrt(A2.baseAttack.weaponPower * A2.baseAttack.mainStat);
+    var sBase = Math.sqrt((s.weaponPower || A2.baseAttack.weaponPower) *
+                          (s.mainStat || A2.baseAttack.mainStat));
+    parts.baseAttack = sBase / aBase;
+    prod *= parts.baseAttack;
+
+    parts.battleStats = mult(A2.statBp * (s.battleStatTotal || A2.battleStatTotal)) /
+                        mult(A2.statBp * A2.battleStatTotal);
+    prod *= parts.battleStats;
+
+    var gl = s.gemLevel || A2.gems.level;
+    parts.gems = mult(A2.gems.perGem * gl / A2.gems.level * A2.gems.count) /
+                 mult(A2.gems.perGem * A2.gems.count);
+    prod *= parts.gems;
+
+    // cores swap on the point delta (16 bp/pt, grade bases cancel); grid gems
+    // on per-effect level deltas at the fitted rates
+    var pts = s.corePoints ? s.corePoints.reduce(function (a, b) { return a + b; }, 0)
+                           : A2.arkgrid.corePointsTotal;
+    var coreBp = A2.arkgrid.coreRate * (pts - A2.arkgrid.corePointsTotal);
+    var nl = s.nodeLevels || null;   // {atk, add, boss} or a plain total
+    var gemBp = 0;
+    if (nl != null) {
+      var R = A2.arkgrid.nodeRates, L = A2.arkgrid.nodeLevels;
+      if (typeof nl === "number") {
+        var aTot = L.atk + L.add + L.boss;
+        var avgR = (R.atk + R.add + R.boss) / 3;
+        gemBp = avgR * (nl - aTot);
+      } else {
+        gemBp = R.atk * ((nl.atk || 0) - L.atk) + R.add * ((nl.add || 0) - L.add) +
+                R.boss * ((nl.boss || 0) - L.boss);
+      }
+    }
+    parts.arkgrid = mult(coreBp + gemBp);
+    prod *= parts.arkgrid;
+
+    var score = A2.score * prod;
+    return { score: score, profileCp: score, parts: parts };
   }
 
   /**
@@ -114,5 +177,6 @@
     };
   }
 
-  return { ANCHOR: ANCHOR, estimate: estimate, coreBp: coreBp };
+  return { ANCHOR: ANCHOR, ANCHOR_DPS: ANCHOR_DPS, estimate: estimate,
+    estimateDps: estimateDps, coreBp: coreBp };
 });

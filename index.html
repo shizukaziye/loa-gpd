@@ -174,15 +174,21 @@
   // the moment its rows file carries direct-draw data (draw: "dd"), and the
   // placeholder card stays — with a progress line — until both series are
   // whole. No flag to flip; the data is the switch.
+  function arkSrc(r) {
+    return state.axis === "dps" ? (state.arkgridRowsDps || {})[r] : state.arkgridRows[r];
+  }
+  function arkProg() {
+    return state.axis === "dps" ? state.arkProgressDps : state.arkProgress;
+  }
   function arkLive(r) {
-    var s = state.arkgridRows[r];
+    var s = arkSrc(r);
     return !!(s && s.draw === "dd" && s.rows && s.rows.length);
   }
   // The card's example follows the budget through the per-tier simulated
   // accounts (the bracelet rule: the example tracks the budget, not just the
   // band). The rung rows stay the plan's steps; this is what you'd HOLD.
   function arkTierAt(r, budget) {
-    var s = state.arkgridRows[r], ts = s && s.tiers;
+    var s = arkSrc(r), ts = s && s.tiers;
     if (!ts || !ts.length) return null;
     var pick = ts[0];
     for (var i = 0; i < ts.length; i++) if (ts[i].gpd <= budget) pick = ts[i];
@@ -201,10 +207,11 @@
     var gemLevel = plan.gems && plan.gems.taken
       ? (parseInt(String(plan.gems.last.to).replace(/[^0-9]/g, ""), 10) || 7) : 7;
     // bracelet pair: best unlocked at or below the budget (base-hold — a
-    // richer player never equips the downgrade)
+    // richer player never equips the downgrade). Support reads the budget-
+    // conditioned examples; DPS reads its own bracelet rows.
     var pair = 181;
-    if (state.braceletByGpd) {
-      var bestPair = 0;
+    var bestPair = 0;
+    if (state.axis === "support" && state.braceletByGpd) {
       for (var bi = 0; bi < state.braceletByGpd.length; bi++) {
         var row = state.braceletByGpd[bi];
         if (row.gpd > budget) break;
@@ -213,16 +220,40 @@
           bestPair = Math.max(bestPair, (+st[0] || 0) + (+st[1] || 0));
         }
       }
-      if (bestPair) pair = bestPair;
+    } else if (state.axis === "dps") {
+      ROWS.forEach(function (r) {
+        if (r.series !== "bracelet" || !isFinite(r.gpd) || r.gpd > budget) return;
+        if (r.hit && r.hit.stats) {
+          var st2 = String(r.hit.stats).split("/");
+          bestPair = Math.max(bestPair, (+st2[0] || 0) + (+st2[1] || 0));
+        }
+      });
     }
+    if (bestPair) pair = bestPair;
     var tier = arkTierAt("epic", budget);
-    return { est: CombatPower.estimate({
-      weaponPower: g.wp, mainStat: g.ms,
-      battleStatTotal: CombatPower.ANCHOR.battleStatTotal + (pair - 181),
-      karmaRank: 6, gemLevel: gemLevel,
-      corePoints: tier ? tier.perCore : null,
-      nodeLevels: tier ? tier.nodes.reduce(function (s, n) { return s + n[1]; }, 0) : null
-    }), armor: armor, weapon: weapon, g: g, gemLevel: gemLevel, pair: pair, tier: tier };
+    var est;
+    if (state.axis === "dps") {
+      var nl = null;
+      if (tier && tier.nodes && tier.nodes.length === 3) {
+        nl = { atk: tier.nodes[0][1], add: tier.nodes[1][1], boss: tier.nodes[2][1] };
+      }
+      est = CombatPower.estimateDps({
+        weaponPower: g.wp, mainStat: g.ms,
+        battleStatTotal: CombatPower.ANCHOR_DPS.battleStatTotal + (pair - 181),
+        gemLevel: gemLevel,
+        corePoints: tier ? tier.perCore : null,
+        nodeLevels: nl
+      });
+    } else {
+      est = CombatPower.estimate({
+        weaponPower: g.wp, mainStat: g.ms,
+        battleStatTotal: CombatPower.ANCHOR.battleStatTotal + (pair - 181),
+        karmaRank: 6, gemLevel: gemLevel,
+        corePoints: tier ? tier.perCore : null,
+        nodeLevels: tier ? tier.nodes.reduce(function (s, n) { return s + n[1]; }, 0) : null
+      });
+    }
+    return { est: est, armor: armor, weapon: weapon, g: g, gemLevel: gemLevel, pair: pair, tier: tier };
   }
 
   // The whole CP-vs-budget curve, sampled at every slider notch, and the
@@ -262,7 +293,7 @@
 
   function cpCard() {
     var cpRow = el("cpRow");
-    if (state.axis !== "support" || !window.CombatPower || !state.honing) {
+    if (!window.CombatPower || !state.honing) {
       if (cpRow) cpRow.style.display = "none";
       return "";
     }
@@ -298,14 +329,15 @@
       "<div class='ilvl'>" + (next
         ? "next: &asymp;" + next.cp.toLocaleString() + " at " + fmtGold(next.b) + "/1%"
         : "estimated profile CP") + "</div></div></div>" +
-      "<div class='sm2'>What this build would read on a bard's profile. Honing, " +
+      "<div class='sm2'>What this build would read on a " +
+      (state.axis === "dps" ? "DPS" : "bard") + "'s profile. Honing, " +
       "gems, bracelet stats and the epic ark grid tier move it; accessories, " +
       "stone and skills ride the real-character anchor.</div></div>";
   }
   // "filling in" the moment the slider passes the highest tier this series
   // has finished — inside coverage the rungs are final and say nothing
   function arkFillNote(r) {
-    var s = state.arkgridRows[r], p = state.arkProgress;
+    var s = arkSrc(r), p = arkProg();
     if (!s || !s.maxGpd) return "";
     if (p && p.total && p[r] && p[r].done >= p.total) return "";
     if (BUDGET <= s.maxGpd) return "";
@@ -437,10 +469,10 @@
     // stretches of a simulated account's build, so the price, the damage, the
     // example and the pill all describe one grid. The band ladder lives on in
     // docs/research as the uniformity-cost reference only.
-    if (state.axis === "support") {
+    if (true) {
       ["arkgridEpic", "arkgridRare"].forEach(function (key) {
         if (!arkLive(RARITY_OF[key])) return;
-        var src = state.arkgridRows[RARITY_OF[key]];
+        var src = arkSrc(RARITY_OF[key]);
         src.rows.forEach(function (r) {
           out.push(Object.assign({ series: key, label: r.from + " → " + r.to,
             cutsPerWeek: src.cutsPerWeek, rarity: src.rarity }, r));
@@ -769,14 +801,12 @@
           "<div class='ilvl'>" + sub + "</div>" +
           "<div class='sm2'>" + det + "</div></div>";
       };
-      if (state.axis !== "support")
-        return card("coming soon", "DPS run queued behind the support sweep",
-          "Exact cut distributions, simulated accounts, every grade priced.");
-      var p = state.arkProgress, total = p && p.total;
+      var p = arkProg(), total = p && p.total;
       var prog = !total ? "" : " Progress: rares " + (p.rare ? p.rare.done : 0) +
         "/" + total + " · epics " + (p.epic ? p.epic.done : 0) + "/" + total + " tiers.";
       if (arkLive("rare") || arkLive("epic")) return "";   // series cards carry their own filling-in notes
-      return card("coming soon", "being recomputed end to end",
+      return card("coming soon",
+        state.axis === "dps" ? "the DPS run is next in the pipeline" : "being recomputed end to end",
         "Exact cut distributions, simulated accounts, every grade priced. " +
         "Rungs appear here tier by tier as the run completes." + prog);
     })() + cpCard();
@@ -1005,7 +1035,7 @@
   });
   el("gpd").addEventListener("input", render);
   el("cpSlider").addEventListener("input", function () {
-    if (state.axis !== "support" || !window.CombatPower || !state.honing) return;
+    if (!window.CombatPower || !state.honing) return;
     var target = +this.value;
     var curve = cpCrossings();
     var b = null;
@@ -1032,9 +1062,14 @@
                grab("data/arkgrid-rows-rare.json"),
                grab("data/arkgrid-progress.json"),
                grab("data/bracelet-lines.json"),
-               grab("data/bracelet-crit-eq.json")]).then(function (all) {
+               grab("data/bracelet-crit-eq.json"),
+               grab("data/arkgrid-rows-dps-epic.json"),
+               grab("data/arkgrid-rows-dps-rare.json"),
+               grab("data/arkgrid-progress-dps.json")]).then(function (all) {
     state.braceletLines = all[8];
     state.braceletCritEq = all[9];
+    state.arkgridRowsDps = { epic: all[10], rare: all[11] };
+    state.arkProgressDps = all[12];
     state.arkgridRows.epic = all[5];
     state.arkgridRows.rare = all[6];
     state.arkProgress = all[7];
