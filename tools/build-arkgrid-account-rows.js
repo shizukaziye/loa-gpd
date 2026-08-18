@@ -296,7 +296,7 @@ function fluidFrontier(tiers) {
   });
 
   var out = {
-    axis: "support", rarity: rarity, model: "account",
+    axis: AXIS, rarity: rarity, model: "account",
     draw: acct.draw || "mc",
     // highest budget tier actually simulated — the page marks anything the
     // slider asks for beyond this as still filling in

@@ -189,11 +189,14 @@ function publish(reason) {
     });
     fs.writeFileSync(PROG_FILE, JSON.stringify(prog, null, 1));
     if (PUSH) {
-      var addFiles = AXIS === "dps"
+      var addFiles = (AXIS === "dps"
         ? ["data/arkgrid-account-dps-rare.json", "data/arkgrid-account-dps-epic.json",
            "data/arkgrid-rows-dps-rare.json", "data/arkgrid-rows-dps-epic.json", PROG_FILE]
         : ["data/arkgrid-account-rare.json", "data/arkgrid-account-epic.json",
-           "data/arkgrid-rows-rare.json", "data/arkgrid-rows-epic.json", PROG_FILE];
+           "data/arkgrid-rows-rare.json", "data/arkgrid-rows-epic.json", PROG_FILE]
+      // one rarity can finish long before the other; adding a not-yet-written
+      // file makes git add fail the whole publish
+      ).filter(function (f) { return fs.existsSync(f); });
       var seq = [
         ["add"].concat(addFiles),
         ["commit", "-m", "arkgrid dd sweep: " + reason],
