@@ -52,6 +52,7 @@
     battleStatTotal: 2592,   // crit+spec+swift -> 3 bp/pt on DPS
     statBp: 3,
     karmaRank: 6,
+    // full level 10s, confirmed by Shizu 2026-08-19 -> 70.4 bp per gem level
     gems: { perGem: 704, count: 11, level: 10 },
     arkgrid: {
       corePointsTotal: 115,  // 18+18+20+20+20+19

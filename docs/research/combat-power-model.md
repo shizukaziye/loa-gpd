@@ -69,3 +69,17 @@ type-1 exact 1.24 factor decomposition, accessory line bp table.
 
 Raw fit rows live in the session scratchpad (`limerent-resolved.json`,
 compact rows for Paroxysmal/Shizukaziye/White/Teal/Noa).
+
+## Gem curves, corrected (2026-08-19)
+
+The bible compounds PER PART: every gem, core and grid-gem effect is its own
+(1 + bp/1e4) factor. Measured endpoints, both confirmed against worn sets:
+
+- Support gems: **125 bp per gem level** — Limerent wears level 6s (750 bp
+  rows) showing +121.56%; a full 10s set compounds to +265.8%. The old study
+  cache's `classicGemLevels` field is stale or refers to classic gems; do not
+  trust it for worn T4 gems.
+- DPS gems: **70.4 bp per gem level** — Paroxysmal wears full 10s (704 bp
+  rows), +111% for the set. A support lv-6 gem outranks a DPS lv-10 gem in
+  CP terms.
+- Sub-anchor levels remain linear-through-origin interpolations.
