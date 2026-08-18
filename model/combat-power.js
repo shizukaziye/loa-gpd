@@ -68,7 +68,10 @@
     baseAttack: { value: 235903.86, weaponPower: 267033, mainStat: 738326 },
     battleStatTotal: 2466,   // crit+spec+swift -> 4 bp/pt
     karmaRank: 6,            // 360 bp
-    gems: { perGem: 750, count: 11, level: 10 },
+    // Limerent WEARS level 6 gems (Shizu, 2026-08-19): 750 bp each, and the
+    // bible shows +121.56% — so the rate is 125 bp per gem level, and a full
+    // 10s set compounds to +265.8%, the figure Shizu quoted from the start.
+    gems: { bpPerLevel: 125, count: 11, level: 6 },
     arkgrid: {
       // six cores: ancient, points from the pull; 16 bp/pt + base 480
       corePoints: [18, 18, 17, 20, 20, 18],
@@ -164,8 +167,8 @@
     // factor. Summing the bps understated every swing (a lv-7 set is -21%,
     // not -14%).
     var gl = s.gemLevel || ANCHOR.gems.level;
-    parts.gems = Math.pow(mult(ANCHOR.gems.perGem * gl / ANCHOR.gems.level) /
-                          mult(ANCHOR.gems.perGem), ANCHOR.gems.count);
+    parts.gems = Math.pow(mult(ANCHOR.gems.bpPerLevel * gl) /
+                          mult(ANCHOR.gems.bpPerLevel * ANCHOR.gems.level), ANCHOR.gems.count);
     prod *= parts.gems;
 
     var aCores = ANCHOR.arkgrid.corePoints, sCores = s.corePoints || aCores;
