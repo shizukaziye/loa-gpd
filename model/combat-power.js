@@ -100,29 +100,31 @@
     prod *= parts.battleStats;
 
     var gl = s.gemLevel || A2.gems.level;
-    parts.gems = mult(A2.gems.perGem * gl / A2.gems.level * A2.gems.count) /
-                 mult(A2.gems.perGem * A2.gems.count);
+    parts.gems = Math.pow(mult(A2.gems.perGem * gl / A2.gems.level) /
+                          mult(A2.gems.perGem), A2.gems.count);
     prod *= parts.gems;
 
-    // cores swap on the point delta (16 bp/pt, grade bases cancel); grid gems
-    // on per-effect level deltas at the fitted rates
-    var pts = s.corePoints ? s.corePoints.reduce(function (a, b) { return a + b; }, 0)
-                           : A2.arkgrid.corePointsTotal;
-    var coreBp = A2.arkgrid.coreRate * (pts - A2.arkgrid.corePointsTotal);
-    var nl = s.nodeLevels || null;   // {atk, add, boss} or a plain total
-    var gemBp = 0;
-    if (nl != null) {
-      var R = A2.arkgrid.nodeRates, L = A2.arkgrid.nodeLevels;
-      if (typeof nl === "number") {
-        var aTot = L.atk + L.add + L.boss;
-        var avgR = (R.atk + R.add + R.boss) / 3;
-        gemBp = avgR * (nl - aTot);
-      } else {
-        gemBp = R.atk * ((nl.atk || 0) - L.atk) + R.add * ((nl.add || 0) - L.add) +
-                R.boss * ((nl.boss || 0) - L.boss);
+    // per-part compounding, bible-style: each core is its own factor on its
+    // own anchor bp (16 bp per point delta), each grid-gem effect its own
+    var aCoreBps = [867, 867, 600, 300, 300, 383];
+    var aCorePts = [18, 18, 20, 20, 20, 19];
+    parts.arkgrid = 1;
+    if (s.corePoints && s.corePoints.length === 6) {
+      for (var ci = 0; ci < 6; ci++) {
+        var bpSet = aCoreBps[ci] + A2.arkgrid.coreRate * (s.corePoints[ci] - aCorePts[ci]);
+        parts.arkgrid *= mult(bpSet) / mult(aCoreBps[ci]);
       }
     }
-    parts.arkgrid = mult(coreBp + gemBp);
+    var nl = s.nodeLevels || null;
+    if (nl != null) {
+      var R = A2.arkgrid.nodeRates, L = A2.arkgrid.nodeLevels;
+      var pairs = typeof nl === "number"
+        ? [["atk", nl / 3], ["add", nl / 3], ["boss", nl / 3]]
+        : [["atk", nl.atk || 0], ["add", nl.add || 0], ["boss", nl.boss || 0]];
+      pairs.forEach(function (pr) {
+        parts.arkgrid *= mult(R[pr[0]] * pr[1]) / mult(R[pr[0]] * L[pr[0]]);
+      });
+    }
     prod *= parts.arkgrid;
 
     var score = A2.score * prod;
@@ -157,16 +159,23 @@
     parts.karma = mult(60 * (s.karmaRank || ANCHOR.karmaRank)) / mult(60 * ANCHOR.karmaRank);
     prod *= parts.karma;
 
+    // bible math multiplies PER PART: each of the 11 gems, each of the six
+    // cores and each of the three grid-gem effects is its own (1 + bp/1e4)
+    // factor. Summing the bps understated every swing (a lv-7 set is -21%,
+    // not -14%).
     var gl = s.gemLevel || ANCHOR.gems.level;
-    parts.gems = mult(ANCHOR.gems.perGem * gl / ANCHOR.gems.level * ANCHOR.gems.count) /
-                 mult(ANCHOR.gems.perGem * ANCHOR.gems.count);
+    parts.gems = Math.pow(mult(ANCHOR.gems.perGem * gl / ANCHOR.gems.level) /
+                          mult(ANCHOR.gems.perGem), ANCHOR.gems.count);
     prod *= parts.gems;
 
-    var aAg = arkgridBp(ANCHOR.arkgrid.corePoints, ANCHOR.arkgrid.nodeLevels);
-    var sAg = arkgridBp(s.corePoints || ANCHOR.arkgrid.corePoints,
-                        s.nodeLevels != null ? s.nodeLevels : ANCHOR.arkgrid.nodeLevels);
-    parts.arkgridCores = mult(sAg.cores) / mult(aAg.cores);
-    parts.arkgridGems = mult(sAg.gems) / mult(aAg.gems);
+    var aCores = ANCHOR.arkgrid.corePoints, sCores = s.corePoints || aCores;
+    parts.arkgridCores = 1;
+    for (var ci = 0; ci < 6; ci++) {
+      parts.arkgridCores *= mult(coreBp(sCores[ci] != null ? sCores[ci] : aCores[ci])) /
+                            mult(coreBp(aCores[ci]));
+    }
+    var aNl = ANCHOR.arkgrid.nodeLevels, sNl = s.nodeLevels != null ? s.nodeLevels : aNl;
+    parts.arkgridGems = Math.pow(mult(5 * sNl / 3) / mult(5 * aNl / 3), 3);
     prod *= parts.arkgridCores * parts.arkgridGems;
 
     var score = ANCHOR.score * prod;
