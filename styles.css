@@ -249,3 +249,9 @@ tr[data-tip]:hover td{background:rgba(102,199,255,.06)}
 .card.hl-last::after { content: "last upgraded"; display: block; margin-top: 4px;
   color: #4f9be0; font-size: 11px; font-weight: 700; letter-spacing: 0.4px; }
 .card.hl-next.hl-last { outline: 2px solid var(--high, #e8b75c); }
+
+.lk-status.warn { color: #e8c05c; }
+#lk-repull { background: transparent; color: var(--high, #e8b75c);
+  border: 1px solid var(--high, #e8b75c); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+#lk-auth { background: transparent; color: #9ad0f0;
+  border: 1px solid #35506a; border-radius: 6px; padding: 7px 12px; cursor: pointer; }

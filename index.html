@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819n'>
+<link rel='stylesheet' href='styles.css?v=20260819o'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -41,6 +41,8 @@
     <select id='lk-region'><option>NA</option><option>EU</option><option>KR</option></select>
     <input id='lk-name' placeholder='character name' autocomplete='off'>
     <button id='lk-go'>Look up</button>
+    <button id='lk-repull' style='display:none' title='fetch fresh data from lostark.bible'>Re-pull</button>
+    <button id='lk-auth'>Sign in</button>
     <span class='lk-status' id='lk-status'></span>
   </div>
   <div class='lk-banner' id='lk-banner'></div>
@@ -81,13 +83,14 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819n'></script>
-<script src='model/gear.js?v=20260819n'></script>
-<script src='model/combat-power.js?v=20260819n'></script>
-<script src='model/honing.js?v=20260819n'></script>
-<script src='model/karma.js?v=20260819n'></script>
-<script src='model/gems.js?v=20260819n'></script>
+<script src='model/support.js?v=20260819o'></script>
+<script src='model/gear.js?v=20260819o'></script>
+<script src='model/combat-power.js?v=20260819o'></script>
+<script src='model/honing.js?v=20260819o'></script>
+<script src='model/karma.js?v=20260819o'></script>
+<script src='model/gems.js?v=20260819o'></script>
 <script src='https://www.loseii.com/loa-astrogem-calc/model/astrogem.js' defer></script>
+<script src='bible-oauth.js?v=20260819o'></script>
 <script>
 (function () {
   "use strict";
@@ -1143,11 +1146,39 @@
       if (!mine.length) return;
       var owned = -1, yoursLabel = null;
       if (key === "armor" || key === "weapon") {
-        if (c.hone != null) {
+        var hn = key === "armor" ? c.honeArmor : c.honeWeapon;
+        if (hn != null) {
           owned = lkOwnedIndex(mine, function (r) {
-            return parseInt(String(r.to || "").replace(/[^0-9]/g, ""), 10) <= c.hone;
+            return parseInt(String(r.to || "").replace(/[^0-9]/g, ""), 10) <= hn;
           });
-          yoursLabel = "+" + c.hone + " ≈ from ilvl";
+          yoursLabel = "+" + hn + (c.honeExact
+            ? (key === "armor" ? " (lowest piece)" : "")
+            : " ≈ from ilvl");
+        }
+      } else if (key === "karma") {
+        if (c.karma != null) {
+          owned = lkOwnedIndex(mine, function (r) {
+            return (parseInt(String(r.to || "").replace(/[^0-9]/g, ""), 10) || 99) <= c.karma;
+          });
+          yoursLabel = "lv " + c.karma;
+        }
+      } else if (key === "stone") {
+        if (c.stone) {
+          var mineDigits = c.stone.split("-").map(Number);
+          owned = lkOwnedIndex(mine, function (r) {
+            var rd = String(r.to || "").match(/(\d+)-(\d+)/);
+            return rd && (+rd[1] < mineDigits[0] || (+rd[1] === mineDigits[0] && +rd[2] <= mineDigits[1]));
+          });
+          yoursLabel = c.stone;
+        }
+      } else if (key === "bracelet") {
+        if (c.bracelet && c.bracelet.stats && c.bracelet.stats.length >= 2) {
+          var pairSum = c.bracelet.stats[0] + c.bracelet.stats[1];
+          owned = lkOwnedIndex(mine, function (r) {
+            var st = String((r.hit && r.hit.stats) || "").split("/");
+            return ((+st[0] || 0) + (+st[1] || 0)) <= pairSum;
+          });
+          yoursLabel = c.bracelet.stats.join("/") + " · " + (c.bracelet.lines || []).length + " lines";
         }
       } else if (key === "gems") {
         if (c.minGem != null) {
@@ -1247,22 +1278,27 @@
     function bySlot(want) {
       return accs.filter(function (a) { return want.indexOf(a.slot) >= 0; });
     }
-    function describe(p) {
-      var bits = (p.lines || []).map(function (l) {
+    function describe(p, kind) {
+      var prim = LK_PRIMARY[state.axis][kind] || [];
+      var main = [], extra = [];
+      (p.lines || []).forEach(function (l) {
         var t = lkTier(l.name, l.value);
-        return t == null ? null : ["low", "mid", "high"][t];
-      }).filter(Boolean);
-      return bits.join("/") || "?";
+        if (t == null) return;
+        (prim.indexOf(l.name) >= 0 ? main : extra).push(["low", "mid", "high"][t]);
+      });
+      var head = main.join("/") || "?";
+      return extra.length ? head + " (+" + extra.join("/") + ")" : head;
     }
     function weaker(kind, slots) {
       var ps = bySlot(slots);
       if (!ps.length) return null;
       ps.sort(function (a, b) { return lkPieceScore(a, kind) - lkPieceScore(b, kind); });
       var p2 = ps[0];
-      return { lines: p2.lines, desc: describe(p2),
+      return { lines: p2.lines, desc: describe(p2, kind),
                weakerOf: ps.length > 1 ? ps.length : 0 };
     }
     var gems = (d.classicGemLevels || []).filter(function (x) { return x != null; });
+    var eq = d.equipment || null;
     state.lookup = {
       name: d.name, ilvl: d.itemLevel ? Math.round(d.itemLevel) : null, cls: d.class,
       minGem: gems.length ? Math.min.apply(null, gems) : null,
@@ -1270,29 +1306,47 @@
              earring: weaker("earring", ["ear1", "ear2"]),
              ring: weaker("ring", ["finger1", "finger2"]) },
       grid: lkGridBand(d.gems),
-      hone: lkHoning(d.itemLevel)
+      // exact per-piece honing when the record carries it; ilvl approximation
+      // only for records pulled before the parser learned equipment
+      honeArmor: eq && eq.armorMin != null ? eq.armorMin : lkHoning(d.itemLevel),
+      honeWeapon: eq && eq.weapon != null ? eq.weapon : lkHoning(d.itemLevel),
+      honeExact: !!eq,
+      karma: d.karma ? d.karma.enlightenment : null,
+      stone: d.stone ? d.stone.a + "-" + d.stone.b : null,
+      bracelet: d.bracelet || null,
+      pulledAt: d.pulledAt || null
     };
-    lkStatus(d.name + " loaded" + (d.cached ? " (cached)" : ""), "ok");
+    var age = d.pulledAt ? Math.round((Date.now() - d.pulledAt) / 86400000) : null;
+    lkStatus(d.name + " loaded" + (d.cached ? (age != null ? " (cached " + age + "d ago)" : " (cached)") : " (fresh)"), age >= 3 ? "warn" : "ok");
+    var rp = el("lk-repull");
+    if (rp) rp.style.display = "";
     render();
   }
-  function lkFetch(region, name, since) {
+  function lkFetch(region, name, opts) {
+    opts = opts || {};
     // queue=1 always: the worker serves cached characters AT ANY AGE to
     // queue-aware clients (a plain GET only serves sub-7-day records and
     // walls everything else behind sign-in)
     var url = LK_WORKER + "/?region=" + encodeURIComponent(region) +
       "&name=" + encodeURIComponent(name) + "&queue=1" +
-      (since ? "&wait=1&since=" + since : "");
-    return fetch(url).then(function (r) { return r.json(); });
+      (opts.refresh ? "&refresh=1" : "") +
+      (opts.since ? "&wait=1&since=" + opts.since : "");
+    var headers = {};
+    var B = window.BibleOAuth;
+    if (B && B.signedIn && B.signedIn()) {
+      try { headers["Authorization"] = "Bearer " + JSON.parse(localStorage.getItem("bc_bible_oauth")).access_token; } catch (e) {}
+    }
+    return fetch(url, { headers: headers }).then(function (r) { return r.json(); });
   }
-  function lkLookup() {
+  function lkLookup(refresh) {
     var region = el("lk-region").value, name = (el("lk-name").value || "").trim();
     if (!name) { lkStatus("enter a name", "err"); return; }
     if (lkPoll) { clearTimeout(lkPoll); lkPoll = null; }
-    lkStatus("fetching " + name + "…", "");
+    lkStatus((refresh ? "re-pulling " : "fetching ") + name + "…", "");
     try { localStorage.setItem("gpd_lk_last", JSON.stringify({ r: region, n: name })); } catch (e) {}
     var tries = 0;
     function step(since) {
-      lkFetch(region, name, since).then(function (j) {
+      lkFetch(region, name, { since: since, refresh: refresh && !since }).then(function (j) {
         var d = j && j.data ? j.data : j;
         if (d && Array.isArray(d.gems) && d.gems.length) { lkApply(d); return; }
         if (d && (d.queued || j.queued)) {
@@ -1340,7 +1394,23 @@
     el("mat-caret").textContent = open ? "▸" : "▾";
   });
   el("gpd").addEventListener("input", render);
-  el("lk-go").addEventListener("click", lkLookup);
+  el("lk-go").addEventListener("click", function () { lkLookup(false); });
+  el("lk-repull").addEventListener("click", function () { lkLookup(true); });
+  (function () {
+    var B = window.BibleOAuth, btn = el("lk-auth");
+    if (!B || !B.configured || !B.configured()) { btn.style.display = "none"; return; }
+    function paint() { btn.textContent = B.signedIn() ? "Sign out" : "Sign in"; }
+    btn.addEventListener("click", function () {
+      if (B.signedIn()) { B.logout().then(paint); } else { B.login(); }
+    });
+    if (B.onChange) B.onChange(paint);
+    if (B.handleRedirect) B.handleRedirect().then(function (r) {
+      if (r && r.ok) lkStatus("signed in with lostark.bible", "ok");
+      else if (r && r.error) lkStatus("sign-in failed: " + r.error, "err");
+      paint();
+    });
+    paint();
+  })();
   el("lk-name").addEventListener("keydown", function (e) { if (e.key === "Enter") lkLookup(); });
   try {
     var lkLast = JSON.parse(localStorage.getItem("gpd_lk_last") || "null");
