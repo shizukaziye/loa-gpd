@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819k'>
+<link rel='stylesheet' href='styles.css?v=20260819l'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -71,12 +71,12 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819k'></script>
-<script src='model/gear.js?v=20260819k'></script>
-<script src='model/combat-power.js?v=20260819k'></script>
-<script src='model/honing.js?v=20260819k'></script>
-<script src='model/karma.js?v=20260819k'></script>
-<script src='model/gems.js?v=20260819k'></script>
+<script src='model/support.js?v=20260819l'></script>
+<script src='model/gear.js?v=20260819l'></script>
+<script src='model/combat-power.js?v=20260819l'></script>
+<script src='model/honing.js?v=20260819l'></script>
+<script src='model/karma.js?v=20260819l'></script>
+<script src='model/gems.js?v=20260819l'></script>
 <script>
 (function () {
   "use strict";
@@ -266,37 +266,26 @@
     var key = state.axis + "|" + ROWS.length + "|" + JSON.stringify(state.prices) + "|" +
       (state.arkgridRows.epic ? state.arkgridRows.epic.maxGpd : 0);
     if (_cpCurve && _cpCurveKey === key) return _cpCurve;
-    var pts = [];
-    for (var v = 0; v <= 100; v++) {
-      var b = 250000 * Math.pow(100, v / 100);
-      pts.push({ b: b, cp: cpEstimateAt(b).est.profileCp });
-    }
-    // running max: the curve the bands read never regresses
-    for (var i = 1; i < pts.length; i++) pts[i].cp = Math.max(pts[i].cp, pts[i - 1].cp);
-    // honest scale: rungs sit on the curve's own plateaus — a new rung only
-    // once CP has really grown ~8% (two sigma of the population fit's
-    // noise) past the last one, AT a sampled state. Interpolating fixed
-    // targets through the curve invented states inside the gem cliffs
-    // (level 10 gems are a +13% leap at one budget): "7,600 at 8.57M" was
-    // half a notch from 7,000 and no build ever reads it.
-    // exact rung values — the nearest-100 snap is lifted (Shizu's call, in
-    // exchange every increase is documented in full on the card)
-    var floorCp = Math.round(pts[0].cp);
-    var rungs = [{ cp: floorCp, b: pts[0].b }];
-    var lastCp = pts[0].cp;
-    for (var j = 1; j < pts.length; j++) {
-      if (pts[j].cp >= lastCp * 1.08) {
-        rungs.push({ cp: Math.round(pts[j].cp), b: pts[j].b });
-        lastCp = pts[j].cp;
-      }
-    }
-    // the ceiling always gets its rung, even when the last plateau grew
-    // less than a full step
-    var capCp = Math.round(pts[pts.length - 1].cp);
-    if (capCp > rungs[rungs.length - 1].cp) {
-      rungs.push({ cp: capCp, b: pts[pts.length - 1].b });
-    }
-    _cpCurve = { pts: pts, rungs: rungs, floor: floorCp };
+    // ONE RUNG PER UPGRADE (Shizu, 2026-08-19): every priced row in every
+    // category, ranked by gpd and applied one at a time — the ladder IS the
+    // purchase sequence. Each rung carries its row so the card can document
+    // the exact upgrade; purchases outside the CP model show a flat step
+    // and say so rather than being hidden.
+    var buys = ROWS.filter(function (r) {
+      // the gpd slider spans 250k..25M; rungs outside it cannot be landed
+      // on and would lie about their own value. Sub-250k purchases fold
+      // into the floor state (the chart's floor build already owns them).
+      return r.gpd != null && isFinite(r.gpd) && r.gpd > 25e4 && r.gpd <= 25e6;
+    }).slice().sort(function (a, b) { return a.gpd - b.gpd; });
+    var base = cpEstimateAt(25e4).est.profileCp;   // the floor build
+    var rungs = [{ cp: Math.round(base), b: 25e4, row: null }];
+    var run = base;
+    buys.forEach(function (r) {
+      var cp = cpEstimateAt(r.gpd).est.profileCp;
+      run = Math.max(run, cp);                  // purchases never regress
+      rungs.push({ cp: Math.round(run), b: r.gpd, row: r });
+    });
+    _cpCurve = { pts: null, rungs: rungs, floor: Math.round(base) };
     _cpCurveKey = key;
     return _cpCurve;
   }
@@ -347,6 +336,9 @@
     // they are labeled as such rather than dressed up as recommendations.
     var movers = "";
     if (next) {
+      var buyName = next.row
+        ? SERIES[next.row.series].label + " → " + (next.row.to || next.row.label || "")
+        : "";
       var estN = cpEstimateAt(next.b).est;
       var A = state.axis === "dps" ? CombatPower.ANCHOR_DPS : CombatPower.ANCHOR;
       var den = 1e4 + A.sumBpNonGem + est.dBp;
@@ -369,10 +361,12 @@
                     .reduce(function (t, m) { return t + m[1]; }, 0);
       if (dust > 0.02) list.push(["everything else", dust]);
       var total = (estN.profileCp / est.profileCp - 1) * 100;
-      if (list.length) movers = "<div class='sm2' style='margin-top:4px'>the step to &asymp;" +
-        next.cp.toLocaleString() + " (+" + total.toFixed(1) + "% from here): " +
-        list.map(function (m) { return m[0] + " +" + m[1].toFixed(1) + "%"; }).join(" &middot; ") +
-        "</div>";
+      var head = "next purchase: " + (buyName || "&mdash;") +
+        " (" + fmtGold(next.b) + "/1%) &rarr; &asymp;" + next.cp.toLocaleString();
+      movers = "<div class='sm2' style='margin-top:4px'>" + head + (list.length
+        ? " (+" + total.toFixed(1) + "%): " +
+          list.map(function (m) { return m[0] + " +" + m[1].toFixed(1) + "%"; }).join(" &middot; ")
+        : " &mdash; no CP change (this system is not a CP input)") + "</div>";
     }
     return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
       "<div class='top'><div><div class='big'>&asymp;" + shown.toLocaleString() + "</div>" +
