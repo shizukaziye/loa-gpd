@@ -1078,6 +1078,41 @@
    ]
   },
   {
+   "gpd": 17295774,
+   "gold": 20981182,
+   "gems": 707,
+   "weeks": 78.53166666666667,
+   "damage": 2.769,
+   "mean": 89.3,
+   "meanBand": "A+",
+   "weakest": 84.2,
+   "weakBand": "A",
+   "cores": 19,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    19,
+    20,
+    20,
+    19
+   ],
+   "nodes": [
+    [
+     "ally atk",
+     60
+    ],
+    [
+     "brand",
+     60
+    ],
+    [
+     "ally dmg",
+     60
+    ]
+   ]
+  },
+  {
    "gpd": 20794094,
    "gold": 23602927,
    "gems": 759,
