@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819m'>
+<link rel='stylesheet' href='styles.css?v=20260819n'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -81,12 +81,12 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819m'></script>
-<script src='model/gear.js?v=20260819m'></script>
-<script src='model/combat-power.js?v=20260819m'></script>
-<script src='model/honing.js?v=20260819m'></script>
-<script src='model/karma.js?v=20260819m'></script>
-<script src='model/gems.js?v=20260819m'></script>
+<script src='model/support.js?v=20260819n'></script>
+<script src='model/gear.js?v=20260819n'></script>
+<script src='model/combat-power.js?v=20260819n'></script>
+<script src='model/honing.js?v=20260819n'></script>
+<script src='model/karma.js?v=20260819n'></script>
+<script src='model/gems.js?v=20260819n'></script>
 <script src='https://www.loseii.com/loa-astrogem-calc/model/astrogem.js' defer></script>
 <script>
 (function () {
@@ -341,49 +341,9 @@
       wp: at.g.wp, ms: at.g.ms, gemLevel: at.gemLevel, pair: at.pair,
       tier: at.tier ? { gpd: at.tier.gpd, perCore: at.tier.perCore, nodes: at.tier.nodes } : null,
       est: est, shown: shown, next: next, rungs: curve.rungs };
-    // name what carries the climb to the next rung. Above ~notch 80 the
-    // priced cards (honing, gems, grid, stats) are maxed and the climb is
-    // skill depth and whale systems — things this chart does NOT price, so
-    // they are labeled as such rather than dressed up as recommendations.
-    var movers = "";
-    if (next) {
-      var buyName = next.row
-        ? SERIES[next.row.series].label + " → " + (next.row.to || next.row.label || "")
-        : "";
-      var estN = cpEstimateAt(next.b).est;
-      var A = state.axis === "dps" ? CombatPower.ANCHOR_DPS : CombatPower.ANCHOR;
-      var den = 1e4 + A.sumBpNonGem + est.dBp;
-      var bpPct = function (key) {
-        return (((estN.parts[key] || 0) - (est.parts[key] || 0)) / den) * 100;
-      };
-      var all = [
-        ["honing", (estN.parts.baseAttack / est.parts.baseAttack - 1) * 100],
-        ["gems", (estN.parts.gemFactor / est.parts.gemFactor - 1) * 100],
-        ["progression depth <i>(not priced here)</i>", (estN.parts.prog / est.parts.prog - 1) * 100],
-        ["ark grid", bpPct("arkgridBp")],
-        ["battle stats", bpPct("battleStatsBp")],
-        ["karma", bpPct("karmaBp")]
-      ];
-      // every increase documented: list each factor that moves; group the
-      // dust so the shown pieces still account for the whole step
-      var list = all.filter(function (m) { return m[1] > 0.02; })
-                    .sort(function (a, b) { return b[1] - a[1]; });
-      var dust = all.filter(function (m) { return m[1] > 0 && m[1] <= 0.02; })
-                    .reduce(function (t, m) { return t + m[1]; }, 0);
-      if (dust > 0.02) list.push(["everything else", dust]);
-      var total = (estN.profileCp / est.profileCp - 1) * 100;
-      var head = "next purchase: " + (buyName || "&mdash;") +
-        " (" + fmtGold(next.b) + "/1%) &rarr; &asymp;" + next.cp.toLocaleString();
-      movers = "<div class='sm2' style='margin-top:4px'>" + head + (list.length
-        ? " (+" + total.toFixed(1) + "%): " +
-          list.map(function (m) { return m[0] + " +" + m[1].toFixed(1) + "%"; }).join(" &middot; ")
-        : " &mdash; no CP change (this system is not a CP input)") + "</div>";
-    }
     return "<div class='card'><h4 style='color:#9ad0f0'>Combat power</h4>" +
       "<div class='top'><div><div class='big'>&asymp;" + shown.toLocaleString() + "</div>" +
-      "<div class='ilvl'>" + (next
-        ? "next: &asymp;" + next.cp.toLocaleString() + " at " + fmtGold(next.b) + "/1%"
-        : "estimated profile CP") + "</div></div></div>" + movers +
+      "<div class='ilvl'>estimated profile CP</div></div></div>" +
       "<div class='sm2'>My recommendations are based on damage, not CP — " +
       "especially with supports, CP can be very inaccurate, so your CP may " +
       "look very different from this estimate.</div></div>";
@@ -1228,6 +1188,26 @@
     out.bestKey = bestKey;
     return out;
   }
+  // highlight the LAST purchase at this budget and the NEXT one above it —
+  // with a character loaded the next-highlight comes from THEIR position
+  function decorateSliders() {
+    var lastKey = null, nextKey = null, lastG = -1, nextG = Infinity;
+    Object.keys(SERIES).forEach(function (key) {
+      var p = PLAN[key];
+      if (!p) return;
+      if (p.last && isFinite(p.last.gpd) && p.last.gpd != null && p.last.gpd > lastG) {
+        lastG = p.last.gpd; lastKey = key;
+      }
+      if (p.next && isFinite(p.next.gpd) && p.next.gpd != null && p.next.gpd < nextG) {
+        nextG = p.next.gpd; nextKey = key;
+      }
+    });
+    document.querySelectorAll(".card[data-plan]").forEach(function (card) {
+      var key = card.getAttribute("data-plan");
+      card.classList.toggle("hl-last", key === lastKey);
+      card.classList.toggle("hl-next", !state.lookup && key === nextKey);
+    });
+  }
   function decorateLookup() {
     var banner = el("lk-banner");
     if (!state.lookup) { if (banner) banner.innerHTML = ""; return; }
@@ -1245,7 +1225,7 @@
         ? "<span>yours</span> " + y.label
         : "<span>yours</span> not in the lookup data";
       card.appendChild(div);
-      card.classList.toggle("lk-next", key === pos.bestKey);
+      card.classList.toggle("hl-next", key === pos.bestKey);
     });
     if (banner) {
       if (pos.bestKey) {
@@ -1341,7 +1321,7 @@
       return;
     }
     renderLegend(); renderRanked(ROWS); renderSystems(ROWS); renderPlan(ROWS); wireTips();
-    decorateLookup();
+    decorateSliders(); decorateLookup();
   }
 
   // ---- boot ------------------------------------------------------------
