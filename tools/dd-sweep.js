@@ -76,8 +76,14 @@ function loadAnchors(r) {
       (d.rows || []).forEach(function (row) { rows[row.gpd] = row; tiers++; });
     });
   } catch (e) { /* anchors absent */ }
-  anchorRows[r] = tiers >= TIERS.length ? rows : null;
-  log(r + " anchors: " + tiers + " tiers -> " + (anchorRows[r] ? "gating on" : "not complete, no gate yet"));
+  // Gate per TIER, not per lattice. Requiring a complete lattice meant the
+  // DPS axis (10 spot anchors, no full run) shipped every tier unchecked;
+  // an anchor at THIS gpd is exactly as validating whether or not its
+  // neighbours exist. Tiers with no anchor still pass through unchecked —
+  // that is unavoidable — but they now say so per tier.
+  anchorRows[r] = tiers ? rows : null;
+  log(r + " anchors: " + tiers + " tiers -> " +
+      (anchorRows[r] ? "gating where anchors exist" : "none, no gate"));
   return anchorRows[r];
 }
 
