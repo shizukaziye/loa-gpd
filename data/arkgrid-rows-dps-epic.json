@@ -93,6 +93,41 @@
    ]
   },
   {
+   "gpd": 300566,
+   "gold": 826098,
+   "gems": 38,
+   "weeks": 4.201044444444444,
+   "damage": 0.8248,
+   "mean": 73,
+   "meanBand": "B-",
+   "weakest": 52.6,
+   "weakBand": "D-",
+   "cores": 17,
+   "capped": true,
+   "perCore": [
+    18,
+    18,
+    17,
+    18,
+    18,
+    17
+   ],
+   "nodes": [
+    [
+     "atk",
+     35
+    ],
+    [
+     "add dmg",
+     35
+    ],
+    [
+     "boss",
+     35
+    ]
+   ]
+  },
+  {
    "gpd": 361360,
    "gold": 849861,
    "gems": 38,
