@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260819l'>
+<link rel='stylesheet' href='styles.css?v=20260819m'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -34,6 +34,16 @@
   <div class='ihdr'><span class='tgl' id='matToggle'><span id='mat-caret'>▾</span> Material prices</span>
     <span class='note' style='margin:0'>untick anything you already have bound</span></div>
   <div class='mats' id='matGrid'></div>
+</div>
+
+<div class='panel' id='lookupPanel'>
+  <div class='lk-row'>
+    <select id='lk-region'><option>NA</option><option>EU</option><option>KR</option></select>
+    <input id='lk-name' placeholder='character name' autocomplete='off'>
+    <button id='lk-go'>Look up</button>
+    <span class='lk-status' id='lk-status'></span>
+  </div>
+  <div class='lk-banner' id='lk-banner'></div>
 </div>
 
 <h2>What to buy at your gold per damage</h2>
@@ -71,12 +81,13 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260819l'></script>
-<script src='model/gear.js?v=20260819l'></script>
-<script src='model/combat-power.js?v=20260819l'></script>
-<script src='model/honing.js?v=20260819l'></script>
-<script src='model/karma.js?v=20260819l'></script>
-<script src='model/gems.js?v=20260819l'></script>
+<script src='model/support.js?v=20260819m'></script>
+<script src='model/gear.js?v=20260819m'></script>
+<script src='model/combat-power.js?v=20260819m'></script>
+<script src='model/honing.js?v=20260819m'></script>
+<script src='model/karma.js?v=20260819m'></script>
+<script src='model/gems.js?v=20260819m'></script>
+<script src='https://www.loseii.com/loa-astrogem-calc/model/astrogem.js' defer></script>
 <script>
 (function () {
   "use strict";
@@ -1078,6 +1089,248 @@
     el("gpdOut").textContent = fmtGold(BUDGET) + " / 1%";
   }
 
+  // ---- character lookup (ported from the astrogem calculator's Grader) ----
+  // One box: pull a character off the astrogem Worker's cache, place them on
+  // every ladder, and highlight the series whose next upgrade is cheapest.
+  // Gems show the LOWEST of the 11; rings and earrings the WEAKER piece.
+  // Bracelet, karma and stone are not in the Worker's parse and say so.
+  var LK_WORKER = "https://astrogem-bible.shizukaziye.workers.dev";
+  // line tier tables from the accessory calculator (values in %, bible sends x100)
+  var LK_RAW = {
+    "Outgoing Damage %": [0.55, 1.20, 2.00], "Additional Damage %": [0.95, 1.60, 2.60],
+    "Attack Power %": [0.40, 0.95, 1.55], "Weapon Attack Power %": [0.80, 1.80, 3.00],
+    "Crit Rate %": [0.40, 0.95, 1.55], "Crit Damage %": [1.10, 2.40, 4.00],
+    "Stigma %": [2.15, 4.8, 8], "Gauge Gain %": [1.6, 3.6, 6],
+    "Ally Dmg Buff %": [2, 4.5, 7.5], "Ally Atk Buff %": [1.35, 3, 5]
+  };
+  var LK_PRIMARY = {
+    support: { neck: ["Stigma %", "Gauge Gain %"], earring: ["Weapon Attack Power %"],
+               ring: ["Ally Dmg Buff %", "Ally Atk Buff %"] },
+    dps: { neck: ["Outgoing Damage %", "Additional Damage %"],
+           earring: ["Attack Power %", "Weapon Attack Power %"],
+           ring: ["Crit Damage %", "Crit Rate %"] }
+  };
+  var LK_BANDS = ["F-","F","F+","D-","D","D+","C-","C","C+","B-","B","B+","A-","A","A+","S-","S","S+"];
+  var lkPoll = null;
+
+  function lkStatus(msg, cls) {
+    var e = el("lk-status");
+    if (e) { e.textContent = msg || ""; e.className = "lk-status" + (cls ? " " + cls : ""); }
+  }
+  function lkTier(name, valueX100) {
+    var t = LK_RAW[name];
+    if (!t || valueX100 == null) return null;
+    var v = valueX100 / 100, best = 0, bd = 1e9;
+    for (var i = 0; i < 3; i++) { var d = Math.abs(v - t[i]); if (d < bd) { bd = d; best = i; } }
+    return best;                         // 0 low, 1 mid, 2 high
+  }
+  // a piece's primary score on the current axis: sum of its primary lines'
+  // tier ranks (low 1 / mid 2 / high 3); non-primary buff lines count half
+  function lkPieceScore(piece, slotKind) {
+    var prim = LK_PRIMARY[state.axis][slotKind] || [];
+    var sc = 0;
+    (piece.lines || []).forEach(function (l) {
+      var t = lkTier(l.name, l.value);
+      if (t == null) return;
+      sc += (prim.indexOf(l.name) >= 0 ? 1 : 0.5) * (t + 1);
+    });
+    return sc;
+  }
+  // a chart row's primary score from its "x/y" pair (the to-string's first token)
+  function lkRowScore(row) {
+    var head = String(row.to || "").split(" · ")[0];
+    var sc = 0;
+    head.split("/").forEach(function (w) {
+      var t = { low: 1, mid: 2, high: 3 }[w.trim()];
+      if (t) sc += t;
+    });
+    return sc;
+  }
+  function lkGridBand(gems) {
+    var A = window.Astrogem;
+    if (!A || !gems || !gems.length) return null;
+    var gs = [], sup = state.axis === "support";
+    gems.forEach(function (g) {
+      try {
+        if (A.validateConfig && !A.validateConfig(g).valid) return;
+        var gr = sup && A.supportGrade ? A.supportGrade(g) : A.grade(g);
+        if (isFinite(gr)) gs.push(gr);
+      } catch (e) {}
+    });
+    if (!gs.length) return null;
+    var mean = gs.reduce(function (a, b) { return a + b; }, 0) / gs.length;
+    var rank = sup && A.supportRankFromGrade ? A.supportRankFromGrade(mean) : A.rankFromGrade(mean);
+    return { mean: mean, band: rank, n: gs.length };
+  }
+  // approximate +levels from item level: the honing rows' own formula is
+  // ilvl = 1675 + 5*level (uniform), so the fully-owned level is its floor
+  function lkHoning(ilvl) {
+    if (!ilvl) return null;
+    return Math.max(11, Math.min(25, Math.floor((ilvl - 1675) / 5)));
+  }
+  function lkOwnedIndex(rows, ownedTest) {
+    var idx = -1;
+    for (var i = 0; i < rows.length; i++) { if (ownedTest(rows[i])) idx = i; else break; }
+    return idx;
+  }
+  // where the character sits on every ladder + the cheapest next upgrade
+  function lkPositions() {
+    var c = state.lookup;
+    if (!c) return null;
+    var out = { yours: {}, next: {} };
+    Object.keys(SERIES).forEach(function (key) {
+      var mine = ROWS.filter(function (r) { return r.series === key; });
+      if (!mine.length) return;
+      var owned = -1, yoursLabel = null;
+      if (key === "armor" || key === "weapon") {
+        if (c.hone != null) {
+          owned = lkOwnedIndex(mine, function (r) {
+            return parseInt(String(r.to || "").replace(/[^0-9]/g, ""), 10) <= c.hone;
+          });
+          yoursLabel = "+" + c.hone + " ≈ from ilvl";
+        }
+      } else if (key === "gems") {
+        if (c.minGem != null) {
+          owned = lkOwnedIndex(mine, function (r) {
+            return (parseInt(String(r.to || "").replace(/[^0-9]/g, ""), 10) || 99) <= c.minGem;
+          });
+          yoursLabel = "lowest gem: level " + c.minGem;
+        }
+      } else if (key === "neck" || key === "ring" || key === "earring") {
+        var piece = c.acc && c.acc[key];
+        if (piece) {
+          var sc = lkPieceScore(piece, key);
+          owned = lkOwnedIndex(mine, function (r) { return lkRowScore(r) <= sc; });
+          yoursLabel = piece.desc + (piece.weakerOf ? " (weaker of " + piece.weakerOf + ")" : "");
+        }
+      } else if (RARITY_OF[key]) {
+        if (c.grid && c.grid.band) {
+          var bi = LK_BANDS.indexOf(c.grid.band);
+          owned = lkOwnedIndex(mine, function (r) {
+            var ri = LK_BANDS.indexOf(String(r.to || "").trim());
+            return ri >= 0 && ri <= bi;
+          });
+          yoursLabel = "grid ≈ " + c.grid.band + " (mean of " + c.grid.n + " gems)";
+        }
+      } else {
+        yoursLabel = null;   // karma / bracelet / stone: not in the pull
+      }
+      out.yours[key] = { owned: owned, label: yoursLabel };
+      var nxt = mine[owned + 1];
+      if (yoursLabel != null && nxt && isFinite(nxt.gpd) && nxt.gpd != null && nxt.gpd <= 25e6) {
+        out.next[key] = nxt;
+      }
+    });
+    var bestKey = null;
+    Object.keys(out.next).forEach(function (k) {
+      if (!bestKey || out.next[k].gpd < out.next[bestKey].gpd) bestKey = k;
+    });
+    out.bestKey = bestKey;
+    return out;
+  }
+  function decorateLookup() {
+    var banner = el("lk-banner");
+    if (!state.lookup) { if (banner) banner.innerHTML = ""; return; }
+    var pos = lkPositions();
+    if (!pos) return;
+    var c = state.lookup;
+    document.querySelectorAll(".card[data-plan]").forEach(function (card) {
+      var key = card.getAttribute("data-plan");
+      var y = pos.yours[key];
+      var old = card.querySelector(".lk-yours");
+      if (old) old.remove();
+      var div = document.createElement("div");
+      div.className = "lk-yours";
+      div.innerHTML = y && y.label != null
+        ? "<span>yours</span> " + y.label
+        : "<span>yours</span> not in the lookup data";
+      card.appendChild(div);
+      card.classList.toggle("lk-next", key === pos.bestKey);
+    });
+    if (banner) {
+      if (pos.bestKey) {
+        var n = pos.next[pos.bestKey];
+        banner.innerHTML = "<b>" + c.name + "</b> (" + (c.ilvl || "?") + ")" +
+          " — upgrade next: <b style='color:" + SERIES[pos.bestKey].color + "'>" +
+          SERIES[pos.bestKey].label + " → " + (n.to || "") + "</b> at " +
+          fmtGold(n.gpd) + "/1%" +
+          "<span class='lk-note'>cheapest next upgrade across every ladder the lookup covers; " +
+          "bracelet, karma and stone are not in the pull</span>";
+      } else {
+        banner.innerHTML = "<b>" + c.name + "</b> (" + (c.ilvl || "?") + ")" +
+          " — already past every priced upgrade the lookup can see.";
+      }
+    }
+  }
+  function lkApply(d) {
+    var accs = d.accessories || [];
+    function bySlot(want) {
+      return accs.filter(function (a) { return want.indexOf(a.slot) >= 0; });
+    }
+    function describe(p) {
+      var bits = (p.lines || []).map(function (l) {
+        var t = lkTier(l.name, l.value);
+        return t == null ? null : ["low", "mid", "high"][t];
+      }).filter(Boolean);
+      return bits.join("/") || "?";
+    }
+    function weaker(kind, slots) {
+      var ps = bySlot(slots);
+      if (!ps.length) return null;
+      ps.sort(function (a, b) { return lkPieceScore(a, kind) - lkPieceScore(b, kind); });
+      var p2 = ps[0];
+      return { lines: p2.lines, desc: describe(p2),
+               weakerOf: ps.length > 1 ? ps.length : 0 };
+    }
+    var gems = (d.classicGemLevels || []).filter(function (x) { return x != null; });
+    state.lookup = {
+      name: d.name, ilvl: d.itemLevel ? Math.round(d.itemLevel) : null, cls: d.class,
+      minGem: gems.length ? Math.min.apply(null, gems) : null,
+      acc: { neck: weaker("neck", ["neck"]),
+             earring: weaker("earring", ["ear1", "ear2"]),
+             ring: weaker("ring", ["finger1", "finger2"]) },
+      grid: lkGridBand(d.gems),
+      hone: lkHoning(d.itemLevel)
+    };
+    lkStatus(d.name + " loaded" + (d.cached ? " (cached)" : ""), "ok");
+    render();
+  }
+  function lkFetch(region, name, since) {
+    // queue=1 always: the worker serves cached characters AT ANY AGE to
+    // queue-aware clients (a plain GET only serves sub-7-day records and
+    // walls everything else behind sign-in)
+    var url = LK_WORKER + "/?region=" + encodeURIComponent(region) +
+      "&name=" + encodeURIComponent(name) + "&queue=1" +
+      (since ? "&wait=1&since=" + since : "");
+    return fetch(url).then(function (r) { return r.json(); });
+  }
+  function lkLookup() {
+    var region = el("lk-region").value, name = (el("lk-name").value || "").trim();
+    if (!name) { lkStatus("enter a name", "err"); return; }
+    if (lkPoll) { clearTimeout(lkPoll); lkPoll = null; }
+    lkStatus("fetching " + name + "…", "");
+    try { localStorage.setItem("gpd_lk_last", JSON.stringify({ r: region, n: name })); } catch (e) {}
+    var tries = 0;
+    function step(since) {
+      lkFetch(region, name, since).then(function (j) {
+        var d = j && j.data ? j.data : j;
+        if (d && Array.isArray(d.gems) && d.gems.length) { lkApply(d); return; }
+        if (d && (d.queued || j.queued)) {
+          if (++tries > 40) { lkStatus("queue timeout — try again in a minute", "err"); return; }
+          lkStatus("queued… (" + tries + ")", "");
+          lkPoll = setTimeout(function () { step(d.pulledAt || since || 1); }, 5000);
+          return;
+        }
+        if (d && d.needSignIn) {
+          lkStatus("not cached yet — grade them once in the astrogem calculator, then retry", "err");
+          return;
+        }
+        lkStatus((d && d.error) || "no data for " + name, "err");
+      }).catch(function () { lkStatus("lookup failed — network or worker", "err"); });
+    }
+    step(0);
+  }
+
   function render() {
     readBudget();                 // the ark grid rows are priced at this budget
     ROWS = steps();
@@ -1088,6 +1341,7 @@
       return;
     }
     renderLegend(); renderRanked(ROWS); renderSystems(ROWS); renderPlan(ROWS); wireTips();
+    decorateLookup();
   }
 
   // ---- boot ------------------------------------------------------------
@@ -1106,6 +1360,12 @@
     el("mat-caret").textContent = open ? "▸" : "▾";
   });
   el("gpd").addEventListener("input", render);
+  el("lk-go").addEventListener("click", lkLookup);
+  el("lk-name").addEventListener("keydown", function (e) { if (e.key === "Enter") lkLookup(); });
+  try {
+    var lkLast = JSON.parse(localStorage.getItem("gpd_lk_last") || "null");
+    if (lkLast && lkLast.n) { el("lk-name").value = lkLast.n; el("lk-region").value = lkLast.r || "NA"; }
+  } catch (e) {}
   el("cpSlider").addEventListener("input", function () {
     if (!window.CombatPower || !state.honing) return;
     var curve = cpCrossings();
