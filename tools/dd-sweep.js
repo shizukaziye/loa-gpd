@@ -24,6 +24,7 @@
  * the chart updates while the sweep is still running.
  */
 "use strict";
+var QUIET = require("./quiet-hours.js");
 var cp = require("child_process"), fs = require("fs"), path = require("path");
 
 var ARGS = {};
@@ -227,6 +228,19 @@ function publish(reason) {
 
 // ---- workers ----------------------------------------------------------------
 function next() {
+  // Do not OPEN a tier inside a quiet window — the running ones park
+  // themselves between reps (tools/quiet-hours.js). Re-checked once a minute;
+  // an empty machine during the window is the point.
+  if (queue.length && QUIET.inQuiet()) {
+    if (!next._quiet) {
+      next._quiet = true;
+      log("quiet hours — holding " + queue.length + " queued tiers (~" +
+        QUIET.minutesLeft() + " min)");
+    }
+    setTimeout(next, 60000);
+    return;
+  }
+  if (next._quiet) { next._quiet = false; log("quiet hours over — resuming"); }
   while (running < WORKERS && queue.length) {
     var job = queue.shift();
     if (doneShard(job.r, job.g)) { onDone(job, true); continue; }

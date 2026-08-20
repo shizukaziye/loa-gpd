@@ -28,6 +28,7 @@
  * its node levels and what it cost in gems and weeks.
  */
 "use strict";
+var QUIET = require("./quiet-hours.js");
 var REPO = "C:/Users/Shizu/loastuff/loa-astrogem-calc";
 var A = require(REPO + "/model/astrogem.js");
 
@@ -661,8 +662,13 @@ GPDS.forEach(function (gpd, gi) {
               node: [0, 0, 0], perCore: [0, 0, 0, 0, 0, 0] };
   var got = 0, cappedReps = 0;
   for (var r = 0; r < REPS; r++) {
-    if (r && r % 10 === 0) console.error("    rep " + r + "/" + REPS + "  at " +
-      (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
+    if (r && r % 10 === 0) {
+      console.error("    rep " + r + "/" + REPS + "  at " +
+        (Number(process.hrtime.bigint() - _t0) / 1e9).toFixed(0) + "s");
+      // yield the machine during Shizu's prime hours; progress is kept and
+      // the tier resumes on its own (tools/quiet-hours.js)
+      QUIET.waitIfQuiet(function (m) { console.error(m); });
+    }
     var st = stopAt(gpd, r);
     if (!st) continue;
     got++;
