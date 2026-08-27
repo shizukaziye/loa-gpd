@@ -158,6 +158,66 @@ accessory calculator's brand base.
 Karmic Evolution (Max HP) and Karmic Leap (Ultimate Awakening Damage) are worth
 nothing to a support's party contribution and are not charted.
 
+## Character lookup
+
+The lookup places one character on every ladder. Nothing is guessed: a system
+the pull cannot read keeps its row in the gear list and says why.
+
+**Two sources, because neither carries a whole character.**
+
+| | astrogem Worker | bracelet Worker |
+|---|---|---|
+| sign-in | required | none |
+| accessory grinding lines | yes | no |
+| accessory main stat | no | yes |
+| ark grid gems, skill gems | yes | gem levels only |
+| bracelet | the trait pair only | the raw payload |
+| honing, karma, stone | yes | yes, per piece |
+
+Both are asked at once and the answers merge, the richer field winning.
+
+**The bracelet is scored by the bracelet calculator, not by this page.** The
+raw payload is decoded with `Bracelet.decodeBibleBracelet` and scored with
+`Subrank.braceletScore` — the same call `tools/build-bracelet-rows-dps.js` used
+to cut the ladder, so the letter here and the letter there cannot disagree. The
+rung is then the last one whose band the character has reached.
+
+Before 2026-08-26 the bracelet was placed by the SUM OF ITS TWO COMBAT TRAITS
+against each rung's `hit.stats`, and that field is the rung's *example*
+bracelet, not a threshold. Every DPS rung shows 100/100 or better, so a 115/83
+bracelet failed all ten and read "worse than C+" while the calculator had it at
+A-. The three effect lines — most of what a bracelet is worth — were never read.
+
+**Accessories are placed through the ladder's own damage table.** A piece is
+read as a configuration — the two primary tiers, the flat roll (`atk-` and
+`wpn-` kept apart on the DPS axis), and the main-stat quintile — and looked up
+in `data/accessory-scores.json` (support) or `data/accessory-configs-dps.json`
+(DPS). Each rung's `to` label is read back into the same configuration and
+looked up the same way, so the two are on one scale. Rings and earrings are
+placed on the WEAKER of the pair, because that is the piece the next step buys.
+A main stat the pull did not carry is taken as the middle quintile and the row
+says so.
+
+**Freshness is a reading like any other, and it is shown.** Both workers cache,
+independently, and neither auto-refetches a stale record — that is the bracelet
+worker's own written policy, because background churn is the upstream load these
+tools promised not to generate. So the lookup does two things instead. The older
+record never overwrites the newer one: honing, karma and the stone are read from
+whichever pull is fresher, and a field the astrogem pull read exactly is only
+displaced by a strictly newer bracelet pull. And the gear list says how old the
+reading is — on the row, and once at the top with a re-pull link.
+
+This was not academic. White's bracelet-worker record was 15 days old and had the
+character at +20 weapon and +19 armour; a re-pull returned +22 and +21. The stale
+record was also winning over a fresher astrogem pull, so the page had no way back
+to the truth. A re-pull cannot beat lostark.bible's own snapshot either, so when
+THAT date is old the header says so and stops promising a fix.
+
+The support bracelet rungs still run about one band hot — the ladder's own
+damage came from this repo's simplified support model rather than from
+`jointScore` (docs/RESUME.md, open work #1). The character's letter is right;
+the rung it lands on inherits that skew, and the gear list says so on the row.
+
 ## Open questions
 
 1. **The quality block.** Maxroll carries a second per-honing-level stat block

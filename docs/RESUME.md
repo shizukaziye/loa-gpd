@@ -86,3 +86,52 @@ cheapest next upgrade; the worker learned to parse honing, karma, stone and
 bracelet; the CP ladder became one rung per purchase with every increase
 documented; the DPS bracelet ladder was re-anchored to the calculator's own
 scorer; and the sweep learned to yield the machine during Shizu's hours.
+
+---
+
+# Since the break — 2026-08-26
+
+The character lookup was wrong about bracelets and about accessories, and it now
+has a gear list that shows its own working. See docs/METHODOLOGY.md, "Character
+lookup", for the method; what changed here:
+
+- **The bracelet is scored by the bracelet calculator's own scorer**, loaded at
+  lookup time from `shizukaziye.github.io/loa-bracelet-calc`. It used to be
+  placed by the sum of its two combat traits against each rung's example stat
+  pair, which is not a threshold — a 115/83 Ancient with three good lines failed
+  every DPS rung and read "worse than C+" against the calculator's A-.
+- **The raw bracelet now comes from the bracelet Worker** (`/character`), which
+  has no sign-in wall and sends the bible's own stat array, so the trait
+  identities and the line families survive. The astrogem Worker only ever sent
+  the trait pair as two numbers. That worker also fills per-piece honing, karma,
+  the stone and the per-slot main stat.
+- **Accessories are placed through the ladder's own damage table** rather than
+  by counting primary tiers out of the rung's name. The flat roll and the
+  main-stat quintile count now, which they did not before.
+- **The axis follows the character.** A support class with a support-dominant
+  gem set opens on the support tab, everything else on DPS, and the gear list
+  says so when the tab and the character disagree.
+- **The fresher pull wins, and staleness is on screen.** Two workers cache
+  separately and neither auto-refetches — that is deliberate upstream policy. So
+  honing, karma and the stone come from whichever record is newer, each row
+  carries the age of the pull it was read from, and a stale character gets one
+  line at the top with a re-pull link. Found the hard way: a 15-day-old bracelet
+  record had White at +20 weapon / +19 armour and was overwriting a fresher
+  astrogem pull; the re-pull returns +22 / +21.
+- **The gear list** is the second view in the lookup panel: one row per system —
+  what the pull read, where that puts you, then TWO priced steps: the rung you
+  already stand on and the one to buy, each with its own gold per 1% under a
+  header that names which is which. Sorted by the NEXT step's price, so the top
+  row is the buy; every unread system keeps its row and says why.
+- **Guardian (blue) stones default to 300 a hundred**, not 30 (Shizu,
+  2026-08-26). Every honing rung reprices off it, so the honing gold per 1%
+  rises by roughly a fifth at the defaults.
+
+## Two things a future session should know
+
+1. **The astrogem bible Worker's source is not in any repo.** The deployed
+   worker parses honing, karma, stone and bracelet; `astrogem-calculator`'s
+   `worker/astrogem-bible.js` at `c1cc989` does not. It was deployed from the
+   Windows box and never committed. Commit it before changing it.
+2. Open work #1 below is unchanged and now shows on screen: the support bracelet
+   rungs run about a band hot, and the gear list says so on the bracelet row.
