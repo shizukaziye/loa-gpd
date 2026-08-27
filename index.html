@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260826a'>
+<link rel='stylesheet' href='styles.css?v=20260827a'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -91,14 +91,14 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260826a'></script>
-<script src='model/gear.js?v=20260826a'></script>
-<script src='model/combat-power.js?v=20260826a'></script>
-<script src='model/honing.js?v=20260826a'></script>
-<script src='model/karma.js?v=20260826a'></script>
-<script src='model/gems.js?v=20260826a'></script>
+<script src='model/support.js?v=20260827a'></script>
+<script src='model/gear.js?v=20260827a'></script>
+<script src='model/combat-power.js?v=20260827a'></script>
+<script src='model/honing.js?v=20260827a'></script>
+<script src='model/karma.js?v=20260827a'></script>
+<script src='model/gems.js?v=20260827a'></script>
 <script src='https://www.loseii.com/loa-astrogem-calc/model/astrogem.js' defer></script>
-<script src='bible-oauth.js?v=20260826a'></script>
+<script src='bible-oauth.js?v=20260827a'></script>
 <script>
 (function () {
   "use strict";
@@ -1113,6 +1113,11 @@
   var LK_SUPPORT_EFFECTS = { "Ally Attack Enh.": 1, "Brand Power": 1, "Ally Damage Enh.": 1 };
   var LK_DPS_EFFECTS = { "Attack Power": 1, "Additional Damage": 1, "Boss Damage": 1 };
   var lkPoll = null, lkBcPoll = null;
+  // Every lookup takes a ticket. A fetch already in flight when the user asks
+  // for someone else still resolves — clearing the timers does not cancel it —
+  // and without this its answer lands on top of the character now on screen.
+  var lkSeq = 0;
+  function lkCurrent(seq) { return seq === lkSeq; }
 
   function lkStatus(msg, cls) {
     var e = el("lk-status");
@@ -1123,23 +1128,29 @@
   // Four files in order: the model reads BraceletData and BraceletGearData at
   // load, so a parallel fetch would race. ~53KB gzipped, and only on a lookup.
   var _bcModel = null;
+  // file -> the global it defines, so a retry re-fetches only what is missing
+  var BC_FILES = [["data/bracelet-data.js", "BraceletData"], ["data/gear-data.js", "BraceletGearData"],
+                  ["model/bracelet.js", "Bracelet"], ["subrank.js", "Subrank"]];
   function lkLoadBraceletModel() {
+    if (window.Bracelet && window.Subrank) return Promise.resolve(true);
     if (_bcModel) return _bcModel;
-    if (window.Bracelet && window.Subrank) { _bcModel = Promise.resolve(true); return _bcModel; }
-    var files = ["data/bracelet-data.js", "data/gear-data.js", "model/bracelet.js", "subrank.js"];
-    _bcModel = files.reduce(function (chain, f) {
+    _bcModel = BC_FILES.reduce(function (chain, f) {
       return chain.then(function () {
+        if (window[f[1]]) return null;               // already there; do not re-run it
         return new Promise(function (res, rej) {
-          var s = document.createElement("script");
-          s.src = BC_BASE + f + "?v=20260826";
-          s.onload = function () { res(); };
-          s.onerror = function () { rej(new Error(f)); };
-          document.head.appendChild(s);
+          var el2 = document.createElement("script");
+          el2.src = BC_BASE + f[0] + "?v=20260827";
+          el2.onload = function () { res(); };
+          el2.onerror = function () { rej(new Error(f[0])); };
+          document.head.appendChild(el2);
         });
       });
     }, Promise.resolve())
       .then(function () { return !!(window.Bracelet && window.Subrank); })
-      .catch(function () { return false; });
+      .catch(function () { return false; })
+      // A network hiccup must not cost the whole session: forget a failed load
+      // so the next lookup, or Re-pull, tries again.
+      .then(function (ok) { if (!ok) _bcModel = null; return ok; });
     return _bcModel;
   }
 
@@ -1149,13 +1160,20 @@
   var _accLattice = null;
   function lkLoadLattice() {
     if (_accLattice) return _accLattice;
+    // Damage and gold live in different files on the support axis: -scores
+    // carries D with its gold column zeroed, -configs carries the market price.
+    // The DPS file carries both. Every rung price below is a delta over these,
+    // which is how the chart's own accessory rows were priced.
     _accLattice = Promise.all([grab("data/accessory-scores.json"),
+                               grab("data/accessory-configs.json"),
                                grab("data/accessory-configs-dps.json")])
       .then(function (a) {
-        state.accLattice = { support: a[0], dps: a[1] };
-        state.accIndex = {};
+        if (!a[0] || !a[1] || !a[2]) { _accLattice = null; return null; }
+        state.accLattice = { support: a[0], dps: a[2] };
+        state.accGold = { support: a[1], dps: a[2] };
+        state.accIndex = {}; state.accFam = {};
         return state.accLattice;
-      }).catch(function () { return null; });
+      }).catch(function () { _accLattice = null; return null; });
     return _accLattice;
   }
 
@@ -1176,7 +1194,7 @@
   }
   function lkMsTier(kind, value) {
     var r = LK_MS_RANGE[kind];
-    if (!r || !value) return null;
+    if (!r || !(value > 0)) return null;
     var i = Math.round(4 * (value - r[0]) / (r[1] - r[0]));
     return LK_MS_LABS[Math.max(0, Math.min(4, i))];
   }
@@ -1204,6 +1222,7 @@
   function lkAccConfig(piece, kind, axis, mainStat) {
     var idx = lkAccIndex(axis, kind);
     if (!idx || !piece) return null;
+    if (!(mainStat > 0)) mainStat = null;
     var prims = LK_PRIMARY[axis][kind] || [];
     var used = {};
     var prim = prims.map(function (name) {
@@ -1235,25 +1254,99 @@
     if (flat) used[flat.indexOf("atk-") === 0 ? "Attack Power+" : "Weapon Attack Power+"] = 1;
     var extras = [];
     (piece.lines || []).forEach(function (l) { if (!used[l.name]) extras.push(l.name); });
-    return { prim: prim, flat: flat, ms: ms, msVal: mainStat || null, D: bestD,
+    return { prim: prim, flat: flat, ms: ms, msVal: mainStat, D: bestD,
+             gold: lkAccGold(axis, kind, prim, flat, ms),
              extras: extras, msRead: mainStat != null };
   }
-  /** A ladder rung's own "to" label, read back as a configuration. */
-  function lkRowCfg(row, axis, kind) {
-    if (row._accD !== undefined) return row._accD;
-    var parts = String(row.to || "").split(" · ");
-    row._accD = null;
-    if (parts.length >= 3) {
-      var prim = parts[0].trim().split("/").map(function (t) { return t === "—" ? null : t.trim(); });
-      var flat = parts[1].trim().replace(/\s*flat$/, "")
-        .replace(/^weapon power\s+/, "wpn-").replace(/^atk power\s+/, "atk-");
-      if (flat === "no") flat = null;
-      var ms = parts[2].trim().replace(/\s*stat$/, "");
-      var idx = lkAccIndex(axis, kind);
-      if (idx) { var D = idx[lkCfgKey(prim, flat, ms)]; if (D != null) row._accD = D; }
-    }
-    return row._accD;
+  function lkAccGoldIndex(axis, kind) {
+    state.accGoldIndex = state.accGoldIndex || {};
+    var ck = axis + ":" + kind;
+    if (state.accGoldIndex[ck]) return state.accGoldIndex[ck];
+    var src = state.accGold && state.accGold[axis];
+    var list = src && src[kind];
+    if (!list) return null;
+    var idx = {};
+    list.forEach(function (c) { idx[lkCfgKey(c.prim || [], c.flat, c.ms)] = c.gold || 0; });
+    state.accGoldIndex[ck] = idx;
+    return idx;
   }
+  function lkAccGold(axis, kind, prim, flat, ms) {
+    var idx = lkAccGoldIndex(axis, kind);
+    var g = idx && idx[lkCfgKey(prim, flat, ms)];
+    return g || 0;
+  }
+
+  /**
+   * THE RUNGS THE GEAR LIST SHOWS: one main-stat quintile (high) and no flat
+   * roll, so every step is a plain primary-line upgrade — "high/low → high/mid"
+   * — instead of the frontier's sideways shuffles through flats and stat rolls,
+   * which read as "your next buy is a LOW main stat necklace" when you already
+   * hold a high one.
+   *
+   * The chart's own accessory ladder is still the cost frontier and is not
+   * touched. This is a readable projection of the same lattice: the prices are
+   * the same gold deltas the chart's rows are built from, so a rung here is
+   * comparable to a honing or bracelet rung on the same axis.
+   *
+   * Everything under the market's price floor is the ladder's BASE rather than
+   * a rung, which is the chart's own "nothing worth pricing" convention.
+   */
+  var LK_MS_RUNG = "high";
+  function lkFamily(axis, kind) {
+    state.accFam = state.accFam || {};
+    var ck = axis + ":" + kind;
+    if (state.accFam[ck]) return state.accFam[ck];
+    var dSrc = state.accLattice && state.accLattice[axis];
+    if (!dSrc || !dSrc[kind] || !lkAccGoldIndex(axis, kind)) return null;
+    var fam = dSrc[kind].filter(function (c) {
+      return !c.flat && c.ms === LK_MS_RUNG;
+    }).map(function (c) {
+      var prim = c.prim || [];
+      return { prim: prim, flat: null, ms: LK_MS_RUNG, D: c.D,
+               gold: lkAccGold(axis, kind, prim, null, LK_MS_RUNG),
+               label: lkCfgLabel({ prim: prim, flat: null, ms: LK_MS_RUNG }) };
+    }).sort(function (a, b) { return a.D - b.D; });
+    if (!fam.length) return null;
+    var first = 0;
+    while (first < fam.length - 1 && !fam[first + 1].gold) first++;
+    state.accFam[ck] = fam.slice(first);        // [0] is the base, the rest are rungs
+    return state.accFam[ck];
+  }
+  /** A step between two points on that ladder, priced like any other row. */
+  function lkAccStep(from, to) {
+    if (!from || !to) return null;
+    var dmg = to.D - from.D, gold = Math.max(0, to.gold - (from.gold || 0));
+    return { to: to.label, label: to.label, gold: gold, damage: dmg,
+             gpd: dmg > 0 ? gold / (dmg * party()) : Infinity };
+  }
+  /**
+   * Where a real piece sits on that ladder — INCLUDING ITSELF as a rung. The
+   * next step is priced from the piece the character actually wears, not from
+   * the rung below it, so a good piece is not charged twice.
+   */
+  function lkAccPlace(axis, kind, cfg) {
+    var fam = lkFamily(axis, kind);
+    if (!fam || !cfg) return null;
+    var below = null, belowAt = -1, above = null, i;
+    for (i = 0; i < fam.length; i++) {
+      if (fam[i].D <= cfg.D) { below = fam[i]; belowAt = i; }
+      else { above = fam[i]; break; }
+    }
+    var mineRung = { prim: cfg.prim, flat: cfg.flat, ms: cfg.ms, D: cfg.D,
+                     gold: cfg.gold || 0, label: lkCfgLabel(cfg) };
+    return {
+      base: fam[0],
+      underBase: belowAt <= 0,
+      // YOUR PIECE IS A RUNG. Both steps are measured against it: the one that
+      // reached it, from the ladder rung underneath, and the one out of it. So
+      // a good piece is neither charged twice nor credited to a rung you never
+      // bought.
+      last: belowAt >= 0 && below !== mineRung && cfg.D > below.D
+        ? lkAccStep(below, mineRung) : null,
+      next: lkAccStep(mineRung, above)
+    };
+  }
+
   /** How a piece reads on screen: "high/low · mid wpn flat · high stat". */
   function lkCfgLabel(cfg) {
     var head = cfg.prim.map(function (t) { return t || "—"; }).join("/");
@@ -1350,7 +1443,9 @@
     var c = state.lookup;
     if (!c) return null;
     c._grid = c._grid || {};
-    if (!(axis in c._grid)) c._grid[axis] = lkGridBand(c.gems, axis);
+    // never cache a null: astrogem.js is a deferred cross-origin script, and a
+    // grade taken before it arrives would pin "did not parse" for the session
+    if (c._grid[axis] == null) c._grid[axis] = lkGridBand(c.gems, axis);
     return c._grid[axis];
   }
   // approximate +levels from item level: the honing rows' own formula is
@@ -1429,7 +1524,12 @@
           });
           e.seen = c.stone;
           e.place = c.stone;
-          e.detail = lkAgeNote("stone").replace(/^ · /, "") || null;
+          var sbits = [];
+          if (c.stoneGuess) sbits.push("the bracelet pull lists all three engravings' nodes " +
+            "without saying which is the malus, so this is the top two of three");
+          var sage = lkAgeNote("stone").replace(/^ · /, "");
+          if (sage) sbits.push(sage);
+          e.detail = sbits.join("; ") || null;
         } else e.why = "no ability stone in the pull";
       } else if (key === "bracelet") {
         var br = c.braceletRaw ? lkBraceletGrade(c.braceletRaw, axis) : null;
@@ -1467,19 +1567,20 @@
         if (pieces && pieces.length) {
           var weakest = pieces[0];
           pieces.forEach(function (p) { if (p.cfg && (!weakest.cfg || p.cfg.D < weakest.cfg.D)) weakest = p; });
-          if (weakest.cfg) {
-            e.owned = lkOwnedIndex(mine, function (r) {
-              var D = lkRowCfg(r, axis, key);
-              return D != null && D <= weakest.cfg.D;
-            });
+          var place = weakest.cfg ? lkAccPlace(axis, key, weakest.cfg) : null;
+          if (place) {
             e.seen = lkCfgLabel(weakest.cfg);
             e.place = lkCfgLabel(weakest.cfg);
             e.pieces = pieces;
+            e.owned = place.underBase ? -1 : 0;
+            e.accLast = place.last;
+            e.accNext = place.next;
             var bits = [];
             if (pieces.length > 1) bits.push("the weaker of your " + pieces.length + " (" + weakest.name + ")");
             if (!weakest.cfg.msRead) bits.push("main stat not in the pull, taken as mid");
             if (weakest.cfg.extras.length) bits.push(weakest.cfg.extras.join(", ") + " not priced by the ladder");
             e.detail = bits.join("; ") || null;
+            e.ownRung = true;
           } else e.why = "the accessory damage table did not load";
         } else e.why = "no " + (key === "neck" ? "necklace" : key) + " in the pull";
       } else if (RARITY_OF[key]) {
@@ -1498,15 +1599,16 @@
       out.yours[key] = { owned: e.owned, label: graded ? (e.place || e.seen) : null };
       // the rung you are standing on — the step that bought your current
       // position — so the list can show what the last 1% cost beside the next
-      if (graded && e.owned >= 0) e.last = mine[e.owned];
-      var nxt = mine[e.owned + 1];
-      if (graded && nxt && isFinite(nxt.gpd) && nxt.gpd != null) {
-        e.next = nxt;
-        if (nxt.gpd <= 25e6) out.next[key] = nxt;
-      } else if (graded) {
-        e.done = true;
+      if (graded) {
+        if (e.accNext !== undefined) { e.last = e.accLast; e.next = e.accNext; }
+        else {
+          if (e.owned >= 0) e.last = mine[e.owned];
+          e.next = mine[e.owned + 1] || null;
+        }
       }
-      e.rungs = mine.length;
+      if (graded && e.next && isFinite(e.next.gpd) && e.next.gpd != null && e.next.gpd <= 25e6) {
+        out.next[key] = e.next;
+      }
       out.list.push(e);
     });
     var bestKey = null;
@@ -1653,10 +1755,10 @@
       return "<tr" + (e.key === pos.bestKey ? " class='gv-best'" : "") + ">" +
         "<td><span class='gv-dot' style='background:" + colour + "'></span>" + esc(e.label) + "</td>" +
         "<td>" + esc(e.seen) + (e.detail ? "<span class='gv-sub'>" + esc(e.detail) + "</span>" : "") + "</td>" +
-        "<td>" + (e.owned >= 0
-          ? "<b>" + esc(e.place || "") + "</b><span class='gv-sub'>rung " + (e.owned + 1) + " of " + e.rungs + "</span>"
-          : "<b>" + esc(e.place || "") + "</b><span class='gv-sub'>under the first rung — the next step " +
-            "below is the ladder's own first, priced from its base</span>") + "</td>" +
+        "<td>" + "<b>" + esc(e.place || "") + "</b>" +
+          (e.owned >= 0 || e.ownRung ? ""
+            : "<span class='gv-sub'>under the first rung — the next step " +
+              "below is the ladder's own first, priced from its base</span>") + "</td>" +
         "<td>" + step(e.last, "nothing bought on this ladder yet") + "</td>" +
         "<td class='num'>" + price(e.last) + "</td>" +
         "<td>" + step(e.next, "nothing left on this ladder") + "</td>" +
@@ -1698,9 +1800,20 @@
       rows + missing + "</tbody></table></div>" +
       "<div class='note'>Sorted by the NEXT step's price, so the top row is the buy; the last " +
       "step is what the rung you already stand on cost per 1%, at today's material prices. " +
-      "The bracelet is scored by the <a href='" + BC_BASE + "'>bracelet calculator</a>'s own scorer; " +
-      "accessories are placed on the ladder's own damage table, main stat and flat roll included.</div>" +
+      "The bracelet is scored by the <a href='" + BC_BASE + "'>bracelet calculator</a>'s own scorer. " +
+      "Accessory rungs are the <b>high main stat, no flat</b> ladder — one plain primary-line step " +
+      "at a time — and your own piece is a rung on it, so both prices are measured against the " +
+      "piece you actually wear, flat roll and main stat included. The chart itself still ranks " +
+      "accessories on the cost frontier, which is cheaper and reads less plainly.</div>" +
       "</div>" + lkPiecePanel(pos);
+  }
+  /** One accessory line as the game writes it. Only the PERCENTAGE lines
+   *  arrive multiplied by a hundred; a flat roll is already its own number, so
+   *  dividing it turned "Weapon Attack Power+ 480" into "4.80". */
+  function lkLineText(l) {
+    if (l.value == null) return l.name;
+    if (/%\s*$/.test(l.name)) return l.name + " " + (l.value / 100).toFixed(2);
+    return l.name + " " + l.value;
   }
   /** The per-piece fold: every accessory and every bracelet line, as read. */
   function lkPiecePanel(pos) {
@@ -1713,9 +1826,7 @@
         out.push("<tr><td>" + esc(p.name) + "</td><td>" +
           (p.cfg ? esc(lkCfgLabel(p.cfg)) : "<span class='gv-dim'>unreadable</span>") + "</td><td>" +
           (p.lines.length
-            ? p.lines.map(function (l) {
-                return esc(l.name + (l.value != null ? " " + (l.value / 100).toFixed(2) : ""));
-              }).join(", ")
+            ? p.lines.map(function (l) { return esc(lkLineText(l)); }).join(", ")
             : "<span class='gv-dim'>no lines</span>") + "</td></tr>");
       });
     });
@@ -1744,7 +1855,9 @@
     accs.forEach(function (a) { if (a && a.slot) bySlot[a.slot] = a; });
     var gems = (d.classicGemLevels || []).filter(function (x) { return x != null; });
     var eq = d.equipment || null;
-    var prev = state.lookup && state.lookup.name === d.name ? state.lookup : null;
+    var armExact = !!(eq && eq.armorMin != null), wpnExact = !!(eq && eq.weapon != null);
+    var same = state.lookup && state.lookup.name === d.name && state.lookup.region === d.region;
+    var prev = same ? state.lookup : null;
     state.lookup = {
       name: d.name, ilvl: d.itemLevel ? Math.round(d.itemLevel) : null, cls: d.class,
       minGem: gems.length ? Math.min.apply(null, gems) : null,
@@ -1752,20 +1865,22 @@
       acc: bySlot,
       gems: d.gems || null,
       // exact per-piece honing when the record carries it; ilvl approximation
-      // only for records pulled before the parser learned equipment
-      honeArmor: eq && eq.armorMin != null ? eq.armorMin : lkHoning(d.itemLevel),
-      honeWeapon: eq && eq.weapon != null ? eq.weapon : lkHoning(d.itemLevel),
-      honeExact: !!eq,
+      // only for records pulled before the parser learned equipment. Tested per
+      // FIELD, not on the equipment object: a partial record would otherwise
+      // claim an exact reading it does not have.
+      honeArmor: armExact ? eq.armorMin : lkHoning(d.itemLevel),
+      honeWeapon: wpnExact ? eq.weapon : lkHoning(d.itemLevel),
+      honeExact: armExact && wpnExact,
       karma: d.karma ? d.karma.enlightenment : null,
       stone: d.stone ? d.stone.a + "-" + d.stone.b : null,
+      region: d.region || null,
       // WHICH PULL each reading came from, and when. Two workers cache
       // independently, so the older one must never quietly overwrite the newer:
       // a 15-day-old bracelet record was reporting White at +19/+20 armour and
-      // weapon over a fresher astrogem pull.
-      stamp: { honing: { src: "astrogem", ts: d.pulledAt || null, exact: !!eq },
-               karma: { src: "astrogem", ts: d.pulledAt || null },
-               stone: { src: "astrogem", ts: d.pulledAt || null },
-               acc: { src: "astrogem", ts: d.pulledAt || null } },
+      // weapon over a fresher astrogem pull. A stamp is laid ONLY where a value
+      // actually came back — stamping a null would lock out the other pull,
+      // which does have it.
+      stamp: {},
       // the two combat traits alone, kept only so an unscoreable bracelet can
       // still show what came back
       braceletStats: d.bracelet && Array.isArray(d.bracelet.stats) &&
@@ -1779,6 +1894,22 @@
       bcNote: prev ? prev.bcNote : null,
       pulledAt: d.pulledAt || null
     };
+    var st = state.lookup.stamp, ts = d.pulledAt || null;
+    if (state.lookup.honeArmor != null || state.lookup.honeWeapon != null) {
+      st.honing = { src: "astrogem", ts: ts, exact: armExact && wpnExact };
+    }
+    if (state.lookup.karma != null) st.karma = { src: "astrogem", ts: ts };
+    if (state.lookup.stone) st.stone = { src: "astrogem", ts: ts };
+    // a field the older bracelet pull already supplied survives a re-pull that
+    // could not read it — losing it would be a step backwards, not a refresh
+    if (prev) {
+      ["karma", "stone"].forEach(function (k) {
+        if (state.lookup[k] == null && prev[k] != null && prev.stamp && prev.stamp[k]) {
+          state.lookup[k] = prev[k];
+          st[k] = prev.stamp[k];
+        }
+      });
+    }
     // the class decides the axis; the tab follows, once, on load
     var role = lkRoleOf(d.class, d.gems);
     state.lookup.role = role;
@@ -1804,6 +1935,8 @@
     var c = state.lookup;
     if (!c) return;
     var stats = d && d.bracelet && d.bracelet.stats;
+    // an older bracelet answer still in flight must not replace a newer one
+    if (d && d.pulledAt && c.bcPulledAt && d.pulledAt < c.bcPulledAt) return;
     if (Array.isArray(stats) && stats.length) {
       c.braceletRaw = stats;
       c.bcNote = null;
@@ -1847,9 +1980,17 @@
         c.karma = raw.karma.enlightenment;
         c.stamp.karma = { src: "bracelet", ts: ts };
       }
-      if (raw && Array.isArray(raw.stoneNodes) && raw.stoneNodes.length >= 2 && fresher("stone")) {
+      // THE STONE, CAREFULLY. raw.stoneNodes is every engraving's node count,
+      // the malus included, already sorted high-to-low by the worker — so the
+      // top two are NOT reliably the two combat engravings. A 9/6 stone whose
+      // malus sits at 7 reads [9,7,6] and would show as "9-7", marking a rung
+      // owned that the character should be buying. So the astrogem worker's
+      // own {a,b} split always wins, and a three-node array is only used when
+      // there is nothing else, and says that it is a guess.
+      if (raw && Array.isArray(raw.stoneNodes) && raw.stoneNodes.length >= 2 && !c.stone) {
         var sn = raw.stoneNodes.slice().sort(function (a, b) { return b - a; });
         c.stone = sn[0] + "-" + sn[1];
+        c.stoneGuess = sn.length > 2;
         c.stamp.stone = { src: "bracelet", ts: ts };
       }
     } else {
@@ -1893,6 +2034,12 @@
     return fetch(url, { headers: headers }).then(function (r) { return r.json(); })
       .catch(function () { return { message: "the bracelet worker did not answer" }; });
   }
+  /** A parsed character, as opposed to a queue notice or an error. Gems used to
+   *  be the sentinel, which threw away every record whose ark grid was empty. */
+  function lkHasRecord(d) {
+    return !!(d && d.name && !d.needSignIn && !d.error &&
+      (Array.isArray(d.gems) || Array.isArray(d.accessories) || Array.isArray(d.classicGemLevels)));
+  }
   function lkLookup(refresh) {
     var region = el("lk-region").value, name = (el("lk-name").value || "").trim();
     if (!name) { lkStatus("enter a name", "err"); return; }
@@ -1902,24 +2049,40 @@
     try { localStorage.setItem("gpd_lk_last", JSON.stringify({ r: region, n: name })); } catch (e) {}
     // the bracelet scorer and the accessory damage table, in flight beside the
     // pull; nothing is placed until both have landed
+    var seq = ++lkSeq;
     var ready = Promise.all([lkLoadBraceletModel(), lkLoadLattice()]);
     var bracelet = lkFetchBracelet(region, name, refresh);
+    var landed = false;
     function land(d) {
+      if (!lkCurrent(seq)) return;
       ready.then(function () {
+        if (!lkCurrent(seq)) return;
         lkApply(d);
+        if (landed) return;            // a re-poll of the same character: the
+        landed = true;                 // bracelet half is already applied
         bracelet.then(function (b) {
-          if (!state.lookup || state.lookup.name !== d.name) return;
+          if (!lkCurrent(seq)) return;
           lkApplyBracelet(b);
-          lkWatchBracelet(region, d.name, b);
+          lkWatchBracelet(region, name, b, seq);
         });
       });
     }
     var tries = 0;
     function step(since) {
       lkFetch(region, name, { since: since, refresh: refresh && !since }).then(function (j) {
+        if (!lkCurrent(seq)) return;
         var d = j && j.data ? j.data : j;
-        if (d && Array.isArray(d.gems) && d.gems.length) { land(d); return; }
-        if (d && (d.queued || j.queued)) {
+        var queued = !!(d && (d.queued || j.queued));
+        if (lkHasRecord(d)) {
+          land(d);
+          // a Re-pull answers with the CACHED record and queued:true while the
+          // fresh one is fetched — show what we have, then keep watching
+          if (!queued || ++tries > 40) return;
+          lkStatus("showing the cached pull while the re-pull drains… (" + tries + ")", "warn");
+          lkPoll = setTimeout(function () { step(d.pulledAt || since || 1); }, 5000);
+          return;
+        }
+        if (queued) {
           if (++tries > 40) { lkStatus("queue timeout — try again in a minute", "err"); return; }
           lkStatus("queued… (" + tries + ")", "");
           lkPoll = setTimeout(function () { step(d.pulledAt || since || 1); }, 5000);
@@ -1930,20 +2093,25 @@
           return;
         }
         lkStatus((d && d.error) || "no data for " + name, "err");
-      }).catch(function () { lkStatus("lookup failed — network or worker", "err"); });
+      }).catch(function () {
+        if (lkCurrent(seq)) lkStatus("lookup failed — network or worker", "err");
+      });
     }
     step(0);
   }
   /** A character the bracelet worker has never seen is QUEUED, not refused —
    *  so keep looking until it drains, then fill the bracelet row in place. */
-  function lkWatchBracelet(region, name, b) {
+  function lkWatchBracelet(region, name, b, seq) {
     if (!b || !b.queued) return;
     var tries = 0;
     (function poll() {
       lkBcPoll = setTimeout(function () {
-        if (!state.lookup || state.lookup.name !== name) return;
+        if (!lkCurrent(seq)) return;
         lkFetchBracelet(region, name, false).then(function (d) {
+          if (!lkCurrent(seq)) return;
           if (d && d.bracelet && (d.bracelet.stats || []).length) { lkApplyBracelet(d); return; }
+          // a hard error is an answer, not a wait: show it and stop
+          if (d && !d.queued) { lkApplyBracelet(d); return; }
           if (++tries < 12) poll();
         });
       }, 10000);

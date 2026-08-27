@@ -127,11 +127,45 @@ lookup", for the method; what changed here:
   2026-08-26). Every honing rung reprices off it, so the honing gold per 1%
   rises by roughly a fifth at the defaults.
 
+## The 2026-08-27 review pass
+
+Fable 5 reviewed the lookup and found ten defects; all are fixed. The ones worth
+remembering because they are easy to reintroduce:
+
+- **A lookup now takes a ticket** (`lkSeq`). Clearing the poll timers does not
+  cancel a fetch already in flight, and the queued path long-polls by design, so
+  an answer for the character you just stopped looking at would land on top of
+  the one on screen — gear list, axis tab and all.
+- **A stamp is laid only where a value came back.** Stamping a null locked the
+  other pull out of a field it actually had, and a re-pull that could not read
+  karma or the stone dropped values already on screen.
+- **`gems: []` was the "is this a record?" sentinel**, so a character with no ark
+  grid had their whole record thrown away. It is now a real shape test.
+- **Only percentage accessory lines arrive x100.** A flat roll is its own number;
+  dividing it rendered "Weapon Attack Power+ 480" as "4.80".
+- **A failed cross-origin script or data load is no longer cached for the
+  session** — one github.io hiccup used to disable the bracelet scorer until a
+  page reload, with a Re-pull button that looked like the remedy and was not.
+- **`lkGrid` must not cache a null**: astrogem.js is deferred and cross-origin,
+  and a grade taken before it lands would pin "did not parse" for good.
+- The ability-stone `stoneNodes` trap is in METHODOLOGY.md; the fix that would
+  retire it belongs in the bracelet Worker, which should send the `{a,b,malus}`
+  split the astrogem Worker already does.
+
 ## Two things a future session should know
 
-1. **The astrogem bible Worker's source is not in any repo.** The deployed
+1. **The accessory rows in `rows.json` / `rows-dps.json` have no builder in the
+   repo** — only the bracelet series does (`tools/build-bracelet-rows.js`). They
+   DO reproduce from the lattice, though: `accessory-scores.json` (support D) or
+   `accessory-configs-dps.json` (DPS D and gold) with `accessory-configs.json`
+   for support gold, differenced along the chain, matches 245 of 262 rows on
+   damage and 255 of 262 on gold exactly. So rebuilding that ladder — on the
+   high main stat / no flat family, to match the gear list — is a small job, not
+   a reverse-engineering one. It would make accessories roughly 10x dearer per
+   1% because the ladder would stop cherry-picking cheap flat and stat combos.
+2. **The astrogem bible Worker's source is not in any repo.** The deployed
    worker parses honing, karma, stone and bracelet; `astrogem-calculator`'s
    `worker/astrogem-bible.js` at `c1cc989` does not. It was deployed from the
    Windows box and never committed. Commit it before changing it.
-2. Open work #1 below is unchanged and now shows on screen: the support bracelet
+3. Open work #1 below is unchanged and now shows on screen: the support bracelet
    rungs run about a band hot, and the gear list says so on the bracelet row.

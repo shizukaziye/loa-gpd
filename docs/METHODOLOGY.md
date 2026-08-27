@@ -198,6 +198,28 @@ placed on the WEAKER of the pair, because that is the piece the next step buys.
 A main stat the pull did not carry is taken as the middle quintile and the row
 says so.
 
+**The gear list's accessory rungs are the readable projection, not the chart's
+frontier.** The chart ranks accessories on the cost frontier — the cheapest
+configuration at every damage level — which is right for pricing and unreadable
+as advice: it wanders through flat rolls and main-stat quintiles, so the next
+step off a high-main-stat piece can be a LOW-main-stat one. The gear list fixes
+the main stat at its top quintile and drops the flat roll, leaving one plain
+primary-line step per rung, and the prices are the same lattice deltas the
+chart's rows are built from, so a rung here is still comparable to a honing or
+bracelet rung. Everything under the market's price floor is the ladder's base
+rather than a rung, which is the chart's own "nothing worth pricing" rule.
+
+Your own piece is a rung on that ladder. Both prices are measured against the
+piece actually worn — flat roll and main stat included — so a good piece is
+neither charged twice nor credited to a rung nobody bought.
+
+**The ability stone comes from the astrogem pull, never from node counts alone.**
+The bracelet Worker sends `stoneNodes`: every engraving's node count, the malus
+included, sorted high to low. The top two are therefore not reliably the two
+combat engravings — a 9/6 stone whose malus sits at 7 reads `[9,7,6]`. That
+array is used only when nothing else carries the stone, and the row says it is
+a guess.
+
 **Freshness is a reading like any other, and it is shown.** Both workers cache,
 independently, and neither auto-refetches a stale record — that is the bracelet
 worker's own written policy, because background churn is the upstream load these
