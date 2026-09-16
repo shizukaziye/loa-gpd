@@ -235,10 +235,13 @@ record was also winning over a fresher astrogem pull, so the page had no way bac
 to the truth. A re-pull cannot beat lostark.bible's own snapshot either, so when
 THAT date is old the header says so and stops promising a fix.
 
-The support bracelet rungs still run about one band hot — the ladder's own
-damage came from this repo's simplified support model rather than from
-`jointScore` (docs/RESUME.md, open work #1). The character's letter is right;
-the rung it lands on inherits that skew, and the gear list says so on the row.
+The support bracelet rungs used to run about one band hot, because the
+ladder's own damage came from this repo's simplified support model rather than
+from `jointScore`. Fixed 2026-09-16: all three bracelet generators price
+through `jointScore` on the right profile and read their anchors off
+`braceletScore`, so the character's letter and the rung it lands on are now
+measured the same way. Every rung's example is exact-verified at build time
+and `tools/verify-bracelet-bands.js` re-checks both axes.
 
 ## Open questions
 

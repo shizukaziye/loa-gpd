@@ -58,15 +58,9 @@ rare 250k, epic 250k, rare 1.09M, epic 1.09M, rare 3.96M.
 
 ## Open work
 
-1. **Support bracelet ladder is over-graded** (task #23, the known defect).
-   Its 8-of-10 rungs sit one band above the bracelet calculator's own
-   scorer. The DPS ladder was already fixed the right way in commit
-   `ba4c708` — copy that method: per-pair marginal tables through
-   `jointScore` with the SUPPORT profile, anchors read off `braceletScore`
-   once, cuts from `S.bandsFor("support")`, band-window damage means,
-   fully-displayable examples. Then extend `tools/verify-bracelet-bands.js`
-   to cover support rows and regenerate `rows.json`,
-   `bracelet-vs-gpd.json`, `bracelet-hits.json`.
+1. ~~Support bracelet ladder is over-graded~~ **DONE 2026-09-16** (e4e1dce).
+   All three generators price through `jointScore` and verify each example
+   against `braceletScore` at build time.
 2. **DPS sweep completion** — resume as above; the site flips each series
    from "coming soon" to live rows on its own as tiers publish.
 3. **OAuth redirect URIs are not registered yet.** The character lookup can
@@ -163,9 +157,29 @@ remembering because they are easy to reintroduce:
    high main stat / no flat family, to match the gear list — is a small job, not
    a reverse-engineering one. It would make accessories roughly 10x dearer per
    1% because the ladder would stop cherry-picking cheap flat and stat combos.
-2. **The astrogem bible Worker's source is not in any repo.** The deployed
-   worker parses honing, karma, stone and bracelet; `astrogem-calculator`'s
-   `worker/astrogem-bible.js` at `c1cc989` does not. It was deployed from the
-   Windows box and never committed. Commit it before changing it.
-3. Open work #1 below is unchanged and now shows on screen: the support bracelet
-   rungs run about a band hot, and the gear list says so on the bracelet row.
+2. ~~The astrogem bible Worker's source is not in any repo.~~ **It is** — in
+   `loastuff`, at `loa-astrogem-calc/worker/astrogem-bible.js`, commit
+   `b219aac` ("Worker: parse honing, karma, stone and bracelet for the GPD
+   lookup"). The separate `astrogem-calculator` checkout is a different,
+   older copy; do not edit that one.
+3. ~~The support bracelet rungs run about a band hot~~ — fixed, and the
+   warning has been taken off the gear list's bracelet row.
+
+
+---
+
+# 2026-09-16 — back from the break
+
+The DPS sweep is running again (14 workers, cells warm from August, tiers
+landing in about an hour each instead of five). The bracelet work above is
+closed. What is left:
+
+1. **The accessory ladder has no builder** and cherry-picks cheap flat and
+   stat combos, which makes accessories look roughly 10x cheaper per 1% than
+   the gear list's own family. The note above says it reproduces from the
+   lattice — a build job, not a reverse-engineering one. This is the biggest
+   remaining correctness item and it will move the chart's recommendations,
+   so it wants Shizu's call before it ships.
+2. **OAuth redirect URIs** still need registering on the lostark.bible
+   developer page (see open work #3 above).
+3. **Two cheap CP measurements** remain (open work #4 above).
