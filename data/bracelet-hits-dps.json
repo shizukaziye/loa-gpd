@@ -3,9 +3,19 @@
   "stats": "80/80",
   "lines": [
    {
-    "name": "atk on hit",
+    "name": "damage",
     "id": 23,
     "tier": "LEG"
+   },
+   {
+    "name": "magic def",
+    "id": 5,
+    "tier": "epic"
+   },
+   {
+    "name": "resource regen",
+    "id": 8,
+    "tier": "blue"
    }
   ]
  },
@@ -13,19 +23,14 @@
   "stats": "90/90",
   "lines": [
    {
-    "name": "wp flat",
-    "id": 33,
-    "tier": "epic"
-   },
-   {
-    "name": "shield dmg",
-    "id": 18,
+    "name": "wp hp>50%",
+    "id": 21,
     "tier": "blue"
    },
    {
-    "name": "crit rate",
-    "id": 6,
-    "tier": "epic"
+    "name": "weapon power",
+    "id": 33,
+    "tier": "blue"
    }
   ]
  },
@@ -33,13 +38,13 @@
   "stats": "90/90",
   "lines": [
    {
-    "name": "atk when hit",
-    "id": 31,
-    "tier": "blue"
+    "name": "wp x30 stack",
+    "id": 22,
+    "tier": "LEG"
    },
    {
-    "name": "dmg+ident",
-    "id": 14,
+    "name": "weapon power",
+    "id": 33,
     "tier": "blue"
    }
   ]
@@ -53,13 +58,8 @@
     "tier": "blue"
    },
    {
-    "name": "wp",
-    "id": 21,
-    "tier": "LEG"
-   },
-   {
-    "name": "swiftness",
-    "id": 9,
+    "name": "crit dmg",
+    "id": 32,
     "tier": "blue"
    }
   ]
@@ -68,19 +68,19 @@
   "stats": "90/90",
   "lines": [
    {
-    "name": "cd→dmg",
-    "id": 15,
-    "tier": "blue"
-   },
-   {
-    "name": "dmg+ident",
-    "id": 14,
-    "tier": "blue"
-   },
-   {
     "name": "crit rate",
-    "id": 6,
+    "id": 31,
+    "tier": "epic"
+   },
+   {
+    "name": "dmg+stagger",
+    "id": 13,
     "tier": "blue"
+   },
+   {
+    "name": "hp regen",
+    "id": 7,
+    "tier": "epic"
    }
   ]
  },
@@ -93,14 +93,14 @@
     "tier": "blue"
    },
    {
-    "name": "dmg to full",
+    "name": "add damage",
     "id": 24,
     "tier": "blue"
    },
    {
-    "name": "swiftness",
-    "id": 9,
-    "tier": "blue"
+    "name": "dmg to lower",
+    "id": 2,
+    "tier": "epic"
    }
   ]
  },
@@ -108,18 +108,13 @@
   "stats": "100/100",
   "lines": [
    {
-    "name": "non-dir",
-    "id": 27,
+    "name": "dmg, +cd",
+    "id": 15,
     "tier": "epic"
    },
    {
-    "name": "atk on hit",
-    "id": 23,
-    "tier": "blue"
-   },
-   {
-    "name": "shield dmg",
-    "id": 18,
+    "name": "crit dmg",
+    "id": 32,
     "tier": "blue"
    }
   ]
@@ -128,18 +123,18 @@
   "stats": "100/100",
   "lines": [
    {
-    "name": "dmg+stag",
-    "id": 13,
-    "tier": "blue"
+    "name": "back atk",
+    "id": 25,
+    "tier": "epic"
    },
    {
-    "name": "front atk",
-    "id": 26,
-    "tier": "blue"
+    "name": "wp x30 stack",
+    "id": 22,
+    "tier": "epic"
    },
    {
-    "name": "dmg to full",
-    "id": 24,
+    "name": "damage",
+    "id": 23,
     "tier": "blue"
    }
   ]
@@ -148,19 +143,19 @@
   "stats": "100/100",
   "lines": [
    {
-    "name": "crit rate",
-    "id": 11,
+    "name": "crit dmg+",
+    "id": 12,
     "tier": "blue"
    },
    {
-    "name": "back atk",
-    "id": 25,
-    "tier": "epic"
+    "name": "def shred",
+    "id": 16,
+    "tier": "blue"
    },
    {
-    "name": "wp flat",
+    "name": "weapon power",
     "id": 33,
-    "tier": "blue"
+    "tier": "epic"
    }
   ]
  },
@@ -170,16 +165,11 @@
    {
     "name": "crit shred",
     "id": 17,
-    "tier": "blue"
+    "tier": "LEG"
    },
    {
-    "name": "front atk",
-    "id": 26,
-    "tier": "epic"
-   },
-   {
-    "name": "atk when hit",
-    "id": 31,
+    "name": "dmg, +cd",
+    "id": 15,
     "tier": "blue"
    }
   ]
@@ -188,39 +178,39 @@
   "stats": "100/100",
   "lines": [
    {
-    "name": "cdmg shred",
-    "id": 19,
+    "name": "dmg, +cd",
+    "id": 15,
     "tier": "LEG"
    },
    {
-    "name": "front atk",
-    "id": 26,
-    "tier": "blue"
+    "name": "damage",
+    "id": 23,
+    "tier": "epic"
    },
    {
-    "name": "shield self",
-    "id": 32,
+    "name": "back atk",
+    "id": 25,
     "tier": "blue"
    }
   ]
  },
  "A": {
-  "stats": "110/110",
+  "stats": "100/100",
   "lines": [
    {
-    "name": "cdmg shred",
-    "id": 19,
-    "tier": "LEG"
-   },
-   {
-    "name": "back atk",
-    "id": 25,
-    "tier": "LEG"
-   },
-   {
-    "name": "shield dmg",
-    "id": 18,
+    "name": "dmg, +cd",
+    "id": 15,
     "tier": "blue"
+   },
+   {
+    "name": "crit shred",
+    "id": 17,
+    "tier": "blue"
+   },
+   {
+    "name": "non-directional",
+    "id": 27,
+    "tier": "epic"
    }
   ]
  },
@@ -228,18 +218,18 @@
   "stats": "110/110",
   "lines": [
    {
-    "name": "crit rate",
-    "id": 11,
+    "name": "cdmg shred",
+    "id": 19,
+    "tier": "epic"
+   },
+   {
+    "name": "dmg+stagger",
+    "id": 13,
     "tier": "LEG"
    },
    {
-    "name": "crit dmg",
-    "id": 12,
-    "tier": "blue"
-   },
-   {
-    "name": "wp x30",
-    "id": 22,
+    "name": "back atk",
+    "id": 25,
     "tier": "blue"
    }
   ]
@@ -248,19 +238,19 @@
   "stats": "110/110",
   "lines": [
    {
-    "name": "cd→dmg",
+    "name": "dmg, +cd",
     "id": 15,
-    "tier": "LEG"
+    "tier": "blue"
    },
    {
-    "name": "crit rate",
-    "id": 11,
+    "name": "dmg+stagger",
+    "id": 13,
     "tier": "epic"
    },
    {
-    "name": "back atk",
-    "id": 25,
-    "tier": "blue"
+    "name": "crit dmg+",
+    "id": 12,
+    "tier": "epic"
    }
   ]
  },
@@ -268,19 +258,19 @@
   "stats": "110/110",
   "lines": [
    {
-    "name": "crit shred",
-    "id": 17,
+    "name": "cdmg shred",
+    "id": 19,
     "tier": "LEG"
    },
    {
-    "name": "cd→dmg",
+    "name": "dmg, +cd",
     "id": 15,
     "tier": "LEG"
    },
    {
-    "name": "atk on hit",
-    "id": 23,
-    "tier": "epic"
+    "name": "def shred",
+    "id": 16,
+    "tier": "blue"
    }
   ]
  },
@@ -288,19 +278,19 @@
   "stats": "120/120",
   "lines": [
    {
-    "name": "crit shred",
-    "id": 17,
+    "name": "crit dmg+",
+    "id": 12,
     "tier": "LEG"
    },
    {
-    "name": "crit dmg",
-    "id": 12,
-    "tier": "blue"
+    "name": "cdmg shred",
+    "id": 19,
+    "tier": "epic"
    },
    {
-    "name": "crit rate",
-    "id": 11,
-    "tier": "blue"
+    "name": "front atk",
+    "id": 26,
+    "tier": "LEG"
    }
   ]
  }

@@ -40,14 +40,15 @@ var S = require("../../loa-bracelet-calc/subrank.js");
 // the joint pool, anchors read off braceletScore once and never re-derived.
 var LADDER = S.bandsFor().map(function (b) { return [b.key, b.min]; });
 
-// short chip names, sized for one row of three on a 215px card
-var SHORT = { 1: "atk/move", 2: "outgoing", 3: "stagger", 4: "atk power", 5: "wp",
-  6: "crit rate", 7: "crit dmg", 8: "specialty", 9: "swiftness", 10: "domination",
-  11: "crit rate", 12: "crit dmg", 13: "dmg+stag", 14: "dmg+ident", 15: "cd→dmg",
-  16: "def shred", 17: "crit shred", 18: "shield dmg", 19: "cdmg shred",
-  20: "wp x6", 21: "wp", 22: "wp x30", 23: "atk on hit", 24: "dmg to full",
-  25: "back atk", 26: "front atk", 27: "non-dir", 28: "dmg to low",
-  29: "ally atk", 30: "ally dmg", 31: "atk when hit", 32: "shield self", 33: "wp flat" };
+// Chip names come from data/bracelet-lines.json — the generated file the
+// PAGE itself renders from. The hand map that used to sit here had drifted
+// badly (28 was labelled "dmg to low" but is party shield/heal effects; 31
+// and 32 are the crit lines, not the shield ones). One source, no drift.
+var LINE_NAMES = JSON.parse(fs.readFileSync("data/bracelet-lines.json", "utf8"));
+function nameOf(id) {
+  var f = LINE_NAMES[id];
+  return (f && f.med) ? f.med : ("f" + id);
+}
 
 // ---- authority anchors + per-pair marginal tables ---------------------------
 // One braceletScore call fixes floor/span; per-pair line values are jointScore
@@ -145,15 +146,38 @@ function rollLines(T, TH) {
   return held;
 }
 
+var EXACT_PROFILE = null;
+
+// An example is only accepted if the calculator's OWN scorer puts it in the
+// rung's band. The per-pair tables sum line marginals independently, but
+// jointScore pools them, so a bracelet that sums just over a cut can land
+// just under it — which is exactly how a B+ example once verified as B. This
+// makes the builder self-checking: what a card draws is guaranteed to grade
+// as the letter above it. A second, wider pass keeps a fallback for bands too
+// rare to catch near their cut (support S+ came out blank without it).
+var TIER_NAME = ["low", "mid", "high"];
+function exactBand(held, p) {
+  var lines = held.filter(function (x) { return x.fam && x.tier >= 0; })
+    .map(function (x) { return { cat: "special", family: x.fam, tier: TIER_NAME[x.tier] }; });
+  return S.braceletScore({ grade: "ancient", lines: lines, traits: traitsOf(p),
+    profile: EXACT_PROFILE }).band.key;
+}
+function chipsOf(held) {
+  return held.filter(function (x) { return x.fam && x.tier >= 0; })
+    .map(function (x) { return { name: nameOf(x.fam), id: x.fam,
+      tier: x.tier === 2 ? "LEG" : x.tier === 1 ? "epic" : "blue" }; });
+}
+
 // ---- one population per pair ------------------------------------------------
 var ASC = LADDER.slice().reverse();
 var cuts = ASC.map(function (r) { return r[1] === -Infinity || r[1] == null ? 0 : r[1]; });
-var hit = {}, ex = {}, winSum = {}, winN = {};
+var hit = {}, ex = {}, exAny = {}, winSum = {}, winN = {};
 PAIRS.forEach(function (p) {
   hit[p] = new Float64Array(ASC.length);
   winSum[p] = new Float64Array(ASC.length);
   winN[p] = new Float64Array(ASC.length);
   ex[p] = new Array(ASC.length);
+  exAny[p] = new Array(ASC.length);
   var T = TABLES[p], TH = lockThresholds(T);
   for (var i = 0; i < K; i++) {
     var held = rollLines(T, TH), lines = 0, j;
@@ -165,17 +189,20 @@ PAIRS.forEach(function (p) {
       if (sc < cuts[k] && k !== 0) continue;
       hit[p][k]++;
       band = k;
-      // examples must be FULLY displayable: a value-carrying basic line
-      // earns score invisibly and the shown lines then under-verify
+      // fully displayable (a value-carrying main-stat line earns score the
+      // card cannot show) AND exact-verified against the calculator
       var hiddenBasic = held.some(function (x) { return x.tier === -1 && x.value > 0; });
       if (!ex[p][k] && !hiddenBasic && (sc < cuts[k] + 0.8 || k === 0)) {
-        ex[p][k] = held.filter(function (x) { return x.fam && x.tier >= 0; })
-          .map(function (x) { return { name: SHORT[x.fam] || ("f" + x.fam), id: x.fam,
-            tier: x.tier === 2 ? "LEG" : x.tier === 1 ? "epic" : "blue" }; });
+        if (exactBand(held, p) === ASC[k][0]) ex[p][k] = chipsOf(held);
       }
     }
     // band-window damage: the mean whole-bracelet damage of members WHOSE
     // band this is — the rung's honest damage, no linearisation
+    // fallback for bands too rare to catch near their cut: any fully
+    // displayable bracelet the calculator grades into this band
+    if (!exAny[p][band] && !held.some(function (x) { return x.tier === -1 && x.value > 0; })) {
+      if (exactBand(held, p) === ASC[band][0]) exAny[p][band] = chipsOf(held);
+    }
     winSum[p][band] += total; winN[p][band]++;
   }
 });
@@ -207,7 +234,7 @@ for (var k2 = 2; k2 < rungs.length; k2++) {
   var total = Math.round(r.best.eCost);
   var gold = Math.max(1, total - prevGold);
   var nDisp = Math.max(1, Math.round(n));
-  var lines = ex[p][k2] || [];
+  var lines = ex[p][k2] || exAny[p][k2] || [];
   var lineTxt = lines.map(function (l) { return l.name + " " + l.tier; }).join(", ");
   hits[r.rank] = { stats: p + "/" + p, lines: lines };
   var bandDmg = winN[p][k2] ? winSum[p][k2] / winN[p][k2] : (floorD + r.cut * span / 100);

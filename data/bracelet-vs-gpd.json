@@ -5,36 +5,46 @@
   {
    "gpd": 250000,
    "rolls": 8,
-   "score": 44.21,
-   "damage": 3.1681,
+   "score": 43.22,
+   "damage": 3.0392,
    "rank": "B-",
    "gold": 416096,
    "example": {
-    "stats": "77/88",
+    "stats": "85/84",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
-      "tier": "epic"
+      "tier": "blue"
+     },
+     {
+      "name": "ally atk buff",
+      "id": 29,
+      "tier": "blue"
+     },
+     {
+      "name": "hp regen",
+      "id": 7,
+      "tier": "blue"
      }
     ],
-    "score": 44.4
+    "score": 43.5
    }
   },
   {
    "gpd": 302882,
    "rolls": 9,
-   "score": 45.26,
-   "damage": 3.2292,
-   "rank": "B",
+   "score": 44.31,
+   "damage": 3.1008,
+   "rank": "B-",
    "gold": 468108,
    "example": {
-    "stats": "90/88",
+    "stats": "72/90",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
-      "tier": "blue"
+      "tier": "epic"
      },
      {
       "name": "weapon power",
@@ -42,489 +52,524 @@
       "tier": "epic"
      }
     ],
-    "score": 45.4
+    "score": 44.5
    }
   },
   {
    "gpd": 366950,
    "rolls": 11,
-   "score": 47.01,
-   "damage": 3.3306,
+   "score": 46.13,
+   "damage": 3.2032,
    "rank": "B",
    "gold": 572132,
    "example": {
-    "stats": "77/101",
+    "stats": "67/102",
     "lines": [
      {
-      "name": "defence shred",
-      "id": 16,
-      "tier": "blue"
+      "name": "cdmg shred",
+      "id": 19,
+      "tier": "LEG"
      },
      {
-      "name": "ally damage",
-      "id": 30,
-      "tier": "epic"
+      "name": "heal+shield eff",
+      "id": 28,
+      "tier": "blue"
      }
     ],
-    "score": 47
+    "score": 46.3
    }
   },
   {
    "gpd": 444570,
    "rolls": 13,
-   "score": 48.43,
-   "damage": 3.4126,
+   "score": 47.59,
+   "damage": 3.286,
    "rank": "B",
    "gold": 676156,
    "example": {
-    "stats": "76/95",
+    "stats": "101/73",
     "lines": [
      {
-      "name": "ally damage",
-      "id": 30,
-      "tier": "epic"
+      "name": "cdmg shred",
+      "id": 19,
+      "tier": "blue"
      },
      {
-      "name": "ally atk power",
-      "id": 29,
-      "tier": "epic"
-     },
-     {
-      "name": "weapon power (stacks)",
-      "id": 22,
+      "name": "shield dmg+",
+      "id": 18,
       "tier": "blue"
      }
     ],
-    "score": 48.7
+    "score": 47.6
    }
   },
   {
    "gpd": 538609,
    "rolls": 15,
-   "score": 49.61,
-   "damage": 3.4811,
+   "score": 48.82,
+   "damage": 3.3553,
    "rank": "B",
    "gold": 780180,
    "example": {
-    "stats": "72/99",
+    "stats": "75/93",
     "lines": [
      {
-      "name": "crit resist",
-      "id": 17,
+      "name": "identity buff",
+      "id": 30,
+      "tier": "epic"
+     },
+     {
+      "name": "cdmg shred",
+      "id": 19,
       "tier": "blue"
      },
      {
-      "name": "ally damage",
-      "id": 30,
+      "name": "non-directional",
+      "id": 27,
       "tier": "blue"
      }
     ],
-    "score": 49.5
+    "score": 49
    }
   },
   {
    "gpd": 652539,
-   "rolls": 17,
-   "score": 50.62,
-   "damage": 3.5398,
+   "rolls": 18,
+   "score": 50.35,
+   "damage": 3.4415,
    "rank": "B",
-   "gold": 884203,
+   "gold": 936215,
    "example": {
-    "stats": "79/97",
+    "stats": "70/98",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
-      "tier": "epic"
+      "tier": "LEG"
      },
      {
       "name": "weapon power",
-      "id": 21,
+      "id": 33,
       "tier": "blue"
+     },
+     {
+      "name": "dmg+stagger",
+      "id": 13,
+      "tier": "epic"
      }
     ],
-    "score": 50.7
+    "score": 50.3
    }
   },
   {
    "gpd": 790569,
    "rolls": 21,
-   "score": 52.29,
-   "damage": 3.6365,
+   "score": 51.61,
+   "damage": 3.5129,
    "rank": "B",
    "gold": 1092251,
    "example": {
-    "stats": "76/94",
+    "stats": "90/80",
     "lines": [
      {
-      "name": "crit dmg resist",
-      "id": 19,
-      "tier": "epic"
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
      },
      {
-      "name": "shielded dmg",
-      "id": 18,
+      "name": "identity buff",
+      "id": 30,
+      "tier": "blue"
+     },
+     {
+      "name": "ally atk buff",
+      "id": 29,
       "tier": "blue"
      }
     ],
-    "score": 52.5
+    "score": 51.7
    }
   },
   {
    "gpd": 957797,
-   "rolls": 24,
-   "score": 53.32,
-   "damage": 3.6962,
+   "rolls": 25,
+   "score": 53.01,
+   "damage": 3.5919,
    "rank": "B+",
-   "gold": 1248287,
+   "gold": 1300299,
    "example": {
-    "stats": "96/83",
+    "stats": "90/81",
     "lines": [
      {
-      "name": "crit resist",
-      "id": 17,
-      "tier": "blue"
+      "name": "cdmg shred",
+      "id": 19,
+      "tier": "LEG"
      },
      {
-      "name": "ally damage",
-      "id": 30,
-      "tier": "epic"
+      "name": "wp x30 stack",
+      "id": 22,
+      "tier": "blue"
      }
     ],
-    "score": 53.4
+    "score": 53
    }
   },
   {
    "gpd": 1160397,
-   "rolls": 29,
-   "score": 54.75,
-   "damage": 3.7791,
+   "rolls": 30,
+   "score": 54.45,
+   "damage": 3.6729,
    "rank": "B+",
-   "gold": 1508347,
+   "gold": 1560359,
    "example": {
-    "stats": "80/97",
+    "stats": "100/72",
     "lines": [
      {
-      "name": "crit dmg resist",
-      "id": 19,
+      "name": "crit shred",
+      "id": 17,
       "tier": "epic"
      },
      {
-      "name": "ally damage",
-      "id": 30,
-      "tier": "blue"
+      "name": "ally atk buff",
+      "id": 29,
+      "tier": "LEG"
      }
     ],
-    "score": 54.9
+    "score": 54.7
    }
   },
   {
    "gpd": 1405853,
    "rolls": 35,
-   "score": 56.15,
-   "damage": 3.8598,
+   "score": 55.64,
+   "damage": 3.7402,
    "rank": "B+",
    "gold": 1820419,
    "example": {
-    "stats": "85/92",
+    "stats": "86/96",
     "lines": [
      {
-      "name": "crit resist",
-      "id": 17,
-      "tier": "blue"
-     },
-     {
-      "name": "ally atk power",
+      "name": "ally atk buff",
       "id": 29,
+      "tier": "LEG"
+     },
+     {
+      "name": "wp x6 stack",
+      "id": 20,
       "tier": "blue"
      },
      {
-      "name": "weapon power (stacks)",
-      "id": 22,
-      "tier": "blue"
+      "name": "def shred",
+      "id": 16,
+      "tier": "epic"
      }
     ],
-    "score": 56.5
+    "score": 56
    }
   },
   {
    "gpd": 1703230,
-   "rolls": 41,
-   "score": 57.3,
-   "damage": 3.9265,
+   "rolls": 42,
+   "score": 57.02,
+   "damage": 3.8183,
    "rank": "B+",
-   "gold": 2132491,
+   "gold": 2184503,
    "example": {
-    "stats": "80/91",
+    "stats": "83/83",
     "lines": [
      {
-      "name": "crit resist",
-      "id": 17,
+      "name": "cdmg shred",
+      "id": 19,
       "tier": "blue"
      },
      {
-      "name": "ally atk power",
-      "id": 29,
-      "tier": "epic"
+      "name": "identity buff",
+      "id": 30,
+      "tier": "blue"
      },
      {
-      "name": "weapon power",
-      "id": 21,
+      "name": "ally atk buff",
+      "id": 29,
       "tier": "blue"
      }
     ],
-    "score": 57.5
+    "score": 57.1
    }
   },
   {
    "gpd": 2063510,
-   "rolls": 49,
-   "score": 58.58,
-   "damage": 4.0005,
+   "rolls": 50,
+   "score": 58.32,
+   "damage": 3.8917,
    "rank": "B+",
-   "gold": 2548586,
+   "gold": 2600598,
    "example": {
-    "stats": "100/79",
+    "stats": "85/91",
     "lines": [
      {
-      "name": "defence shred",
+      "name": "def shred",
       "id": 16,
-      "tier": "epic"
+      "tier": "blue"
      },
      {
-      "name": "crit dmg resist",
-      "id": 19,
+      "name": "identity buff",
+      "id": 30,
+      "tier": "LEG"
+     },
+     {
+      "name": "wp x30 stack",
+      "id": 22,
       "tier": "blue"
      }
     ],
-    "score": 58.7
+    "score": 58.3
    }
   },
   {
    "gpd": 2500000,
-   "rolls": 58,
-   "score": 59.76,
-   "damage": 4.0694,
+   "rolls": 59,
+   "score": 59.53,
+   "damage": 3.9601,
    "rank": "B+",
-   "gold": 3016694,
+   "gold": 3068706,
    "example": {
-    "stats": "77/99",
+    "stats": "81/92",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
       "tier": "blue"
      },
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
       "tier": "blue"
      }
     ],
-    "score": 59.8
+    "score": 59.7
    }
   },
   {
    "gpd": 3028819,
    "rolls": 70,
-   "score": 61.07,
-   "damage": 4.1451,
+   "score": 60.76,
+   "damage": 4.0296,
    "rank": "A-",
    "gold": 3640838,
    "example": {
-    "stats": "63/107",
+    "stats": "91/84",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
+      "tier": "blue"
+     },
+     {
+      "name": "ally atk buff",
+      "id": 29,
       "tier": "epic"
      },
      {
-      "name": "ally damage",
+      "name": "identity buff",
       "id": 30,
-      "tier": "LEG"
+      "tier": "blue"
      }
     ],
-    "score": 61
+    "score": 60.8
    }
   },
   {
    "gpd": 3669498,
-   "rolls": 83,
-   "score": 62.24,
-   "damage": 4.2127,
+   "rolls": 84,
+   "score": 62.05,
+   "damage": 4.1023,
    "rank": "A-",
-   "gold": 4316993,
+   "gold": 4369005,
    "example": {
-    "stats": "79/85",
+    "stats": "79/86",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
+      "tier": "epic"
+     },
+     {
+      "name": "identity buff",
+      "id": 30,
       "tier": "blue"
      },
      {
-      "name": "crit dmg resist",
-      "id": 19,
+      "name": "ally atk buff",
+      "id": 29,
       "tier": "blue"
      }
     ],
-    "score": 62.4
+    "score": 62.1
    }
   },
   {
    "gpd": 4445699,
-   "rolls": 99,
-   "score": 63.43,
-   "damage": 4.2816,
+   "rolls": 100,
+   "score": 63.26,
+   "damage": 4.1706,
    "rank": "A-",
-   "gold": 5149185,
+   "gold": 5201197,
    "example": {
-    "stats": "82/95",
+    "stats": "113/62",
     "lines": [
      {
-      "name": "crit dmg resist",
-      "id": 19,
+      "name": "crit shred",
+      "id": 17,
       "tier": "epic"
      },
      {
-      "name": "defence shred",
+      "name": "def shred",
       "id": 16,
       "tier": "epic"
      }
     ],
-    "score": 63.6
+    "score": 63.4
    }
   },
   {
    "gpd": 5386087,
    "rolls": 119,
-   "score": 64.65,
-   "damage": 4.3524,
+   "score": 64.45,
+   "damage": 4.2375,
    "rank": "A-",
    "gold": 6189424,
    "example": {
-    "stats": "95/83",
+    "stats": "98/74",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "cdmg shred",
+      "id": 19,
+      "tier": "epic"
+     },
+     {
+      "name": "crit shred",
       "id": 17,
-      "tier": "epic"
-     },
-     {
-      "name": "ally atk power",
-      "id": 29,
-      "tier": "epic"
-     },
-     {
-      "name": "weapon power (stacks)",
-      "id": 22,
       "tier": "blue"
+     },
+     {
+      "name": "atk+move spd",
+      "id": 1,
+      "tier": "epic"
      }
     ],
-    "score": 64.8
+    "score": 64.7
    }
   },
   {
    "gpd": 6525393,
    "rolls": 141,
-   "score": 65.76,
-   "damage": 4.4167,
+   "score": 65.58,
+   "damage": 4.3017,
    "rank": "A-",
    "gold": 7333688,
    "example": {
-    "stats": "97/75",
+    "stats": "94/83",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
-      "tier": "LEG"
+      "tier": "epic"
      },
      {
-      "name": "weapon power (stacks)",
-      "id": 22,
+      "name": "identity buff",
+      "id": 30,
       "tier": "LEG"
      },
      {
       "name": "weapon power",
       "id": 33,
-      "tier": "epic"
+      "tier": "blue"
      }
     ],
-    "score": 65.8
+    "score": 65.6
    }
   },
   {
    "gpd": 7905694,
    "rolls": 168,
-   "score": 66.89,
-   "damage": 4.482,
+   "score": 66.73,
+   "damage": 4.3667,
    "rank": "A-",
    "gold": 8738011,
    "example": {
-    "stats": "99/67",
+    "stats": "86/85",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
-      "tier": "LEG"
-     },
-     {
-      "name": "ally atk power",
-      "id": 29,
       "tier": "epic"
      },
      {
-      "name": "weapon power",
-      "id": 33,
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
+     },
+     {
+      "name": "wp x6 stack",
+      "id": 20,
       "tier": "epic"
      }
     ],
-    "score": 67.2
+    "score": 67
    }
   },
   {
    "gpd": 9577967,
    "rolls": 200,
-   "score": 67.99,
-   "damage": 4.5458,
+   "score": 67.86,
+   "damage": 4.4304,
    "rank": "A",
    "gold": 10402394,
    "example": {
-    "stats": "71/101",
+    "stats": "63/101",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
       "tier": "epic"
      },
      {
-      "name": "crit resist",
-      "id": 17,
+      "name": "ally atk buff",
+      "id": 29,
+      "tier": "LEG"
+     },
+     {
+      "name": "identity buff",
+      "id": 30,
       "tier": "blue"
      }
     ],
-    "score": 68.2
+    "score": 67.8
    }
   },
   {
    "gpd": 11603972,
    "rolls": 238,
-   "score": 69.07,
-   "damage": 4.6083,
+   "score": 68.97,
+   "damage": 4.4928,
    "rank": "A",
    "gold": 12378849,
    "example": {
-    "stats": "67/112",
+    "stats": "69/101",
     "lines": [
      {
-      "name": "crit resist",
-      "id": 17,
-      "tier": "epic"
+      "name": "cdmg shred",
+      "id": 19,
+      "tier": "blue"
      },
      {
-      "name": "crit dmg resist",
-      "id": 19,
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
+     },
+     {
+      "name": "shield dmg+",
+      "id": 18,
       "tier": "blue"
      }
     ],
@@ -534,21 +579,26 @@
   {
    "gpd": 14058533,
    "rolls": 283,
-   "score": 70.12,
-   "damage": 4.6693,
+   "score": 70.05,
+   "damage": 4.5538,
    "rank": "A",
    "gold": 14719387,
    "example": {
-    "stats": "71/108",
+    "stats": "102/79",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
-      "tier": "epic"
+      "tier": "blue"
      },
      {
-      "name": "crit resist",
-      "id": 17,
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
+     },
+     {
+      "name": "shield dmg+",
+      "id": 18,
       "tier": "blue"
      }
     ],
@@ -557,84 +607,89 @@
   },
   {
    "gpd": 17032302,
-   "rolls": 335,
-   "score": 71.12,
-   "damage": 4.7274,
+   "rolls": 338,
+   "score": 71.14,
+   "damage": 4.6154,
    "rank": "A",
-   "gold": 17424010,
+   "gold": 17580045,
    "example": {
-    "stats": "70/96",
+    "stats": "77/96",
     "lines": [
      {
-      "name": "crit dmg resist",
-      "id": 19,
-      "tier": "epic"
-     },
-     {
-      "name": "defence shred",
+      "name": "def shred",
       "id": 16,
+      "tier": "LEG"
+     },
+     {
+      "name": "crit shred",
+      "id": 17,
       "tier": "blue"
      },
      {
-      "name": "ally atk power",
-      "id": 29,
-      "tier": "blue"
+      "name": "wp x6 stack",
+      "id": 20,
+      "tier": "epic"
      }
     ],
-    "score": 71.2
+    "score": 71.3
    }
   },
   {
    "gpd": 20635105,
-   "rolls": 397,
-   "score": 72.11,
-   "damage": 4.7848,
+   "rolls": 402,
+   "score": 72.18,
+   "damage": 4.6745,
    "rank": "A",
-   "gold": 20648752,
+   "gold": 20908811,
    "example": {
-    "stats": "94/77",
+    "stats": "78/88",
     "lines": [
      {
-      "name": "crit dmg resist",
+      "name": "cdmg shred",
       "id": 19,
+      "tier": "blue"
+     },
+     {
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
+     },
+     {
+      "name": "shield dmg+",
+      "id": 18,
       "tier": "epic"
-     },
-     {
-      "name": "crit resist",
-      "id": 17,
-      "tier": "blue"
-     },
-     {
-      "name": "weapon power",
-      "id": 33,
-      "tier": "blue"
      }
     ],
-    "score": 72.2
+    "score": 72.4
    }
   },
   {
    "gpd": 25000000,
-   "rolls": 471,
-   "score": 73.09,
-   "damage": 4.8412,
+   "rolls": 479,
+   "score": 73.22,
+   "damage": 4.7332,
    "rank": "A",
-   "gold": 24497637,
+   "gold": 24913733,
    "example": {
-    "stats": "89/83",
+    "stats": "81/98",
     "lines": [
      {
-      "name": "crit resist",
+      "name": "crit shred",
       "id": 17,
       "tier": "epic"
      },
      {
-      "name": "crit dmg resist",
-      "id": 19,
-      "tier": "epic"
+      "name": "def shred",
+      "id": 16,
+      "tier": "blue"
+     },
+     {
+      "name": "identity buff",
+      "id": 30,
+      "tier": "blue"
      }
     ],
-    "score": 73.1
+    "score": 73.4
    }
   }
  ]
