@@ -3,7 +3,7 @@
  "rarity": "epic",
  "model": "account",
  "draw": "dd",
- "maxGpd": 63000000,
+ "maxGpd": 100000000,
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -1292,6 +1292,41 @@
     [
      "ally dmg",
      65
+    ]
+   ]
+  },
+  {
+   "gpd": 100000000,
+   "gold": 76059749,
+   "gems": 2290,
+   "weeks": 254.48132222222225,
+   "damage": 3.1224,
+   "mean": 92.9,
+   "meanBand": "S-",
+   "weakest": 89.4,
+   "weakBand": "A+",
+   "cores": 20,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nodes": [
+    [
+     "ally atk",
+     70
+    ],
+    [
+     "brand",
+     70
+    ],
+    [
+     "ally dmg",
+     70
     ]
    ]
   }
