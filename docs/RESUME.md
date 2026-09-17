@@ -174,6 +174,15 @@ The DPS sweep is running again (14 workers, cells warm from August, tiers
 landing in about an hour each instead of five). The bracelet work above is
 closed. What is left:
 
+0. **THE ARK GRID PIPELINE IS DONE (2026-09-17).** DPS finished 29/29 on
+   both rarities, zero quarantined, zero failed. All ten anchor overlaps
+   were hand-checked afterwards: damage — the hard gate — is within 4.2%
+   everywhere. Gold and gems swing up to ~36% at 12M and 40M, which is the
+   knife-edge bimodality Shizu ruled on in August ("believe the dd") and
+   exactly why the gate is damage-hard and gold is log-only. Support is
+   29/29 rare and 29/29 epic. Both tabs show live rungs with no "filling
+   in" note anywhere.
+
 1. **The accessory ladder has no builder** and cherry-picks cheap flat and
    stat combos, which makes accessories look roughly 10x cheaper per 1% than
    the gear list's own family. The note above says it reproduces from the
