@@ -3,7 +3,7 @@
  "rarity": "epic",
  "model": "account",
  "draw": "dd",
- "maxGpd": 2741195,
+ "maxGpd": 3295642,
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -595,6 +595,41 @@
     [
      "atk",
      45
+    ],
+    [
+     "add dmg",
+     60
+    ],
+    [
+     "boss",
+     35
+    ]
+   ]
+  },
+  {
+   "gpd": 3295642,
+   "gold": 6569030,
+   "gems": 260,
+   "weeks": 28.909055555555558,
+   "damage": 10.5161,
+   "mean": 86,
+   "meanBand": "A",
+   "weakest": 78.6,
+   "weakBand": "B+",
+   "cores": 19,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    19,
+    20,
+    20,
+    19
+   ],
+   "nodes": [
+    [
+     "atk",
+     50
     ],
     [
      "add dmg",
