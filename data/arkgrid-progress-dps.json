@@ -1,11 +1,11 @@
 {
- "updated": "2026-09-21T13:48:34.250Z",
+ "updated": "2026-09-21T14:16:42.422Z",
  "total": 29,
  "reps": 10000,
  "draw": "dd",
  "axis": "dps",
  "rare": {
-  "done": 14,
+  "done": 15,
   "quarantined": 2
  },
  "epic": {
