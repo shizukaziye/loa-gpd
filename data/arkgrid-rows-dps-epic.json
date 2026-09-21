@@ -188,12 +188,12 @@
    "from": "B-",
    "to": "B",
    "note": "mean 75",
-   "gold": 139797,
-   "damage": 0.326,
-   "poolG": 139797,
-   "poolD": 0.326,
-   "total": 964249,
-   "totalDamage": 6.7381,
+   "gold": 118386,
+   "damage": 0.3301,
+   "poolG": 118386,
+   "poolD": 0.3301,
+   "total": 942838,
+   "totalDamage": 6.7422,
    "gems": 3,
    "weeks": 0.3333333333333333,
    "grid": {
@@ -257,6 +257,41 @@
     [
      "add dmg",
      45
+    ],
+    [
+     "boss",
+     25
+    ]
+   ]
+  },
+  {
+   "gpd": 361360,
+   "gold": 1147891,
+   "gems": 54,
+   "weeks": 6.023955555555556,
+   "damage": 7.6714,
+   "mean": 77,
+   "meanBand": "B+",
+   "weakest": 61.6,
+   "weakBand": "C-",
+   "cores": 18,
+   "capped": true,
+   "perCore": [
+    18,
+    18,
+    18,
+    18,
+    18,
+    18
+   ],
+   "nodes": [
+    [
+     "atk",
+     40
+    ],
+    [
+     "add dmg",
+     50
     ],
     [
      "boss",
