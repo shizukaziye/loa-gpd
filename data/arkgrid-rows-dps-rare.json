@@ -3,7 +3,7 @@
  "rarity": "rare",
  "model": "account",
  "draw": "dd",
- "maxGpd": 1312019,
+ "maxGpd": 1577393,
  "slots": 24,
  "cutsPerWeek": 26,
  "turns": 7,
@@ -354,6 +354,41 @@
    "mean": 72.6,
    "meanBand": "B-",
    "weakest": 57.3,
+   "weakBand": "D+",
+   "cores": 17,
+   "capped": true,
+   "perCore": [
+    18,
+    18,
+    17,
+    18,
+    18,
+    17
+   ],
+   "nodes": [
+    [
+     "atk",
+     35
+    ],
+    [
+     "add dmg",
+     40
+    ],
+    [
+     "boss",
+     20
+    ]
+   ]
+  },
+  {
+   "gpd": 1577393,
+   "gold": 2332655,
+   "gems": 96,
+   "weeks": 3.6873384615384617,
+   "damage": 6.3762,
+   "mean": 73.2,
+   "meanBand": "B-",
+   "weakest": 58.4,
    "weakBand": "D+",
    "cores": 17,
    "capped": true,
