@@ -3,7 +3,7 @@
  "rarity": "rare",
  "model": "account",
  "draw": "dd",
- "maxGpd": 4763652,
+ "maxGpd": 5727169,
  "slots": 24,
  "cutsPerWeek": 26,
  "turns": 7,
@@ -59,11 +59,11 @@
    "from": "C+",
    "to": "B-",
    "note": "mean 70",
-   "gold": 218465,
+   "gold": 218839,
    "damage": 0.4769,
-   "poolG": 218465,
+   "poolG": 218839,
    "poolD": 0.4769,
-   "total": 1314377,
+   "total": 1314751,
    "totalDamage": 5.6939,
    "gems": 10,
    "weeks": 0.38461538461538464,
@@ -102,11 +102,11 @@
    "from": "B-",
    "to": "B",
    "note": "mean 73",
-   "gold": 699531,
+   "gold": 701929,
    "damage": 0.7002,
-   "poolG": 699531,
+   "poolG": 701929,
    "poolD": 0.7002,
-   "total": 2013908,
+   "total": 2016680,
    "totalDamage": 6.3941,
    "gems": 31,
    "weeks": 1.1923076923076923,
@@ -145,11 +145,11 @@
    "from": "B",
    "to": "B+",
    "note": "mean 77",
-   "gold": 1807367,
+   "gold": 1816667,
    "damage": 0.8296,
-   "poolG": 1807367,
+   "poolG": 1816667,
    "poolD": 0.8296,
-   "total": 3821275,
+   "total": 3833347,
    "totalDamage": 7.2237,
    "gems": 106,
    "weeks": 4.076923076923077,
@@ -188,11 +188,11 @@
    "from": "B+",
    "to": "A-",
    "note": "mean 80",
-   "gold": 4692163,
+   "gold": 4724384,
    "damage": 0.9876,
-   "poolG": 4692163,
+   "poolG": 4724384,
    "poolD": 0.9876,
-   "total": 8513438,
+   "total": 8557731,
    "totalDamage": 8.2113,
    "gems": 230,
    "weeks": 8.846153846153847,
@@ -716,6 +716,41 @@
     [
      "boss",
      25
+    ]
+   ]
+  },
+  {
+   "gpd": 5727169,
+   "gold": 13780096,
+   "gems": 587,
+   "weeks": 22.59169230769231,
+   "damage": 9.14,
+   "mean": 83.2,
+   "meanBand": "A-",
+   "weakest": 76.2,
+   "weakBand": "B",
+   "cores": 19,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    19,
+    20,
+    20,
+    19
+   ],
+   "nodes": [
+    [
+     "atk",
+     40
+    ],
+    [
+     "add dmg",
+     60
+    ],
+    [
+     "boss",
+     30
     ]
    ]
   }
