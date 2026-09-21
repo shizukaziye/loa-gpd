@@ -3,7 +3,7 @@
  "rarity": "epic",
  "model": "account",
  "draw": "dd",
- "maxGpd": 3295642,
+ "maxGpd": 4763652,
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -59,11 +59,11 @@
    "from": "B",
    "to": "B+",
    "note": "mean 77",
-   "gold": 56749,
+   "gold": 52547,
    "damage": 0.1659,
-   "poolG": 56749,
+   "poolG": 52547,
    "poolD": 0.1659,
-   "total": 1093021,
+   "total": 1088819,
    "totalDamage": 7.5719,
    "gems": 3,
    "weeks": 0.3333333333333333,
@@ -102,11 +102,11 @@
    "from": "B+",
    "to": "A-",
    "note": "mean 80",
-   "gold": 899416,
+   "gold": 771164,
    "damage": 1.0752,
-   "poolG": 899416,
+   "poolG": 771164,
    "poolD": 1.0752,
-   "total": 1992437,
+   "total": 1859983,
    "totalDamage": 8.6471,
    "gems": 28,
    "weeks": 3.111111111111111,
@@ -145,11 +145,11 @@
    "from": "A-",
    "to": "A",
    "note": "mean 83",
-   "gold": 2041251,
+   "gold": 1620599,
    "damage": 0.998,
-   "poolG": 2041251,
+   "poolG": 1620599,
    "poolD": 0.998,
-   "total": 4033688,
+   "total": 3480582,
    "totalDamage": 9.6451,
    "gems": 76,
    "weeks": 8.444444444444445,
@@ -182,6 +182,49 @@
    "weakest": 73,
    "weakBand": "B-",
    "minimum": "all 24 slots filled, gems averaging A",
+   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "A",
+   "to": "A+",
+   "note": "mean 87",
+   "gold": 4057549,
+   "damage": 1.1038,
+   "poolG": 4057549,
+   "poolD": 1.1038,
+   "total": 7538131,
+   "totalDamage": 10.7489,
+   "gems": 148,
+   "weeks": 16.444444444444443,
+   "grid": {
+    "cores": 19,
+    "coresPer": [
+     20,
+     20,
+     19,
+     20,
+     20,
+     19
+    ],
+    "nodes": [
+     [
+      "atk",
+      50
+     ],
+     [
+      "add dmg",
+      60
+     ],
+     [
+      "boss",
+      35
+     ]
+    ]
+   },
+   "meanGrade": 86.7,
+   "weakest": 78.6,
+   "weakBand": "B+",
+   "minimum": "all 24 slots filled, gems averaging A+",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ],
@@ -638,6 +681,41 @@
     [
      "boss",
      35
+    ]
+   ]
+  },
+  {
+   "gpd": 4763652,
+   "gold": 10831704,
+   "gems": 435,
+   "weeks": 48.320677777777775,
+   "damage": 11.4139,
+   "mean": 88.7,
+   "meanBand": "A+",
+   "weakest": 83.2,
+   "weakBand": "A-",
+   "cores": 20,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nodes": [
+    [
+     "atk",
+     55
+    ],
+    [
+     "add dmg",
+     65
+    ],
+    [
+     "boss",
+     40
     ]
    ]
   }
