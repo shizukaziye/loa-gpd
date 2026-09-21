@@ -3,7 +3,7 @@
  "rarity": "rare",
  "model": "account",
  "draw": "dd",
- "maxGpd": 1577393,
+ "maxGpd": 1896444,
  "slots": 24,
  "cutsPerWeek": 26,
  "turns": 7,
@@ -59,11 +59,11 @@
    "from": "C+",
    "to": "B-",
    "note": "mean 70",
-   "gold": 332342,
+   "gold": 265872,
    "damage": 0.4769,
-   "poolG": 332342,
+   "poolG": 265872,
    "poolD": 0.4769,
-   "total": 1428254,
+   "total": 1361784,
    "totalDamage": 5.6939,
    "gems": 10,
    "weeks": 0.38461538461538464,
@@ -96,6 +96,49 @@
    "weakest": 52.7,
    "weakBand": "D-",
    "minimum": "all 24 slots filled, gems averaging B-",
+   "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "B-",
+   "to": "B",
+   "note": "mean 73",
+   "gold": 1036066,
+   "damage": 0.7002,
+   "poolG": 1036066,
+   "poolD": 0.7002,
+   "total": 2397850,
+   "totalDamage": 6.3941,
+   "gems": 31,
+   "weeks": 1.1923076923076923,
+   "grid": {
+    "cores": 17,
+    "coresPer": [
+     18,
+     18,
+     17,
+     18,
+     18,
+     17
+    ],
+    "nodes": [
+     [
+      "atk",
+      35
+     ],
+     [
+      "add dmg",
+      40
+     ],
+     [
+      "boss",
+      20
+     ]
+    ]
+   },
+   "meanGrade": 73.3,
+   "weakest": 58.4,
+   "weakBand": "D+",
+   "minimum": "all 24 slots filled, gems averaging B",
    "buy": "rare astrogems at 7 turns and 2 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ],
@@ -391,6 +434,41 @@
    "weakest": 58.4,
    "weakBand": "D+",
    "cores": 17,
+   "capped": true,
+   "perCore": [
+    18,
+    18,
+    17,
+    18,
+    18,
+    17
+   ],
+   "nodes": [
+    [
+     "atk",
+     35
+    ],
+    [
+     "add dmg",
+     40
+    ],
+    [
+     "boss",
+     20
+    ]
+   ]
+  },
+  {
+   "gpd": 1896444,
+   "gold": 2501548,
+   "gems": 100,
+   "weeks": 3.8450884615384617,
+   "damage": 6.4478,
+   "mean": 73.6,
+   "meanBand": "B",
+   "weakest": 59.1,
+   "weakBand": "D+",
+   "cores": 18,
    "capped": true,
    "perCore": [
     18,
