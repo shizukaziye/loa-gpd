@@ -47,8 +47,18 @@ function snapCores(p) {
 }
 function snapNodes(nodes) {
   if (!nodes) return nodes;
-  // one number for all three buff nodes, a multiple of five, nearest the
-  // account's average — Shizu wants the displayed loadout perfectly even
+  // SUPPORT: one number for all three buff nodes, a multiple of five, nearest
+  // the account's average — Shizu wants the displayed loadout perfectly even,
+  // and on that axis the three really are interchangeable.
+  //
+  // DPS: they are NOT. A DPS account spreads its levels unevenly by design
+  // (atk 39 / add dmg 46 / boss 22 is a real 100M stop), and averaging them
+  // printed 35/35/35 on every tier from 250k to 100M — the card looked frozen
+  // while the account underneath was moving. Round each node on its own
+  // instead, so the shape survives (2026-09-21).
+  if (AXIS === "dps") {
+    return nodes.map(function (n) { return [n[0], 5 * Math.round(n[1] / 5)]; });
+  }
   var mean = nodes.reduce(function (s, n) { return s + n[1]; }, 0) / nodes.length;
   var v = 5 * Math.round(mean / 5);
   return nodes.map(function (n) { return [n[0], v]; });
@@ -332,4 +342,4 @@ function fluidFrontier(tiers) {
       String(r.gems).padStart(6) + " gems" + r.weeks.toFixed(0).padStart(4) + "w");
   });
 });
-console.log("wrote data/arkgrid-rows-{epic,rare}.json");
+console.log("wrote data/arkgrid-rows-" + PREFIX + "{epic,rare}.json");

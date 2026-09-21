@@ -384,7 +384,15 @@ function gridState(packed) {
     pts += g.orderLevel || 0;
     corePts[g.coreBase] = (corePts[g.coreBase] || 0) + (g.orderLevel || 0);
   });
-  return { damage: A.gridDamage(placed, "support"), node: node, cores: pts / 6,
+  // THE AXIS FACADE EXISTS FOR THIS. Hardcoding "support" here scored every
+  // DPS grid with the support damage model, which does not recognise Attack
+  // Power / Additional Damage / Boss Damage effects at all: the same grid
+  // reads 11.55 through the dps model and 1.10 through support, a 10.5x
+  // understatement. Every DPS account therefore saw its own improvements as
+  // near-worthless, stopped about ten times too early, and produced a ladder
+  // of four rungs. Caught 2026-09-21 when Shizu said the DPS ark grid did not
+  // make sense to him.
+  return { damage: AX.gridDamage(placed), node: node, cores: pts / 6,
     perCore: CORE_SEQ.map(function (id) { return per[id] || 0; }) };
 }
 
