@@ -219,3 +219,20 @@ TWO THINGS THIS LEAVES:
    MC spot runs at 250k / 1.09M / 3.96M / 11.97M / 40M per rarity. Worth
    redoing on idle machine time now that the simulator is correct — without
    them nothing independently checks the dd numbers.
+
+## 2026-09-22, later — the resweep is done and merged
+
+The DPS resweep finished 58/58 shards. The driver's own publish excluded the
+ten tiers it had quarantined against the stale anchors, so the hand-merge above
+was run and every shard is in: 29/29 rare (C+ through S-) and 29/29 epic (B
+through S), `arkgrid-progress-dps.json` says 0 quarantined, and no card on the
+site says "coming soon".
+
+The accessory ladder item is closed too: the chart builds the accessory chains
+live from the lattice for the flat-line / main-stat families the switches above
+the plan tick (default no flat, high stat), the baked accessory rows are gone
+from `rows.json` / `rows-dps.json`, and `tools/accessory-ladder.js` with its
+output is deleted. Method in METHODOLOGY.md, "Accessories".
+
+Still open: the DPS anchors (item 2 above), the OAuth redirect URIs, and the two
+CP measurements.

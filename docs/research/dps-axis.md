@@ -216,14 +216,16 @@ main-stat quintiles. 560 configurations a slot. Gold is
 `loastuff/lost-ark-accessories/accessory_value.py`, whose `verify` passes; the
 neck high/high at min main stat reproduces the 3,200,000g DPS anchor exactly.
 
-Damage is recomputed on this chart's reference character, exactly as
-`tools/accessory-ladder.js` does for support, and the ladder is the efficient
-frontier: sort by damage, keep a configuration only if nothing cheaper is also
-better.
+Damage is recomputed on this chart's reference character, the way the support
+lattice was built (the old `tools/accessory-ladder.js`, since removed). The
+rows counted in the heading were the cost frontier — sort by damage, keep a
+configuration only if nothing cheaper is also better. Since 2026-09-22 the page
+builds the ladder itself from the lattice, for the families the switches tick
+and as the convex chain a buyer walks; see METHODOLOGY.md, "Accessories".
 
 The slot under test is **stripped out of the reference first**, so the ladder
 measures one accessory against the same character wearing nothing in that slot —
-the same trick `accessory-ladder.js` uses when it holds the other earring at 3%:
+the same trick the support build used when it held the other earring at 3%:
 
 | slot | stripped from the reference |
 |---|---|

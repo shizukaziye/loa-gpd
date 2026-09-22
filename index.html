@@ -11,7 +11,7 @@
 <meta property="og:description" content="What every Lost Ark progression system costs per 1% damage, on one scale.">
 <meta name='twitter:card' content='summary'>
 <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 26 L12 16 L19 21 L28 7' fill='none' stroke='%23e8b75c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel='stylesheet' href='styles.css?v=20260916a'>
+<link rel='stylesheet' href='styles.css?v=20260922a'>
 <style>.wrap{padding-top:calc(24px + var(--loseii-nav-offset,0px))}</style>
 <script src='https://www.loseii.com/nav.js' defer></script>
 <script src='https://www.loseii.com/social-bar.js' defer></script>
@@ -65,9 +65,13 @@
     <input type='range' id='cpSlider' step='1'>
     <div class='gpdval' id='cpOut'></div>
   </div>
+  <div class='accctl' id='accCtl'></div>
   <div class='plan' id='plan'></div>
   <div class='totals' id='planTotals'></div>
-  <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Hover any card for what stops it.</div>
+  <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Hover any card for what stops it.
+  Accessory rungs come from the accessory calculator's price lattice, kept to the flat-line and main-stat families
+  ticked above: each rung is the piece a buyer moves to next, so every step costs more per 1% than the one before it.
+  On the DPS axis a flat level covers both Attack Power+ and Weapon Power+ lines; the ladder takes whichever prices better.</div>
 </div>
 
 <h2>Every step, cheapest damage first</h2>
@@ -91,14 +95,14 @@
 </div>
 </div>
 
-<script src='model/support.js?v=20260916a'></script>
-<script src='model/gear.js?v=20260916a'></script>
-<script src='model/combat-power.js?v=20260916a'></script>
-<script src='model/honing.js?v=20260916a'></script>
-<script src='model/karma.js?v=20260916a'></script>
-<script src='model/gems.js?v=20260916a'></script>
+<script src='model/support.js?v=20260922a'></script>
+<script src='model/gear.js?v=20260922a'></script>
+<script src='model/combat-power.js?v=20260922a'></script>
+<script src='model/honing.js?v=20260922a'></script>
+<script src='model/karma.js?v=20260922a'></script>
+<script src='model/gems.js?v=20260922a'></script>
 <script src='https://www.loseii.com/loa-astrogem-calc/model/astrogem.js' defer></script>
-<script src='bible-oauth.js?v=20260916a'></script>
+<script src='bible-oauth.js?v=20260922a'></script>
 <script>
 (function () {
   "use strict";
@@ -288,7 +292,7 @@
   // Budgets are geometric, so interpolation runs on ln(budget).
   var _cpCurve = null, _cpCurveKey = "";
   function cpCrossings() {
-    var key = state.axis + "|" + ROWS.length + "|" + JSON.stringify(state.prices) + "|" +
+    var key = state.axis + "|" + ROWS.length + "|" + accFilterKey() + "|" + JSON.stringify(state.prices) + "|" +
       (state.arkgridRows.epic ? state.arkgridRows.epic.maxGpd : 0);
     if (_cpCurve && _cpCurveKey === key) return _cpCurve;
     // ONE RUNG PER UPGRADE (Shizu, 2026-08-19): every priced row in every
@@ -374,7 +378,9 @@
 
   var state = { axis: "support", view: "chart", prices: {}, enabled: {}, gem8Price: 420000,
                 honing: null, karma: null, rows: { support: null, dps: null }, arkgridRows: {},
-                braceletByGpd: null, accLattice: null, accIndex: null };
+                braceletByGpd: null, accLattice: null, accIndex: null,
+                // the accessory families the chart prices — the switches above the plan
+                accFilter: { flat: ["no"], stat: ["high"] } };
   var ROWS = [], PLAN = null, BUDGET = 0;
 
   function fmtGold(g) {
@@ -439,6 +445,139 @@
   }
 
   // ---- the rows --------------------------------------------------------
+  // ---- accessories: one chain per slot, live from the lattice -----------
+  // The accessory calculator's lattice prices every configuration of a slot
+  // (primary tiers x flat line x main-stat quintile) by its damage. The chart
+  // keeps only the families the switches tick and builds the chain a buyer
+  // walks as the budget rises: from the best piece the market gives away,
+  // each rung is the ticked piece that costs least per 1% FROM THE RUNG
+  // BEFORE IT — the lower convex hull of (gold, damage). A piece that is
+  // better and cheaper than something on the chain would have been picked
+  // first, so no rung is dominated, and each step is dearer per 1% than the
+  // last, which is what "taken in order under the slider" needs. The plain
+  // cost frontier the old baked rows followed kept cheap-but-tiny steps a
+  // buyer never takes, and they stalled the ladder until the slider passed
+  // them.
+  var ACC_KINDS = ["neck", "earring", "ring"];
+  var ACC_FLAT_OPTS = ["no", "low", "mid", "high"];
+  var ACC_STAT_OPTS = ["min", "low", "mid", "high", "max"];
+  function accFilterKey() {
+    return state.accFilter.flat.join(",") + "/" + state.accFilter.stat.join(",");
+  }
+  /** "atk-high" and "wpn-high" are both the high level; null is "no". */
+  function accFlatLevel(flat) { return flat ? flat.replace(/^(atk|wpn)-/, "") : "no"; }
+  function accAllowed(p) {
+    var f = state.accFilter;
+    return f.flat.indexOf(accFlatLevel(p.flat)) >= 0 && f.stat.indexOf(p.ms) >= 0;
+  }
+  function accChain(axis, kind) {
+    var f = state.accFilter;
+    state.accFam = state.accFam || {};
+    var ck = axis + ":" + kind + ":" + accFilterKey();
+    if (state.accFam[ck]) return state.accFam[ck];
+    var lat = state.accLattice && state.accLattice[axis];
+    var list = lat && lat[kind], goldIdx = list && lkAccGoldIndex(axis, kind);
+    if (!list || !goldIdx) return null;            // the lattice has not landed; do not cache
+    var pts = list.map(function (c) {
+      var prim = c.prim || [], flat = c.flat || null;
+      return { prim: prim, flat: flat, ms: c.ms, D: c.D,
+               gold: goldIdx[lkCfgKey(prim, flat, c.ms)] || 0,
+               label: lkCfgLabel({ prim: prim, flat: flat, ms: c.ms }) };
+    });
+    if (!f.flat.length || !f.stat.length) return (state.accFam[ck] = { base: null, rungs: [], off: true });
+    var fam = pts.filter(accAllowed);
+    // the base is what the market hands out free — the best piece under the
+    // price floor, WHATEVER its family: the switches say what to buy, not
+    // what to refuse for nothing. A ticked family with nothing better than
+    // the free piece has no rungs, which is the honest answer.
+    var base = null;
+    pts.forEach(function (p) { if (!p.gold && (!base || p.D > base.D)) base = p; });
+    if (!base) pts.forEach(function (p) { if (!base || p.D < base.D) base = p; });
+    var rungs = [], cur = base;
+    for (;;) {
+      var best = null, bestSlope = Infinity;
+      fam.forEach(function (p) {
+        if (p.D <= cur.D || p.gold <= cur.gold) return;
+        var slope = (p.gold - cur.gold) / (p.D - cur.D);
+        // equal slopes: take the further piece, the nearer one is the same buy
+        if (slope < bestSlope - 1e-9 || (Math.abs(slope - bestSlope) <= 1e-9 && p.D > best.D)) {
+          best = p; bestSlope = slope;
+        }
+      });
+      if (!best) break;
+      rungs.push(best); cur = best;
+    }
+    return (state.accFam[ck] = { base: base, rungs: rungs, off: false });
+  }
+  function accNoun(kind) { return kind === "neck" ? "necklace" : kind; }
+  function accPrimWords(axis, kind, cfg) {
+    if (axis === "support" && kind === "earring")
+      return cfg.prim[0] ? "a " + cfg.prim[0] + " Weapon Power % line" : "no Weapon Power % line";
+    return cfg.prim.map(function (t) { return t || "—"; }).join("/") + " primaries";
+  }
+  function accFlatWords(axis, flat, long) {
+    if (!flat) return long ? "no flat line" : "no flat";
+    var lvl = accFlatLevel(flat);
+    var stat = flat.indexOf("atk-") === 0 ? "Attack Power+" : "Weapon Power+";
+    if (long) return "a " + lvl + " " + stat + " line";
+    return (axis === "dps" ? (flat.indexOf("atk-") === 0 ? "atk " : "wpn ") : "") + lvl + " flat";
+  }
+  /** The chart's accessory rows for this axis, in chain order. */
+  function accessoryRows(axis) {
+    var out = [];
+    ACC_KINDS.forEach(function (kind) {
+      var ch = accChain(axis, kind);
+      if (!ch || !ch.rungs.length) return;
+      var prev = ch.base;
+      ch.rungs.forEach(function (r) {
+        out.push({
+          series: kind, label: r.label, to: r.label, from: prev.label,
+          gold: Math.round(r.gold - prev.gold), damage: r.D - prev.D, total: Math.round(r.gold),
+          buy: (kind === "earring" ? "an " : "a ") + accNoun(kind) + ": " + accPrimWords(axis, kind, r) +
+               ", " + accFlatWords(axis, r.flat, true) + ", " + r.ms + " main stat",
+          odds: "priced by the accessory calculator" + (axis === "dps" ? " on the DPS market" : "") +
+                ", which values an accessory strictly by its damage; the rung is the ticked piece that " +
+                "costs least per 1% from the rung before it",
+          minimum: accPrimWords(axis, kind, r) + ", " + accFlatWords(axis, r.flat, false) + ", " +
+                   r.ms + " main stat"
+        });
+        prev = r;
+      });
+    });
+    return out;
+  }
+  function pillSeg(dim, label, opts) {
+    return "<span class='rk-seg' data-dim='" + dim + "'><span class='rk-lbl'>" + label + "</span>" +
+      opts.map(function (o) {
+        return "<span class='rk-pill' data-val='" + o + "'>" + o + "</span>";
+      }).join("") + "</span>";
+  }
+  /** The switches above the plan. Built once; every render re-syncs the pills. */
+  function renderAccCtl() {
+    var host = el("accCtl");
+    if (!host.firstChild) {
+      host.innerHTML = "<span class='acc-title'>Accessories</span>" +
+        pillSeg("flat", "flat line", ACC_FLAT_OPTS) + pillSeg("stat", "main stat", ACC_STAT_OPTS) +
+        "<span class='acc-hint' id='accHint'></span>";
+      host.addEventListener("click", function (ev) {
+        var pill = ev.target.closest ? ev.target.closest(".rk-pill") : null;
+        if (!pill) return;
+        var dim = pill.parentNode.getAttribute("data-dim"), val = pill.getAttribute("data-val");
+        var sel = state.accFilter[dim], i = sel.indexOf(val);
+        if (i >= 0) sel.splice(i, 1); else sel.push(val);
+        render();
+      });
+    }
+    [].slice.call(host.querySelectorAll(".rk-pill")).forEach(function (p) {
+      var dim = p.parentNode.getAttribute("data-dim");
+      p.classList.toggle("on", state.accFilter[dim].indexOf(p.getAttribute("data-val")) >= 0);
+    });
+    var off = !state.accFilter.flat.length || !state.accFilter.stat.length;
+    el("accHint").textContent = off
+      ? "accessories off — tick a flat line and a main stat to price them"
+      : "only the ticked families are priced";
+  }
+
   function steps() {
     var d = state.honing, P = Support.DEFAULTS, out = [];
     var baked = state.rows[state.axis] || [];
@@ -505,6 +644,8 @@
       if (dpsDmg && (r.series === "armor" || r.series === "weapon" || r.series === "karma")) return;
       // no baked ark grid rows on either axis while the recompute runs
       if (r.series === "arkgrid") return;
+      // accessories are computed live from the lattice (accessoryRows)
+      if (ACC_KINDS.indexOf(r.series) >= 0) return;
       var c = Object.assign({}, r);
       // gem steps reprice from the editable level-8 gem price (baked at 420k)
       if (r.series === "gems") {
@@ -514,6 +655,7 @@
       }
       out.push(c);
     });
+    accessoryRows(state.axis).forEach(function (r) { out.push(r); });
     // The ark grid is priced by the ACCOUNT model, per Shizu: rows are the
     // stretches of a simulated account's build, so the price, the damage, the
     // example and the pill all describe one grid. The band ladder lives on in
@@ -874,11 +1016,7 @@
   }
 
   // ---- the ranked table: filter, search, sort — state survives renders ----
-  // flat/stat are multi-select sets; empty means "any". Shizu's default
-  // view: no-flat, high-stat variants.
-  var TABLE = { sort: "gpd", dir: 1, off: {}, q: "", under: false,
-    flat: ["no"], stat: ["high"] };
-  var ACC_SERIES = { neck: 1, ring: 1, earring: 1 };
+  var TABLE = { sort: "gpd", dir: 1, off: {}, q: "", under: false };
   var SORTS = {
     system: function (a, b) { return SERIES[a.series].label.localeCompare(SERIES[b.series].label) || a.gpd - b.gpd; },
     gold:   function (a, b) { return a.gold - b.gold || a.gpd - b.gpd; },
@@ -892,15 +1030,6 @@
       if (!isFinite(r.gpd)) return false;
       if (TABLE.off[r.series]) return false;
       if (TABLE.under && r.gpd > BUDGET) return false;
-      // flat / stat variant filters bite accessory rows only, so they
-      // compose with the series boxes instead of blanking everything else
-      if (ACC_SERIES[r.series]) {
-        var label = String(r.to || r.label);
-        if (TABLE.flat.length && !TABLE.flat.some(function (v) {
-          return label.indexOf(v + " flat") >= 0; })) return false;
-        if (TABLE.stat.length && !TABLE.stat.some(function (v) {
-          return label.indexOf(v + " stat") >= 0; })) return false;
-      }
       if (q && (String(r.to || r.label) + " " + SERIES[r.series].label)
             .toLowerCase().indexOf(q) < 0) return false;
       return true;
@@ -909,20 +1038,10 @@
 
   function ensureToolbar() {
     if (el("rk-toolbar")) return;
-    function seg(dim, opts) {
-      return "<span class='rk-seg' data-dim='" + dim + "'><span class='rk-lbl'>" + dim + "</span>" +
-        opts.map(function (o) {
-          var on = o === "any" ? !TABLE[dim].length : TABLE[dim].indexOf(o) >= 0;
-          return "<span class='rk-pill" + (on ? " on" : "") +
-            "' data-val='" + o + "'>" + o + "</span>";
-        }).join("") + "</span>";
-    }
     el("ranked").innerHTML =
       "<div class='rk-toolbar' id='rk-toolbar'>" +
       "<input class='rk-input' id='rk-q' type='text' placeholder='filter steps…'>" +
       "<label class='rk-under'><input type='checkbox' id='rk-under'> under the slider only</label>" +
-      seg("flat", ["any", "no", "low", "mid", "high"]) +
-      seg("stat", ["any", "min", "low", "mid", "high", "max"]) +
       "<span class='rk-count' id='rk-count'></span></div>" +
       "<div id='rk-table'></div>";
     el("rk-q").value = TABLE.q;
@@ -932,24 +1051,6 @@
     });
     el("rk-under").addEventListener("change", function () {
       TABLE.under = this.checked; renderRanked(ROWS); wireTips();
-    });
-    [].slice.call(el("rk-toolbar").querySelectorAll(".rk-seg")).forEach(function (group) {
-      var dim = group.getAttribute("data-dim");
-      group.addEventListener("click", function (ev) {
-        var pill = ev.target.closest(".rk-pill");
-        if (!pill) return;
-        var val = pill.getAttribute("data-val");
-        if (val === "any") TABLE[dim] = [];
-        else {
-          var i = TABLE[dim].indexOf(val);
-          if (i >= 0) TABLE[dim].splice(i, 1); else TABLE[dim].push(val);
-        }
-        [].slice.call(group.querySelectorAll(".rk-pill")).forEach(function (p) {
-          var v = p.getAttribute("data-val");
-          p.classList.toggle("on", v === "any" ? !TABLE[dim].length : TABLE[dim].indexOf(v) >= 0);
-        });
-        renderRanked(ROWS); wireTips();
-      });
     });
   }
 
@@ -1277,63 +1378,48 @@
   }
 
   /**
-   * THE RUNGS THE GEAR LIST SHOWS: one main-stat quintile (high) and no flat
-   * roll, so every step is a plain primary-line upgrade — "high/low → high/mid"
-   * — instead of the frontier's sideways shuffles through flats and stat rolls,
-   * which read as "your next buy is a LOW main stat necklace" when you already
-   * hold a high one.
-   *
-   * The chart's own accessory ladder is still the cost frontier and is not
-   * touched. This is a readable projection of the same lattice: the prices are
-   * the same gold deltas the chart's rows are built from, so a rung here is
-   * comparable to a honing or bracelet rung on the same axis.
-   *
-   * Everything under the market's price floor is the ladder's BASE rather than
-   * a rung, which is the chart's own "nothing worth pricing" convention.
+   * THE RUNGS THE GEAR LIST SHOWS are the chart's own accessory chain for the
+   * families ticked above the plan (accChain): base first, then the rungs.
+   * A piece the chart would not price — a flat line while "no" is the only
+   * flat ticked, say — still gets placed: its damage and its market price
+   * come from the full lattice, and the next step is priced from it.
    */
-  var LK_MS_RUNG = "high";
   function lkFamily(axis, kind) {
-    state.accFam = state.accFam || {};
-    var ck = axis + ":" + kind;
-    if (state.accFam[ck]) return state.accFam[ck];
-    var dSrc = state.accLattice && state.accLattice[axis];
-    if (!dSrc || !dSrc[kind] || !lkAccGoldIndex(axis, kind)) return null;
-    var fam = dSrc[kind].filter(function (c) {
-      return !c.flat && c.ms === LK_MS_RUNG;
-    }).map(function (c) {
-      var prim = c.prim || [];
-      return { prim: prim, flat: null, ms: LK_MS_RUNG, D: c.D,
-               gold: lkAccGold(axis, kind, prim, null, LK_MS_RUNG),
-               label: lkCfgLabel({ prim: prim, flat: null, ms: LK_MS_RUNG }) };
-    }).sort(function (a, b) { return a.D - b.D; });
-    if (!fam.length) return null;
-    var first = 0;
-    while (first < fam.length - 1 && !fam[first + 1].gold) first++;
-    state.accFam[ck] = fam.slice(first);        // [0] is the base, the rest are rungs
-    return state.accFam[ck];
+    var ch = accChain(axis, kind);
+    return ch && ch.base && ch.rungs.length ? [ch.base].concat(ch.rungs) : null;
   }
   /** A step between two points on that ladder, priced like any other row. */
   function lkAccStep(from, to) {
     if (!from || !to) return null;
     var dmg = to.D - from.D, gold = Math.max(0, to.gold - (from.gold || 0));
     return { to: to.label, label: to.label, gold: gold, damage: dmg,
-             gpd: dmg > 0 ? gold / (dmg * party()) : Infinity };
+             gpd: dmg > 0 ? gold / (dmg * party()) : Infinity,
+             // the market prices the rung under the piece worn: the step costs
+             // nothing beyond selling one and buying the other
+             underPrice: to.gold <= (from.gold || 0) };
   }
   /**
    * Where a real piece sits on that ladder — INCLUDING ITSELF as a rung. The
    * next step is priced from the piece the character actually wears, not from
-   * the rung below it, so a good piece is not charged twice.
+   * the rung below it, so a good piece is not charged twice. Of the rungs
+   * above, the next buy is the one that costs least per 1% FROM THIS PIECE:
+   * on the chain that is the rung straight above; off it — a dear flat roll
+   * the switches exclude — it can be a rung further up.
    */
   function lkAccPlace(axis, kind, cfg) {
     var fam = lkFamily(axis, kind);
     if (!fam || !cfg) return null;
-    var below = null, belowAt = -1, above = null, i;
+    var below = null, belowAt = -1, i;
     for (i = 0; i < fam.length; i++) {
-      if (fam[i].D <= cfg.D) { below = fam[i]; belowAt = i; }
-      else { above = fam[i]; break; }
+      if (fam[i].D <= cfg.D) { below = fam[i]; belowAt = i; } else break;
     }
     var mineRung = { prim: cfg.prim, flat: cfg.flat, ms: cfg.ms, D: cfg.D,
                      gold: cfg.gold || 0, label: lkCfgLabel(cfg) };
+    var next = null;
+    for (i = belowAt + 1; i < fam.length; i++) {
+      var st = lkAccStep(mineRung, fam[i]);
+      if (st && (!next || st.gpd < next.gpd)) next = st;
+    }
     return {
       base: fam[0],
       underBase: belowAt <= 0,
@@ -1341,9 +1427,8 @@
       // reached it, from the ladder rung underneath, and the one out of it. So
       // a good piece is neither charged twice nor credited to a rung you never
       // bought.
-      last: belowAt >= 0 && below !== mineRung && cfg.D > below.D
-        ? lkAccStep(below, mineRung) : null,
-      next: lkAccStep(mineRung, above)
+      last: belowAt >= 0 && cfg.D > below.D ? lkAccStep(below, mineRung) : null,
+      next: next
     };
   }
 
@@ -2120,6 +2205,7 @@
 
   function render() {
     readBudget();                 // the ark grid rows are priced at this budget
+    renderAccCtl();
     ROWS = steps();
     if (!ROWS.length) {
       el("ranked").innerHTML = "<div class='placeholder'>The DPS chart is still being built.</div>";
@@ -2213,7 +2299,8 @@
                grab("data/arkgrid-rows-dps-epic.json"),
                grab("data/arkgrid-rows-dps-rare.json"),
                grab("data/arkgrid-progress-dps.json"),
-               grab("data/cp-grid-dps.json")]).then(function (all) {
+               grab("data/cp-grid-dps.json"),
+               lkLoadLattice()]).then(function (all) {
     state.cpGridDps = all[13];
     state.braceletLines = all[8];
     state.braceletCritEq = all[9];

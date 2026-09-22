@@ -1,7 +1,8 @@
 # Lost Ark GPD chart — methodology
 
 What every progression system costs, and what it buys, on one scale: **gold per
-1% damage**. First build covers **supports**.
+1% damage**. Two axes: **support**, where damage is what the support hands the
+party, and **DPS**, where it is the character's own (docs/research/dps-axis.md).
 
 ## The damage axis
 
@@ -158,6 +159,37 @@ accessory calculator's brand base.
 Karmic Evolution (Max HP) and Karmic Leap (Ultimate Awakening Damage) are worth
 nothing to a support's party contribution and are not charted.
 
+## Accessories
+
+The accessory calculator prices every configuration of a slot — the two primary
+tiers, the flat line (none, or Attack Power+ / Weapon Power+ at low, mid, high)
+and the main-stat quintile — by its damage on the reference character:
+`data/accessory-scores.json` and `data/accessory-configs.json` for support,
+`data/accessory-configs-dps.json` for DPS. The page builds the accessory rungs
+from that lattice at load time; nothing accessory-shaped is baked into
+`rows.json`.
+
+**The switches above the plan choose the families.** Only pieces whose flat
+level and main-stat quintile are ticked can be rungs. The default is **no flat
+line, high main stat**, which is what a buyer shopping for line upgrades looks
+at. On the DPS axis a flat level covers both Attack Power+ and Weapon Power+;
+the chain takes whichever prices better.
+
+**The chain is what a buyer walks.** The base is the best piece the market gives
+away — the best configuration under the price floor, whatever its family,
+because a free piece is free whatever you tick. From there each rung is the
+ticked piece that costs least per 1% *from the rung before it*: the lower
+convex hull of (gold, damage). A piece better and cheaper than a rung would have
+been chosen ahead of it, so no rung is dominated, and every step costs more per
+1% than the last, which is what "every step under the slider, taken in order"
+needs. The old baked rows followed the plain cost frontier — every
+configuration nothing cheaper beat — and it kept tiny cheap steps a buyer never
+takes, which stalled the ladder until the slider passed them. A ticked family
+with nothing better than the free piece has no rungs.
+
+A rung's `total` is the piece's market price; its `gold` is the difference from
+the rung before it, since you sell one piece and buy the next.
+
 ## Character lookup
 
 The lookup places one character on every ladder. Nothing is guessed: a system
@@ -198,20 +230,16 @@ placed on the WEAKER of the pair, because that is the piece the next step buys.
 A main stat the pull did not carry is taken as the middle quintile and the row
 says so.
 
-**The gear list's accessory rungs are the readable projection, not the chart's
-frontier.** The chart ranks accessories on the cost frontier — the cheapest
-configuration at every damage level — which is right for pricing and unreadable
-as advice: it wanders through flat rolls and main-stat quintiles, so the next
-step off a high-main-stat piece can be a LOW-main-stat one. The gear list fixes
-the main stat at its top quintile and drops the flat roll, leaving one plain
-primary-line step per rung, and the prices are the same lattice deltas the
-chart's rows are built from, so a rung here is still comparable to a honing or
-bracelet rung. Everything under the market's price floor is the ladder's base
-rather than a rung, which is the chart's own "nothing worth pricing" rule.
+**The gear list's accessory rungs are the chart's own chain** — the families
+the switches tick, built as described under Accessories — so the letter on the
+card and the step in the list cannot disagree.
 
 Your own piece is a rung on that ladder. Both prices are measured against the
-piece actually worn — flat roll and main stat included — so a good piece is
-neither charged twice nor credited to a rung nobody bought.
+piece actually worn — flat line and main stat included, whether or not its
+family is ticked — so a good piece is neither charged twice nor credited to a
+rung nobody bought. The next step is the ticked rung above that costs least per
+1% from your piece: on the chain that is the rung straight above; off it (a dear
+flat roll the switches exclude, say) it can be a rung further up.
 
 **The ability stone comes from the astrogem pull, never from node counts alone.**
 The bracelet Worker sends `stoneNodes`: every engraving's node count, the malus
