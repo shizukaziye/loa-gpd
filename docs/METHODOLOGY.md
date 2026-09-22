@@ -175,17 +175,28 @@ line, high main stat**, which is what a buyer shopping for line upgrades looks
 at. On the DPS axis a flat level covers both Attack Power+ and Weapon Power+;
 the chain takes whichever prices better.
 
-**The chain is what a buyer walks.** The base is the best piece the market gives
-away — the best configuration under the price floor, whatever its family,
-because a free piece is free whatever you tick. From there each rung is the
-ticked piece that costs least per 1% *from the rung before it*: the lower
-convex hull of (gold, damage). A piece better and cheaper than a rung would have
-been chosen ahead of it, so no rung is dominated, and every step costs more per
-1% than the last, which is what "every step under the slider, taken in order"
-needs. The old baked rows followed the plain cost frontier — every
-configuration nothing cheaper beat — and it kept tiny cheap steps a buyer never
-takes, which stalled the ladder until the slider passed them. A ticked family
-with nothing better than the free piece has no rungs.
+**The chain is what a buyer walks.** The base is the growth shop piece
+everyone starts with (Shizu, 2026-09-22): the better primary line at high plus
+two low flat lines — Attack Power+ and Weapon Attack Power+ — at the bottom
+main-stat quintile. That is the accessory calculator's own first baseline
+("primary high + 2 low flats" in its design history). On support the Attack
+Power+ line is worth nothing, so the piece is a lattice point; on DPS the two
+flats' gains over the bare piece are added in log space. The switches do not
+move the base: they say what to buy, not what you already wear. From there each
+rung is the ticked piece that costs least per 1% *from the rung before it*: the
+lower convex hull of (gold, damage). A piece better and cheaper than a rung
+would have been chosen ahead of it, so no rung is dominated, and every step
+costs more per 1% than the last, which is what "every step under the slider,
+taken in order" needs. The old baked rows followed the plain cost frontier —
+every configuration nothing cheaper beat — and it kept tiny cheap steps a buyer
+never takes, which stalled the ladder until the slider passed them. A ticked
+family with nothing better than the shop piece has no rungs.
+
+The calculator nets a piece under the market floor to nothing after the pheon
+tax. Such a piece that still beats the shop piece is the chain's first rung,
+shown as **pheons only**: it costs the pheons and the listing floor, not a price
+the model can name. Under the default switches that is one rung on most slots
+(a bare "high/— · no flat · high stat", or a "mid/mid" on the DPS market).
 
 A rung's `total` is the piece's market price; its `gold` is the difference from
 the rung before it, since you sell one piece and buy the next.

@@ -70,8 +70,10 @@
   <div class='totals' id='planTotals'></div>
   <div class='note'>Every step whose gold per 1% comes in under the slider, taken in order. Hover any card for what stops it.
   Accessory rungs come from the accessory calculator's price lattice, kept to the flat-line and main-stat families
-  ticked above: each rung is the piece a buyer moves to next, so every step costs more per 1% than the one before it.
-  On the DPS axis a flat level covers both Attack Power+ and Weapon Power+ lines; the ladder takes whichever prices better.</div>
+  ticked above, starting from the growth shop piece (one high line and two low flats): each rung is the piece a buyer
+  moves to next, so every step costs more per 1% than the one before it. A rung marked "pheons only" is a market piece
+  the calculator nets to nothing — it costs the pheons and the listing floor. On the DPS axis a flat level covers both
+  Attack Power+ and Weapon Power+ lines; the ladder takes whichever prices better.</div>
 </div>
 
 <h2>Every step, cheapest damage first</h2>
@@ -112,9 +114,9 @@
     weapon:   { label: "Honing — weapon", color: "#ffb86b", base: "+11", spend: "last" },
     gems:     { label: "Skill gems",      color: "#f2a2c0", base: "level 7", spend: "last" },
     karma:    { label: "Karma — Enlightenment", color: "#c78cff", base: "lv 21", spend: "last" },
-    neck:     { label: "Necklace",        color: "#6ee7a8", base: "nothing worth pricing" },
-    ring:     { label: "Ring",            color: "#4fd1a5", base: "nothing worth pricing" },
-    earring:  { label: "Earring",         color: "#3ab795", base: "nothing worth pricing" },
+    neck:     { label: "Necklace",        color: "#6ee7a8", base: "growth shop piece" },
+    ring:     { label: "Ring",            color: "#4fd1a5", base: "growth shop piece" },
+    earring:  { label: "Earring",         color: "#3ab795", base: "growth shop piece" },
     bracelet: { label: "Bracelet",        color: "#ff7f7f", base: "F" },
     // the DPS axis still runs the single baked ark grid row until its own cost
     // runs exist; support splits into the two raw-gem supplies
@@ -383,6 +385,13 @@
                 accFilter: { flat: ["no"], stat: ["high"] } };
   var ROWS = [], PLAN = null, BUDGET = 0;
 
+  /** Gold per 1% for a row. A rung the calculator nets to nothing sits under
+   *  the market floor: you pay the pheons and the listing floor, not a price
+   *  the model can name, so it is never shown as "0". */
+  function fmtGpd(g, suffix) {
+    if (g === 0) return "pheons only";
+    return fmtGold(g) + (suffix || "");
+  }
   function fmtGold(g) {
     if (!isFinite(g)) return "—";
     if (g >= 1e9) return (g / 1e9).toFixed(2) + "B";
@@ -449,16 +458,39 @@
   // The accessory calculator's lattice prices every configuration of a slot
   // (primary tiers x flat line x main-stat quintile) by its damage. The chart
   // keeps only the families the switches tick and builds the chain a buyer
-  // walks as the budget rises: from the best piece the market gives away,
-  // each rung is the ticked piece that costs least per 1% FROM THE RUNG
-  // BEFORE IT — the lower convex hull of (gold, damage). A piece that is
-  // better and cheaper than something on the chain would have been picked
-  // first, so no rung is dominated, and each step is dearer per 1% than the
-  // last, which is what "taken in order under the slider" needs. The plain
-  // cost frontier the old baked rows followed kept cheap-but-tiny steps a
-  // buyer never takes, and they stalled the ladder until the slider passed
-  // them.
+  // walks as the budget rises: from the GROWTH SHOP piece everyone starts
+  // with (Shizu, 2026-09-22 — the better primary at high plus two low flat
+  // lines, at the bottom main-stat quintile; the calculator's own first
+  // baseline), each rung is the ticked piece that costs least per 1% FROM
+  // THE RUNG BEFORE IT — the lower convex hull of (gold, damage). A piece
+  // that is better and cheaper than something on the chain would have been
+  // picked first, so no rung is dominated, and each step is dearer per 1%
+  // than the last, which is what "taken in order under the slider" needs.
+  // The plain cost frontier the old baked rows followed kept cheap-but-tiny
+  // steps a buyer never takes, and they stalled the ladder until the slider
+  // passed them. A market piece the calculator nets to nothing that still
+  // beats the shop piece is the first rung, at the pheons only.
   var ACC_KINDS = ["neck", "earring", "ring"];
+  var ACC_SHOP_FLAT = "low", ACC_SHOP_MS = "min";
+  /** The growth-shop piece as a point on this slot's lattice. The support
+   *  lattice carries one flat (Weapon Power+; Attack Power+ is worth nothing
+   *  to a support), so it is a lattice point. The DPS lattice keeps atk and
+   *  wpn flats apart, so the two-flat piece is assembled from three points:
+   *  each flat's gain over the bare piece, added in log space. */
+  function accShopBase(axis, byKey, nprim) {
+    var prim = ["high"].concat(new Array(nprim - 1).fill(null));
+    var label = "high" + (nprim > 1 ? "/—" : "") + " · low atk & wpn flats · " + ACC_SHOP_MS + " stat";
+    var bare = byKey[lkCfgKey(prim, null, ACC_SHOP_MS)];
+    if (axis === "support") {
+      var p = byKey[lkCfgKey(prim, ACC_SHOP_FLAT, ACC_SHOP_MS)];
+      return p ? { prim: prim, flat: ACC_SHOP_FLAT, ms: ACC_SHOP_MS, D: p.D, gold: 0, label: label, shop: true } : null;
+    }
+    var atk = byKey[lkCfgKey(prim, "atk-" + ACC_SHOP_FLAT, ACC_SHOP_MS)];
+    var wpn = byKey[lkCfgKey(prim, "wpn-" + ACC_SHOP_FLAT, ACC_SHOP_MS)];
+    if (!bare || !atk || !wpn) return null;
+    return { prim: prim, flat: "atk-" + ACC_SHOP_FLAT, ms: ACC_SHOP_MS,
+             D: bare.D + (atk.D - bare.D) + (wpn.D - bare.D), gold: 0, label: label, shop: true };
+  }
   var ACC_FLAT_OPTS = ["no", "low", "mid", "high"];
   var ACC_STAT_OPTS = ["min", "low", "mid", "high", "max"];
   function accFilterKey() {
@@ -478,26 +510,29 @@
     var lat = state.accLattice && state.accLattice[axis];
     var list = lat && lat[kind], goldIdx = list && lkAccGoldIndex(axis, kind);
     if (!list || !goldIdx) return null;            // the lattice has not landed; do not cache
+    var byKey = {};
     var pts = list.map(function (c) {
       var prim = c.prim || [], flat = c.flat || null;
-      return { prim: prim, flat: flat, ms: c.ms, D: c.D,
-               gold: goldIdx[lkCfgKey(prim, flat, c.ms)] || 0,
-               label: lkCfgLabel({ prim: prim, flat: flat, ms: c.ms }) };
+      var p = { prim: prim, flat: flat, ms: c.ms, D: c.D,
+                gold: goldIdx[lkCfgKey(prim, flat, c.ms)] || 0,
+                label: lkCfgLabel({ prim: prim, flat: flat, ms: c.ms }) };
+      byKey[lkCfgKey(prim, flat, c.ms)] = p;
+      return p;
     });
     if (!f.flat.length || !f.stat.length) return (state.accFam[ck] = { base: null, rungs: [], off: true });
     var fam = pts.filter(accAllowed);
-    // the base is what the market hands out free — the best piece under the
-    // price floor, WHATEVER its family: the switches say what to buy, not
-    // what to refuse for nothing. A ticked family with nothing better than
-    // the free piece has no rungs, which is the honest answer.
-    var base = null;
-    pts.forEach(function (p) { if (!p.gold && (!base || p.D > base.D)) base = p; });
+    // the base is the growth-shop piece, whatever the switches say: it is
+    // what you wear before the first purchase. A ticked family with nothing
+    // better than it has no rungs, which is the honest answer.
+    var base = accShopBase(axis, byKey, pts[0].prim.length);
     if (!base) pts.forEach(function (p) { if (!base || p.D < base.D) base = p; });
     var rungs = [], cur = base;
     for (;;) {
       var best = null, bestSlope = Infinity;
       fam.forEach(function (p) {
-        if (p.D <= cur.D || p.gold <= cur.gold) return;
+        // a piece the calculator nets to nothing (gold 0) may still beat the
+        // rung before it; it is allowed in at a zero slope
+        if (p.D <= cur.D || p.gold < cur.gold) return;
         var slope = (p.gold - cur.gold) / (p.D - cur.D);
         // equal slopes: take the further piece, the nearer one is the same buy
         if (slope < bestSlope - 1e-9 || (Math.abs(slope - bestSlope) <= 1e-9 && p.D > best.D)) {
@@ -535,9 +570,13 @@
           gold: Math.round(r.gold - prev.gold), damage: r.D - prev.D, total: Math.round(r.gold),
           buy: (kind === "earring" ? "an " : "a ") + accNoun(kind) + ": " + accPrimWords(axis, kind, r) +
                ", " + accFlatWords(axis, r.flat, true) + ", " + r.ms + " main stat",
-          odds: "priced by the accessory calculator" + (axis === "dps" ? " on the DPS market" : "") +
-                ", which values an accessory strictly by its damage; the rung is the ticked piece that " +
-                "costs least per 1% from the rung before it",
+          odds: r.gold > 0
+            ? "priced by the accessory calculator" + (axis === "dps" ? " on the DPS market" : "") +
+              ", which values an accessory strictly by its damage; the rung is the ticked piece that " +
+              "costs least per 1% from the rung before it"
+            : "the accessory calculator nets this piece to nothing after the pheon tax — it sits under " +
+              "the market floor, so it costs the pheons and the listing floor only, and it still beats " +
+              (prev.shop ? "the growth shop piece" : "the rung before it"),
           minimum: accPrimWords(axis, kind, r) + ", " + accFlatWords(axis, r.flat, false) + ", " +
                    r.ms + " main stat"
         });
@@ -762,7 +801,7 @@
     h += num("Cost", fmtGold(r.gold), "var(--high)");
     if (r.total) h += num("Total for the piece", fmtGold(r.total), "var(--high)");
     h += num(dmgLabel(), r.damage.toFixed(3) + "%", "var(--good)");
-    h += num("Gold per 1%", fmtGold(r.gpd));
+    h += num("Gold per 1%", fmtGpd(r.gpd));
     h += "</table>";
     if (r.mats && r.mats.length) {
       h += "<span class='k'>materials</span><table>";
@@ -815,7 +854,7 @@
       h += num("To", pill(next.to || next.label));
       h += num("Cost", fmtGold(next.gold), "var(--high)");
       h += num(dmgLabel(), next.damage.toFixed(3) + "%", "var(--good)");
-      h += num("Gold per 1%", fmtGold(next.gpd), "var(--bad)");
+      h += num("Gold per 1%", fmtGpd(next.gpd), "var(--bad)");
       h += "</table>";
     }
     // the bracelet's lines, in the game's own words, at THIS roll's tier —
@@ -986,9 +1025,9 @@
         // the marginal price you paid for the last rung of this series, and
         // the price of its next one — the two numbers a buyer compares
         "<div class='num2'><span>last upgrade</span>" +
-        (last && isFinite(last.gpd) && last.gpd != null ? fmtGold(last.gpd) + "/1%" : "&mdash;") + "</div>" +
+        (last && isFinite(last.gpd) && last.gpd != null ? fmtGpd(last.gpd, "/1%") : "&mdash;") + "</div>" +
         "<div class='num2'><span>next upgrade</span>" +
-        (p.next && isFinite(p.next.gpd) && p.next.gpd != null ? fmtGold(p.next.gpd) + "/1%" : "maxed") + "</div></div>";
+        (p.next && isFinite(p.next.gpd) && p.next.gpd != null ? fmtGpd(p.next.gpd, "/1%") : "maxed") + "</div></div>";
     }).join("") + (function () {
       // The card outlives the flip: while the sweep runs, the live ladders
       // stop mid-band, and without this nothing on the page says the top
@@ -1089,7 +1128,7 @@
         pill(r.to || r.label) + "</td>" +
         "<td style='color:" + SERIES[r.series].color + "'>" + SERIES[r.series].label + "</td>" +
         "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
-        "<td class='num'>" + fmtGold(r.gpd) + "</td></tr>";
+        "<td class='num'>" + fmtGpd(r.gpd) + "</td></tr>";
     });
     el("rk-table").innerHTML = html + "</table>";
     [].slice.call(el("rk-table").querySelectorAll("th.sortable")).forEach(function (node) {
@@ -1119,7 +1158,7 @@
         html += "<tr data-tip='" + ROWS.indexOf(r) + "'><td>" + pill(r.to || r.label) +
           (r.note ? " <span class='per'>" + r.note + "</span>" : "") + "</td>" +
           "<td class='num'>" + fmtGold(r.gold) + "</td><td class='num'>" + r.damage.toFixed(3) + "%</td>" +
-          "<td class='num'>" + fmtGold(r.gpd) + "</td><td class='unit'>" +
+          "<td class='num'>" + fmtGpd(r.gpd) + "</td><td class='unit'>" +
           colourTiers(r.minimum || "") + "</td></tr>";
       });
       host.insertAdjacentHTML("beforeend", html + "</table></div>");
@@ -1762,7 +1801,7 @@
       if (pos.bestKey) {
         var n = pos.next[pos.bestKey];
         banner.innerHTML = head + " — upgrade next: <b style='color:" + SERIES[pos.bestKey].color + "'>" +
-          esc(SERIES[pos.bestKey].label + " → " + (n.to || "")) + "</b> at " + fmtGold(n.gpd) + "/1%";
+          esc(SERIES[pos.bestKey].label + " → " + (n.to || "")) + "</b> at " + fmtGpd(n.gpd, "/1%");
       } else {
         banner.innerHTML = head + " — already past every priced upgrade the lookup can see.";
       }
@@ -1835,7 +1874,7 @@
                    : "<span class='gv-dim'>" + none + "</span>";
       }
       function price(row) {
-        return row && isFinite(row.gpd) && row.gpd != null ? fmtGold(row.gpd) : "—";
+        return row && isFinite(row.gpd) && row.gpd != null ? fmtGpd(row.gpd) : "—";
       }
       return "<tr" + (e.key === pos.bestKey ? " class='gv-best'" : "") + ">" +
         "<td><span class='gv-dot' style='background:" + colour + "'></span>" + esc(e.label) + "</td>" +
@@ -1871,8 +1910,8 @@
           : "") + "</div>" +
         (best ? "<div class='gv-best-card'>upgrade next<b style='color:" + SERIES[pos.bestKey].color + "'>" +
           esc(SERIES[pos.bestKey].label) + " → " + esc(best.to || "") + "</b>" +
-          "<span class='gv-sub'>" + fmtGold(best.gpd) + " per 1% " + (state.axis === "support" ? "party " : "") +
-          "damage</span></div>"
+          "<span class='gv-sub'>" + (best.gpd === 0 ? "pheons only" : fmtGold(best.gpd) + " per 1% " +
+          (state.axis === "support" ? "party " : "") + "damage") + "</span></div>"
         : "<div class='gv-best-card'>nothing under 25M / 1% left</div>") +
       "</div>" +
       "<div class='gv-wrap'><table class='gv'><thead>" +
@@ -1886,10 +1925,10 @@
       "<div class='note'>Sorted by the NEXT step's price, so the top row is the buy; the last " +
       "step is what the rung you already stand on cost per 1%, at today's material prices. " +
       "The bracelet is scored by the <a href='" + BC_BASE + "'>bracelet calculator</a>'s own scorer. " +
-      "Accessory rungs are the <b>high main stat, no flat</b> ladder — one plain primary-line step " +
-      "at a time — and your own piece is a rung on it, so both prices are measured against the " +
-      "piece you actually wear, flat roll and main stat included. The chart itself still ranks " +
-      "accessories on the cost frontier, which is cheaper and reads less plainly.</div>" +
+      "Accessory rungs are the chart's own chain for the families ticked above the plan — by " +
+      "default <b>no flat line, high main stat</b> — starting from the growth shop piece, and your " +
+      "own piece is a rung on it, so both prices are measured against the piece you actually wear, " +
+      "flat lines and main stat included.</div>" +
       "</div>" + lkPiecePanel(pos);
   }
   /** One accessory line as the game writes it. Only the PERCENTAGE lines

@@ -230,9 +230,12 @@ site says "coming soon".
 
 The accessory ladder item is closed too: the chart builds the accessory chains
 live from the lattice for the flat-line / main-stat families the switches above
-the plan tick (default no flat, high stat), the baked accessory rows are gone
-from `rows.json` / `rows-dps.json`, and `tools/accessory-ladder.js` with its
-output is deleted. Method in METHODOLOGY.md, "Accessories".
+the plan tick (default no flat, high stat), starting from the growth shop piece
+(one high primary, two low flats, min main stat — Shizu's call; the flat tier
+is `ACC_SHOP_FLAT` in index.html if the shop's piece turns out to roll higher).
+The baked accessory rows are gone from `rows.json` / `rows-dps.json`, and
+`tools/accessory-ladder.js` with its output is deleted. Method in
+METHODOLOGY.md, "Accessories".
 
 Still open: the DPS anchors (item 2 above), the OAuth redirect URIs, and the two
 CP measurements.
