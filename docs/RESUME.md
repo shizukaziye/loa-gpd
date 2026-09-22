@@ -192,3 +192,30 @@ closed. What is left:
 2. **OAuth redirect URIs** still need registering on the lostark.bible
    developer page (see open work #3 above).
 3. **Two cheap CP measurements** remain (open work #4 above).
+
+## 2026-09-22 — the DPS anchors are stale too
+
+The axis fix (56c09d9) made the dd side right and left the MC anchors wrong:
+they were run in August under the same support-damage bug, so they sit about
+10x low. The gate did its job and quarantined 8 tiers on damage gaps of
+900-1300% — with the ANCHOR as the wrong party each time.
+
+`tools/.cache/anchors-dps` is therefore retired to
+`anchors-dps-STALE-buggy-damage`. With no anchors present the gate reports
+"none, no gate" and tiers merge on their own.
+
+TWO THINGS THIS LEAVES:
+
+1. **Hand-merge at the end.** The running driver keeps its quarantine list in
+   memory, so those 8 tiers stay excluded for this run even though their
+   shards are on disk and valid. After the sweep finishes, run the merge and
+   the row builder by hand so every shard lands:
+
+   ```bash
+   node tools/arkgrid-merge.js --axis=dps && node tools/build-arkgrid-account-rows.js --axis=dps
+   ```
+
+2. **The DPS axis has no validation until the anchors are rebuilt.** They are
+   MC spot runs at 250k / 1.09M / 3.96M / 11.97M / 40M per rarity. Worth
+   redoing on idle machine time now that the simulator is correct — without
+   them nothing independently checks the dd numbers.
