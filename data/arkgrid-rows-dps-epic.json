@@ -3,7 +3,7 @@
  "rarity": "epic",
  "model": "account",
  "draw": "dd",
- "maxGpd": 20794094,
+ "maxGpd": 25000000,
  "slots": 24,
  "cutsPerWeek": 9,
  "turns": 9,
@@ -59,11 +59,11 @@
    "from": "B",
    "to": "B+",
    "note": "mean 77",
-   "gold": 50099,
+   "gold": 50528,
    "damage": 0.1659,
-   "poolG": 50099,
+   "poolG": 50528,
    "poolD": 0.1659,
-   "total": 1086371,
+   "total": 1086800,
    "totalDamage": 7.5719,
    "gems": 3,
    "weeks": 0.3333333333333333,
@@ -102,11 +102,11 @@
    "from": "B+",
    "to": "A-",
    "note": "mean 80",
-   "gold": 700977,
+   "gold": 713022,
    "damage": 1.0752,
-   "poolG": 700977,
+   "poolG": 713022,
    "poolD": 1.0752,
-   "total": 1787348,
+   "total": 1799822,
    "totalDamage": 8.6471,
    "gems": 28,
    "weeks": 3.111111111111111,
@@ -145,11 +145,11 @@
    "from": "A-",
    "to": "A",
    "note": "mean 83",
-   "gold": 1404464,
+   "gold": 1440821,
    "damage": 0.998,
-   "poolG": 1404464,
+   "poolG": 1440821,
    "poolD": 0.998,
-   "total": 3191812,
+   "total": 3240643,
    "totalDamage": 9.6451,
    "gems": 76,
    "weeks": 8.444444444444445,
@@ -188,11 +188,11 @@
    "from": "A",
    "to": "A+",
    "note": "mean 87",
-   "gold": 3352567,
+   "gold": 3468779,
    "damage": 1.1038,
-   "poolG": 3352567,
+   "poolG": 3468779,
    "poolD": 1.1038,
-   "total": 6544379,
+   "total": 6709422,
    "totalDamage": 10.7489,
    "gems": 148,
    "weeks": 16.444444444444443,
@@ -231,11 +231,11 @@
    "from": "A+",
    "to": "S-",
    "note": "mean 90",
-   "gold": 7619240,
+   "gold": 7950797,
    "damage": 1.162,
-   "poolG": 7619240,
+   "poolG": 7950797,
    "poolD": 1.162,
-   "total": 14163619,
+   "total": 14660219,
    "totalDamage": 11.9109,
    "gems": 252,
    "weeks": 28,
@@ -268,6 +268,49 @@
    "weakest": 84.7,
    "weakBand": "A",
    "minimum": "all 24 slots filled, gems averaging S-",
+   "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
+  },
+  {
+   "from": "S-",
+   "to": "S",
+   "note": "mean 93",
+   "gold": 22433749,
+   "damage": 1.5062,
+   "poolG": 22433749,
+   "poolD": 1.5062,
+   "total": 37093968,
+   "totalDamage": 13.4171,
+   "gems": 831,
+   "weeks": 92.33333333333333,
+   "grid": {
+    "cores": 20,
+    "coresPer": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "nodes": [
+     [
+      "atk",
+      75
+     ],
+     [
+      "add dmg",
+      50
+     ],
+     [
+      "boss",
+      65
+     ]
+    ]
+   },
+   "meanGrade": 93.3,
+   "weakest": 90,
+   "weakBand": "A+",
+   "minimum": "all 24 slots filled, gems averaging S",
    "buy": "epic astrogems at 9 turns and 3 rerolls, duds fused, advisor tracking your weakest slot"
   }
  ],
@@ -996,6 +1039,41 @@
     [
      "atk",
      75
+    ],
+    [
+     "add dmg",
+     50
+    ],
+    [
+     "boss",
+     65
+    ]
+   ]
+  },
+  {
+   "gpd": 25000000,
+   "gold": 40827150,
+   "gems": 1621,
+   "weeks": 180.07293333333334,
+   "damage": 13.6019,
+   "mean": 93.7,
+   "meanBand": "S",
+   "weakest": 90.6,
+   "weakBand": "S-",
+   "cores": 20,
+   "capped": true,
+   "perCore": [
+    20,
+    20,
+    20,
+    20,
+    20,
+    20
+   ],
+   "nodes": [
+    [
+     "atk",
+     80
     ],
     [
      "add dmg",
